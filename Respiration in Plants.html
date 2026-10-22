@@ -1,0 +1,1482 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Respiration in Plants</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 11 · Chapter 12</span>
+      <h1>Respiration in Plants</h1>
+      <p class="lede">How a cell breaks glucose down in small steps and traps the energy as ATP. Work through each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">8 topics</span>
+        <span class="pill">8 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Overall equation of aerobic respiration">
+      <span class="fig-label">Complete oxidation of glucose</span>
+      <span class="eq">C<sub>6</sub>H<sub>12</sub>O<sub>6</sub> + 6O<sub>2</sub> → 6CO<sub>2</sub> + 6H<sub>2</sub>O + Energy</span>
+      <span class="over">Net gain: 38 ATP per glucose (theoretical)</span>
+      <span class="muted" style="font-size:.82rem">Respiration releases this energy step by step, so part of it is trapped as ATP instead of being lost as heat.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#breathe"><span class="n">1</span>Do plants breathe?</a>
+      <a href="#glycolysis"><span class="n">2</span>Glycolysis</a>
+      <a href="#fermentation"><span class="n">3</span>Fermentation</a>
+      <a href="#krebs"><span class="n">4</span>Krebs' cycle</a>
+      <a href="#ets"><span class="n">5</span>ETS</a>
+      <a href="#balance"><span class="n">6</span>Balance sheet</a>
+      <a href="#amphibolic"><span class="n">7</span>Amphibolic</a>
+      <a href="#rq"><span class="n">8</span>RQ</a>
+      <a href="#quiz"><span class="n">9</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 BREATHE -->
+<section class="topic" id="breathe">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>Do plants breathe?</h2>
+    </div>
+    <div class="prose stack">
+      <p>All living organisms need energy for absorption, transport, movement, reproduction and even breathing. This energy comes from the <strong>oxidation of food</strong>. Green plants and cyanobacteria make their own food by photosynthesis, but only cells with chloroplasts can do this. All other cells, such as those of roots and woody stems, need food translocated to them for oxidation. Ultimately, <strong>all food that is respired comes from photosynthesis</strong>.</p>
+      <p>The breaking of <strong>C–C bonds</strong> of complex compounds through oxidation within the cell, releasing a considerable amount of energy, is called <strong>respiration</strong>. The compounds oxidised are <strong>respiratory substrates</strong>. Usually these are <strong>carbohydrates</strong>; proteins, fats and even organic acids can be used in some plants under certain conditions.</p>
+      <p>The energy is not released in one step. It comes out in a series of <strong>slow, step-wise, enzyme-controlled reactions</strong> and is trapped as <strong>ATP</strong>, the <strong>energy currency of the cell</strong>. The carbon skeletons produced are used as precursors to make other molecules.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Burning in one step vs respiring in many</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Type of oxidation">
+          <button id="en-comb" aria-pressed="false">Combustion</button>
+          <button id="en-resp" aria-pressed="true">Respiration</button>
+        </div>
+      </div>
+      <div class="svg-scroll">
+        <svg id="ensvg" viewBox="0 0 640 300" role="img" aria-label="Energy level of glucose falling to carbon dioxide and water, either in one drop as heat or in many small steps that each trap some energy as ATP">
+          <defs>
+            <marker id="m1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--red)"/></marker>
+            <marker id="m1m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--muted)"/></marker>
+          </defs>
+          <line x1="40" y1="270" x2="40" y2="30" class="s-muted" stroke-width="1.5" marker-end="url(#m1m)"/>
+          <text x="14" y="160" font-size="11" class="t-muted" text-anchor="middle" transform="rotate(-90 14 160)">Free energy</text>
+          <text x="52" y="40" font-size="12" font-weight="500">Glucose + O₂</text>
+          <text x="600" y="276" font-size="12" font-weight="500" text-anchor="end">CO₂ + H₂O</text>
+          <line x1="52" y1="50" x2="600" y2="50" class="s-line" stroke-width="1" stroke-dasharray="3 4"/>
+          <line x1="52" y1="250" x2="600" y2="250" class="s-line" stroke-width="1" stroke-dasharray="3 4"/>
+          <g id="en-c">
+            <path d="M52 50 H 160" class="f-none s-ink" stroke-width="3"/>
+            <path d="M160 50 V 246" class="f-none s-red" stroke-width="5" marker-end="url(#m1r)"/>
+            <path d="M160 250 H 600" class="f-none s-ink" stroke-width="3"/>
+            <path d="M190 110 q8 -10 0 -20 q-8 -10 0 -20" class="f-none s-red" stroke-width="2"/>
+            <path d="M210 120 q8 -10 0 -20 q-8 -10 0 -20" class="f-none s-red" stroke-width="2"/>
+            <path d="M230 110 q8 -10 0 -20 q-8 -10 0 -20" class="f-none s-red" stroke-width="2"/>
+            <text x="260" y="100" font-size="12" class="t-red">All the energy comes out at once,</text>
+            <text x="260" y="118" font-size="12" class="t-red">most of it as heat. None is trapped.</text>
+          </g>
+          <g id="en-r"></g>
+        </svg>
+      </div>
+      <div class="step-box" aria-live="polite">
+        <div class="k" id="en-k">Respiration</div>
+        <div id="en-t"></div>
+      </div>
+      <p class="fig-note">Illustrative model. The number of steps and where ATP forms are simplified; the real pathway is shown in Topics 2 to 5.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="stack">
+        <h3>Why plants need no respiratory organs</h3>
+        <p>Plants require O<sub>2</sub> and give out CO<sub>2</sub>, but exchange gases through <strong>stomata and lenticels</strong>. Three reasons:</p>
+        <ul class="clean">
+          <li><strong>Each plant part handles its own gas exchange.</strong> Very little gas is transported from one part to another.</li>
+          <li><strong>Demand is low.</strong> Roots, stems and leaves respire far more slowly than animals. Large volumes are exchanged only in photosynthesis, when O<sub>2</sub> is released inside the cell anyway.</li>
+          <li><strong>Diffusion distances are short.</strong> Living cells lie close to the surface. In stems they form thin layers beneath the bark; interior cells are dead. Loosely packed <strong>parenchyma</strong> gives a network of air spaces.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Where respiration happens</h3>
+        <p>Photosynthesis happens in chloroplasts. Breakdown of food to release energy happens in the <strong>cytoplasm</strong> and in the <strong>mitochondria</strong> (mitochondria only in eukaryotes).</p>
+        <div class="callout"><span class="tag">NEET trap</span>Energy released by oxidation is <strong>not used directly</strong>. It is used to make ATP, which is broken down wherever energy is needed.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.8rem">Respiration vs combustion</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Respiration</th><th>Combustion</th></tr></thead>
+        <tbody>
+          <tr><td>Steps</td><td>Many small, step-wise reactions</td><td>Single step</td></tr>
+          <tr><td>Control</td><td>Each step catalysed by an enzyme</td><td>Not enzyme controlled</td></tr>
+          <tr><td>Energy</td><td>Part trapped as ATP; some lost as heat</td><td>Released at once, mostly as heat</td></tr>
+          <tr><td>Where</td><td>Inside living cells (cytoplasm, mitochondria)</td><td>Not a cellular process</td></tr>
+          <tr><td>Oxygen</td><td>Aerobic needs O<sub>2</sub>; anaerobic does not</td><td>Always needs O<sub>2</sub></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 2 GLYCOLYSIS -->
+<section class="topic" id="glycolysis">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Glycolysis: glucose to two pyruvic acid</h2>
+    </div>
+    <div class="prose stack">
+      <p>All organisms keep the enzymes to partially oxidise glucose <strong>without oxygen</strong>. The breakdown of glucose to pyruvic acid is <strong>glycolysis</strong> (Greek <em>glycos</em>, sugar; <em>lysis</em>, splitting). Its scheme was given by <strong>Gustav Embden, Otto Meyerhof and J. Parnas</strong>, so it is called the <strong>EMP pathway</strong>.</p>
+      <p>Glycolysis happens in the <strong>cytoplasm</strong> of all living organisms. In anaerobic organisms it is the <strong>only process</strong> in respiration. In plants the glucose comes from <strong>sucrose</strong>, the end product of photosynthesis, or from stored carbohydrates. The enzyme <strong>invertase</strong> splits sucrose into glucose and fructose, and both enter the pathway. Glycolysis is a chain of <strong>ten reactions</strong>, each controlled by a different enzyme.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The steps of glycolysis, with an ATP ledger</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="gl-prev">← Back</button>
+        <button class="btn primary" id="gl-next">Next step →</button>
+        <button class="btn" id="gl-all">Show whole pathway</button>
+      </div>
+      <div class="svg-scroll">
+        <svg id="glsvg" viewBox="0 0 660 710" role="img" aria-label="Glycolysis from glucose to two pyruvic acid, showing two ATP used, one NADH step, and two ATP-forming steps"></svg>
+      </div>
+      <div class="readout">
+        <div><b id="gl-used">0</b><span>ATP used</span></div>
+        <div><b id="gl-made">0</b><span>ATP made</span></div>
+        <div><b id="gl-nadh">0</b><span>NADH + H⁺ formed</span></div>
+        <div><b id="gl-net">0</b><span>Net ATP</span></div>
+      </div>
+      <div class="step-box" aria-live="polite">
+        <div class="k" id="gl-k">Step 1 of 9</div>
+        <div id="gl-t"></div>
+      </div>
+      <p class="fig-note">Counts are per glucose molecule. From the split onward every step happens twice, once for each 3-carbon molecule.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>ATP used at 2 steps</strong>: glucose → glucose-6-phosphate, and fructose-6-phosphate → fructose 1,6-bisphosphate. <strong>ATP made at 2 steps</strong>: BPGA → PGA, and PEP → pyruvic acid. Directly made: <strong>4 ATP</strong>; net <strong>2 ATP</strong>.</div>
+      <div class="callout"><span class="tag">NEET trap</span>There is only <strong>one step</strong> that forms NADH + H<sup>+</sup>: PGAL → BPGA. Two redox equivalents (two H atoms) go from PGAL to NAD<sup>+</sup>. Per glucose this gives <strong>2 NADH + H<sup>+</sup></strong>.</div>
+    </div>
+    <p class="prose" style="margin-top:1.2rem">The fate of pyruvic acid depends on the cell's needs. There are three ways to handle it: <strong>lactic acid fermentation</strong>, <strong>alcoholic fermentation</strong> and <strong>aerobic respiration</strong> (Krebs' cycle), which needs O<sub>2</sub>.</p>
+  </div>
+</section>
+
+<!-- 3 FERMENTATION -->
+<section class="topic" id="fermentation">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Fermentation: incomplete oxidation without O<sub>2</sub></h2>
+    </div>
+    <div class="prose stack">
+      <p>Fermentation takes place under <strong>anaerobic conditions</strong> in many prokaryotes, unicellular eukaryotes and <strong>germinating seeds</strong>. In <strong>yeast</strong>, pyruvic acid is converted to <strong>CO<sub>2</sub> and ethanol</strong> by <strong>pyruvic acid decarboxylase</strong> and <strong>alcohol dehydrogenase</strong>. Some bacteria make <strong>lactic acid</strong> instead. Animal muscle cells do the same during exercise when O<sub>2</sub> is inadequate, using <strong>lactate dehydrogenase</strong>.</p>
+      <p>In both, the reducing agent is <strong>NADH + H<sup>+</sup></strong>, which is reoxidised to NAD<sup>+</sup>. This recycles NAD<sup>+</sup> so that glycolysis can continue.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Two fates of pyruvic acid without oxygen</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Type of fermentation">
+          <button id="fm-alc" aria-pressed="true">Alcoholic</button>
+          <button id="fm-lac" aria-pressed="false">Lactic acid</button>
+        </div>
+      </div>
+      <div class="svg-scroll">
+        <svg id="fmsvg" viewBox="0 0 640 300" role="img" aria-label="Glucose to glyceraldehyde 3-phosphate producing NADH, then to pyruvic acid, which is reduced by NADH to ethanol and carbon dioxide or to lactic acid, regenerating NAD">
+          <defs>
+            <marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"/></marker>
+            <marker id="m3l" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--leaf)"/></marker>
+          </defs>
+          <rect x="30" y="20" width="190" height="34" rx="7" class="f-card s-ink"/>
+          <text x="125" y="42" font-size="12" text-anchor="middle">Glucose</text>
+          <line x1="125" y1="54" x2="125" y2="96" class="s-ink" stroke-width="1.6" marker-end="url(#m3)"/>
+          <rect x="30" y="98" width="190" height="34" rx="7" class="f-card s-ink"/>
+          <text x="125" y="120" font-size="12" text-anchor="middle">Glyceraldehyde 3-phosphate</text>
+          <line x1="125" y1="132" x2="125" y2="206" class="s-ink" stroke-width="1.6" marker-end="url(#m3)"/>
+          <path d="M126 150 Q 170 158 160 176" class="f-none s-leaf" stroke-width="1.6" marker-end="url(#m3l)"/>
+          <text x="166" y="152" font-size="11" class="t-leaf">NAD⁺</text>
+          <text x="166" y="190" font-size="11" class="t-leaf">NADH + H⁺</text>
+          <text x="20" y="176" font-size="10" class="t-muted">3-PGA, PEP</text>
+          <rect x="30" y="208" width="190" height="34" rx="7" class="f-leafsoft s-leaf"/>
+          <text x="125" y="230" font-size="12" text-anchor="middle" font-weight="500">Pyruvic acid (3C)</text>
+          <line x1="220" y1="225" x2="398" y2="225" class="s-ink" stroke-width="2" marker-end="url(#m3)"/>
+          <text id="fm-enz1" x="310" y="200" font-size="11" text-anchor="middle">pyruvic acid decarboxylase</text>
+          <text id="fm-enz2" x="310" y="214" font-size="11" text-anchor="middle">alcohol dehydrogenase</text>
+          <text x="310" y="245" font-size="11" text-anchor="middle" class="t-leaf">NADH + H⁺ → NAD⁺</text>
+          <rect x="400" y="203" width="210" height="44" rx="8" class="f-sunsoft s-sun"/>
+          <text id="fm-prod" x="505" y="230" font-size="13" text-anchor="middle" font-weight="500">Ethanol + CO₂</text>
+          <path d="M300 252 C 300 292, 250 290, 244 252 C 240 200, 236 170, 208 156" class="f-none s-leaf" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#m3l)"/>
+          <text x="318" y="285" font-size="10" class="t-leaf">NAD⁺ recycled back to glycolysis</text>
+          <text id="fm-who" x="505" y="270" font-size="11" text-anchor="middle" class="t-muted">Yeast</text>
+          <text x="420" y="60" font-size="11" class="t-muted">Under anaerobic conditions</text>
+          <text x="420" y="78" font-size="11" class="t-muted">pyruvic acid is reduced,</text>
+          <text x="420" y="96" font-size="11" class="t-muted">not oxidised further.</text>
+        </svg>
+      </div>
+      <div class="readout">
+        <div><b id="fm-atp">2</b><span>Net ATP per glucose</span></div>
+        <div><b id="fm-co2">2</b><span>CO₂ per glucose</span></div>
+        <div><b>&lt; 7%</b><span>Energy of glucose released</span></div>
+        <div><b id="fm-haz">13%</b><span id="fm-haz-l">Alcohol that kills yeast</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="fm-t"></div></div>
+      <p class="fig-note">Figure follows NCERT Fig 12.2. Steps between glyceraldehyde 3-phosphate and pyruvic acid are collapsed.</p>
+    </div>
+
+    <h3 style="margin-bottom:.8rem">Fermentation vs aerobic respiration</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Fermentation</th><th>Aerobic respiration</th></tr></thead>
+        <tbody>
+          <tr><td>Breakdown of glucose</td><td>Partial</td><td>Complete, to CO<sub>2</sub> and H<sub>2</sub>O</td></tr>
+          <tr><td>ATP per glucose</td><td>Net 2 (from glycolysis)</td><td>Many more (38, theoretical)</td></tr>
+          <tr><td>NADH → NAD<sup>+</sup></td><td>Rather slow</td><td>Very vigorous</td></tr>
+          <tr><td>O<sub>2</sub> needed</td><td>No</td><td>Yes, as final acceptor</td></tr>
+          <tr><td>Where</td><td>Cytoplasm</td><td>Cytoplasm, then mitochondria</td></tr>
+          <tr><td>Products</td><td>Ethanol + CO<sub>2</sub>, or lactic acid</td><td>CO<sub>2</sub>, H<sub>2</sub>O, energy</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span>Fermentation releases <strong>less than 7%</strong> of the energy in glucose, and not all of it is trapped as ATP. The products are hazardous: yeasts poison themselves when alcohol reaches about <strong>13%</strong>, so naturally fermented drinks cannot be stronger than this. Stronger drinks are made by distillation.</div>
+  </div>
+</section>
+
+<!-- 4 KREBS -->
+<section class="topic" id="krebs">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Aerobic respiration: link reaction and Krebs' cycle</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Aerobic respiration</strong> is the complete oxidation of organic substances in the presence of O<sub>2</sub>, releasing CO<sub>2</sub>, water and a large amount of energy. In eukaryotes it happens in the <strong>mitochondria</strong>, so pyruvate is first transported there from the cytoplasm. Two crucial events follow:</p>
+      <ul class="clean">
+        <li>Complete oxidation of pyruvate by stepwise removal of all hydrogen atoms, leaving <strong>three CO<sub>2</sub></strong>. This happens in the <strong>matrix</strong>.</li>
+        <li>Passing the electrons removed with the hydrogen to <strong>molecular O<sub>2</sub></strong>, with ATP synthesis. This happens on the <strong>inner mitochondrial membrane</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head"><h3>Where each stage happens</h3><span class="fig-label">Fig 4</span></div>
+      <div class="svg-scroll">
+        <svg viewBox="0 0 640 230" role="img" aria-label="Glycolysis in the cytoplasm; link reaction and Krebs cycle in the mitochondrial matrix; electron transport system on the inner mitochondrial membrane">
+          <defs><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"/></marker></defs>
+          <rect x="6" y="6" width="628" height="218" rx="22" class="f-paper s-line" stroke-width="2"/>
+          <text x="26" y="34" font-size="12" class="t-muted">Cytoplasm (cytosol)</text>
+          <rect x="30" y="78" width="180" height="56" rx="8" class="f-sunsoft s-sun"/>
+          <text x="120" y="101" font-size="12" text-anchor="middle" font-weight="500">Glycolysis</text>
+          <text x="120" y="119" font-size="10" text-anchor="middle">glucose → 2 pyruvic acid</text>
+          <text x="120" y="160" font-size="10" text-anchor="middle" class="t-muted">Fermentation (no O₂)</text>
+          <text x="120" y="174" font-size="10" text-anchor="middle" class="t-muted">also stays here</text>
+          <ellipse cx="430" cy="122" rx="185" ry="82" class="f-leafsoft s-leaf" stroke-width="2"/>
+          <ellipse cx="430" cy="122" rx="160" ry="62" class="f-card s-leaf" stroke-width="1.5" stroke-dasharray="7 4"/>
+          <line x1="210" y1="106" x2="243" y2="112" class="s-ink" stroke-width="1.6" marker-end="url(#m4)"/>
+          <text x="226" y="96" font-size="10" text-anchor="middle">pyruvate</text>
+          <text x="430" y="104" font-size="12" text-anchor="middle" font-weight="500">Matrix</text>
+          <text x="430" y="122" font-size="11" text-anchor="middle">link reaction (pyruvate → acetyl CoA)</text>
+          <text x="430" y="138" font-size="11" text-anchor="middle">Krebs' cycle (TCA cycle)</text>
+          <line x1="560" y1="40" x2="540" y2="66" class="s-leaf" stroke-width="1.2"/>
+          <text x="604" y="34" font-size="10" text-anchor="end" class="t-leaf">Inner membrane: ETS + ATP synthase</text>
+          <text x="430" y="196" font-size="10" text-anchor="middle" class="t-muted">Mitochondrion</text>
+        </svg>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">The link reaction: oxidative decarboxylation</h3>
+    <div class="prose stack">
+      <p>In the matrix, pyruvate undergoes <strong>oxidative decarboxylation</strong> catalysed by <strong>pyruvic dehydrogenase</strong>. This needs several coenzymes, including <strong>NAD<sup>+</sup> and coenzyme A</strong>, and <strong>Mg<sup>2+</sup></strong>.</p>
+      <p class="eqline">Pyruvic acid + CoA + NAD<sup>+</sup> —(Mg<sup>2+</sup>, pyruvate dehydrogenase)→ Acetyl CoA + CO<sub>2</sub> + NADH + H<sup>+</sup></p>
+      <p>Two pyruvic acid come from one glucose, so this step makes <strong>2 NADH</strong> per glucose. Acetyl CoA then enters the <strong>tricarboxylic acid (TCA) cycle</strong>, called <strong>Krebs' cycle</strong> after <strong>Hans Krebs</strong>, who first worked it out.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The citric acid cycle, stage by stage</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls" id="kr-seg" role="group" aria-label="Krebs cycle stages">
+        <button class="btn" data-s="0">Link</button>
+        <button class="btn" data-s="1">Condensation</button>
+        <button class="btn" data-s="2">Isomerisation</button>
+        <button class="btn" data-s="3">1st decarboxylation</button>
+        <button class="btn" data-s="4">2nd decarboxylation</button>
+        <button class="btn" data-s="5">GTP step</button>
+        <button class="btn" data-s="6">FAD step</button>
+        <button class="btn" data-s="7">OAA regenerated</button>
+      </div>
+      <div class="svg-scroll">
+        <svg id="krsvg" viewBox="0 0 700 510" role="img" aria-label="Krebs cycle: pyruvate to acetyl CoA, then citric acid, isocitrate, alpha-ketoglutaric acid, succinyl CoA, succinic acid, malic acid and back to oxaloacetic acid, with CO2, NADH, GTP and FADH2 released at their steps"></svg>
+      </div>
+      <div class="step-box" aria-live="polite" id="kr-t"></div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Count per">
+          <button id="kr-per1" aria-pressed="true">Per pyruvate</button>
+          <button id="kr-per2" aria-pressed="false">Per glucose (×2)</button>
+        </div>
+      </div>
+      <div class="readout">
+        <div><b id="kr-co2">3</b><span>CO₂</span></div>
+        <div><b id="kr-nadh">4</b><span>NADH + H⁺</span></div>
+        <div><b id="kr-fad">1</b><span>FADH₂</span></div>
+        <div><b id="kr-atp">1</b><span>ATP (via GTP)</span></div>
+      </div>
+      <p class="fig-note">Totals include the link reaction. NCERT's figure goes straight from succinic acid to malic acid; the FAD step is actually succinate → fumarate (see Fig 6, complex II), and fumarate then becomes malate.</p>
+    </div>
+
+    <div class="prose stack">
+      <p class="eqline">Pyruvic acid + 4NAD<sup>+</sup> + FAD<sup>+</sup> + 2H<sub>2</sub>O + ADP + Pi —(mitochondrial matrix)→ 3CO<sub>2</sub> + 4NADH + 4H<sup>+</sup> + FADH<sub>2</sub> + ATP</p>
+      <p>To keep the cycle running, <strong>oxaloacetic acid</strong> (the first member) must be continuously replenished, and NAD<sup>+</sup> and FAD<sup>+</sup> must be regenerated from NADH and FADH<sub>2</sub>.</p>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>Up to the end of the TCA cycle, one glucose has given <strong>8 NADH + H<sup>+</sup></strong> (2 link + 6 cycle) and <strong>2 FADH<sub>2</sub></strong>, but only <strong>2 ATP</strong> in the TCA cycle. O<sub>2</sub> has not been used yet. GTP formation at succinyl-CoA → succinic acid is <strong>substrate-level phosphorylation</strong>.</div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.8rem">Scientists to match</h3>
+    <div class="timeline">
+      <div><span class="yr">Glycolysis</span><b>Embden, Meyerhof, Parnas</b><p>Gave the scheme of glycolysis, hence the EMP pathway.</p></div>
+      <div><span class="yr">TCA cycle</span><b>Hans Krebs</b><p>First elucidated the citric acid cycle, so it is called Krebs' cycle.</p></div>
+      <div><span class="yr">Not a scientist</span><b>Tricarboxylic acid</b><p>Citric acid has three carboxyl groups, which gives the TCA cycle its name.</p></div>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.8rem">Enzymes to match</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Enzyme</th><th>Reaction it catalyses</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Invertase</td><td>Sucrose → glucose + fructose</td><td>Cytoplasm</td></tr>
+          <tr><td>Hexokinase</td><td>Glucose (and fructose) → glucose-6-phosphate, using ATP</td><td>Cytoplasm</td></tr>
+          <tr><td>Pyruvic acid decarboxylase</td><td>Pyruvic acid → CO<sub>2</sub> (alcoholic fermentation)</td><td>Cytoplasm</td></tr>
+          <tr><td>Alcohol dehydrogenase</td><td>Forms ethanol, oxidising NADH to NAD<sup>+</sup></td><td>Cytoplasm</td></tr>
+          <tr><td>Lactate dehydrogenase</td><td>Pyruvic acid → lactic acid</td><td>Cytoplasm (bacteria, muscle)</td></tr>
+          <tr><td>Pyruvate dehydrogenase</td><td>Pyruvic acid → acetyl CoA + CO<sub>2</sub> (needs Mg<sup>2+</sup>)</td><td>Mitochondrial matrix</td></tr>
+          <tr><td>Citrate synthase</td><td>Acetyl group + OAA + H<sub>2</sub>O → citric acid</td><td>Mitochondrial matrix</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ETS -->
+<section class="topic" id="ets">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Electron transport system and oxidative phosphorylation</h2>
+    </div>
+    <div class="prose stack">
+      <p>The energy stored in NADH + H<sup>+</sup> and FADH<sub>2</sub> is released when they are oxidised through the <strong>electron transport system (ETS)</strong>, a chain of carriers in the <strong>inner mitochondrial membrane</strong>. The electrons pass to O<sub>2</sub>, forming H<sub>2</sub>O.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Following electrons through complexes I to V</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="et-prev">← Back</button>
+        <button class="btn primary" id="et-next">Next step →</button>
+        <button class="btn" id="et-all">Show whole chain</button>
+      </div>
+      <div class="svg-scroll">
+        <svg id="etsvg" viewBox="0 0 760 390" role="img" aria-label="Electron transport system in the inner mitochondrial membrane: complex I NADH dehydrogenase and complex II succinate dehydrogenase pass electrons to ubiquinone, then complex III cytochrome bc1, cytochrome c, complex IV cytochrome c oxidase reducing oxygen to water, and complex V ATP synthase driven by protons">
+          <defs>
+            <marker id="m6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"/></marker>
+            <marker id="m6s" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--sun)"/></marker>
+            <marker id="m6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--red)"/></marker>
+          </defs>
+          <text x="16" y="24" font-size="11" class="t-muted">Intermembrane space</text>
+          <text x="16" y="378" font-size="11" class="t-muted">Matrix</text>
+          <text x="420" y="24" font-size="10" text-anchor="middle" class="t-red">H⁺ builds up here (proton gradient)</text>
+          <rect x="0" y="140" width="760" height="90" class="f-leafsoft"/>
+          <text x="425" y="206" font-size="10" text-anchor="middle" class="t-leaf">inner</text>
+          <text x="425" y="219" font-size="10" text-anchor="middle" class="t-leaf">membrane</text>
+          <circle cx="265" cy="160" r="16" class="f-sunsoft s-sun" stroke-width="1.5"/>
+          <text x="265" y="164" font-size="10" text-anchor="middle">UQ</text>
+
+          <g class="zg" id="et-1">
+            <rect x="40" y="118" width="100" height="134" rx="10" class="f-sunsoft s-sun" stroke-width="1.5"/>
+            <text x="90" y="172" font-size="16" text-anchor="middle" font-weight="500">I</text>
+            <text x="90" y="192" font-size="9" text-anchor="middle">NADH</text>
+            <text x="90" y="204" font-size="9" text-anchor="middle">dehydrogenase</text>
+            <line x1="90" y1="270" x2="90" y2="256" class="s-ink" stroke-width="1.6" marker-end="url(#m6)"/>
+            <text x="90" y="284" font-size="10" text-anchor="middle">NADH + H⁺ → NAD⁺</text>
+            <line x1="70" y1="116" x2="70" y2="72" class="s-red" stroke-width="1.6" marker-end="url(#m6r)"/>
+            <text x="70" y="64" font-size="10" text-anchor="middle" class="t-red">4H⁺</text>
+            <path d="M140 170 Q 200 150 247 158" class="f-none s-sun" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#m6s)"/>
+            <text x="190" y="146" font-size="10" text-anchor="middle" class="t-sun">e⁻</text>
+          </g>
+          <g class="zg" id="et-2">
+            <rect x="170" y="182" width="76" height="70" rx="10" class="f-card s-blue" stroke-width="1.5"/>
+            <text x="208" y="204" font-size="14" text-anchor="middle" font-weight="500">II</text>
+            <text x="208" y="222" font-size="9" text-anchor="middle">succinate</text>
+            <text x="208" y="234" font-size="9" text-anchor="middle">dehydrogenase</text>
+            <line x1="208" y1="270" x2="208" y2="256" class="s-ink" stroke-width="1.6" marker-end="url(#m6)"/>
+            <text x="208" y="284" font-size="10" text-anchor="middle">Succinate → Fumarate</text>
+            <text x="208" y="298" font-size="10" text-anchor="middle" class="t-muted">(FADH₂ in complex II)</text>
+            <path d="M240 184 L 257 175" class="f-none s-sun" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#m6s)"/>
+          </g>
+          <g class="zg" id="et-3">
+            <path d="M281 162 L 288 166" class="f-none s-sun" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#m6s)"/>
+            <text x="270" y="134" font-size="9" text-anchor="middle" class="t-sun">UQH₂</text>
+            <rect x="290" y="118" width="90" height="134" rx="10" class="f-card s-leaf" stroke-width="1.5"/>
+            <text x="335" y="172" font-size="16" text-anchor="middle" font-weight="500">III</text>
+            <text x="335" y="192" font-size="9" text-anchor="middle">cytochrome</text>
+            <text x="335" y="204" font-size="9" text-anchor="middle">bc₁ complex</text>
+            <line x1="315" y1="116" x2="315" y2="72" class="s-red" stroke-width="1.6" marker-end="url(#m6r)"/>
+            <text x="315" y="64" font-size="10" text-anchor="middle" class="t-red">4H⁺</text>
+          </g>
+          <g class="zg" id="et-4">
+            <circle cx="425" cy="128" r="17" class="f-card s-sun" stroke-width="1.5"/>
+            <text x="425" y="131" font-size="9" text-anchor="middle">Cyt c</text>
+            <path d="M380 146 L 407 134" class="f-none s-sun" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#m6s)"/>
+            <path d="M442 134 L 468 146" class="f-none s-sun" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#m6s)"/>
+            <text x="425" y="102" font-size="9" text-anchor="middle" class="t-sun">mobile carrier</text>
+          </g>
+          <g class="zg" id="et-5">
+            <rect x="470" y="118" width="100" height="134" rx="10" class="f-card s-red" stroke-width="1.5"/>
+            <text x="520" y="168" font-size="16" text-anchor="middle" font-weight="500">IV</text>
+            <text x="520" y="186" font-size="9" text-anchor="middle">cytochrome c</text>
+            <text x="520" y="198" font-size="9" text-anchor="middle">oxidase</text>
+            <text x="520" y="216" font-size="9" text-anchor="middle" class="t-muted">a, a₃, 2 Cu</text>
+            <line x1="520" y1="270" x2="520" y2="256" class="s-ink" stroke-width="1.6" marker-start="url(#m6)"/>
+            <text x="520" y="284" font-size="10" text-anchor="middle">½O₂ + 2H⁺ → H₂O</text>
+            <line x1="495" y1="116" x2="495" y2="72" class="s-red" stroke-width="1.6" marker-end="url(#m6r)"/>
+            <text x="495" y="64" font-size="10" text-anchor="middle" class="t-red">2H⁺</text>
+          </g>
+          <g class="zg" id="et-6">
+            <rect x="620" y="140" width="70" height="90" rx="6" class="f-card s-leaf" stroke-width="1.5"/>
+            <text x="655" y="190" font-size="13" text-anchor="middle" font-weight="500">F₀</text>
+            <rect x="649" y="230" width="12" height="16" class="f-card s-leaf" stroke-width="1.2"/>
+            <circle cx="655" cy="276" r="30" class="f-sunsoft s-sun" stroke-width="1.5"/>
+            <text x="655" y="281" font-size="13" text-anchor="middle" font-weight="500">F₁</text>
+            <line x1="655" y1="72" x2="655" y2="138" class="s-red" stroke-width="2" marker-end="url(#m6r)"/>
+            <text x="655" y="64" font-size="10" text-anchor="middle" class="t-red">4H⁺ per ATP</text>
+            <text x="655" y="322" font-size="10" text-anchor="middle">ATP synthase (V)</text>
+            <text x="655" y="340" font-size="10" text-anchor="middle" font-weight="500">ADP + Pi → ATP</text>
+          </g>
+        </svg>
+      </div>
+      <div class="step-box" aria-live="polite">
+        <div class="k" id="et-k">Step 1 of 6</div>
+        <div id="et-t"></div>
+      </div>
+      <p class="fig-note">Simplified from NCERT Fig 12.4. Electron path shown dashed; proton pumping shown in red.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="stack">
+        <h3>ATP synthase (complex V)</h3>
+        <p>Complex V has two parts. <strong>F<sub>1</sub></strong> is the headpiece, a <strong>peripheral</strong> membrane protein complex that holds the site for making ATP from ADP and Pi. <strong>F<sub>0</sub></strong> is an <strong>integral</strong> membrane protein complex that forms the channel through which protons cross the inner membrane.</p>
+        <p>For each ATP made, <strong>4H<sup>+</sup></strong> pass through F<sub>0</sub> from the <strong>intermembrane space to the matrix</strong>, down the electrochemical proton gradient.</p>
+        <div class="callout"><span class="tag">Remember</span>1 NADH → <strong>3 ATP</strong>. 1 FADH<sub>2</sub> → <strong>2 ATP</strong>. The number depends on the electron donor.</div>
+      </div>
+      <div class="svg-scroll" style="align-self:center">
+        <svg viewBox="0 0 320 220" style="min-width:280px" role="img" aria-label="ATP synthase: protons pass through F0 in the inner membrane from the outer side to the matrix, and F1 makes ATP from ADP and Pi">
+          <defs><marker id="m7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"/></marker></defs>
+          <rect x="100" y="10" width="40" height="200" class="f-leafsoft"/>
+          <text x="10" y="30" font-size="10" class="t-muted">Outer side</text>
+          <text x="310" y="205" font-size="10" text-anchor="end" class="t-muted">Matrix</text>
+          <rect x="94" y="84" width="52" height="52" rx="8" class="f-card s-leaf" stroke-width="1.5"/>
+          <text x="120" y="114" font-size="12" text-anchor="middle">F₀</text>
+          <rect x="146" y="102" width="16" height="16" class="f-card s-leaf" stroke-width="1.2"/>
+          <circle cx="200" cy="110" r="38" class="f-sunsoft s-sun" stroke-width="1.5"/>
+          <text x="200" y="115" font-size="13" text-anchor="middle">F₁</text>
+          <line x1="20" y1="110" x2="92" y2="110" class="s-ink" stroke-width="1.6" marker-end="url(#m7)"/>
+          <text x="36" y="100" font-size="11">4H⁺</text>
+          <line x1="238" y1="110" x2="296" y2="110" class="s-ink" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#m7)"/>
+          <line x1="200" y1="70" x2="200" y2="28" class="s-ink" stroke-width="1.6" marker-end="url(#m7)"/>
+          <text x="210" y="32" font-size="11" font-weight="500">ATP</text>
+          <path d="M180 186 L 196 150 M 222 186 L 204 150" class="f-none s-ink" stroke-width="1.4"/>
+          <text x="172" y="200" font-size="11" text-anchor="middle">ADP</text>
+          <text x="228" y="200" font-size="11" text-anchor="middle">Pi</text>
+          <text x="120" y="160" font-size="9" text-anchor="middle" class="t-leaf">inner</text>
+          <text x="120" y="171" font-size="9" text-anchor="middle" class="t-leaf">membrane</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:1.4rem"><span class="tag">NEET trap</span>O<sub>2</sub> acts only at the <strong>terminal stage</strong>, as the <strong>final hydrogen acceptor</strong>, yet it is vital because it drives the whole process by removing hydrogen. In photophosphorylation, <strong>light</strong> makes the proton gradient; in respiration it is the energy of <strong>oxidation–reduction</strong>, hence <strong>oxidative phosphorylation</strong>.</div>
+  </div>
+</section>
+
+<!-- 6 BALANCE -->
+<section class="topic" id="balance">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>The respiratory balance sheet</h2>
+    </div>
+    <div class="prose stack">
+      <p>We can calculate the net ATP gain per glucose, but it stays a <strong>theoretical exercise</strong>. It rests on four assumptions:</p>
+      <ul class="clean">
+        <li>A sequential, orderly pathway: <strong>glycolysis, then TCA cycle, then ETS</strong>, one substrate forming the next.</li>
+        <li>The <strong>NADH made in glycolysis</strong> is transferred into the mitochondria and undergoes oxidative phosphorylation.</li>
+        <li><strong>No intermediates</strong> are withdrawn to make other compounds.</li>
+        <li><strong>Only glucose</strong> is respired; no other substrate enters midway.</li>
+      </ul>
+      <p>In a living cell none of these hold: pathways run at the same time, substrates enter and leave as needed, and ATP is used as it is made. The exercise still shows how efficient the system is: a net gain of <strong>38 ATP</strong> per glucose.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Build the 38 ATP, source by source</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Condition">
+          <button id="bs-aer" aria-pressed="true">Aerobic</button>
+          <button id="bs-fer" aria-pressed="false">Fermentation</button>
+        </div>
+        <span class="muted mono" style="font-size:.78rem">Tap a row to switch it off and see what it contributes.</span>
+      </div>
+      <div class="ledger" id="bs-list"></div>
+      <div class="stackbar" id="bs-bar" aria-hidden="true"></div>
+      <div class="legend">
+        <span style="--c: var(--sun)">ATP made directly</span>
+        <span style="--c: var(--leaf)">from NADH (× 3)</span>
+        <span style="--c: var(--blue)">from FADH₂ (× 2)</span>
+      </div>
+      <div class="readout">
+        <div><b id="bs-total">38</b><span>Net ATP per glucose</span></div>
+        <div><b id="bs-direct">4</b><span>Made directly</span></div>
+        <div><b id="bs-ox">34</b><span>By oxidative phosph.</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="bs-t"></div></div>
+      <p class="fig-note">Uses NCERT's values: 3 ATP per NADH, 2 per FADH₂. The glycolysis row is net (4 made − 2 used).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 AMPHIBOLIC -->
+<section class="topic" id="amphibolic">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>The amphibolic pathway</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Glucose is the favoured substrate</strong>. Other carbohydrates are usually first converted to glucose. Other substrates can be respired too, but they do not enter at the first step:</p>
+      <ul class="clean">
+        <li><strong>Fats</strong> are broken into glycerol and fatty acids. <strong>Fatty acids → acetyl CoA</strong>; <strong>glycerol → PGAL</strong>.</li>
+        <li><strong>Proteins</strong> are broken down by proteases. Amino acids, after <strong>deamination</strong>, enter at pyruvate, acetyl CoA or within the Krebs' cycle, depending on their structure.</li>
+      </ul>
+      <p>The same compounds are <strong>withdrawn</strong> from the pathway when the cell needs to make these substances. For example, acetyl CoA is withdrawn to synthesise fatty acids. Since the respiratory pathway takes part in both <strong>catabolism</strong> (breakdown) and <strong>anabolism</strong> (synthesis), it is better called an <strong>amphibolic pathway</strong> than a catabolic one.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Where fats, carbohydrates and proteins join</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Substrate" id="am-sub">
+          <button data-s="all" aria-pressed="true">All</button>
+          <button data-s="fat" aria-pressed="false">Fats</button>
+          <button data-s="carb" aria-pressed="false">Carbohydrates</button>
+          <button data-s="prot" aria-pressed="false">Proteins</button>
+        </div>
+        <div class="seg" role="group" aria-label="Direction" id="am-dir">
+          <button data-d="cat" aria-pressed="true">Breakdown</button>
+          <button data-d="ana" aria-pressed="false">Synthesis</button>
+        </div>
+      </div>
+      <div class="svg-scroll">
+        <svg id="amsvg" viewBox="0 0 710 490" role="img" aria-label="Interrelationship of metabolic pathways: fatty acids enter as acetyl CoA, glycerol as glyceraldehyde 3-phosphate, carbohydrates through glucose 6-phosphate, and amino acids as pyruvic acid, acetyl CoA or Krebs cycle intermediates">
+          <defs>
+            <marker id="m8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill: var(--ink)"/></marker>
+          </defs>
+          <g class="zg" id="am-fat">
+            <rect x="40" y="20" width="120" height="30" rx="6" class="f-card s-ink"/><text x="100" y="40" font-size="12" text-anchor="middle" font-weight="500">Fats</text>
+            <path class="flow" d="M100 50 V 78" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <rect x="15" y="80" width="170" height="30" rx="6" class="f-card s-ink"/><text x="100" y="100" font-size="11" text-anchor="middle">Fatty acids + glycerol</text>
+            <path class="flow" d="M60 110 V 383 H 288" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <text x="68" y="300" font-size="10" class="t-muted">fatty acids</text>
+            <path class="flow" d="M130 110 V 258 H 253" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <text x="138" y="240" font-size="10" class="t-muted">glycerol</text>
+          </g>
+          <g class="zg" id="am-carb">
+            <rect x="280" y="20" width="140" height="30" rx="6" class="f-card s-ink"/><text x="350" y="40" font-size="12" text-anchor="middle" font-weight="500">Carbohydrates</text>
+            <path class="flow" d="M350 50 V 78" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <rect x="255" y="80" width="190" height="30" rx="6" class="f-card s-ink"/><text x="350" y="100" font-size="11" text-anchor="middle">Simple sugars e.g. glucose</text>
+            <path class="flow" d="M350 110 V 135" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <rect x="265" y="137" width="170" height="26" rx="6" class="f-card s-line"/><text x="350" y="154" font-size="11" text-anchor="middle">Glucose 6-phosphate</text>
+            <path class="flow" d="M350 163 V 185" stroke-width="1.6" fill="none" style="stroke: var(--ink)" stroke-dasharray="4 3"/>
+            <rect x="255" y="187" width="190" height="26" rx="6" class="f-card s-line"/><text x="350" y="204" font-size="11" text-anchor="middle">Fructose 1,6-bisphosphate</text>
+            <path class="flow" d="M350 213 V 243" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <rect x="465" y="245" width="180" height="26" rx="6" class="f-card s-line"/><text x="555" y="262" font-size="10.5" text-anchor="middle">Dihydroxyacetone phosphate</text>
+            <text x="455" y="262" font-size="13" text-anchor="middle">⇌</text>
+          </g>
+          <rect x="255" y="245" width="190" height="26" rx="6" class="f-leafsoft s-leaf"/><text x="350" y="262" font-size="11" text-anchor="middle">Glyceraldehyde 3-phosphate</text>
+          <path class="flow" d="M350 271 V 308" stroke-width="1.6" fill="none" style="stroke: var(--ink)" stroke-dasharray="4 3"/>
+          <rect x="290" y="310" width="120" height="26" rx="6" class="f-leafsoft s-leaf"/><text x="350" y="327" font-size="11" text-anchor="middle">Pyruvic acid</text>
+          <path class="flow" d="M350 336 V 368" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+          <rect x="290" y="370" width="120" height="26" rx="6" class="f-leafsoft s-leaf"/><text x="350" y="387" font-size="11" text-anchor="middle">Acetyl CoA</text>
+          <path class="flow" d="M350 396 V 413" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+          <circle cx="350" cy="447" r="32" class="f-card s-leaf" stroke-width="1.6"/>
+          <text x="350" y="444" font-size="11" text-anchor="middle">Krebs'</text>
+          <text x="350" y="458" font-size="11" text-anchor="middle">cycle</text>
+          <text x="312" y="430" font-size="11" text-anchor="end">H₂O</text>
+          <text x="388" y="430" font-size="11">CO₂</text>
+          <g class="zg" id="am-prot">
+            <rect x="580" y="20" width="110" height="30" rx="6" class="f-card s-ink"/><text x="635" y="40" font-size="12" text-anchor="middle" font-weight="500">Proteins</text>
+            <path class="flow" d="M635 50 V 78" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <rect x="580" y="80" width="110" height="30" rx="6" class="f-card s-ink"/><text x="635" y="100" font-size="11" text-anchor="middle">Amino acids</text>
+            <path class="flow" d="M665 110 V 323 H 412" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <path class="flow" d="M665 323 V 383 H 412" stroke-width="1.6" fill="none" style="stroke: var(--ink)"/>
+            <path class="flow" d="M665 383 V 447 H 384" stroke-width="1.6" fill="none" style="stroke: var(--ink)" stroke-dasharray="4 3"/>
+            <text x="560" y="140" font-size="10" text-anchor="end" class="t-muted">after deamination</text>
+          </g>
+        </svg>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="am-t"></div></div>
+      <p class="fig-note">Based on NCERT Fig 12.6. Dashed arrows stand for several steps. The amino-acid branch into the cycle reflects NCERT's text ("at some stage within the Krebs' cycle").</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 RQ -->
+<section class="topic" id="rq">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>Respiratory quotient</h2>
+    </div>
+    <div class="prose stack">
+      <p>The ratio of the volume of CO<sub>2</sub> evolved to the volume of O<sub>2</sub> consumed in respiration is the <strong>respiratory quotient (RQ)</strong>, or respiratory ratio. It depends on the <strong>type of substrate</strong>.</p>
+      <p class="eqline">RQ = volume of CO<sub>2</sub> evolved / volume of O<sub>2</sub> consumed</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>RQ for each substrate</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Respiratory substrate" id="rq-seg">
+          <button data-s="carb" aria-pressed="true">Carbohydrate</button>
+          <button data-s="fat" aria-pressed="false">Fat</button>
+          <button data-s="prot" aria-pressed="false">Protein</button>
+        </div>
+      </div>
+      <div class="eqline" id="rq-eq"></div>
+      <div class="stack" style="gap:.5rem">
+        <div class="gas"><span>CO₂ out</span><div class="track"><div class="fill co2" id="rq-co2"></div></div><span id="rq-co2-v"></span></div>
+        <div class="gas"><span>O₂ in</span><div class="track"><div class="fill o2" id="rq-o2"></div></div><span id="rq-o2-v"></span></div>
+      </div>
+      <div class="readout">
+        <div><b id="rq-val">1.0</b><span>RQ</span></div>
+        <div><b id="rq-cmp">= 1</b><span>Compared with 1</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="rq-t"></div></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Mixed substrates</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <label class="ctl" for="rq-mix">Share of O₂ used to oxidise fat (rest is carbohydrate) <output id="rq-mix-o">30%</output></label>
+      <input type="range" id="rq-mix" min="0" max="100" step="5" value="30">
+      <div class="readout">
+        <div><b id="rq-mix-v">0.91</b><span>RQ of the mix</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="rq-mix-t"></div></div>
+      <p class="fig-note">Illustrative model, not from NCERT: RQ is averaged by the share of O₂ each substrate uses. It shows why measured RQs often fall between 0.7 and 1.</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span>In living organisms the respiratory substrates are often <strong>more than one</strong>. <strong>Pure proteins or fats are never used</strong> as respiratory substrates. Fats have RQ <strong>less than 1</strong> because they are poor in oxygen and need more O<sub>2</sub> to oxidise.</div>
+  </div>
+</section>
+
+<!-- 9 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 9</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>38 ATP</b><span>Net gain per glucose in aerobic respiration</span></div>
+      <div><b>2 ATP</b><span>Net gain in glycolysis, and in fermentation</span></div>
+      <div><b>NADH 3 · FADH₂ 2</b><span>ATP made per molecule oxidised in the ETS</span></div>
+      <div><b>8 NADH · 2 FADH₂</b><span>From link reaction + TCA cycle per glucose</span></div>
+      <div><b>4H⁺</b><span>Pass through F₀ for each ATP made</span></div>
+      <div><b>1.0 / 0.7 / 0.9</b><span>RQ of carbohydrate / fat (tripalmitin) / protein</span></div>
+      <div><b>EMP</b><span>Embden, Meyerhof, Parnas: glycolysis</span></div>
+      <div><b>&lt; 7% · 13%</b><span>Energy released in fermentation · alcohol that kills yeast</span></div>
+      <div><b>Mg²⁺ + PDH</b><span>Pyruvate → acetyl CoA in the matrix, with NAD⁺ and CoA</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XI, "Respiration in Plants". Lecture 2 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (parent, x, y, s, attrs = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, attrs), parent); t.textContent = s; return t; };
+  const marker = (defs, id, token) => {
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+
+  /* ---------- Rail highlight ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Fig 1 Stepwise energy ---------- */
+  const enr = $("#en-r");
+  (function buildStairs() {
+    let d = "M52 50", x = 52, y = 50;
+    const atpAt = [1, 3, 4, 6, 7, 8];
+    const marks = [];
+    for (let i = 0; i < 10; i++) {
+      x += 50; d += ` H ${x}`;
+      if (atpAt.includes(i)) marks.push([x, y]);
+      y += 20; d += ` V ${y}`;
+    }
+    d += " H 600";
+    el("path", { d, class: "f-none s-leaf", "stroke-width": 3, "stroke-linejoin": "round" }, enr);
+    marks.forEach(([mx, my]) => {
+      el("circle", { cx: mx + 16, cy: my + 4, r: 11, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, enr);
+      txt(enr, mx + 16, my + 7, "ATP", { "font-size": 8, "text-anchor": "middle", class: "t-sun", "font-weight": 500 });
+    });
+    txt(enr, 330, 100, "Small steps. Some are just large enough", { class: "t-leaf", "font-size": 12 });
+    txt(enr, 330, 118, "for their energy to be coupled to ATP.", { class: "t-leaf", "font-size": 12 });
+  })();
+  const setEn = m => {
+    $("#en-comb").setAttribute("aria-pressed", m === "c");
+    $("#en-resp").setAttribute("aria-pressed", m === "r");
+    $("#en-c").style.display = m === "c" ? "" : "none";
+    enr.style.display = m === "r" ? "" : "none";
+    $("#en-k").textContent = m === "c" ? "Combustion" : "Respiration";
+    $("#en-t").innerHTML = m === "c"
+      ? "Complete combustion of glucose gives CO₂ and H₂O, and the energy comes out <strong>in one step, mostly as heat</strong>. The cell could not use it to make other molecules."
+      : "The cell oxidises glucose <strong>in several small steps</strong>, each controlled by an enzyme. Some steps release just enough energy to be <strong>coupled to ATP synthesis</strong>, so not all the energy is lost as heat. This is the significance of step-wise release.";
+  };
+  $("#en-comb").addEventListener("click", () => setEn("c"));
+  $("#en-resp").addEventListener("click", () => setEn("r"));
+  setEn("r");
+
+  /* ---------- Fig 2 Glycolysis ---------- */
+  const gl = $("#glsvg");
+  (function buildGl() {
+    const defs = el("defs", {}, gl);
+    marker(defs, "m2", "--ink"); marker(defs, "m2s", "--sun"); marker(defs, "m2l", "--leaf");
+    const ys = [16, 86, 156, 226, 302, 378, 448, 518, 588, 658];
+    const nodes = [
+      ["Glucose", "6C"], ["Glucose-6-phosphate", "6C"], ["Fructose-6-phosphate", "6C"], ["Fructose 1,6-bisphosphate", "6C"],
+      ["Glyceraldehyde-3-phosphate", "PGAL · 3C"], ["1,3-bisphosphoglyceric acid", "BPGA · 3C · ×2"], ["3-phosphoglyceric acid", "PGA · 3C · ×2"],
+      ["2-phosphoglycerate", "3C · ×2"], ["Phosphoenolpyruvate", "PEP · 3C · ×2"], ["Pyruvic acid", "3C · ×2"]
+    ];
+    const drawNode = (g, i, x = 170, w = 240, label = nodes[i]) => {
+      const y = ys[i];
+      el("rect", { x, y, width: w, height: 38, rx: 7, class: i === 9 ? "f-leafsoft s-leaf" : "f-card s-ink", "stroke-width": 1.3 }, g);
+      txt(g, x + w / 2, y + 16, label[0], { "text-anchor": "middle", "font-weight": 500 });
+      txt(g, x + w / 2, y + 31, label[1], { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    };
+    const g0 = el("g", {}, gl); drawNode(g0, 0);
+    const side = {
+      1: { l: ["ATP → ADP", "t-red"], r: ["hexokinase", "t-muted"] },
+      2: { r: ["isomerisation", "t-muted"] },
+      3: { l: ["ATP → ADP", "t-red"] },
+      5: { r: ["NAD⁺ → NADH + H⁺", "t-leaf"], r2: ["+ Pi", "t-muted"] },
+      6: { l: ["ADP → ATP", "t-sun"] },
+      8: { r: ["– H₂O", "t-blue"] },
+      9: { l: ["ADP → ATP", "t-sun"] }
+    };
+    for (let i = 1; i < 10; i++) {
+      const g = el("g", { class: "zg", id: "gl-" + i }, gl);
+      const y0 = ys[i - 1] + 38, y1 = ys[i] - 2, mid = (y0 + y1) / 2;
+      el("line", { x1: 290, y1: y0, x2: 290, y2: y1, class: "s-ink", "stroke-width": 1.8, "marker-end": "url(#m2)" }, g);
+      const s = side[i];
+      if (s && s.l) {
+        el("path", { d: `M 236 ${mid - 9} Q 282 ${mid - 9} 288 ${mid}`, class: "f-none " + (s.l[1] === "t-red" ? "s-red" : "s-sun"), "stroke-width": 1.4 }, g);
+        txt(g, 230, mid - 5, s.l[0], { "text-anchor": "end", class: s.l[1], "font-weight": 500 });
+      }
+      if (s && s.r) {
+        txt(g, 304, mid + (s.r2 ? -2 : 4), s.r[0], { class: s.r[1], "font-weight": s.r[1] === "t-muted" ? 400 : 500 });
+        if (s.r2) txt(g, 304, mid + 12, s.r2[0], { class: s.r2[1], "font-size": 10 });
+      }
+      if (i === 4) {
+        el("path", { d: `M 330 ${ys[3] + 38} Q 520 ${ys[3] + 52} 545 ${ys[4] - 2}`, class: "f-none s-ink", "stroke-width": 1.4, "marker-end": "url(#m2)" }, g);
+        drawNode(g, 4, 450, 200, ["Dihydroxyacetone phosphate", "DHAP · 3C"]);
+        txt(g, 430, ys[4] + 24, "⇌", { "text-anchor": "middle", "font-size": 16 });
+        txt(g, 304, mid + 4, "split", { class: "t-muted" });
+        txt(g, 20, ys[4] + 70, "×2 from here on", { class: "t-sun", "font-weight": 500 });
+        txt(g, 20, ys[4] + 84, "(DHAP becomes PGAL)", { class: "t-muted", "font-size": 10 });
+      }
+      drawNode(g, i);
+    }
+  })();
+  const glSteps = [
+    "<strong>Glucose is phosphorylated</strong> to glucose-6-phosphate by <strong>hexokinase</strong>. The <strong>first ATP is used</strong>. Fructose from sucrose is also phosphorylated and joins the same pathway.",
+    "<strong>Glucose-6-phosphate isomerises</strong> to fructose-6-phosphate. From here on, the metabolism of glucose and fructose is the same.",
+    "Fructose-6-phosphate is phosphorylated to <strong>fructose 1,6-bisphosphate</strong>. The <strong>second ATP is used</strong>. Total ATP spent so far: 2.",
+    "Fructose 1,6-bisphosphate (6C) <strong>splits</strong> into two 3C triose phosphates: <strong>dihydroxyacetone phosphate (DHAP)</strong> and <strong>3-phosphoglyceraldehyde (PGAL)</strong>. DHAP converts to PGAL, so every later step happens <strong>twice</strong>.",
+    "PGAL is <strong>oxidised</strong> and combined with inorganic phosphate to form <strong>1,3-bisphosphoglycerate (BPGA)</strong>. Two hydrogen atoms go to NAD<sup>+</sup>, forming <strong>NADH + H<sup>+</sup></strong>. This is the <strong>only NADH step</strong>: 2 per glucose.",
+    "BPGA → <strong>3-phosphoglyceric acid (PGA)</strong>. This is energy-yielding, and the energy is trapped by forming <strong>ATP</strong> (one per BPGA, so 2 per glucose).",
+    "3-phosphoglyceric acid is converted to <strong>2-phosphoglycerate</strong>.",
+    "<strong>Water is removed</strong> from 2-phosphoglycerate to form <strong>phosphoenolpyruvate (PEP)</strong>.",
+    "PEP → <strong>pyruvic acid</strong>, and <strong>another ATP is made</strong> (2 per glucose). Glucose has been partially oxidised to <strong>two pyruvic acid</strong>: 4 ATP made, 2 used, net <strong>2 ATP + 2 NADH</strong>."
+  ];
+  const used = [1, 1, 2, 2, 2, 2, 2, 2, 2], made = [0, 0, 0, 0, 0, 2, 2, 2, 4], nadh = [0, 0, 0, 0, 2, 2, 2, 2, 2];
+  let gStep = 0, gAll = false;
+  function renderGl() {
+    $$(".zg", gl).forEach(n => n.classList.remove("on"));
+    const k = gAll ? 8 : gStep;
+    $("#gl-used").textContent = used[k]; $("#gl-made").textContent = made[k];
+    $("#gl-nadh").textContent = nadh[k]; $("#gl-net").textContent = made[k] - used[k];
+    if (gAll) {
+      gl.classList.remove("dim");
+      $("#gl-k").textContent = "Whole pathway · 10 reactions";
+      $("#gl-t").innerHTML = "Glucose → G6P → F6P → F1,6-BP → DHAP + PGAL → 2 BPGA → 2 PGA → 2 2-PG → 2 PEP → <strong>2 pyruvic acid</strong>. ATP used at steps 1 and 3; ATP made at BPGA → PGA and PEP → pyruvate; NADH at PGAL → BPGA.";
+      $("#gl-prev").disabled = true; $("#gl-next").disabled = false;
+      return;
+    }
+    gl.classList.add("dim");
+    $("#gl-" + (gStep + 1)).classList.add("on");
+    $("#gl-k").textContent = `Step ${gStep + 1} of 9`;
+    $("#gl-t").innerHTML = glSteps[gStep];
+    $("#gl-prev").disabled = gStep === 0;
+    $("#gl-next").disabled = gStep === 8;
+  }
+  $("#gl-next").addEventListener("click", () => { gStep = gAll ? 0 : Math.min(gStep + 1, 8); gAll = false; renderGl(); });
+  $("#gl-prev").addEventListener("click", () => { gStep = Math.max(gStep - 1, 0); gAll = false; renderGl(); });
+  $("#gl-all").addEventListener("click", () => { gAll = true; renderGl(); });
+  renderGl();
+
+  /* ---------- Fig 3 Fermentation ---------- */
+  const setFm = m => {
+    const alc = m === "alc";
+    $("#fm-alc").setAttribute("aria-pressed", alc);
+    $("#fm-lac").setAttribute("aria-pressed", !alc);
+    $("#fm-enz1").textContent = alc ? "pyruvic acid decarboxylase" : "lactate dehydrogenase";
+    $("#fm-enz2").textContent = alc ? "alcohol dehydrogenase" : "";
+    $("#fm-prod").textContent = alc ? "Ethanol + CO₂" : "Lactic acid";
+    $("#fm-who").textContent = alc ? "Yeast" : "Some bacteria; muscle short of O₂";
+    $("#fm-co2").textContent = alc ? "2" : "0";
+    $("#fm-haz").textContent = alc ? "13%" : "Acid";
+    $("#fm-haz-l").textContent = alc ? "Alcohol that kills yeast" : "Hazardous product";
+    $("#fm-t").innerHTML = alc
+      ? "<strong>Alcoholic fermentation</strong> (yeast): pyruvic acid is converted to <strong>CO₂ and ethanol</strong> by pyruvic acid decarboxylase and alcohol dehydrogenase. NADH + H⁺ is reoxidised to NAD⁺. Net gain: <strong>2 ATP</strong> per glucose, all from glycolysis."
+      : "<strong>Lactic acid fermentation</strong> (some bacteria; animal muscle during exercise when O₂ is inadequate): pyruvic acid is <strong>reduced to lactic acid</strong> by <strong>lactate dehydrogenase</strong>. NADH + H⁺ is the reducing agent. No CO₂ is released. Net gain: <strong>2 ATP</strong>.";
+  };
+  $("#fm-alc").addEventListener("click", () => setFm("alc"));
+  $("#fm-lac").addEventListener("click", () => setFm("lac"));
+  setFm("alc");
+
+  /* ---------- Fig 5 Krebs ---------- */
+  const kr = $("#krsvg");
+  (function buildKr() {
+    const defs = el("defs", {}, kr);
+    marker(defs, "m5", "--ink"); marker(defs, "m5r", "--red"); marker(defs, "m5l", "--leaf");
+    const node = (g, cx, cy, a, b, w = 140, cls = "f-card s-ink") => {
+      el("rect", { x: cx - w / 2, y: cy - 19, width: w, height: 38, rx: 8, class: cls, "stroke-width": 1.3 }, g);
+      txt(g, cx, cy - 2, a, { "text-anchor": "middle", "font-weight": 500 });
+      txt(g, cx, cy + 12, b, { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    };
+    const arc = (g, d, m = "m5") => el("path", { d, class: "f-none s-ink", "stroke-width": 1.8, "marker-end": `url(#${m})` }, g);
+    const nodesG = el("g", {}, kr);
+    node(nodesG, 190, 200, "Oxaloacetic acid", "OAA · 4C", 140, "f-leafsoft s-leaf");
+    node(nodesG, 490, 200, "Citric acid", "6C");
+    node(nodesG, 565, 300, "Isocitrate", "6C", 120);
+    node(nodesG, 490, 400, "α-ketoglutaric acid", "5C");
+    node(nodesG, 340, 450, "Succinyl-CoA", "4C");
+    node(nodesG, 190, 400, "Succinic acid", "4C");
+    node(nodesG, 115, 300, "Malic acid", "4C", 120);
+    txt(nodesG, 340, 305, "CITRIC ACID", { "text-anchor": "middle", class: "t-muted", "font-size": 12 });
+    txt(nodesG, 340, 322, "CYCLE", { "text-anchor": "middle", class: "t-muted", "font-size": 12 });
+
+    const G = i => el("g", { class: "zg", id: "kr-" + i }, kr);
+    // 0 link
+    const g0 = G(0);
+    node(g0, 340, 35, "Pyruvate", "3C · from cytoplasm");
+    arc(g0, "M340 54 V 89");
+    node(g0, 340, 110, "Acetyl CoA", "2C", 140, "f-sunsoft s-sun");
+    txt(g0, 325, 68, "CoA + NAD⁺", { "text-anchor": "end", "font-size": 10 });
+    txt(g0, 325, 82, "pyruvate dehydrogenase, Mg²⁺", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(g0, 355, 68, "CO₂", { "font-size": 10, class: "t-red", "font-weight": 500 });
+    txt(g0, 355, 82, "NADH + H⁺", { "font-size": 10, class: "t-leaf", "font-weight": 500 });
+    // 1 condensation
+    const g1 = G(1);
+    arc(g1, "M262 192 Q 340 168 418 192");
+    arc(g1, "M340 129 V 176");
+    txt(g1, 330, 152, "citrate synthase", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(g1, 350, 152, "+ H₂O, CoA released", { "font-size": 10 });
+    // 2 isomerisation
+    const g2 = G(2);
+    arc(g2, "M530 219 Q 565 240 565 279");
+    txt(g2, 588, 240, "isomerisation", { "font-size": 10, class: "t-muted" });
+    // 3 first decarboxylation
+    const g3 = G(3);
+    arc(g3, "M565 319 Q 562 362 520 380");
+    txt(g3, 582, 352, "CO₂", { "font-size": 11, class: "t-red", "font-weight": 500 });
+    txt(g3, 582, 367, "NAD⁺ → NADH", { "font-size": 10, class: "t-leaf", "font-weight": 500 });
+    // 4 second decarboxylation
+    const g4 = G(4);
+    arc(g4, "M470 419 Q 445 448 412 452");
+    txt(g4, 470, 448, "CO₂", { "font-size": 11, class: "t-red", "font-weight": 500 });
+    txt(g4, 430, 492, "NAD⁺ → NADH", { "font-size": 10, class: "t-leaf", "font-weight": 500 });
+    // 5 SLP
+    const g5 = G(5);
+    arc(g5, "M268 452 Q 232 448 214 421");
+    txt(g5, 255, 492, "GDP → GTP → ATP", { "text-anchor": "end", "font-size": 10, class: "t-sun", "font-weight": 500 });
+    // 6 FAD
+    const g6 = G(6);
+    arc(g6, "M155 381 Q 118 360 115 321");
+    txt(g6, 20, 365, "FAD⁺ → FADH₂", { "font-size": 10, class: "t-blue", "font-weight": 500 });
+    // 7 malate -> OAA
+    const g7 = G(7);
+    arc(g7, "M115 279 Q 118 240 152 221");
+    txt(g7, 20, 245, "NAD⁺ → NADH", { "font-size": 10, class: "t-leaf", "font-weight": 500 });
+  })();
+  const krText = [
+    "<div class='k'>Link reaction · matrix</div>Pyruvate enters the mitochondrial matrix and undergoes <strong>oxidative decarboxylation</strong> by <strong>pyruvate dehydrogenase</strong> (needs Mg²⁺, NAD⁺, CoA). Products: <strong>acetyl CoA (2C), CO₂, NADH + H⁺</strong>.",
+    "<div class='k'>Condensation</div>The acetyl group condenses with <strong>oxaloacetic acid (4C)</strong> and water to give <strong>citric acid (6C)</strong>. Enzyme: <strong>citrate synthase</strong>. A molecule of CoA is released.",
+    "<div class='k'>Isomerisation</div>Citrate is <strong>isomerised to isocitrate</strong>. No CO₂ or NADH here.",
+    "<div class='k'>First decarboxylation</div>Isocitrate loses CO₂ and NAD⁺ is reduced to NADH + H⁺, giving <strong>α-ketoglutaric acid (5C)</strong>.",
+    "<div class='k'>Second decarboxylation</div>α-ketoglutaric acid loses another CO₂, NAD⁺ is reduced again, and <strong>succinyl-CoA</strong> forms.",
+    "<div class='k'>Substrate-level phosphorylation</div>Succinyl-CoA → <strong>succinic acid</strong>, and a molecule of <strong>GTP</strong> is made. In a coupled reaction GTP → GDP while <strong>ATP is made from ADP</strong>.",
+    "<div class='k'>FAD step</div>Succinate is oxidised, and <strong>FAD⁺ is reduced to FADH₂</strong>. This is the only FAD step in the cycle. Malic acid (4C) is formed.",
+    "<div class='k'>OAA regenerated</div>Malic acid is oxidised to <strong>oxaloacetic acid</strong>, reducing NAD⁺ to NADH + H⁺. OAA, the first member of the cycle, is replenished so the cycle can continue."
+  ];
+  let krStage = -1;
+  function renderKr() {
+    kr.classList.toggle("dim", krStage !== -1);
+    $$(".zg", kr).forEach(n => n.classList.toggle("on", n.id === "kr-" + krStage));
+    $$("#kr-seg button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.s === krStage)));
+    $("#kr-t").innerHTML = krStage === -1
+      ? "Pick a stage above to highlight it on the cycle. Per pyruvate: <strong>3 CO₂, 4 NADH + H⁺, 1 FADH₂, 1 ATP</strong>. NAD⁺ is reduced at three points in the cycle (plus one in the link reaction), FAD⁺ at one."
+      : krText[krStage];
+  }
+  $$("#kr-seg button").forEach(b => b.addEventListener("click", () => { krStage = krStage === +b.dataset.s ? -1 : +b.dataset.s; renderKr(); }));
+  renderKr();
+  const setPer = n => {
+    $("#kr-per1").setAttribute("aria-pressed", n === 1); $("#kr-per2").setAttribute("aria-pressed", n === 2);
+    $("#kr-co2").textContent = 3 * n; $("#kr-nadh").textContent = 4 * n; $("#kr-fad").textContent = n; $("#kr-atp").textContent = n;
+  };
+  $("#kr-per1").addEventListener("click", () => setPer(1));
+  $("#kr-per2").addEventListener("click", () => setPer(2));
+
+  /* ---------- Fig 6 ETS ---------- */
+  const et = $("#etsvg");
+  const etSteps = [
+    "<strong>Complex I (NADH dehydrogenase)</strong> oxidises NADH produced in the matrix. Its electrons go to <strong>ubiquinone (UQ)</strong>, which sits within the inner membrane. Protons are moved out to the intermembrane space.",
+    "<strong>Complex II (succinate dehydrogenase)</strong>: FADH₂, generated when succinate is oxidised in the citric acid cycle, also passes reducing equivalents to ubiquinone. It enters <strong>after complex I</strong>, which is why FADH₂ yields fewer ATP.",
+    "Reduced ubiquinone (<strong>ubiquinol, UQH₂</strong>) is oxidised, passing electrons to <strong>complex III, the cytochrome bc₁ complex</strong>. More protons are moved out.",
+    "<strong>Cytochrome c</strong> is a small protein attached to the <strong>outer surface of the inner membrane</strong>. It is a <strong>mobile carrier</strong> taking electrons from complex III to complex IV.",
+    "<strong>Complex IV, cytochrome c oxidase</strong>, contains <strong>cytochromes a and a₃ and two copper centres</strong>. Electrons are passed to <strong>O₂</strong>, the <strong>final hydrogen acceptor</strong>, which is reduced to water.",
+    "<strong>Complex V, ATP synthase</strong>: protons flow back from the intermembrane space to the matrix through <strong>F₀</strong>, and <strong>F₁</strong> makes ATP from ADP + Pi. <strong>4H⁺ per ATP</strong>. Oxidation of 1 NADH gives <strong>3 ATP</strong>; 1 FADH₂ gives <strong>2 ATP</strong>."
+  ];
+  let eStep = 0, eAll = false;
+  function renderEt() {
+    $$(".zg", et).forEach(n => n.classList.remove("on"));
+    if (eAll) {
+      et.classList.remove("dim");
+      $("#et-k").textContent = "Whole chain";
+      $("#et-t").innerHTML = "NADH → <strong>I</strong> → UQ → <strong>III</strong> → cyt c → <strong>IV</strong> → O₂ (forms H₂O). FADH₂ → <strong>II</strong> → UQ → … The energy of oxidation–reduction pumps H⁺ out; H⁺ returning through <strong>V</strong> drives ATP synthesis: <strong>oxidative phosphorylation</strong>.";
+      $("#et-prev").disabled = true; $("#et-next").disabled = false;
+      return;
+    }
+    et.classList.add("dim");
+    $("#et-" + (eStep + 1)).classList.add("on");
+    $("#et-k").textContent = `Step ${eStep + 1} of 6`;
+    $("#et-t").innerHTML = etSteps[eStep];
+    $("#et-prev").disabled = eStep === 0;
+    $("#et-next").disabled = eStep === 5;
+  }
+  $("#et-next").addEventListener("click", () => { eStep = eAll ? 0 : Math.min(eStep + 1, 5); eAll = false; renderEt(); });
+  $("#et-prev").addEventListener("click", () => { eStep = Math.max(eStep - 1, 0); eAll = false; renderEt(); });
+  $("#et-all").addEventListener("click", () => { eAll = true; renderEt(); });
+  renderEt();
+
+  /* ---------- Fig 7 Balance sheet ---------- */
+  const rows = [
+    { id: "g-atp", stage: "Glycolysis", what: "2 ATP (net: 4 made − 2 used)", atp: 2, c: "c-atp", ferm: true },
+    { id: "g-nadh", stage: "Glycolysis", what: "2 NADH × 3", atp: 6, c: "c-nadh", note: "Assumes glycolytic NADH is transferred into the mitochondria." },
+    { id: "l-nadh", stage: "Link reaction", what: "2 NADH × 3", atp: 6, c: "c-nadh" },
+    { id: "k-atp", stage: "Krebs' cycle", what: "2 ATP (via GTP)", atp: 2, c: "c-atp" },
+    { id: "k-nadh", stage: "Krebs' cycle", what: "6 NADH × 3", atp: 18, c: "c-nadh" },
+    { id: "k-fad", stage: "Krebs' cycle", what: "2 FADH₂ × 2", atp: 4, c: "c-fad" }
+  ];
+  const on = {}; rows.forEach(r => on[r.id] = true);
+  let bsMode = "aer";
+  const list = $("#bs-list");
+  rows.forEach(r => {
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "bs-" + r.id;
+    b.innerHTML = `<span class="box"></span><span class="src"></span><span class="amt"></span>`;
+    b.querySelector(".src").innerHTML = `<b>${r.stage}</b><small>${r.what}</small>`;
+    b.addEventListener("click", () => { on[r.id] = !on[r.id]; renderBs(r.id); });
+    list.appendChild(b);
+  });
+  function renderBs(changed) {
+    const active = r => on[r.id] && (bsMode === "aer" || r.ferm);
+    let total = 0, direct = 0;
+    rows.forEach(r => {
+      const b = $("#bs-" + r.id);
+      const usable = bsMode === "aer" || r.ferm;
+      b.disabled = !usable;
+      b.setAttribute("aria-pressed", active(r));
+      b.querySelector(".amt").textContent = usable ? (active(r) ? "+" + r.atp + " ATP" : "0 ATP") : "not formed";
+      if (active(r)) { total += r.atp; if (r.c === "c-atp") direct += r.atp; }
+    });
+    const bar = $("#bs-bar"); bar.innerHTML = "";
+    rows.forEach(r => {
+      if (!active(r)) return;
+      const d = document.createElement("div");
+      d.className = r.c; d.style.width = (r.atp / 38 * 100) + "%";
+      d.textContent = r.atp >= 6 ? r.atp : "";
+      bar.appendChild(d);
+    });
+    $("#bs-total").textContent = total; $("#bs-direct").textContent = direct; $("#bs-ox").textContent = total - direct;
+    let msg;
+    if (bsMode === "fer") msg = "In fermentation only glycolysis runs. Its NADH is used up reducing pyruvic acid to ethanol or lactic acid, so it makes no ATP. Net gain: <strong>2 ATP</strong> per glucose.";
+    else if (total === 38) msg = "All sources on: <strong>38 ATP</strong> per glucose. Only 4 are made directly (substrate-level); the other <strong>34 come from the ETS</strong>. That is why O₂ matters so much.";
+    else if (changed === "g-nadh" && !on["g-nadh"]) msg = "Without the second assumption (glycolytic NADH entering the mitochondria) the total drops by 6, to <strong>" + total + " ATP</strong>. In real cells such assumptions do not fully hold, which is why 38 is only theoretical.";
+    else {
+      const r = rows.find(x => x.id === changed);
+      msg = r ? `${r.stage}: ${r.what} contributes <strong>${r.atp} ATP</strong>. Current total: <strong>${total}</strong>.` : `Current total: <strong>${total} ATP</strong>.`;
+    }
+    $("#bs-t").innerHTML = msg;
+  }
+  const setBs = m => { bsMode = m; $("#bs-aer").setAttribute("aria-pressed", m === "aer"); $("#bs-fer").setAttribute("aria-pressed", m === "fer"); renderBs(); };
+  $("#bs-aer").addEventListener("click", () => setBs("aer"));
+  $("#bs-fer").addEventListener("click", () => setBs("fer"));
+  renderBs();
+
+  /* ---------- Fig 8 Amphibolic ---------- */
+  const am = $("#amsvg");
+  let amSub = "all", amDir = "cat";
+  const amText = {
+    all: { cat: "All three food classes are broken down to feed the same pathway, ending in the Krebs' cycle with CO₂ and H₂O.", ana: "Run the arrows backwards: the same intermediates are <strong>withdrawn</strong> to build fats, carbohydrates and proteins. One pathway serving both directions is why it is <strong>amphibolic</strong>." },
+    fat: { cat: "Fats are broken into <strong>glycerol and fatty acids</strong>. Fatty acids are degraded to <strong>acetyl CoA</strong>; glycerol is converted to <strong>PGAL</strong> (glyceraldehyde 3-phosphate).", ana: "To <strong>synthesise fatty acids</strong>, acetyl CoA is withdrawn from the respiratory pathway. So the pathway is used in both breakdown and synthesis of fatty acids." },
+    carb: { cat: "Carbohydrates are usually first converted to <strong>glucose</strong>, which enters at the very first step of glycolysis (glucose 6-phosphate).", ana: "Intermediates of glycolysis can be drawn off to build sugars and other molecules: carbon skeletons from respiration act as <strong>precursors</strong> for biosynthesis." },
+    prot: { cat: "Proteins are broken down by <strong>proteases</strong>. Amino acids, after <strong>deamination</strong>, enter as <strong>pyruvate, acetyl CoA</strong> or at some stage <strong>within the Krebs' cycle</strong>, depending on their structure.", ana: "During protein synthesis, respiratory intermediates such as pyruvate and Krebs' cycle acids are withdrawn to build amino acids. Respiratory intermediates form the link." }
+  };
+  function renderAm() {
+    am.classList.toggle("dim", amSub !== "all");
+    ["fat", "carb", "prot"].forEach(s => $("#am-" + s).classList.toggle("on", s === amSub));
+    $$(".flow", am).forEach(p => {
+      p.setAttribute("marker-end", amDir === "cat" ? "url(#m8)" : "none");
+      p.setAttribute("marker-start", amDir === "ana" ? "url(#m8)" : "none");
+    });
+    $$("#am-sub button").forEach(b => b.setAttribute("aria-pressed", b.dataset.s === amSub));
+    $$("#am-dir button").forEach(b => b.setAttribute("aria-pressed", b.dataset.d === amDir));
+    $("#am-t").innerHTML = `<div class="k">${amDir === "cat" ? "Catabolism · breakdown" : "Anabolism · synthesis"}</div>` + amText[amSub][amDir];
+  }
+  $$("#am-sub button").forEach(b => b.addEventListener("click", () => { amSub = b.dataset.s; renderAm(); }));
+  $$("#am-dir button").forEach(b => b.addEventListener("click", () => { amDir = b.dataset.d; renderAm(); }));
+  renderAm();
+
+  /* ---------- Fig 9 RQ ---------- */
+  const RQ = {
+    carb: { co2: 6, o2: 6, rq: 1.0, eq: "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + Energy;  RQ = 6CO₂ / 6O₂ = 1.0", t: "Carbohydrates, completely oxidised, give <strong>RQ = 1</strong>: equal volumes of CO₂ are evolved and O₂ consumed." },
+    fat: { co2: 102, o2: 145, rq: 0.7, eq: "2(C₅₁H₉₈O₆) + 145O₂ → 102CO₂ + 98H₂O + energy  (tripalmitin);  RQ = 102 / 145 = 0.7", t: "Fats give <strong>RQ less than 1</strong>. For tripalmitin, 145 O₂ are used but only 102 CO₂ released, so RQ ≈ <strong>0.7</strong>." },
+    prot: { co2: 9, o2: 10, rq: 0.9, eq: "Proteins as substrate:  RQ ≈ 0.9", t: "When proteins are respiratory substrates, the ratio is about <strong>0.9</strong>. NCERT gives no equation for this case." }
+  };
+  const setRq = s => {
+    const r = RQ[s];
+    $$("#rq-seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.s === s));
+    $("#rq-eq").textContent = r.eq;
+    $("#rq-o2").style.width = "100%"; $("#rq-co2").style.width = (r.co2 / r.o2 * 100) + "%";
+    $("#rq-co2-v").textContent = s === "prot" ? "~0.9" : r.co2; $("#rq-o2-v").textContent = s === "prot" ? "1" : r.o2;
+    $("#rq-val").textContent = r.rq.toFixed(1);
+    $("#rq-cmp").textContent = r.rq === 1 ? "= 1" : "< 1";
+    $("#rq-t").innerHTML = r.t;
+  };
+  $$("#rq-seg button").forEach(b => b.addEventListener("click", () => setRq(b.dataset.s)));
+  setRq("carb");
+  const mix = $("#rq-mix");
+  const renderMix = () => {
+    const f = +mix.value / 100, v = (1 - f) * 1 + f * 0.7;
+    $("#rq-mix-o").textContent = mix.value + "%";
+    $("#rq-mix-v").textContent = v.toFixed(2);
+    $("#rq-mix-t").innerHTML = f === 0 ? "Pure carbohydrate: RQ = <strong>1.0</strong>." : f === 1 ? "Pure fat: RQ = <strong>0.7</strong>. NCERT notes pure fats are never actually the only substrate." : `A mix gives an RQ between 0.7 and 1. The more fat, the <strong>lower</strong> the RQ.`;
+  };
+  mix.addEventListener("input", renderMix);
+  renderMix();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Glycolysis takes place in the:", o: ["Mitochondrial matrix", "Inner mitochondrial membrane", "Cytoplasm", "Stroma of chloroplast"], a: 2, e: "Glycolysis occurs in the cytoplasm of all living organisms. The TCA cycle is in the matrix and the ETS on the inner mitochondrial membrane." },
+    { q: "How many ATP molecules are directly synthesised in glycolysis from one glucose molecule?", o: ["2", "4", "6", "8"], a: 1, e: "ATP forms at BPGA → PGA and PEP → pyruvic acid, each twice per glucose: 4 ATP. Subtracting the 2 used gives a net gain of 2." },
+    { q: "In yeast, pyruvic acid is converted to CO₂ and ethanol by:", o: ["Lactate dehydrogenase", "Pyruvate dehydrogenase and citrate synthase", "Pyruvic acid decarboxylase and alcohol dehydrogenase", "Hexokinase and invertase"], a: 2, e: "NCERT names pyruvic acid decarboxylase and alcohol dehydrogenase for alcoholic fermentation. Lactate dehydrogenase makes lactic acid." },
+    { q: "Which pair is correctly matched?", o: ["Hexokinase: fructose-6-phosphate → fructose 1,6-bisphosphate", "Citrate synthase: acetyl group + OAA → citric acid", "Lactate dehydrogenase: pyruvic acid → ethanol", "Invertase: glucose → glucose-6-phosphate"], a: 1, e: "Citrate synthase condenses the acetyl group with OAA and water to give citric acid. Hexokinase acts on glucose; invertase splits sucrose." },
+    { q: "Substrate-level phosphorylation in the Krebs' cycle occurs during the conversion of:", o: ["Citrate to isocitrate", "α-ketoglutaric acid to succinyl-CoA", "Succinyl-CoA to succinic acid", "Malic acid to oxaloacetic acid"], a: 2, e: "During succinyl-CoA → succinic acid, GTP is made; in a coupled reaction it gives ATP from ADP." },
+    { q: "Oxidative decarboxylation of pyruvic acid by pyruvate dehydrogenase requires:", o: ["Mn²⁺, NADP⁺ and CoA", "Mg²⁺, NAD⁺ and CoA", "Fe²⁺, FAD and ATP", "Cu²⁺, NAD⁺ and GTP"], a: 1, e: "Pyruvic acid + CoA + NAD⁺ → acetyl CoA + CO₂ + NADH + H⁺, with Mg²⁺ and pyruvate dehydrogenase." },
+    { q: "Which statement about the electron transport system is NOT true?", o: ["It is located in the inner mitochondrial membrane", "Cytochrome c is a mobile carrier between complex III and IV", "Complex IV contains cytochromes a, a₃ and two copper centres", "Oxidation of one FADH₂ yields 3 ATP"], a: 3, e: "NCERT: one NADH gives 3 ATP, but one FADH₂ gives only 2 ATP. The other three statements are correct." },
+    { q: "Assertion (A): The respiratory pathway is called an amphibolic pathway. Reason (R): Its intermediates such as acetyl CoA are used both when substrates are broken down and when compounds like fatty acids are synthesised.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "Because the pathway takes part in both catabolism and anabolism (e.g. acetyl CoA withdrawn for fatty acid synthesis), it is better called amphibolic." },
+    { q: "The RQ when tripalmitin is used as the respiratory substrate is about:", o: ["1.0", "0.9", "0.7", "Infinity"], a: 2, e: "2(C₅₁H₉₈O₆) + 145O₂ → 102CO₂ + 98H₂O. RQ = 102/145 ≈ 0.7. Carbohydrates give 1.0, proteins about 0.9." },
+    { q: "In ATP synthase, the channel through which protons cross the inner mitochondrial membrane is:", o: ["F₁ headpiece", "F₀", "Cytochrome c", "Ubiquinone"], a: 1, e: "F₀ is an integral membrane protein complex forming the proton channel. F₁ is the peripheral headpiece with the ATP-making site." },
+    { q: "Considering the link reaction and the TCA cycle together, one glucose molecule yields:", o: ["6 NADH + H⁺ and 2 FADH₂", "8 NADH + H⁺ and 2 FADH₂", "10 NADH + H⁺ and 2 FADH₂", "8 NADH + H⁺ and 1 FADH₂"], a: 1, e: "Per pyruvate: 1 NADH (link) + 3 NADH and 1 FADH₂ (cycle). Two pyruvate per glucose: 8 NADH + H⁺ and 2 FADH₂." },
+    { q: "Which is NOT one of the assumptions made when calculating the net gain of 38 ATP?", o: ["Glycolysis, TCA cycle and ETS follow one another in order", "NADH from glycolysis enters the mitochondria", "Intermediates are withdrawn to synthesise other compounds", "Only glucose is being respired"], a: 2, e: "The assumption is the opposite: none of the intermediates are used to make other compounds. In real cells they are, which is why 38 is theoretical." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp");
+    exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

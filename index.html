@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interactive NCERT Biology</title><link rel="stylesheet" href="site.css"></head><body>
+<header class="bar"><div class="wrap"><a class="brand" href="index.html"><i></i>Interactive NCERT</a><span class="sp"></span><button class="chip" data-theme-btn></button></div></header>
+<main class="wrap">
+ <section class="hero">
+  <span class="mono">Biology · NEET ready</span>
+  <h1>Learn every chapter.<br>Then test it.</h1>
+  <p>Interactive chapters you can play with, followed by MCQ practice for each one. Pick your class to begin.</p>
+  <div class="stats"><div><b id="s-ch">0</b><span class="mono">Chapters</span></div><div><b id="s-q">0</b><span class="mono">MCQs</span></div><div><b id="s-done">0</b><span class="mono">Practised</span></div></div>
+ </section>
+ <div class="tabs" role="tablist"><button role="tab" data-f="all" aria-selected="true">All</button><button role="tab" data-f="11">Class 11</button><button role="tab" data-f="12">Class 12</button></div>
+ <div id="groups"></div>
+</main>
+<footer class="wrap">Progress is saved in this browser only.</footer>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+const groups=document.getElementById("groups");let filter="all";
+function card(r){const c=chapterOf(r.id),s=getScore(r.id),n=c.questions.length,pct=s?Math.round(s.best/n*100):0;
+ const wrap=document.createElement("div");wrap.className="tilt";const el=document.createElement("article");el.className="card";
+ el.innerHTML=`<span class="foil"></span><span class="glare"></span><span class="rim"></span><span class="perf"></span><span class="num">CHAPTER ${c.ch} · ${c.unit.toUpperCase()}</span><h3></h3><p></p><div class="tags"></div>
+ <div><div class="meter"><i style="width:${pct}%"></i></div><div class="mono" style="margin-top:7px">${s?`Best ${s.best}/${n}`:`${n} MCQs · not attempted`}</div></div>
+ <div class="row"><a class="btn" href="chapter.html?c=${c.id}">Open chapter</a><a class="btn ghost" href="practice.html?c=${c.id}">Practice MCQs</a></div>`;
+ el.querySelector("h3").textContent=c.title;el.querySelector("p").textContent=c.lede;
+ const tg=el.querySelector(".tags");c.topics.slice(0,3).forEach(t=>{const s=document.createElement("span");s.className="tag";s.textContent=t.length>26?t.slice(0,25)+"…":t;tg.appendChild(s)});
+ if(c.topics.length>3){const s=document.createElement("span");s.className="tag";s.textContent="+"+(c.topics.length-3);tg.appendChild(s)}
+  wrap.innerHTML='<div class="inner"></div>';wrap.firstChild.appendChild(el);
+ const mv=e=>{const b=wrap.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+  wrap.classList.add("on");wrap.style.setProperty("--mx",x*100+"%");wrap.style.setProperty("--my",y*100+"%");
+  wrap.style.setProperty("--ry",(x-.5)*16+"deg");wrap.style.setProperty("--rx",(.5-y)*12+"deg");wrap.style.setProperty("--o",1)};
+ wrap.addEventListener("pointermove",mv);wrap.addEventListener("pointerleave",()=>{wrap.classList.remove("on");["--rx","--ry"].forEach(k=>wrap.style.setProperty(k,"0deg"));wrap.style.setProperty("--o",0)});
+ return wrap}
+function render(){groups.innerHTML="";
+ [11,12].filter(k=>filter==="all"||filter==String(k)).forEach(k=>{
+  const list=REGISTRY.filter(r=>r.cls===k).sort((a,b)=>a.ch-b.ch);
+  const g=document.createElement("section");g.className="group";
+  g.innerHTML=`<div class="group-h"><h2>Class ${k===11?"11th":"12th"}</h2><span class="mono">${list.length} chapter${list.length===1?"":"s"}</span></div><div class="grid"></div>`;
+  const grid=g.querySelector(".grid");list.forEach(r=>grid.appendChild(card(r)));
+  if(!list.length){grid.innerHTML=`<div class="card soon"><span class="num">COMING SOON</span><h3>No chapters yet</h3><p>Class 12 chapters will appear here once they are added.</p></div>`}
+  groups.appendChild(g)})}
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));render()});
+render();
+document.getElementById("s-ch").textContent=REGISTRY.length;
+document.getElementById("s-q").textContent=REGISTRY.reduce((a,r)=>a+CHAPTERS[r.id].questions.length,0);
+document.getElementById("s-done").textContent=REGISTRY.filter(r=>getScore(r.id)).length;
+</script></body></html>

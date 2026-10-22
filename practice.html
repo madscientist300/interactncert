@@ -1,0 +1,52 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Practice</title><link rel="stylesheet" href="site.css"></head><body>
+<header class="bar"><div class="wrap"><a class="brand" href="index.html"><i></i>Interactive NCERT</a><span class="crumb" id="crumb"></span><span class="sp"></span><a class="chip" id="open">← Chapter</a><button class="chip" data-theme-btn></button></div></header>
+<main class="pwrap">
+ <div class="phead"><span class="mono" id="kicker"></span><h1 id="title"></h1><p>Tap an option to check your answer. NEET marking: +4 right, −1 wrong.</p>
+  <div class="modes"><button class="chip" id="shuf" aria-pressed="false">⇄ Shuffle</button><button class="chip" id="reset">↺ Restart</button></div></div>
+ <div class="progress"><span class="mono" id="prog"></span><div class="meter"><i id="bar"></i></div></div>
+ <div class="qnav" id="nav" role="group" aria-label="Jump to question"></div>
+ <div class="legend mono"><span><i></i>Unanswered</span><span><i class="r"></i>Correct</span><span><i class="w"></i>Wrong</span></div>
+ <div id="qs"></div>
+ <div class="pager"><button class="btn ghost" id="prev">← Previous</button><button class="btn" id="next">Next →</button></div>
+ <div id="res"></div>
+</main>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get("c"),c=window.CHAPTERS[id]&&chapterOf(id);
+if(!c)location.replace("index.html");
+document.title="Practice · "+c.title;
+document.getElementById("crumb").innerHTML=`<a href="index.html">Class ${c.cls}</a> / `;document.getElementById("crumb").append(c.title);
+document.getElementById("open").href="chapter.html?c="+id;
+document.getElementById("kicker").textContent=`Class ${c.cls} · Chapter ${c.ch} · MCQ practice`;
+document.getElementById("title").textContent=c.title;
+let order,ans,cur=0,shuffle=false;
+const L="abcd",$=id=>document.getElementById(id);
+function start(){order=c.questions.map((_,i)=>i);if(shuffle)order.sort(()=>Math.random()-.5);ans={};cur=0;$("res").innerHTML="";buildNav();show(0)}
+function buildNav(){const nav=$("nav");nav.innerHTML="";order.forEach((_,n)=>{const b=document.createElement("button");b.textContent=n+1;b.setAttribute("aria-label","Question "+(n+1));b.onclick=()=>show(n);nav.appendChild(b)})}
+function show(n){cur=Math.max(0,Math.min(order.length-1,n));const qi=order[cur],q=c.questions[qi],card=document.createElement("div");card.className="qcard";
+ card.innerHTML=`<span class="mono">Question ${cur+1} of ${order.length}</span><div class="qt"></div><div class="opts"></div><div class="exp" hidden></div>`;
+ card.querySelector(".qt").textContent=q.q;
+ q.o.forEach((t,j)=>{const b=document.createElement("button");b.className="opt";b.innerHTML=`<span class="l">${L[j]}</span><span></span>`;b.lastChild.textContent=t;b.onclick=()=>pick(qi,j,card);card.querySelector(".opts").appendChild(b)});
+ $("qs").replaceChildren(card);
+ if(ans[qi]!==undefined)reveal(qi,ans[qi],card);
+ $("prev").disabled=cur===0;$("next").disabled=cur===order.length-1;$("prev").style.opacity=cur===0?.4:1;$("next").style.opacity=cur===order.length-1?.4:1;
+ upd()}
+function reveal(qi,j,card){const q=c.questions[qi];
+ card.querySelectorAll(".opt").forEach((b,k)=>{b.disabled=true;if(k===q.a)b.classList.add("right");else if(k===j)b.classList.add("wrong")});
+ const e=card.querySelector(".exp");e.hidden=false;e.innerHTML=j===q.a?"<b class='ok'>Correct.</b> ":`<b class='no'>Not quite.</b> The answer is (${L[q.a]}). `;e.append(q.e)}
+function pick(qi,j,card){if(ans[qi]!==undefined)return;ans[qi]=j;reveal(qi,j,card);upd()}
+function upd(){const n=order.length,d=Object.keys(ans).length,r=order.filter(i=>ans[i]===c.questions[i].a).length;
+ $("prog").textContent=`${d}/${n} answered · ${r} correct`;$("bar").style.width=d/n*100+"%";
+ [...$("nav").children].forEach((b,k)=>{const i=order[k];b.className=(ans[i]===undefined?"":ans[i]===c.questions[i].a?"right":"wrong")+(k===cur?" cur":"")});
+ if(d===n&&!$("res").innerHTML){const best=Math.max(r,(getScore(id)||{best:0}).best);setScore(id,{best,last:r});
+  $("res").innerHTML=`<div class="result"><span class="mono">Final score</span><div class="big">${r} / ${n}</div><p style="color:var(--dim)">NEET marks: ${r*4-(n-r)} / ${n*4} · Best: ${best}/${n}</p><div class="row"><button class="btn" id="again">Try again</button><a class="btn ghost" href="index.html">Dashboard</a></div></div>`;
+  $("again").onclick=start;$("res").scrollIntoView({behavior:"smooth",block:"center"})}}
+$("prev").onclick=()=>show(cur-1);$("next").onclick=()=>show(cur+1);
+$("reset").onclick=start;
+$("shuf").onclick=e=>{shuffle=!shuffle;e.currentTarget.setAttribute("aria-pressed",shuffle);start()};
+addEventListener("keydown",e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;
+ if(e.key==="ArrowRight")show(cur+1);else if(e.key==="ArrowLeft")show(cur-1);
+ else{const j="abcd1234".indexOf(e.key.toLowerCase());if(j>-1){const b=$("qs").querySelectorAll(".opt")[j%4];b&&!b.disabled&&b.click()}}});
+start();
+</script></body></html>

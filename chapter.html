@@ -1,0 +1,17 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter</title><link rel="stylesheet" href="site.css"></head><body>
+<header class="bar"><div class="wrap"><a class="brand" href="index.html"><i></i>Interactive NCERT</a><span class="crumb" id="crumb"></span><span class="sp"></span><a class="chip" id="prac">Practice MCQs →</a><button class="chip" data-theme-btn></button></div></header>
+<iframe class="viewer" id="v" title="Chapter"></iframe>
+<script src="data.js"></script><script src="site.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get("c"),c=window.CHAPTERS[id]&&chapterOf(id);
+if(!c){location.replace("index.html")}else{
+ document.title=c.title;
+ document.getElementById("crumb").innerHTML=`<a href="index.html">Class ${c.cls}</a> / `;document.getElementById("crumb").append(c.title);
+ document.getElementById("prac").href="practice.html?c="+id;
+ const v=document.getElementById("v");v.src=encodeURI(c.file);v.style.background=isLight()?"#f2f6f1":"#0f1612";
+ v.onload=()=>{try{ if(!isLight()){const d=v.contentDocument;const s=d.createElement("style");s.id="dm";s.textContent="html{filter:invert(.92) hue-rotate(180deg)}img,svg image,video{filter:invert(1) hue-rotate(180deg)}";d.head.appendChild(s)}}catch(e){}};
+ const old=window.toggleTheme;window.toggleTheme=()=>{old();try{const d=v.contentDocument;const e=d.getElementById("dm");if(isLight()){e&&e.remove()}else if(!e){v.onload()}}catch(x){}};
+ document.querySelectorAll("[data-theme-btn]").forEach(b=>b.onclick=window.toggleTheme);
+}
+</script></body></html>

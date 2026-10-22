@@ -1,0 +1,1270 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sexual Reproduction in Flowering Plants</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 1</span>
+      <h1>Sexual Reproduction in Flowering Plants</h1>
+      <p class="lede">From anther and ovule to pollination, double fertilisation, seed and fruit. Work through each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">9 topics</span>
+        <span class="pill">10 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Double fertilisation">
+      <span class="fig-label">Double fertilisation, unique to flowering plants</span>
+      <span class="eq">Male gamete + Egg → Zygote (2n)</span>
+      <span class="over">syngamy</span>
+      <span class="eq">Male gamete + 2 Polar nuclei → PEN (3n)</span>
+      <span class="over">triple fusion</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#anther"><span class="n">1</span>Anther</a>
+      <a href="#pollen"><span class="n">2</span>Pollen grain</a>
+      <a href="#ovule"><span class="n">3</span>Ovule</a>
+      <a href="#embryosac"><span class="n">4</span>Embryo sac</a>
+      <a href="#pollination"><span class="n">5</span>Pollination</a>
+      <a href="#pistil"><span class="n">6</span>Pollen–pistil</a>
+      <a href="#double"><span class="n">7</span>Double fertilisation</a>
+      <a href="#post"><span class="n">8</span>Seed &amp; fruit</a>
+      <a href="#apomixis"><span class="n">9</span>Apomixis</a>
+      <a href="#quiz"><span class="n">10</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 ANTHER -->
+<section class="topic" id="anther">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>The flower, the stamen and the microsporangium</h2>
+    </div>
+    <div class="prose stack">
+      <p>Flowers are the sites of sexual reproduction in angiosperms. Long before a flower is seen, hormonal and structural changes start the floral primordium. In the flower, the <strong>androecium</strong> (a whorl of stamens) is the male reproductive organ and the <strong>gynoecium</strong> is the female one.</p>
+      <p>A stamen has a long slender <strong>filament</strong> and a terminal, generally bilobed <strong>anther</strong>. A typical angiosperm anther is <strong>bilobed</strong>, and each lobe has two theca: it is <strong>dithecous</strong>. In transverse section the anther is four-sided (<strong>tetragonal</strong>), with <strong>four microsporangia</strong> at the corners, two in each lobe. The microsporangia become <strong>pollen sacs</strong>, packed with pollen grains.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Wall layers of a microsporangium</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls" id="ms-seg" role="group" aria-label="Layer">
+        <button class="btn" data-l="epi">Epidermis</button>
+        <button class="btn" data-l="endo">Endothecium</button>
+        <button class="btn" data-l="mid">Middle layers</button>
+        <button class="btn" data-l="tap">Tapetum</button>
+        <button class="btn" data-l="spo">Sporogenous tissue</button>
+      </div>
+      <div class="svg-scroll"><svg id="mssvg" viewBox="0 0 560 300" role="img" aria-label="Transverse section of one microsporangium: epidermis outside, then endothecium, middle layers and tapetum, with sporogenous tissue in the centre"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="ms-t"></div></div>
+      <p class="fig-note">Diagram after NCERT Fig 1.3b, not to scale.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span>The <strong>outer three layers</strong> (epidermis, endothecium, middle layers) protect and help <strong>dehiscence</strong>. The innermost <strong>tapetum nourishes</strong> the developing pollen; its cells have dense cytoplasm and generally <strong>more than one nucleus</strong>.</div>
+  </div>
+</section>
+
+<!-- 2 POLLEN -->
+<section class="topic" id="pollen">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Microsporogenesis and the pollen grain</h2>
+    </div>
+    <div class="prose stack">
+      <p>Each cell of the sporogenous tissue can form a microspore tetrad, so each is a potential <strong>pollen mother cell (PMC)</strong>, also called microspore mother cell. Forming microspores from a PMC by <strong>meiosis</strong> is <strong>microsporogenesis</strong>. Pollen grains are the <strong>male gametophytes</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>From pollen mother cell to pollen grain</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="pl-prev">← Back</button>
+        <button class="btn primary" id="pl-next">Next step →</button>
+        <button class="btn" id="pl-all">Show whole sequence</button>
+      </div>
+      <div class="svg-scroll"><svg id="plsvg" viewBox="0 0 640 210" role="img" aria-label="Pollen mother cell divides by meiosis into a tetrad of microspores, which separate and mature into a 2-celled pollen grain with a vegetative and a generative cell; in some species the generative cell divides into two male gametes"></svg></div>
+      <div class="readout">
+        <div><b id="pl-cell">PMC</b><span>Stage</span></div>
+        <div><b id="pl-plo">2n</b><span>Ploidy</span></div>
+        <div><b id="pl-div">—</b><span>Division leading here</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="pl-k">Step 1 of 5</div><div id="pl-t"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="stack">
+        <h3>The pollen wall</h3>
+        <p>Pollen grains are generally spherical, about <strong>25–50 µm</strong> across, with a two-layered wall.</p>
+        <ul class="clean">
+          <li><strong>Exine</strong>: hard outer layer of <strong>sporopollenin</strong>, one of the most resistant organic materials known. It withstands high temperature, strong acids and alkali; <strong>no enzyme that degrades it is known</strong>. Pollen fossils are well preserved because of it.</li>
+          <li><strong>Germ pores</strong>: apertures in the exine where sporopollenin is <strong>absent</strong>.</li>
+          <li><strong>Intine</strong>: thin, continuous inner layer of <strong>cellulose and pectin</strong>.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Pollen and people</h3>
+        <ul class="clean">
+          <li>Pollen of many species causes <strong>allergies</strong> and bronchial afflictions (asthma, bronchitis). <strong><em>Parthenium</em></strong> (carrot grass), which came to India with imported wheat, causes pollen allergy.</li>
+          <li>Pollen is rich in nutrients; pollen tablets and syrups are sold as food supplements.</li>
+          <li>Viability: <strong>rice and wheat lose it within 30 minutes</strong>; some Rosaceae, Leguminoseae and Solanaceae keep it for <strong>months</strong>.</li>
+          <li>Pollen can be stored for years in <strong>liquid nitrogen (−196 °C)</strong> in <strong>pollen banks</strong>, for crop breeding.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 OVULE -->
+<section class="topic" id="ovule">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>The pistil and the ovule</h2>
+    </div>
+    <div class="prose stack">
+      <p>The gynoecium may be a single pistil (<strong>monocarpellary</strong>) or many (<strong>multicarpellary</strong>). Multiple pistils may be fused (<strong>syncarpous</strong>, e.g. <em>Papaver</em>) or free (<strong>apocarpous</strong>, e.g. <em>Michelia</em>). Each pistil has a <strong>stigma</strong> (landing platform for pollen), a <strong>style</strong> and an <strong>ovary</strong>. Inside the ovarian cavity (locule) is the <strong>placenta</strong>, from which the <strong>ovules (megasporangia)</strong> arise.</p>
+      <p>Ovules per ovary: <strong>one</strong> in wheat, paddy, mango; <strong>many</strong> in papaya, watermelon, orchids.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Parts of an anatropous ovule</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls" id="ov-seg" role="group" aria-label="Ovule part"></div>
+      <div class="svg-scroll"><svg id="ovsvg" viewBox="0 0 600 320" role="img" aria-label="Ovule attached by a funicle at the hilum, with outer and inner integuments leaving a micropyle at one end, chalaza at the other, nucellus inside and an embryo sac within the nucellus"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="ov-t"></div></div>
+      <p class="fig-note">Simplified after NCERT Fig 1.7d. In an anatropous ovule the micropyle lies close to the funicle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 EMBRYO SAC -->
+<section class="topic" id="embryosac">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Megasporogenesis and the embryo sac</h2>
+    </div>
+    <div class="prose stack">
+      <p>Forming megaspores from the <strong>megaspore mother cell (MMC)</strong> is <strong>megasporogenesis</strong>. Ovules generally differentiate a single MMC in the <strong>micropylar region of the nucellus</strong>: a large cell with dense cytoplasm and a prominent nucleus. It divides by <strong>meiosis</strong> into four megaspores.</p>
+      <p>In most flowering plants <strong>one megaspore is functional</strong> and the other three degenerate. Forming the embryo sac from a single megaspore is <strong>monosporic development</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Building the female gametophyte</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="es-prev">← Back</button>
+        <button class="btn primary" id="es-next">Next step →</button>
+        <button class="btn" id="es-all">Show mature embryo sac</button>
+      </div>
+      <div class="svg-scroll"><svg id="essvg" viewBox="0 0 640 250" role="img" aria-label="Megaspore mother cell, tetrad of megaspores, functional megaspore, then 2, 4 and 8-nucleate embryo sac, then the mature 7-celled embryo sac"></svg></div>
+      <div class="readout">
+        <div><b id="es-n">1</b><span>Nuclei</span></div>
+        <div><b id="es-c">1</b><span>Cells</span></div>
+        <div><b id="es-d">—</b><span>Division</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="es-k">Step 1 of 7</div><div id="es-t"></div></div>
+      <p class="fig-note">Micropylar end on the left, chalazal end on the right. NCERT says only that one megaspore is functional; it is drawn at the chalazal end as in most textbook figures.</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span>The three mitoses are <strong>strictly free nuclear</strong>: no wall forms until the 8-nucleate stage. The mature embryo sac is <strong>8-nucleate but 7-celled</strong>: egg apparatus (2 synergids + 1 egg) at the micropylar end, <strong>3 antipodals</strong> at the chalazal end, and <strong>1 central cell with 2 polar nuclei</strong>.</div>
+  </div>
+</section>
+
+<!-- 5 POLLINATION -->
+<section class="topic" id="pollination">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Pollination</h2>
+    </div>
+    <div class="prose stack">
+      <p>Male and female gametes are both <strong>non-motile</strong>. <strong>Pollination</strong>, the transfer of pollen grains from the anther to the stigma of a pistil, brings them together. Depending on where the pollen comes from, there are three kinds.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Autogamy, geitonogamy, xenogamy</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Kind of pollination" id="pn-seg">
+          <button data-k="auto" aria-pressed="true">Autogamy</button>
+          <button data-k="geit" aria-pressed="false">Geitonogamy</button>
+          <button data-k="xeno" aria-pressed="false">Xenogamy</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="pnsvg" viewBox="0 0 640 260" role="img" aria-label="Two plants: plant 1 with flowers A and B, plant 2 with flower C. Arrows show pollen moving within flower A, from A to B, or from A to C"></svg></div>
+      <div class="readout">
+        <div><b id="pn-src">Same flower</b><span>Pollen comes from</span></div>
+        <div><b id="pn-gen">Self</b><span>Genetically</span></div>
+        <div><b id="pn-agent">Not needed</b><span>Pollinating agent</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="pn-t"></div></div>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Agents of pollination</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Agent</th><th>Flower features</th><th>NCERT examples</th></tr></thead>
+        <tbody>
+          <tr><td>Wind (commonest abiotic)</td><td>Light, non-sticky pollen; well-exposed stamens; large, often feathery stigma; often a single ovule per ovary; many flowers packed in an inflorescence; not colourful, no nectar</td><td>Grasses; corn cob (the "silk" is stigma and style)</td></tr>
+          <tr><td>Water (rare: about 30 genera, mostly monocots)</td><td>Pollen protected from wetting by mucilage; not colourful, no nectar</td><td><em>Vallisneria</em>, <em>Hydrilla</em> (fresh water); <em>Zostera</em> and other sea-grasses</td></tr>
+          <tr><td>Animals (majority of plants)</td><td>Insect flowers large, colourful, fragrant, rich in nectar; small flowers clustered; sticky pollen; fly/beetle flowers smell foul; rewards are nectar and pollen</td><td>Bees (dominant), butterflies, moths, birds (sunbirds, humming birds), bats; even lemurs, arboreal rodents, gecko and garden lizards</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:1.4rem">
+      <div class="callout"><span class="tag">NEET trap</span>Not all aquatic plants use water. <strong>Water hyacinth and water lily</strong> flowers rise above water and are pollinated by <strong>insects or wind</strong>. In <em>Vallisneria</em> the female flower reaches the surface on a long stalk and male flowers or pollen float to it; in sea-grasses female flowers stay <strong>submerged</strong> and long, ribbon-like pollen travels inside the water.</div>
+      <div class="callout"><span class="tag">Remember</span><strong><em>Amorphophallus</em></strong> (tallest flower, about 6 feet) offers a safe place to lay eggs. <strong><em>Yucca</em> and its moth</strong> cannot complete their life cycles without each other: the moth lays eggs in the ovary locule and pollinates the flower. Visitors that take pollen or nectar without pollinating are <strong>pollen/nectar robbers</strong>.</div>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.6rem">Cleistogamy and outbreeding devices</h3>
+    <div class="prose stack">
+      <p><em>Viola</em> (common pansy), <em>Oxalis</em> and <em>Commelina</em> make two kinds of flowers: <strong>chasmogamous</strong> (open, with exposed anthers and stigma) and <strong>cleistogamous</strong> (never open). Cleistogamous flowers are <strong>invariably autogamous</strong> and give <strong>assured seed-set</strong> even without pollinators.</p>
+      <p>Most flowers are bisexual, and continued self-pollination causes <strong>inbreeding depression</strong>. Plants have evolved devices to discourage it.</p>
+    </div>
+    <div class="figure">
+      <div class="fig-head">
+        <h3>What does each device prevent?</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls" id="ob-list" role="group" aria-label="Outbreeding device"></div>
+      <div class="readout">
+        <div><b id="ob-a">—</b><span>Prevents autogamy</span></div>
+        <div><b id="ob-g">—</b><span>Prevents geitonogamy</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="ob-t">Pick a device.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 POLLEN-PISTIL -->
+<section class="topic" id="pistil">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Pollen–pistil interaction and artificial hybridisation</h2>
+    </div>
+    <div class="prose stack">
+      <p>Pollination does not guarantee the right pollen. The pistil <strong>recognises</strong> whether pollen is compatible (right type, same species) or incompatible. Compatible pollen is accepted; incompatible pollen is rejected by preventing <strong>germination on the stigma</strong> or <strong>pollen tube growth in the style</strong>. This is a continuous <strong>chemical dialogue</strong> between pollen and pistil.</p>
+      <p>After compatible pollination the pollen grain germinates through <strong>one of the germ pores</strong>. The tube grows through stigma and style to the ovary. If pollen was shed 2-celled, the generative cell divides into two male gametes <strong>during tube growth in the stigma</strong>; 3-celled pollen carries both gametes from the start. The tube enters the ovule through the <strong>micropyle</strong>, then one <strong>synergid</strong> through the <strong>filiform apparatus</strong>, which guides it. Everything from pollen landing to the tube entering the ovule is <strong>pollen–pistil interaction</strong>.</p>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span>Pollen germination is easy to see: dust pollen of pea, chickpea, <em>Crotalaria</em>, balsam or <em>Vinca</em> on a drop of about <strong>10% sugar solution</strong>; tubes appear in <strong>15–30 minutes</strong>.</div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Steps of artificial hybridisation</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Female parent flower type">
+          <button id="hy-bi" aria-pressed="true">Female parent bisexual</button>
+          <button id="hy-uni" aria-pressed="false">Female parent unisexual</button>
+        </div>
+      </div>
+      <div class="ledger" id="hy-list"></div>
+      <div class="step-box" aria-live="polite"><div id="hy-t"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 DOUBLE FERTILISATION -->
+<section class="topic" id="double">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>Double fertilisation</h2>
+    </div>
+    <div class="prose stack">
+      <p>Two fusions take place in one embryo sac: <strong>syngamy</strong> and <strong>triple fusion</strong>. The phenomenon is <strong>double fertilisation</strong>, an event <strong>unique to flowering plants</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Inside the embryo sac</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="df-prev">← Back</button>
+        <button class="btn primary" id="df-next">Next step →</button>
+        <button class="btn" id="df-all">Show result</button>
+      </div>
+      <div class="svg-scroll"><svg id="dfsvg" viewBox="0 0 680 260" role="img" aria-label="Pollen tube enters a synergid, releases two male gametes; one fuses with the egg to form the diploid zygote, the other with the two polar nuclei to form the triploid primary endosperm nucleus"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="df-k">Step 1 of 5</div><div id="df-t"></div></div>
+      <p class="fig-note">After NCERT Figs 1.12e and 1.13a. Micropylar end on the left.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Ploidy check</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls" id="pd-list" role="group" aria-label="Structure"></div>
+      <div class="readout">
+        <div><b id="pd-v">?</b><span id="pd-l">Pick a structure</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="pd-t">These ploidy questions appear in NCERT's own text and are common in NEET.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 POST-FERTILISATION -->
+<section class="topic" id="post">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>Post-fertilisation: endosperm, embryo, seed and fruit</h2>
+    </div>
+    <div class="prose stack">
+      <p>Endosperm and embryo development, ovules maturing into seeds, and the ovary into fruit are together the <strong>post-fertilisation events</strong>.</p>
+      <p><strong>Endosperm development precedes embryo development.</strong> The primary endosperm cell divides repeatedly into triploid endosperm tissue, filled with reserve food for the embryo. In the most common type, the PEN gives <strong>free nuclei</strong> first (<strong>free-nuclear endosperm</strong>), then walls form (<strong>cellular endosperm</strong>). <strong>Tender coconut water</strong> is free-nuclear endosperm (thousands of nuclei); the white <strong>kernel</strong> is cellular endosperm.</p>
+      <p>Endosperm may be <strong>fully consumed</strong> before seed maturity (pea, groundnut, beans) or <strong>persist</strong> in the seed (castor, coconut) and be used during germination.</p>
+      <p>The embryo develops at the <strong>micropylar end</strong>, where the zygote lies. Most zygotes divide only after some endosperm has formed, to assure nutrition. Embryogeny is similar in monocots and dicots.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head"><h3>Stages of embryo development in a dicot</h3><span class="fig-label">Fig 10</span></div>
+      <div class="svg-scroll"><svg id="stsvg" viewBox="0 0 640 170" role="img" aria-label="Zygote, proembryo, globular embryo, heart-shaped embryo and mature embryo"></svg></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Dicot vs grass embryo</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Embryo type">
+          <button id="em-di" aria-pressed="true">Dicot</button>
+          <button id="em-mo" aria-pressed="false">Grass (monocot)</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="emsvg" viewBox="0 0 560 330" role="img" aria-label="Labelled embryo diagram"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="em-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 1.14.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">The seed</h3>
+    <div class="prose stack">
+      <p>The seed, the final product of sexual reproduction, is often called a <strong>fertilised ovule</strong>. It has seed coat(s), cotyledon(s) and an embryo axis. <strong>Integuments harden into seed coats</strong>; the micropyle stays as a pore letting in O<sub>2</sub> and water. Seeds dry to <strong>10–15% moisture by mass</strong> and may enter <strong>dormancy</strong>, or germinate if moisture, oxygen and temperature are suitable.</p>
+    </div>
+    <div class="table-scroll" style="margin-top:1rem">
+      <table>
+        <thead><tr><th>Term</th><th>Meaning</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td>Non-albuminous (ex-albuminous)</td><td>No residual endosperm; used up by the embryo</td><td>Pea, groundnut</td></tr>
+          <tr><td>Albuminous</td><td>Part of the endosperm remains</td><td>Wheat, maize, barley, castor</td></tr>
+          <tr><td>Perisperm</td><td>Residual, persistent <strong>nucellus</strong></td><td>Black pepper, beet</td></tr>
+          <tr><td>Pericarp</td><td>Fruit wall, from the ovary wall</td><td>Fleshy: guava, orange, mango. Dry: groundnut, mustard</td></tr>
+          <tr><td>False fruit</td><td><strong>Thalamus</strong> also forms the fruit</td><td>Apple, strawberry, cashew</td></tr>
+          <tr><td>Parthenocarpic fruit</td><td>Develops <strong>without fertilisation</strong>; seedless; can be induced by growth hormones</td><td>Banana</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.8rem">Names and records to match</h3>
+    <div class="timeline">
+      <div><span class="yr">10,000 years</span><b><em>Lupinus arcticus</em></b><p>Oldest viable seed: excavated from Arctic Tundra, germinated and flowered.</p></div>
+      <div><span class="yr">2,000 years</span><b><em>Phoenix dactylifera</em></b><p>Date palm seed from King Herod's palace near the Dead Sea.</p></div>
+      <div><span class="yr">Tiny seeds, huge numbers</span><b>Orchids, <em>Orobanche</em>, <em>Striga</em>, <em>Ficus</em></b><p>Fruits with thousands of tiny seeds.</p></div>
+      <div><span class="yr">1904–1966</span><b>Panchanan Maheshwari</b><p>Embryology in taxonomy; test tube fertilisation and intra-ovarian pollination; first NCERT Biology textbooks (1964).</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:1.4rem"><span class="tag">Remember</span>Advantages of seeds: pollination and fertilisation are <strong>independent of water</strong>; better <strong>dispersal</strong>; <strong>food reserves</strong> for seedlings; a hard coat to <strong>protect</strong> the embryo; new <strong>genetic combinations</strong>. Dehydration and dormancy let seeds be <strong>stored</strong>, the basis of agriculture.</div>
+  </div>
+</section>
+
+<!-- 9 APOMIXIS -->
+<section class="topic" id="apomixis">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 9</span>
+      <h2>Apomixis and polyembryony</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Apomixis</strong> is producing <strong>seeds without fertilisation</strong>, seen in some <strong>Asteraceae and grasses</strong>. It is a form of <strong>asexual reproduction that mimics sexual reproduction</strong>.</p>
+      <ul class="clean">
+        <li>A <strong>diploid egg</strong> forms without reduction division and develops into an embryo without fertilisation.</li>
+        <li>More often, as in many <strong><em>Citrus</em> and mango</strong> varieties, <strong>nucellar cells</strong> around the embryo sac divide, protrude into it and become embryos.</li>
+      </ul>
+      <p>More than one embryo in a seed is <strong>polyembryony</strong>. Squeeze an orange seed and you can see several embryos of different sizes.</p>
+    </div>
+    <div class="two-col" style="margin-top:1.2rem">
+      <div class="callout"><span class="tag">NEET trap</span>Fruit without fertilisation is <strong>parthenocarpy</strong>; seed without fertilisation is <strong>apomixis</strong>. Nucellar embryos come from <strong>diploid maternal</strong> tissue, so they are genetically like the parent.</div>
+      <div class="callout"><span class="tag">Remember</span>Hybrid seed must be bought every year because the progeny <strong>segregate</strong>. If hybrids were made <strong>apomictic</strong>, there would be no segregation and farmers could reuse their seed. Hence the research on apomixis genes for the hybrid seed industry.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 10</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>4 microsporangia</b><span>Anther is bilobed, dithecous, tetrasporangiate</span></div>
+      <div><b>25–50 µm</b><span>Usual diameter of a pollen grain</span></div>
+      <div><b>&gt; 60%</b><span>Angiosperms shedding pollen at the 2-celled stage</span></div>
+      <div><b>30 min · −196 °C</b><span>Rice/wheat pollen viability · liquid nitrogen pollen banks</span></div>
+      <div><b>8 nuclei · 7 cells</b><span>Mature angiosperm embryo sac</span></div>
+      <div><b>2n · 3n</b><span>Zygote (syngamy) · primary endosperm nucleus (triple fusion)</span></div>
+      <div><b>~30 genera</b><span>Water-pollinated, mostly monocots</span></div>
+      <div><b>10–15%</b><span>Moisture in a mature seed, by mass</span></div>
+      <div><b>10,000 years</b><span><em>Lupinus arcticus</em>, oldest viable seed</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Sexual Reproduction in Flowering Plants". Lecture 4 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    let defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const segPick = (sel, attr, val) => $$(sel).forEach(b => b.setAttribute("aria-pressed", b.dataset[attr] === val));
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Fig 1 Microsporangium ---------- */
+  const ms = $("#mssvg");
+  (function () {
+    const cx = 170, cy = 150;
+    const G = id => el("g", { class: "zg", id: "ms-" + id }, ms);
+    const gS = G("spo");
+    el("circle", { cx, cy, r: 76, class: "f-leafsoft" }, gS);
+    for (let x = -66; x <= 66; x += 14) for (let y = -66; y <= 66; y += 14) {
+      if (x * x + y * y > 62 * 62) continue;
+      el("circle", { cx: cx + x, cy: cy + y, r: 6, class: "f-card s-leaf", "stroke-width": 0.8 }, gS);
+      el("circle", { cx: cx + x, cy: cy + y, r: 1.8, class: "f-ink" }, gS);
+    }
+    const gT = G("tap");
+    el("circle", { cx, cy, r: 84, class: "f-none s-sun", "stroke-width": 12 }, gT);
+    for (let a = 0; a < 360; a += 15) {
+      const r = a * Math.PI / 180, x = cx + 84 * Math.cos(r), y = cy + 84 * Math.sin(r);
+      el("circle", { cx: x - 2, cy: y, r: 1.6, class: "f-ink" }, gT);
+      el("circle", { cx: x + 2, cy: y, r: 1.6, class: "f-ink" }, gT);
+    }
+    const gM = G("mid");
+    el("circle", { cx, cy, r: 94, class: "f-none s-muted", "stroke-width": 1.5 }, gM);
+    el("circle", { cx, cy, r: 101, class: "f-none s-muted", "stroke-width": 1.5 }, gM);
+    const gE = G("endo");
+    el("circle", { cx, cy, r: 112, class: "f-none s-leaf", "stroke-width": 12 }, gE);
+    for (let a = 0; a < 360; a += 10) { const r = a * Math.PI / 180; el("line", { x1: cx + 106 * Math.cos(r), y1: cy + 106 * Math.sin(r), x2: cx + 118 * Math.cos(r), y2: cy + 118 * Math.sin(r), class: "s-card", style: "stroke: var(--card)", "stroke-width": 1.2 }, gE); }
+    const gEp = G("epi");
+    el("circle", { cx, cy, r: 123, class: "f-none s-ink", "stroke-width": 4 }, gEp);
+    const lab = [["epi", 123, -60, "Epidermis"], ["endo", 112, -35, "Endothecium"], ["mid", 98, -10, "Middle layers"], ["tap", 84, 15, "Tapetum"]];
+    lab.forEach(([id, r, a, s]) => {
+      const t = a * Math.PI / 180, x = cx + r * Math.cos(t), y = cy + r * Math.sin(t);
+      el("line", { x1: x, y1: y, x2: 330, y2: y, class: "s-muted", "stroke-width": 1 }, ms);
+      txt(ms, 336, y + 4, s, { "font-weight": 500 });
+    });
+    el("polyline", { points: `${cx + 30},${cy + 30} 300,218 330,218`, class: "f-none s-muted", "stroke-width": 1 }, ms);
+    txt(ms, 336, 222, "Sporogenous tissue (PMCs)", { "font-weight": 500 });
+  })();
+  const msText = {
+    none: "Pick a layer. Four wall layers surround the sporogenous tissue: <strong>epidermis, endothecium, middle layers, tapetum</strong> (outside to inside).",
+    epi: "<div class='k'>Epidermis</div>Outermost wall layer. With the endothecium and middle layers it <strong>protects</strong> the microsporangium and helps <strong>dehiscence</strong> of the anther.",
+    endo: "<div class='k'>Endothecium</div>Second layer. One of the outer three layers that <strong>protect</strong> and help the anther <strong>dehisce</strong> to release pollen.",
+    mid: "<div class='k'>Middle layers</div>Third of the outer protective layers; also help in dehiscence.",
+    tap: "<div class='k'>Tapetum</div>The <strong>innermost</strong> wall layer. It <strong>nourishes the developing pollen grains</strong>. Its cells have <strong>dense cytoplasm</strong> and generally <strong>more than one nucleus</strong> (drawn here as two dots).",
+    spo: "<div class='k'>Sporogenous tissue</div>In a young anther, compactly arranged, <strong>homogenous</strong> cells occupy the centre of each microsporangium. Each can form a microspore tetrad, so each is a potential <strong>pollen mother cell</strong>."
+  };
+  let msL = "none";
+  const renderMs = () => {
+    ms.classList.toggle("dim", msL !== "none");
+    ["epi", "endo", "mid", "tap", "spo"].forEach(k => $("#ms-" + k).classList.toggle("on", k === msL));
+    segPick("#ms-seg button", "l", msL);
+    $("#ms-t").innerHTML = msText[msL];
+  };
+  $$("#ms-seg button").forEach(b => b.addEventListener("click", () => { msL = msL === b.dataset.l ? "none" : b.dataset.l; renderMs(); }));
+  renderMs();
+
+  /* ---------- Fig 2 Pollen development ---------- */
+  const pl = $("#plsvg");
+  marker(pl, "m2", "--ink");
+  (function () {
+    const xs = [65, 190, 315, 440, 570], y = 95;
+    const P = i => el("g", { class: "zg", id: "pl-" + i }, pl);
+    let g = P(0);
+    el("circle", { cx: xs[0], cy: y, r: 36, class: "f-leafsoft s-leaf", "stroke-width": 1.5 }, g);
+    el("circle", { cx: xs[0], cy: y, r: 12, class: "f-card s-ink", "stroke-width": 1.2 }, g);
+    txt(g, xs[0], 158, "PMC · 2n", { "text-anchor": "middle", "font-weight": 500 });
+    g = P(1);
+    el("circle", { cx: xs[1], cy: y, r: 38, class: "f-none s-muted", "stroke-width": 1.2, "stroke-dasharray": "3 3" }, g);
+    [[-14, -14], [14, -14], [-14, 14], [14, 14]].forEach(([dx, dy]) => {
+      el("circle", { cx: xs[1] + dx, cy: y + dy, r: 17, class: "f-leafsoft s-leaf", "stroke-width": 1.3 }, g);
+      el("circle", { cx: xs[1] + dx, cy: y + dy, r: 4, class: "f-ink" }, g);
+    });
+    txt(g, xs[1], 158, "Tetrad · n", { "text-anchor": "middle", "font-weight": 500 });
+    g = P(2);
+    el("circle", { cx: xs[2], cy: y, r: 30, class: "f-leafsoft s-leaf", "stroke-width": 1.5 }, g);
+    el("circle", { cx: xs[2] + 6, cy: y - 4, r: 7, class: "f-ink" }, g);
+    txt(g, xs[2], 158, "Microspore · n", { "text-anchor": "middle", "font-weight": 500 });
+    const pollen = (g, cx, three) => {
+      el("circle", { cx, cy: y, r: 40, class: "f-none s-sun", "stroke-width": 6, "stroke-dasharray": "112 14" }, g);
+      el("circle", { cx, cy: y, r: 35, class: "f-sunsoft s-sun", "stroke-width": 1 }, g);
+      el("path", { d: `M ${cx - 20} ${y - 6} q 6 -12 16 -4 q 8 -6 12 4 q 2 10 -10 12 q -14 4 -18 -12 z`, class: "f-ink" }, g);
+      if (!three) {
+        el("ellipse", { cx: cx + 10, cy: y + 16, rx: 16, ry: 6, class: "f-card s-ink", "stroke-width": 1.2, transform: `rotate(-20 ${cx + 10} ${y + 16})` }, g);
+        el("circle", { cx: cx + 10, cy: y + 16, r: 2.6, class: "f-ink" }, g);
+      } else {
+        [[2, 14], [18, 20]].forEach(([dx, dy]) => { el("ellipse", { cx: cx + dx, cy: y + dy, rx: 8, ry: 4.5, class: "f-card s-ink", "stroke-width": 1.2 }, g); el("circle", { cx: cx + dx, cy: y + dy, r: 2.2, class: "f-ink" }, g); });
+      }
+    };
+    g = P(3); pollen(g, xs[3], false);
+    txt(g, xs[3], 158, "2-celled pollen", { "text-anchor": "middle", "font-weight": 500 });
+    txt(g, xs[3], 174, "veg. + generative", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    g = P(4); pollen(g, xs[4], true);
+    txt(g, xs[4], 158, "3-celled pollen", { "text-anchor": "middle", "font-weight": 500 });
+    txt(g, xs[4], 174, "veg. + 2 gametes", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(g, xs[4] + 44, y - 36, "germ pore", { "font-size": 9, class: "t-sun", "text-anchor": "middle" });
+    for (let i = 0; i < 4; i++) el("line", { x1: xs[i] + 44, y1: y, x2: xs[i + 1] - 46, y2: y, class: "s-ink", "stroke-width": 1.4, "marker-end": "url(#m2)" }, pl);
+    txt(pl, (xs[0] + xs[1]) / 2, y - 8, "meiosis", { "text-anchor": "middle", "font-size": 9, class: "t-red" });
+    txt(pl, (xs[3] + xs[4]) / 2, y - 8, "mitosis", { "text-anchor": "middle", "font-size": 9, class: "t-red" });
+    txt(pl, 320, 200, "exine (thick, sporopollenin) · intine (thin, cellulose + pectin)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+  })();
+  const plSteps = [
+    ["PMC", "2n", "—", "Each cell of the sporogenous tissue is a <strong>pollen (microspore) mother cell</strong>, diploid."],
+    ["Tetrad", "n", "Meiosis", "The PMC undergoes <strong>meiosis</strong> (microsporogenesis), giving a cluster of four haploid cells: the <strong>microspore tetrad</strong>."],
+    ["Microspore", "n", "—", "As the anthers mature and <strong>dehydrate</strong>, the microspores dissociate from each other and develop into pollen grains. Several thousand form in each microsporangium."],
+    ["Pollen", "n", "Mitosis", "A mature pollen grain has two cells. The <strong>vegetative cell</strong> is bigger, with abundant food and a <strong>large irregular nucleus</strong>. The <strong>generative cell</strong> is small, <strong>spindle-shaped</strong> with dense cytoplasm, floating in the vegetative cell. <strong>Over 60%</strong> of angiosperms shed pollen at this <strong>2-celled stage</strong>."],
+    ["Pollen", "n", "Mitosis", "In the remaining species the generative cell divides <strong>mitotically</strong> into <strong>two male gametes</strong> before shedding: the <strong>3-celled stage</strong>."]
+  ];
+  let plS = 0, plAll = false;
+  function renderPl() {
+    $$(".zg", pl).forEach(n => n.classList.remove("on"));
+    if (plAll) {
+      pl.classList.remove("dim");
+      $("#pl-k").textContent = "Whole sequence";
+      $("#pl-t").innerHTML = "Sporogenous tissue → PMC (2n) → <strong>meiosis</strong> → microspore tetrad (n) → microspores → pollen grain (2-celled) → generative cell <strong>mitosis</strong> → 2 male gametes.";
+      $("#pl-prev").disabled = true; $("#pl-next").disabled = false; return;
+    }
+    pl.classList.add("dim");
+    $("#pl-" + plS).classList.add("on");
+    const s = plSteps[plS];
+    $("#pl-cell").textContent = s[0]; $("#pl-plo").textContent = s[1]; $("#pl-div").textContent = s[2];
+    $("#pl-k").textContent = `Step ${plS + 1} of 5`; $("#pl-t").innerHTML = s[3];
+    $("#pl-prev").disabled = plS === 0; $("#pl-next").disabled = plS === 4;
+  }
+  $("#pl-next").addEventListener("click", () => { plS = plAll ? 0 : Math.min(plS + 1, 4); plAll = false; renderPl(); });
+  $("#pl-prev").addEventListener("click", () => { plS = Math.max(plS - 1, 0); plAll = false; renderPl(); });
+  $("#pl-all").addEventListener("click", () => { plAll = true; renderPl(); });
+  renderPl();
+
+  /* ---------- Fig 3 Ovule ---------- */
+  const ov = $("#ovsvg");
+  marker(ov, "m3", "--ink");
+  (function () {
+    const cx = 330, cy = 140;
+    const arc = (rx, ry, g) => {
+      const a1 = Math.PI + g, a2 = 3 * Math.PI - g;
+      const p = a => [cx + rx * Math.cos(a), cy + ry * Math.sin(a)];
+      const [x1, y1] = p(a1), [x2, y2] = p(a2);
+      return `M ${x1} ${y1} A ${rx} ${ry} 0 1 1 ${x2} ${y2}`;
+    };
+    const G = id => el("g", { class: "zg", id: "ov-" + id }, ov);
+    const gF = G("fun");
+    el("path", { d: "M 175 318 C 185 290, 215 268, 248 246", class: "f-none s-leaf", "stroke-width": 16, "stroke-linecap": "round" }, gF);
+    txt(gF, 110, 300, "Funicle", { "font-weight": 500 });
+    const gNu = G("nuc");
+    el("ellipse", { cx, cy, rx: 112, ry: 76, class: "f-leafsoft s-leaf", "stroke-width": 1 }, gNu);
+    txt(gNu, 400, 108, "Nucellus", { "font-weight": 500, "text-anchor": "middle" });
+    const gI2 = G("inn");
+    el("path", { d: arc(124, 88, 0.2), class: "f-none s-sun", "stroke-width": 10 }, gI2);
+    const gI1 = G("out");
+    el("path", { d: arc(144, 106, 0.16), class: "f-none s-ink", "stroke-width": 12, "stroke-opacity": 0.75 }, gI1);
+    const gEs = G("es");
+    el("ellipse", { cx: 310, cy, rx: 64, ry: 28, class: "f-card s-ink", "stroke-width": 1.3 }, gEs);
+    [[262, 132], [262, 148], [278, 140]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 6, class: "f-sunsoft s-sun" }, gEs));
+    [[352, 130], [362, 142], [352, 152]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 6, class: "f-leafsoft s-leaf" }, gEs));
+    el("circle", { cx: 306, cy: 136, r: 3.5, class: "f-ink" }, gEs); el("circle", { cx: 314, cy: 144, r: 3.5, class: "f-ink" }, gEs);
+    txt(gEs, 310, 186, "Embryo sac", { "font-weight": 500, "text-anchor": "middle" });
+    const gM = G("mic");
+    el("line", { x1: 120, y1: 140, x2: 172, y2: 140, class: "s-ink", "stroke-width": 1.4, "marker-end": "url(#m3)" }, gM);
+    txt(gM, 20, 144, "Micropyle", { "font-weight": 500 });
+    const gC = G("cha");
+    el("ellipse", { cx: 470, cy, rx: 12, ry: 30, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, gC);
+    txt(gC, 494, 144, "Chalaza", { "font-weight": 500 });
+    const gH = G("hil");
+    el("circle", { cx: 250, cy: 244, r: 8, class: "f-sun" }, gH);
+    txt(gH, 268, 280, "Hilum", { "font-weight": 500 });
+    txt(ov, 330, 22, "Outer integument", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    el("line", { x1: 394, y1: 216, x2: 440, y2: 286, class: "s-muted", "stroke-width": 1 }, ov);
+    txt(ov, 444, 296, "Inner integument", { "font-size": 10, class: "t-sun", "font-weight": 500 });
+  })();
+  const ovParts = [
+    ["fun", "Funicle", "The <strong>stalk</strong> attaching the ovule to the placenta."],
+    ["hil", "Hilum", "The region where the body of the ovule <strong>fuses with the funicle</strong>: the junction between ovule and funicle."],
+    ["out", "Integuments", "One or two protective envelopes. They encircle the nucellus except at the tip, where the micropyle forms. After fertilisation they harden into <strong>seed coats</strong>.", ["out", "inn"]],
+    ["mic", "Micropyle", "The small opening left by the integuments at the tip. The pollen tube enters the ovule through it; in the seed it remains as a pore for O₂ and water."],
+    ["cha", "Chalaza", "Opposite the micropylar end: the <strong>basal part</strong> of the ovule."],
+    ["nuc", "Nucellus", "Mass of cells enclosed by the integuments, with <strong>abundant reserve food</strong>. The MMC differentiates in its micropylar region. Its persistent remnant in some seeds is the <strong>perisperm</strong>."],
+    ["es", "Embryo sac", "The <strong>female gametophyte</strong>, located in the nucellus. An ovule generally has a <strong>single embryo sac</strong>, formed from a megaspore."]
+  ];
+  let ovS = null;
+  ovParts.forEach(p => {
+    const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = p[1]; b.dataset.k = p[0];
+    b.addEventListener("click", () => { ovS = ovS === p[0] ? null : p[0]; renderOv(); });
+    $("#ov-seg").appendChild(b);
+  });
+  function renderOv() {
+    ov.classList.toggle("dim", !!ovS);
+    const p = ovParts.find(x => x[0] === ovS);
+    const ids = p ? (p[3] || [p[0]]) : [];
+    $$(".zg", ov).forEach(n => n.classList.toggle("on", ids.includes(n.id.slice(3))));
+    segPick("#ov-seg button", "k", ovS);
+    $("#ov-t").innerHTML = p ? `<div class='k'>${p[1]}</div>${p[2]}` : "Pick a part of the ovule to highlight it.";
+  }
+  renderOv();
+
+  /* ---------- Fig 4 Embryo sac ---------- */
+  const es = $("#essvg");
+  const esSteps = [
+    [1, 1, "—", "A single <strong>megaspore mother cell (MMC)</strong>, diploid, differentiates in the micropylar region of the nucellus. Large, with dense cytoplasm and a prominent nucleus."],
+    [4, 4, "Meiosis", "The MMC divides by <strong>meiosis</strong> into <strong>four haploid megaspores</strong>."],
+    [1, 1, "—", "<strong>One megaspore is functional</strong>; the other three <strong>degenerate</strong>. Only the functional megaspore forms the embryo sac: <strong>monosporic development</strong>."],
+    [2, 1, "Mitosis (free nuclear)", "The nucleus of the functional megaspore divides mitotically. The two nuclei move to <strong>opposite poles</strong>: the <strong>2-nucleate</strong> embryo sac."],
+    [4, 1, "Mitosis (free nuclear)", "A second mitotic division: the <strong>4-nucleate</strong> stage. No cell walls yet."],
+    [8, 1, "Mitosis (free nuclear)", "A third division: the <strong>8-nucleate</strong> stage, four nuclei at each end. All three divisions were <strong>strictly free nuclear</strong>."],
+    [8, 7, "Walls laid down", "Walls form. <strong>Egg apparatus</strong> (2 synergids + egg) at the micropylar end; the synergids carry the <strong>filiform apparatus</strong> that guides the pollen tube. <strong>3 antipodals</strong> at the chalazal end. A large <strong>central cell</strong> holds <strong>2 polar nuclei</strong>, below the egg apparatus. <strong>8-nucleate, 7-celled</strong>."]
+  ];
+  let esS = 0;
+  function drawEs() {
+    es.innerHTML = "";
+    el("ellipse", { cx: 320, cy: 120, rx: 300, ry: 105, class: "f-leafsoft s-leaf", "stroke-width": 1 }, es);
+    txt(es, 34, 240, "micropylar end", { "font-size": 10, class: "t-muted" });
+    txt(es, 606, 240, "chalazal end", { "font-size": 10, class: "t-muted", "text-anchor": "end" });
+    txt(es, 320, 36, "nucellus", { "font-size": 10, class: "t-muted", "text-anchor": "middle" });
+    const nuc = (x, y, r = 5) => el("circle", { cx: x, cy: y, r, class: "f-ink" }, es);
+    if (esS === 0) { el("ellipse", { cx: 170, cy: 120, rx: 52, ry: 42, class: "f-card s-ink", "stroke-width": 1.5 }, es); nuc(170, 120, 12); txt(es, 170, 186, "MMC · 2n", { "text-anchor": "middle", "font-weight": 500 }); }
+    if (esS === 1 || esS === 2) {
+      [130, 200, 270, 340].forEach((x, i) => {
+        const dead = esS === 2 && i < 3, func = esS === 2 && i === 3;
+        el("rect", { x: x - 30, y: 90, width: 60, height: 60, rx: 6, class: dead ? "f-paper s-muted" : func ? "f-sunsoft s-sun" : "f-card s-ink", "stroke-width": 1.4, "stroke-dasharray": dead ? "3 3" : "none" }, es);
+        if (!dead) nuc(x, 120, 8);
+        else { el("line", { x1: x - 14, y1: 106, x2: x + 14, y2: 134, class: "s-muted", "stroke-width": 1.5 }, es); el("line", { x1: x + 14, y1: 106, x2: x - 14, y2: 134, class: "s-muted", "stroke-width": 1.5 }, es); }
+      });
+      txt(es, 235, 176, esS === 1 ? "4 megaspores · n" : "3 degenerate · 1 functional (n)", { "text-anchor": "middle", "font-weight": 500 });
+    }
+    if (esS >= 3) {
+      el("ellipse", { cx: 320, cy: 120, rx: 230, ry: 68, class: "f-card s-ink", "stroke-width": 1.5 }, es);
+      if (esS < 6) {
+        const per = esS === 3 ? 1 : esS === 4 ? 2 : 4;
+        const pos = per === 1 ? [[0, 0]] : per === 2 ? [[0, -16], [0, 16]] : [[-12, -16], [12, -16], [-12, 16], [12, 16]];
+        pos.forEach(([dx, dy]) => { nuc(130 + dx, 120 + dy, 6); nuc(510 + dx, 120 + dy, 6); });
+        el("ellipse", { cx: 320, cy: 120, rx: 90, ry: 34, class: "f-paper", opacity: 0.8 }, es);
+        txt(es, 320, 124, "central vacuole", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+        txt(es, 320, 210, (2 ** (esS - 2)) + "-nucleate embryo sac · n", { "text-anchor": "middle", "font-weight": 500 });
+      } else {
+        const cell = (x, y, rx, ry, cls, lab, ly) => { el("ellipse", { cx: x, cy: y, rx, ry, class: cls, "stroke-width": 1.3 }, es); nuc(x + (cls.includes("sun") ? -10 : 0), y, 4); if (lab) txt(es, x, ly, lab, { "text-anchor": "middle", "font-size": 10 }); };
+        cell(172, 102, 40, 16, "f-sunsoft s-sun"); cell(172, 138, 40, 16, "f-sunsoft s-sun");
+        cell(232, 120, 20, 18, "f-leafsoft s-leaf");
+        for (let k = 0; k < 4; k++) el("line", { x1: 128, y1: 96 + k * 4, x2: 136, y2: 98 + k * 4, class: "s-ink", "stroke-width": 1.2 }, es);
+        for (let k = 0; k < 4; k++) el("line", { x1: 128, y1: 132 + k * 4, x2: 136, y2: 134 + k * 4, class: "s-ink", "stroke-width": 1.2 }, es);
+        [[480, 104], [502, 120], [480, 136]].forEach(([x, y]) => { el("circle", { cx: x, cy: y, r: 14, class: "f-paper s-muted", "stroke-width": 1.3 }, es); nuc(x, y, 4); });
+        nuc(310, 116, 7); nuc(330, 126, 7);
+        txt(es, 172, 78, "2 synergids", { "text-anchor": "middle", "font-size": 10, class: "t-sun", "font-weight": 500 });
+        txt(es, 120, 118, "filiform", { "text-anchor": "end", "font-size": 9, class: "t-muted" });
+        txt(es, 120, 130, "apparatus", { "text-anchor": "end", "font-size": 9, class: "t-muted" });
+        txt(es, 232, 154, "egg", { "text-anchor": "middle", "font-size": 10, class: "t-leaf", "font-weight": 500 });
+        txt(es, 320, 100, "2 polar nuclei", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+        txt(es, 320, 156, "central cell", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+        txt(es, 500, 196, "3 antipodals", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+        txt(es, 320, 210, "Mature embryo sac: 8-nucleate, 7-celled", { "text-anchor": "middle", "font-weight": 500 });
+      }
+    }
+    const s = esSteps[esS];
+    $("#es-n").textContent = s[0]; $("#es-c").textContent = s[1]; $("#es-d").textContent = s[2];
+    $("#es-k").textContent = `Step ${esS + 1} of 7`; $("#es-t").innerHTML = s[3];
+    $("#es-prev").disabled = esS === 0; $("#es-next").disabled = esS === 6;
+  }
+  $("#es-next").addEventListener("click", () => { esS = Math.min(esS + 1, 6); drawEs(); });
+  $("#es-prev").addEventListener("click", () => { esS = Math.max(esS - 1, 0); drawEs(); });
+  $("#es-all").addEventListener("click", () => { esS = 6; drawEs(); });
+  drawEs();
+
+  /* ---------- Fig 5 Pollination kinds ---------- */
+  const pn = $("#pnsvg");
+  marker(pn, "m5", "--sun");
+  (function () {
+    const flower = (x, y, lab) => {
+      for (let k = 0; k < 5; k++) { const a = k * 72 * Math.PI / 180 - Math.PI / 2; el("ellipse", { cx: x + 14 * Math.cos(a), cy: y + 14 * Math.sin(a), rx: 10, ry: 7, class: "f-sunsoft s-sun", "stroke-width": 1, transform: `rotate(${k * 72} ${x + 14 * Math.cos(a)} ${y + 14 * Math.sin(a)})` }, pn); }
+      el("circle", { cx: x, cy: y, r: 6, class: "f-sun" }, pn);
+      txt(pn, x - 28, y + 5, lab, { "text-anchor": "end", "font-weight": 500 });
+    };
+    el("line", { x1: 60, y1: 240, x2: 600, y2: 240, class: "s-muted", "stroke-width": 1.5 }, pn);
+    el("path", { d: "M 180 240 V 140 Q 178 110 120 96 M 180 160 Q 220 120 250 96", class: "f-none s-leaf", "stroke-width": 4, "stroke-linecap": "round" }, pn);
+    el("path", { d: "M 480 240 V 100", class: "f-none s-leaf", "stroke-width": 4, "stroke-linecap": "round" }, pn);
+    flower(118, 92, "A"); flower(252, 92, "B"); flower(480, 90, "C");
+    txt(pn, 180, 258, "Plant 1", { "text-anchor": "middle", class: "t-muted" });
+    txt(pn, 480, 258, "Plant 2", { "text-anchor": "middle", class: "t-muted" });
+    const arr = (id, d) => el("path", { id, d, class: "f-none s-sun", "stroke-width": 2.4, "stroke-dasharray": "6 4", "marker-end": "url(#m5)" }, pn);
+    arr("pn-auto", "M 100 74 C 80 30, 150 30, 128 72");
+    arr("pn-geit", "M 128 70 Q 185 10 242 68");
+    arr("pn-xeno", "M 130 70 Q 300 -10 466 70");
+  })();
+  const pnInfo = {
+    auto: ["Same flower", "Self", "Not needed", "<strong>Autogamy</strong>: pollen from the anther to the stigma of the <strong>same flower</strong>. In open flowers complete autogamy is rare; it needs synchrony of pollen release and stigma receptivity, and anther and stigma close together. <strong>Cleistogamous</strong> flowers are invariably autogamous."],
+    geit: ["Another flower, same plant", "Like autogamy", "Needed", "<strong>Geitonogamy</strong>: pollen to the stigma of <strong>another flower of the same plant</strong>. <strong>Functionally cross-pollination</strong> (it involves an agent), but <strong>genetically similar to autogamy</strong>, since the pollen comes from the same plant."],
+    xeno: ["A different plant", "Different", "Needed", "<strong>Xenogamy</strong>: pollen to the stigma of a <strong>different plant</strong>. The <strong>only type</strong> that brings genetically different pollen to the stigma."]
+  };
+  const setPn = k => {
+    segPick("#pn-seg button", "k", k);
+    ["auto", "geit", "xeno"].forEach(x => $("#pn-" + x).style.display = x === k ? "" : "none");
+    const i = pnInfo[k];
+    $("#pn-src").textContent = i[0]; $("#pn-gen").textContent = i[1]; $("#pn-agent").textContent = i[2]; $("#pn-t").innerHTML = i[3];
+  };
+  $$("#pn-seg button").forEach(b => b.addEventListener("click", () => setPn(b.dataset.k)));
+  setPn("auto");
+
+  /* ---------- Fig 6 Outbreeding ---------- */
+  const ob = [
+    ["Pollen release and stigma receptivity not synchronised", "Yes", "Not stated", "Pollen is released before the stigma is receptive, or the stigma is receptive long before pollen release. NCERT says this device <strong>prevents autogamy</strong>."],
+    ["Anther and stigma at different positions", "Yes", "Not stated", "Pollen cannot reach the stigma of the same flower. NCERT says this device <strong>prevents autogamy</strong>."],
+    ["Self-incompatibility", "Yes", "Yes", "A <strong>genetic mechanism</strong>: self-pollen (from the same flower <strong>or other flowers of the same plant</strong>) is stopped by inhibiting pollen germination or pollen tube growth in the pistil."],
+    ["Monoecy (castor, maize)", "Yes", "No", "Male and female flowers on the <strong>same plant</strong>. Prevents autogamy but <strong>not geitonogamy</strong>."],
+    ["Dioecy (papaya)", "Yes", "Yes", "Male and female flowers on <strong>different plants</strong>. Prevents <strong>both</strong> autogamy and geitonogamy."]
+  ];
+  ob.forEach((o, i) => {
+    const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = o[0];
+    b.addEventListener("click", () => {
+      $$("#ob-list button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      $("#ob-a").textContent = o[1]; $("#ob-g").textContent = o[2]; $("#ob-t").innerHTML = o[3];
+    });
+    $("#ob-list").appendChild(b);
+  });
+
+  /* ---------- Fig 7 Hybridisation ---------- */
+  const hySteps = {
+    bi: [["Choose parents", "Select female and male parents with the desired characters."], ["Emasculation", "Remove the anthers from the flower bud of the female parent <strong>before the anther dehisces</strong>, using forceps."], ["Bagging", "Cover the emasculated flower with a bag, generally of <strong>butter paper</strong>, so no unwanted pollen reaches the stigma."], ["Pollinate", "When the stigma becomes receptive, dust it with mature pollen collected from the male parent."], ["Rebag", "Rebag the flower and allow the fruit to develop."]],
+    uni: [["Choose parents", "Select female and male parents with the desired characters."], ["Emasculation", "<strong>Not needed</strong>: a unisexual female flower has no anthers."], ["Bagging", "Bag the <strong>female flower buds before the flowers open</strong>."], ["Pollinate", "When the stigma becomes receptive, pollinate with the desired pollen."], ["Rebag", "Rebag the flower and let the fruit develop."]]
+  };
+  const setHy = m => {
+    $("#hy-bi").setAttribute("aria-pressed", m === "bi"); $("#hy-uni").setAttribute("aria-pressed", m === "uni");
+    const list = $("#hy-list"); list.innerHTML = "";
+    hySteps[m].forEach(([a, b], i) => {
+      const skip = m === "uni" && i === 1;
+      const d = document.createElement("button"); d.type = "button"; d.disabled = skip;
+      d.setAttribute("aria-pressed", !skip);
+      d.innerHTML = `<span class="box"></span><span class="src"><b>${i + 1}. ${a}</b><small>${b}</small></span><span class="amt">${skip ? "skipped" : ""}</span>`;
+      list.appendChild(d);
+    });
+    $("#hy-t").innerHTML = m === "bi"
+      ? "Artificial hybridisation combines desirable characters of different species or genera. With a <strong>bisexual</strong> female parent, <strong>emasculation and bagging</strong> keep only the desired pollen on the stigma."
+      : "With a <strong>unisexual</strong> female parent there are no anthers to remove, so <strong>emasculation is skipped</strong>; bagging is still essential.";
+  };
+  $("#hy-bi").addEventListener("click", () => setHy("bi"));
+  $("#hy-uni").addEventListener("click", () => setHy("uni"));
+  setHy("bi");
+
+  /* ---------- Fig 8 Double fertilisation ---------- */
+  const dfs = $("#dfsvg");
+  const dfSteps = [
+    "The <strong>pollen tube</strong> enters the ovule through the <strong>micropyle</strong>, then enters <strong>one of the synergids</strong> through the <strong>filiform apparatus</strong>.",
+    "The tube releases <strong>two male gametes</strong> into the cytoplasm of the synergid.",
+    "<strong>Syngamy</strong>: one male gamete moves to the <strong>egg cell</strong> and fuses with its nucleus, forming a <strong>diploid zygote</strong>.",
+    "<strong>Triple fusion</strong>: the other male gamete fuses with the <strong>two polar nuclei</strong> in the central cell, forming the <strong>triploid primary endosperm nucleus (PEN)</strong>. Three haploid nuclei fuse, hence the name.",
+    "Two fusions in one embryo sac: <strong>double fertilisation</strong>. The central cell becomes the <strong>primary endosperm cell (PEC)</strong> and forms the <strong>endosperm</strong>; the zygote forms the <strong>embryo</strong>."
+  ];
+  let dfS = 0;
+  function drawDf() {
+    dfs.innerHTML = ""; marker(dfs, "m8", "--red");
+    el("ellipse", { cx: 350, cy: 130, rx: 270, ry: 92, class: "f-card s-ink", "stroke-width": 1.5 }, dfs);
+    const nuc = (x, y, r, cls = "f-ink") => el("circle", { cx: x, cy: y, r, class: cls }, dfs);
+    el("path", { d: "M 0 128 C 50 128, 90 112, 132 106", class: "f-none s-sun", "stroke-width": 10, "stroke-linecap": "round", opacity: 0.85 }, dfs);
+    txt(dfs, 8, 154, "pollen tube", { "font-size": 10, class: "t-sun" });
+    el("ellipse", { cx: 170, cy: 106, rx: 42, ry: 17, class: "f-sunsoft s-sun", "stroke-width": 1.3 }, dfs);
+    el("ellipse", { cx: 170, cy: 154, rx: 42, ry: 17, class: dfS >= 4 ? "f-paper s-muted" : "f-sunsoft s-sun", "stroke-width": 1.3 }, dfs);
+    nuc(190, 154, 4);
+    if (dfS === 0) nuc(190, 106, 4);
+    const zyg = dfS >= 2;
+    el("circle", { cx: 246, cy: 130, r: 22, class: zyg ? "f-leaf s-leaf" : "f-leafsoft s-leaf", "stroke-width": 1.5 }, dfs);
+    nuc(246, 130, zyg ? 7 : 5, zyg ? "f-card" : "f-ink");
+    txt(dfs, 246, 182, zyg ? (dfS >= 4 ? "zygote → embryo" : "zygote · 2n") : "egg · n", { "text-anchor": "middle", "font-size": 11, "font-weight": 500, class: "t-leaf" });
+    const pen = dfS >= 3;
+    if (pen) { nuc(350, 126, 11, "f-sun"); txt(dfs, 350, 104, "PEN · 3n", { "text-anchor": "middle", "font-weight": 500, class: "t-sun" }); }
+    else { nuc(340, 122, 7); nuc(362, 132, 7); txt(dfs, 350, 104, "2 polar nuclei · n + n", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 }); }
+    txt(dfs, 350, 160, dfS >= 4 ? "PEC → endosperm (3n)" : "central cell", { "text-anchor": "middle", "font-size": 10, class: dfS >= 4 ? "t-sun" : "t-muted", "font-weight": dfS >= 4 ? 500 : 400 });
+    [[540, 106], [566, 130], [540, 154]].forEach(([x, y]) => { el("circle", { cx: x, cy: y, r: 17, class: "f-paper s-muted", "stroke-width": 1.2 }, dfs); nuc(x, y, 4); });
+    txt(dfs, 553, 210, "antipodals", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(dfs, 170, 78, "synergids", { "text-anchor": "middle", "font-size": 10, class: "t-sun" });
+    if (dfS === 1) { nuc(168, 102, 4.5, "f-red"); nuc(182, 110, 4.5, "f-red"); txt(dfs, 175, 240, "2 male gametes released (n each)", { "text-anchor": "middle", "font-size": 11, class: "t-red", "font-weight": 500 }); }
+    if (dfS === 2) { el("path", { d: "M 188 106 Q 222 104 232 116", class: "f-none s-red", "stroke-width": 1.8, "marker-end": "url(#m8)" }, dfs); nuc(176, 104, 4.5, "f-red"); txt(dfs, 246, 240, "syngamy: n + n = 2n", { "text-anchor": "middle", "font-weight": 500, class: "t-red" }); }
+    if (dfS === 3) { el("path", { d: "M 190 104 Q 280 70 336 114", class: "f-none s-red", "stroke-width": 1.8, "marker-end": "url(#m8)" }, dfs); txt(dfs, 350, 240, "triple fusion: n + n + n = 3n", { "text-anchor": "middle", "font-weight": 500, class: "t-red" }); }
+    if (dfS === 4) txt(dfs, 350, 240, "syngamy + triple fusion = double fertilisation", { "text-anchor": "middle", "font-weight": 500 });
+    $("#df-k").textContent = `Step ${dfS + 1} of 5`; $("#df-t").innerHTML = dfSteps[dfS];
+    $("#df-prev").disabled = dfS === 0; $("#df-next").disabled = dfS === 4;
+  }
+  $("#df-next").addEventListener("click", () => { dfS = Math.min(dfS + 1, 4); drawDf(); });
+  $("#df-prev").addEventListener("click", () => { dfS = Math.max(dfS - 1, 0); drawDf(); });
+  $("#df-all").addEventListener("click", () => { dfS = 4; drawDf(); });
+  drawDf();
+
+  /* ---------- Fig 9 Ploidy ---------- */
+  const pd = [
+    ["Nucellus", "2n", "Sporophytic tissue of the ovule."], ["MMC", "2n", "Diploid; it undergoes meiosis."], ["Functional megaspore", "n", "Product of meiosis."],
+    ["Embryo sac (female gametophyte)", "n", "Formed by mitosis from the haploid megaspore."], ["Egg", "n", "Part of the egg apparatus."], ["Synergid / antipodal", "n", "Cells of the haploid embryo sac."],
+    ["PMC", "2n", "Diploid; undergoes meiosis."], ["Microspore / pollen grain", "n", "Pollen is the male gametophyte."], ["Male gamete", "n", "Formed by mitosis of the generative cell."],
+    ["Zygote", "2n", "Syngamy: n + n."], ["Primary endosperm nucleus / endosperm", "3n", "Triple fusion: n + n + n."], ["Perisperm", "2n", "Residual nucellus."], ["Seed coat (from integuments)", "2n", "Integuments are maternal tissue."]
+  ];
+  pd.forEach(p => {
+    const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = p[0];
+    b.addEventListener("click", () => {
+      $$("#pd-list button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      $("#pd-v").textContent = p[1]; $("#pd-l").textContent = p[0]; $("#pd-t").textContent = p[2];
+    });
+    $("#pd-list").appendChild(b);
+  });
+
+  /* ---------- Fig 10 Embryo stages (static) ---------- */
+  const st = $("#stsvg");
+  marker(st, "m10", "--muted");
+  (function () {
+    const base = 120;
+    const sus = (x, n) => { for (let i = 0; i < n; i++) el("rect", { x: x - 5, y: base + i * 9, width: 10, height: 9, class: "f-paper s-muted", "stroke-width": 1 }, st); };
+    el("circle", { cx: 60, cy: base - 6, r: 12, class: "f-leafsoft s-leaf", "stroke-width": 1.3 }, st);
+    el("rect", { x: 160, y: base - 30, width: 18, height: 14, class: "f-leafsoft s-leaf", "stroke-width": 1 }, st);
+    el("rect", { x: 160, y: base - 16, width: 18, height: 14, class: "f-leafsoft s-leaf", "stroke-width": 1 }, st);
+    sus(169, 3);
+    el("circle", { cx: 300, cy: base - 22, r: 22, class: "f-leafsoft s-leaf", "stroke-width": 1.3 }, st); sus(300, 3);
+    el("path", { d: `M 440 ${base} C 410 ${base - 10}, 405 ${base - 56}, 426 ${base - 58} C 436 ${base - 59}, 440 ${base - 46}, 440 ${base - 40} C 440 ${base - 46}, 444 ${base - 59}, 454 ${base - 58} C 475 ${base - 56}, 470 ${base - 10}, 440 ${base} Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.3 }, st); sus(440, 3);
+    el("path", { d: `M 580 ${base} C 566 ${base - 4}, 566 ${base - 40}, 562 ${base - 90} C 576 ${base - 92}, 578 ${base - 70}, 580 ${base - 54} C 582 ${base - 70}, 584 ${base - 92}, 598 ${base - 90} C 594 ${base - 40}, 594 ${base - 4}, 580 ${base} Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.3 }, st);
+    [["Zygote", 60], ["Proembryo", 169], ["Globular", 300], ["Heart-shaped", 440], ["Mature embryo", 580]].forEach(([s, x]) => txt(st, x, 162, s, { "text-anchor": "middle", "font-weight": 500 }));
+    [[80, 140], [195, 265], [335, 400], [478, 550]].forEach(([a, b]) => el("line", { x1: a, y1: 90, x2: b, y2: 90, class: "s-muted", "stroke-width": 1.2, "marker-end": "url(#m10)" }, st));
+  })();
+
+  /* ---------- Fig 11 Embryo types ---------- */
+  const em = $("#emsvg");
+  function drawEm(mode) {
+    em.innerHTML = "";
+    $("#em-di").setAttribute("aria-pressed", mode === "di"); $("#em-mo").setAttribute("aria-pressed", mode === "mo");
+    const lab = (x, y, tx, ty, s, cls = "") => { el("line", { x1: x, y1: y, x2: tx - 6, y2: ty - 4, class: "s-muted", "stroke-width": 1 }, em); txt(em, tx, ty, s, { "font-weight": 500, class: cls }); };
+    if (mode === "di") {
+      el("ellipse", { cx: 196, cy: 110, rx: 52, ry: 86, class: "f-leafsoft s-leaf", "stroke-width": 1.4, transform: "rotate(-14 196 110)" }, em);
+      el("ellipse", { cx: 284, cy: 110, rx: 52, ry: 86, class: "f-leafsoft s-leaf", "stroke-width": 1.4, transform: "rotate(14 284 110)" }, em);
+      el("rect", { x: 230, y: 30, width: 20, height: 266, rx: 10, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, em);
+      el("path", { d: "M 232 34 Q 240 14 248 34", class: "f-leaf" }, em);
+      el("path", { d: "M 230 290 Q 240 318 250 290 Z", class: "f-paper s-ink", "stroke-width": 1.2 }, em);
+      el("line", { x1: 224, y1: 190, x2: 256, y2: 190, class: "s-muted", "stroke-width": 1, "stroke-dasharray": "3 3" }, em);
+      lab(240, 26, 380, 30, "Plumule (stem tip)");
+      lab(250, 80, 380, 74, "Epicotyl");
+      lab(320, 120, 380, 120, "Cotyledons (2)", "t-leaf");
+      lab(250, 240, 380, 236, "Hypocotyl");
+      lab(244, 286, 380, 280, "Radicle (root tip)");
+      lab(240, 306, 380, 314, "Root cap");
+      txt(em, 30, 194, "level of cotyledons", { "font-size": 10, class: "t-muted" });
+    } else {
+      el("path", { d: "M 230 40 C 120 60, 120 260, 230 290", class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, em);
+      el("rect", { x: 232, y: 40, width: 20, height: 250, rx: 10, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, em);
+      el("path", { d: "M 224 140 C 222 70, 234 30, 242 22 C 250 30, 262 70, 260 140", class: "f-none s-ink", "stroke-width": 2 }, em);
+      [[240, 60], [244, 80], [238, 100]].forEach(([x, y]) => el("ellipse", { cx: x, cy: y, rx: 6, ry: 10, class: "f-leaf", opacity: 0.7 }, em));
+      el("path", { d: "M 222 230 C 220 280, 230 310, 242 316 C 254 310, 264 280, 262 230", class: "f-none s-blue", "stroke-width": 2 }, em);
+      el("path", { d: "M 234 286 Q 242 302 250 286 Z", class: "f-paper s-ink", "stroke-width": 1 }, em);
+      lab(256, 30, 380, 30, "Coleoptile (hollow foliar sheath)");
+      lab(246, 70, 380, 72, "Shoot apex + leaf primordia");
+      lab(252, 160, 380, 140, "Epicotyl (above scutellum)");
+      lab(160, 160, 30, 128, "Scutellum (cotyledon)", "t-leaf");
+      lab(250, 270, 380, 262, "Radicle + root cap");
+      lab(262, 300, 380, 304, "Coleorrhiza (sheath)", "t-blue");
+    }
+    $("#em-t").innerHTML = mode === "di"
+      ? "A typical <strong>dicot embryo</strong> has an <strong>embryonal axis and two cotyledons</strong>. Above the cotyledons is the <strong>epicotyl</strong>, ending in the <strong>plumule</strong> (stem tip). Below is the <strong>hypocotyl</strong>, ending in the <strong>radicle</strong> (root tip) covered by a <strong>root cap</strong>."
+      : "Monocot embryos have <strong>one cotyledon</strong>. In grasses it is the <strong>scutellum</strong>, on one side (lateral) of the axis. The radicle and root cap are enclosed in the <strong>coleorrhiza</strong>. The epicotyl, above the scutellum, has a shoot apex and leaf primordia enclosed in a hollow foliar structure, the <strong>coleoptile</strong>.";
+  }
+  $("#em-di").addEventListener("click", () => drawEm("di"));
+  $("#em-mo").addEventListener("click", () => drawEm("mo"));
+  drawEm("di");
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "A typical angiosperm anther is:", o: ["Monothecous and bisporangiate", "Bilobed, dithecous and tetrasporangiate", "Bilobed, monothecous and tetrasporangiate", "Dithecous and bisporangiate"], a: 1, e: "Each of the two lobes has two theca, and the TS shows four microsporangia at the corners, two in each lobe." },
+    { q: "The innermost wall layer of the microsporangium, which nourishes the developing pollen, is the:", o: ["Endothecium", "Middle layer", "Tapetum", "Epidermis"], a: 2, e: "The tapetum nourishes the pollen. Its cells have dense cytoplasm and generally more than one nucleus. The outer three layers protect and help dehiscence." },
+    { q: "Which statement about sporopollenin is NOT true?", o: ["It forms the exine of the pollen grain", "It withstands high temperature and strong acids and alkali", "It is present at the germ pores", "No enzyme that degrades it is known"], a: 2, e: "Germ pores are apertures where sporopollenin is absent. That is where the pollen tube emerges." },
+    { q: "In over 60 per cent of angiosperms, pollen grains are shed at the:", o: ["Microspore tetrad stage", "2-celled stage", "3-celled stage", "4-celled stage"], a: 1, e: "Over 60% shed pollen with a vegetative and a generative cell. In the rest, the generative cell divides into two male gametes before shedding." },
+    { q: "A typical mature angiosperm embryo sac is:", o: ["7-nucleate and 8-celled", "8-nucleate and 8-celled", "8-nucleate and 7-celled", "4-nucleate and 4-celled"], a: 2, e: "Six nuclei form cells (2 synergids, egg, 3 antipodals); the two polar nuclei share one central cell. So 8 nuclei, 7 cells." },
+    { q: "The filiform apparatus, which guides the pollen tube, is present in the:", o: ["Egg cell", "Antipodals", "Synergids", "Central cell"], a: 2, e: "Synergids have special cellular thickenings at the micropylar tip, the filiform apparatus, which guide the pollen tube into the synergid." },
+    { q: "Which pair is correctly matched?", o: ["Vallisneria: wind pollination", "Water lily: water pollination", "Yucca: a moth lays eggs in the ovary locule and pollinates the flower", "Maize: pollination by insects"], a: 2, e: "The Yucca and its moth cannot complete their life cycles without each other. Vallisneria is water-pollinated, water lily is insect or wind pollinated, maize is wind-pollinated." },
+    { q: "Geitonogamy is:", o: ["Genetically and functionally cross-pollination", "Functionally cross-pollination but genetically similar to autogamy", "Functionally self-pollination but genetically cross-pollination", "Found only in cleistogamous flowers"], a: 1, e: "Pollen goes to another flower using an agent, but it comes from the same plant, so genetically it is like autogamy." },
+    { q: "Which device prevents autogamy but NOT geitonogamy?", o: ["Dioecy, as in papaya", "Self-incompatibility", "Monoecy, as in castor and maize", "None of these"], a: 2, e: "With male and female flowers on the same plant, pollen cannot reach the same flower but can reach another flower of the same plant." },
+    { q: "Assertion (A): Cleistogamous flowers produce assured seed-set even in the absence of pollinators. Reason (R): They do not open, and their anthers dehisce in the bud close to the stigma.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "Because the flowers never open and the anthers lie close to the stigma, they are invariably autogamous, so seed-set is assured." },
+    { q: "Tender coconut water is:", o: ["Cellular endosperm", "Free-nuclear endosperm", "Perisperm", "Nucellus"], a: 1, e: "Coconut water is free-nuclear endosperm made of thousands of nuclei; the white kernel around it is cellular endosperm." },
+    { q: "The residual, persistent nucellus seen in seeds of black pepper and beet is the:", o: ["Pericarp", "Perisperm", "Endosperm", "Scutellum"], a: 1, e: "Perisperm is persistent nucellus. Pericarp is the fruit wall formed from the ovary wall." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>
