@@ -3,7 +3,8 @@ window.REGISTRY = [
   { id: "photosynthesis", cls: 11, ch: 13, unit: "Plant Physiology" },
   { id: "respiration",    cls: 11, ch: 14, unit: "Plant Physiology" },
   { id: "growth",         cls: 11, ch: 15, unit: "Plant Physiology" },
-  { id: "sexualrepro",    cls: 12, ch: 1,  unit: "Reproduction" }
+  { id: "sexualrepro",    cls: 12, ch: 1,  unit: "Reproduction" },
+  { id: "molecular",      cls: 12, ch: 5,  unit: "Genetics and Evolution" }
 ];
 (function () {
   const root = document.documentElement;

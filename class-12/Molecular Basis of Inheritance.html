@@ -1,0 +1,1443 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Molecular Basis of Inheritance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 5</span>
+      <h1>Molecular Basis of Inheritance</h1>
+      <p class="lede">DNA's structure, the experiments that proved it is the genetic material, and how it is copied, read and regulated. Work through each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">8 topics</span>
+        <span class="pill">13 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Central dogma">
+      <span class="fig-label">Central dogma (Francis Crick)</span>
+      <span class="eq">DNA → RNA → Protein</span>
+      <span class="over">replication · transcription · translation</span>
+      <span class="muted" style="font-size:.82rem">In some viruses information flows the other way, from RNA to DNA (reverse transcription).</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#dna"><span class="n">1</span>DNA structure</a>
+      <a href="#search"><span class="n">2</span>Genetic material</a>
+      <a href="#replication"><span class="n">3</span>Replication</a>
+      <a href="#transcription"><span class="n">4</span>Transcription</a>
+      <a href="#code"><span class="n">5</span>Genetic code</a>
+      <a href="#translation"><span class="n">6</span>Translation</a>
+      <a href="#lac"><span class="n">7</span>Lac operon</a>
+      <a href="#genome"><span class="n">8</span>HGP &amp; fingerprinting</a>
+      <a href="#quiz"><span class="n">9</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 DNA -->
+<section class="topic" id="dna">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>The structure and packaging of DNA</h2>
+    </div>
+    <div class="prose stack">
+      <p>DNA is a long polymer of <strong>deoxyribonucleotides</strong>. A nucleotide has a <strong>nitrogenous base</strong>, a <strong>pentose sugar</strong> (deoxyribose in DNA, ribose in RNA) and a <strong>phosphate</strong>. Purines: <strong>adenine, guanine</strong>. Pyrimidines: <strong>cytosine, thymine, uracil</strong>. Thymine is in DNA; uracil replaces it in RNA.</p>
+      <ul class="clean">
+        <li>Base + sugar (via <strong>N-glycosidic linkage</strong> at 1′C) = <strong>nucleoside</strong>.</li>
+        <li>Nucleoside + phosphate (via <strong>phosphoester linkage</strong> at 5′C) = <strong>nucleotide</strong>.</li>
+        <li>Nucleotides join by <strong>3′–5′ phosphodiester linkages</strong>. The chain has a free phosphate at the <strong>5′ end</strong> and a free 3′-OH at the <strong>3′ end</strong>. The backbone is sugar–phosphate; bases project from it.</li>
+        <li>RNA has an extra <strong>2′-OH</strong> on every ribose, and uracil instead of thymine (5-methyl uracil).</li>
+      </ul>
+      <p>The <strong>double helix</strong> was proposed in <strong>1953</strong> by <strong>Watson and Crick</strong>, using X-ray diffraction data of <strong>Maurice Wilkins and Rosalind Franklin</strong> and <strong>Erwin Chargaff</strong>'s finding that A/T and G/C ratios are constant and equal to one.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Build a double strand</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <label class="ctl" for="bp-in" style="flex:1;min-width:220px">Top strand, 5′ → 3′ (A, T, G, C; up to 16)
+          <input id="bp-in" type="text" maxlength="16" value="ATGCATGCAT" style="font-family:var(--mono);font-size:1rem;padding:.45rem .6rem;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink)">
+        </label>
+        <button class="btn" id="bp-rand">Random</button>
+      </div>
+      <div class="table-scroll" style="border:0;background:none"><div id="bp-view" style="font-family:var(--mono);min-width:max-content;padding:.4rem 0"></div></div>
+      <div class="readout">
+        <div><b id="bp-n">0</b><span>Base pairs</span></div>
+        <div><b id="bp-h">0</b><span>Hydrogen bonds</span></div>
+        <div><b id="bp-at">0</b><span>A–T pairs (2 H-bonds)</span></div>
+        <div><b id="bp-gc">0</b><span>G–C pairs (3 H-bonds)</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="bp-t"></div></div>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Salient features of the double helix</h3>
+    <ul class="clean prose">
+      <li>Two polynucleotide chains; <strong>sugar–phosphate backbone</strong> outside, bases inside.</li>
+      <li><strong>Anti-parallel</strong>: one chain 5′→3′, the other 3′→5′.</li>
+      <li><strong>A=T with two H-bonds; G≡C with three.</strong> A purine always faces a pyrimidine, keeping the strands an almost uniform distance apart.</li>
+      <li><strong>Right-handed</strong> coil. <strong>Pitch 3.4 nm</strong>, about <strong>10 bp per turn</strong>, so <strong>0.34 nm</strong> between base pairs.</li>
+      <li>Base pairs <strong>stack</strong> on one another; with H-bonds this stabilises the helix.</li>
+    </ul>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Chargaff's rule calculator</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <label class="ctl" for="ch-c">Cytosine in a double-stranded DNA <output id="ch-c-o">20%</output></label>
+      <input type="range" id="ch-c" min="0" max="50" step="1" value="20">
+      <div class="stackbar" id="ch-bar" aria-hidden="true"></div>
+      <div class="readout">
+        <div><b id="ch-a">30%</b><span>Adenine</span></div>
+        <div><b id="ch-t">30%</b><span>Thymine</span></div>
+        <div><b id="ch-g">20%</b><span>Guanine</span></div>
+        <div><b id="ch-cc">20%</b><span>Cytosine</span></div>
+      </div>
+      <p class="fig-note">NCERT exercise 2 uses 20% cytosine. Since G = C and A = T, A = (100 − 2 × C) / 2.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Packaging of the DNA helix</h3>
+    <div class="prose stack">
+      <p>A typical mammalian cell has <strong>6.6 × 10⁹ bp</strong>. At 0.34 nm per bp, its DNA is about <strong>2.2 metres</strong> long, far longer than a nucleus (about 10⁻⁶ m).</p>
+      <p>In <strong>prokaryotes</strong> such as <em>E. coli</em>, negatively charged DNA is held by positively charged proteins in the <strong>nucleoid</strong>, organised in large loops. In <strong>eukaryotes</strong>, positively charged <strong>histones</strong>, rich in <strong>lysine and arginine</strong>, form a <strong>histone octamer</strong>. DNA wraps around it to form a <strong>nucleosome</strong> containing about <strong>200 bp</strong>. Nucleosomes are the repeating units of <strong>chromatin</strong>, seen as <strong>beads-on-string</strong> under the electron microscope. Higher-level packaging needs <strong>non-histone chromosomal (NHC) proteins</strong>.</p>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem">
+      <div class="figure" style="margin:0">
+        <div class="fig-head"><h3>Nucleosome and beads-on-string</h3><span class="fig-label">Fig 3</span></div>
+        <div class="svg-scroll"><svg id="nusvg" viewBox="0 0 420 230" style="min-width:320px" role="img" aria-label="DNA wrapped around a histone octamer forming a nucleosome; nucleosomes along DNA look like beads on a string"></svg></div>
+      </div>
+      <div class="figure" style="margin:0">
+        <div class="fig-head"><h3>How long is the DNA?</h3><span class="fig-label">Fig 4 · interactive</span></div>
+        <div class="seg" role="group" aria-label="Organism" id="ln-seg" style="flex-wrap:wrap">
+          <button data-k="lam" aria-pressed="false">Phage λ</button>
+          <button data-k="eco" aria-pressed="false"><em>E. coli</em></button>
+          <button data-k="hh" aria-pressed="false">Human (n)</button>
+          <button data-k="hd" aria-pressed="true">Human (2n)</button>
+        </div>
+        <div class="readout">
+          <div><b id="ln-bp"></b><span>Base pairs</span></div>
+          <div><b id="ln-len"></b><span>Length (× 0.34 nm)</span></div>
+          <div><b id="ln-turn"></b><span>Helical turns</span></div>
+          <div><b id="ln-nuc"></b><span>Nucleosomes (~200 bp)</span></div>
+        </div>
+        <p class="fig-note" id="ln-note"></p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:1.4rem"><span class="tag">NEET trap</span><strong>Euchromatin</strong>: loosely packed, stains light, <strong>transcriptionally active</strong>. <strong>Heterochromatin</strong>: densely packed, stains dark, <strong>inactive</strong>.</div>
+  </div>
+</section>
+
+<!-- 2 SEARCH -->
+<section class="topic" id="search">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>The search for the genetic material</h2>
+    </div>
+    <div class="prose stack">
+      <p>DNA was first identified as an acidic substance in the nucleus by <strong>Friedrich Meischer (1869)</strong>, who called it <strong>'nuclein'</strong>. By 1926, work by Mendel, Sutton, Morgan and others had narrowed the search to chromosomes, but which molecule carried the information was still open.</p>
+      <p><strong>Transforming principle (Griffith, 1928)</strong>: <em>Streptococcus pneumoniae</em> has an <strong>S strain</strong> (smooth colonies, polysaccharide <strong>mucous coat</strong>, virulent) and an <strong>R strain</strong> (rough colonies, no coat, harmless).</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Griffith's four injections</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls" id="gf-seg" role="group" aria-label="Injection">
+        <button class="btn" data-s="1">Live S</button>
+        <button class="btn" data-s="2">Live R</button>
+        <button class="btn" data-s="3">Heat-killed S</button>
+        <button class="btn" data-s="4">Heat-killed S + live R</button>
+      </div>
+      <div class="svg-scroll"><svg id="gfsvg" viewBox="0 0 680 210" role="img" aria-label="Four injections into mice: live S kills, live R does not, heat-killed S does not, heat-killed S with live R kills and live S bacteria are recovered"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="gf-t"></div></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Avery, MacLeod and McCarty: which enzyme stops transformation?</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Enzyme added to S-cell extract" id="av-seg">
+          <button data-e="none" aria-pressed="true">No enzyme</button>
+          <button data-e="prot" aria-pressed="false">Protease</button>
+          <button data-e="rna" aria-pressed="false">RNase</button>
+          <button data-e="dna" aria-pressed="false">DNase</button>
+        </div>
+      </div>
+      <div class="readout">
+        <div><b id="av-r">Yes</b><span>R cells transformed to S?</span></div>
+        <div><b id="av-d">Intact</b><span>DNA in the extract</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="av-t"></div></div>
+    </div>
+
+    <div class="prose stack">
+      <p><strong>Unequivocal proof: Hershey and Chase (1952)</strong>, with bacteriophages infecting <em>E. coli</em>. DNA contains <strong>phosphorus but no sulphur</strong>; protein contains <strong>sulphur but no phosphorus</strong>.</p>
+    </div>
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The Hershey–Chase experiment</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Label used">
+          <button id="hc-p" aria-pressed="true">Radioactive ³²P (labels DNA)</button>
+          <button id="hc-s" aria-pressed="false">Radioactive ³⁵S (labels protein)</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="hcsvg" viewBox="0 0 680 230" role="img" aria-label="Infection, blending and centrifugation; radioactivity ends up in the bacterial pellet with phosphorus label and in the supernatant with sulphur label"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="hc-t"></div></div>
+      <p class="fig-note">Red marks what is radioactive. Simplified after NCERT Fig 5.5.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">DNA vs RNA as genetic material</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Criterion for genetic material</th><th>DNA</th><th>RNA</th></tr></thead>
+        <tbody>
+          <tr><td>Replication</td><td>Yes, by base pairing</td><td>Yes (proteins fail this test)</td></tr>
+          <tr><td>Stability</td><td><strong>More stable</strong>: less reactive, double stranded, thymine instead of uracil</td><td>Labile: <strong>2′-OH</strong> is reactive; RNA is also catalytic</td></tr>
+          <tr><td>Mutation</td><td>Mutates slowly</td><td>Mutates faster; RNA viruses evolve faster</td></tr>
+          <tr><td>Expression as characters</td><td>Depends on RNA to make protein</td><td>Can code for protein directly</td></tr>
+          <tr><td>Best for</td><td><strong>Storage</strong> of information</td><td><strong>Transmission</strong> of information</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span>RNA is the genetic material in some viruses, e.g. <strong>Tobacco Mosaic Virus</strong> and <strong>QB bacteriophage</strong>. <strong>RNA world</strong>: RNA was the <strong>first genetic material</strong>; metabolism, translation and splicing evolved around it. Being catalytic it was unstable, so DNA evolved from RNA with modifications that make it more stable, plus repair.</div>
+  </div>
+</section>
+
+<!-- 3 REPLICATION -->
+<section class="topic" id="replication">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Replication</h2>
+    </div>
+    <div class="prose stack">
+      <p>Watson and Crick proposed that the two strands separate and each acts as a template. Each daughter molecule then has <strong>one parental and one new strand</strong>: <strong>semiconservative replication</strong>.</p>
+      <p><strong>Meselson and Stahl (1958)</strong> grew <em>E. coli</em> for many generations in <strong>¹⁵NH₄Cl</strong> (¹⁵N is heavy, <strong>not radioactive</strong>), then moved them to <strong>¹⁴NH₄Cl</strong> and separated DNA by density in a <strong>CsCl gradient</strong>. <em>E. coli</em> divides every <strong>20 minutes</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Meselson and Stahl's experiment</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <label class="ctl" for="ms-g">Generations in ¹⁴N medium <output id="ms-g-o">1 (20 min)</output></label>
+      <input type="range" id="ms-g" min="0" max="4" step="1" value="1">
+      <div class="svg-scroll"><svg id="mssvg" viewBox="0 0 680 230" role="img" aria-label="CsCl tube with heavy, hybrid and light DNA bands, and the DNA molecules present after the chosen number of generations"></svg></div>
+      <div class="readout">
+        <div><b id="ms-h">0%</b><span>Heavy (¹⁵N/¹⁵N)</span></div>
+        <div><b id="ms-y">100%</b><span>Hybrid (¹⁵N/¹⁴N)</span></div>
+        <div><b id="ms-l">0%</b><span>Light (¹⁴N/¹⁴N)</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="ms-t"></div></div>
+      <p class="fig-note">Blue: heavy ¹⁵N strand. Grey: light ¹⁴N strand. Taylor and colleagues (1958) showed the same in <em>Vicia faba</em> chromosomes using radioactive thymidine.</p>
+    </div>
+
+    <div class="prose stack">
+      <p>The main enzyme is <strong>DNA-dependent DNA polymerase</strong>. <em>E. coli</em> (4.6 × 10⁶ bp) replicates in <strong>18 minutes</strong>, about <strong>2000 bp per second</strong>, with high accuracy; errors cause mutations. <strong>Deoxyribonucleoside triphosphates</strong> are both <strong>substrates and the energy source</strong>.</p>
+      <p>The strands cannot be separated along their whole length, so replication happens in a small opening, the <strong>replication fork</strong>. It starts at a definite <strong>origin of replication</strong>; this is why recombinant DNA work needs a <strong>vector</strong>, which supplies an origin. In eukaryotes replication happens in the <strong>S phase</strong>; failure of cell division after replication gives <strong>polyploidy</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The replicating fork</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="rf-prev">← Back</button>
+        <button class="btn primary" id="rf-next">Next step →</button>
+        <button class="btn" id="rf-all">Show whole fork</button>
+      </div>
+      <div class="svg-scroll"><svg id="rfsvg" viewBox="0 0 680 260" role="img" aria-label="Replication fork: on the template with 3 prime to 5 prime polarity the new strand is continuous; on the other template it is made discontinuously in fragments joined by DNA ligase"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="rf-k">Step 1 of 4</div><div id="rf-t"></div></div>
+      <p class="fig-note">Diagram after NCERT Fig 5.8. Arrowheads mark the 3′ end of each new strand: polymerase works only 5′ → 3′.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 TRANSCRIPTION -->
+<section class="topic" id="transcription">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Transcription</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Transcription</strong> copies information from <strong>one strand</strong> of a <strong>segment</strong> of DNA into RNA. Adenine pairs with <strong>uracil</strong> instead of thymine. Both strands are not copied because they would give two different proteins from one segment, and the two RNAs would pair into double-stranded RNA that could not be translated.</p>
+      <p>A <strong>transcription unit</strong> has a <strong>promoter</strong>, a <strong>structural gene</strong> and a <strong>terminator</strong>. RNA polymerase works only <strong>5′ → 3′</strong>, so the strand with <strong>3′ → 5′</strong> polarity is the <strong>template strand</strong>. The other strand (5′ → 3′), with the same sequence as the RNA except T for U, is called the <strong>coding strand</strong>, even though it codes for nothing. All references use the coding strand: the promoter is <strong>upstream (5′)</strong> and the terminator <strong>downstream (3′)</strong>. The promoter is the binding site for RNA polymerase and defines which strand is the template.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Transcription in bacteria and eukaryotes</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Organism">
+          <button id="tx-b" aria-pressed="true">Bacteria</button>
+          <button id="tx-e" aria-pressed="false">Eukaryote processing</button>
+        </div>
+        <button class="btn" id="tx-prev">← Back</button>
+        <button class="btn primary" id="tx-next">Next step →</button>
+      </div>
+      <div class="svg-scroll"><svg id="txsvg" viewBox="0 0 680 220" role="img" aria-label="Transcription diagram"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="tx-k"></div><div id="tx-t"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="stack">
+        <h3>Genes, cistrons, exons, introns</h3>
+        <ul class="clean">
+          <li>A <strong>cistron</strong> is a DNA segment coding for a polypeptide. Structural genes are <strong>monocistronic</strong> (mostly eukaryotes) or <strong>polycistronic</strong> (mostly bacteria).</li>
+          <li>Eukaryotic genes are <strong>split</strong>: <strong>exons</strong> appear in mature RNA; <strong>introns</strong> (intervening sequences) do not.</li>
+          <li>Regulatory sequences are loosely called <strong>regulatory genes</strong>, though they code for no RNA or protein.</li>
+        </ul>
+      </div>
+      <div class="table-scroll">
+        <table style="min-width:0">
+          <thead><tr><th>Eukaryotic RNA polymerase</th><th>Transcribes</th></tr></thead>
+          <tbody>
+            <tr><td>RNA polymerase I</td><td>rRNAs: 28S, 18S, 5.8S</td></tr>
+            <tr><td>RNA polymerase II</td><td>hnRNA, the precursor of mRNA</td></tr>
+            <tr><td>RNA polymerase III</td><td>tRNA, 5S rRNA, snRNAs</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>In bacteria, one RNA polymerase makes all three RNA types (mRNA, tRNA, rRNA), and transcription and translation can be <strong>coupled</strong> because there is no nucleus and mRNA needs no processing. The enzyme only catalyses <strong>elongation</strong>; it uses <strong>σ</strong> to initiate and <strong>ρ</strong> to terminate.</div>
+  </div>
+</section>
+
+<!-- 5 CODE -->
+<section class="topic" id="code">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>The genetic code and mutations</h2>
+    </div>
+    <div class="prose stack">
+      <p>Physicist <strong>George Gamow</strong> argued that with 4 bases and 20 amino acids, the code must be a <strong>triplet</strong> (4³ = 64 codons). <strong>Har Gobind Khorana</strong>'s chemical method made RNA with defined bases (homopolymers and copolymers); <strong>Marshall Nirenberg</strong>'s <strong>cell-free system</strong> finally deciphered the code; <strong>Severo Ochoa</strong>'s enzyme (<strong>polynucleotide phosphorylase</strong>) polymerised RNA without a template.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>From coding strand to protein, with frameshifts</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls">
+        <label class="ctl" for="cd-in" style="flex:1;min-width:240px">Coding strand, 5′ → 3′ (A, T, G, C)
+          <input id="cd-in" type="text" maxlength="36" value="ATGTTTTTCTTCTTTTTTTTCTAA" style="font-family:var(--mono);font-size:1rem;padding:.45rem .6rem;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink)">
+        </label>
+      </div>
+      <div class="controls">
+        <button class="btn" id="cd-ins1">Insert 1 base</button>
+        <button class="btn" id="cd-ins3">Insert 3 bases</button>
+        <button class="btn" id="cd-del1">Delete 1 base</button>
+        <button class="btn" id="cd-reset">Reset (NCERT example)</button>
+      </div>
+      <div class="table-scroll" style="border:0;background:none"><div id="cd-view" style="font-family:var(--mono);font-size:.9rem;min-width:max-content;display:grid;gap:.35rem;padding:.3rem 0"></div></div>
+      <div class="step-box" aria-live="polite"><div id="cd-t"></div></div>
+      <details style="margin-top:.4rem">
+        <summary class="mono" style="cursor:pointer;font-size:.85rem">Show the codon table (NCERT Table 5.1)</summary>
+        <div class="table-scroll" style="margin-top:.6rem"><table id="cd-table" style="font-family:var(--mono);font-size:.82rem"></table></div>
+      </details>
+      <p class="fig-note">The base inserted is G, after the third codon, to mirror NCERT's "RAM HAS BRE DCA P" example.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="stack">
+        <h3>Salient features of the code</h3>
+        <ul class="clean">
+          <li><strong>Triplet</strong>: 64 codons; <strong>61 code for amino acids</strong>, <strong>3 are stop codons</strong> (UAA, UAG, UGA).</li>
+          <li><strong>Degenerate</strong>: some amino acids have more than one codon.</li>
+          <li>Read <strong>contiguously</strong>, with no punctuation.</li>
+          <li><strong>Nearly universal</strong> (UUU = Phe from bacteria to humans); exceptions in mitochondria and some protozoans.</li>
+          <li><strong>AUG</strong> has dual function: codes for <strong>Met</strong> and is the <strong>initiator codon</strong>.</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h3>Mutations</h3>
+        <p>A <strong>point mutation</strong> in the β-globin gene changes <strong>glutamate to valine</strong>, causing <strong>sickle cell anaemia</strong>.</p>
+        <p>Inserting or deleting <strong>one or two</strong> bases shifts the reading frame from that point: <strong>frameshift</strong> mutation. Inserting or deleting <strong>three</strong> (or multiples) adds or removes whole codons, and the frame stays the same afterwards.</p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span><strong>tRNA, the adapter molecule</strong> (once called <strong>sRNA</strong>, soluble RNA), predicted by Crick. It has an <strong>anticodon loop</strong> complementary to the codon and an <strong>amino acid acceptor end</strong>. tRNAs are specific for each amino acid; there is a special <strong>initiator tRNA</strong> and <strong>no tRNA for stop codons</strong>. Secondary structure: <strong>clover-leaf</strong>; actual 3-D shape: <strong>inverted L</strong>.</div>
+  </div>
+</section>
+
+<!-- 6 TRANSLATION -->
+<section class="topic" id="translation">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Translation</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Translation</strong> polymerises amino acids into a polypeptide in the order set by mRNA, joining them by <strong>peptide bonds</strong>. The <strong>ribosome</strong> is the factory: structural RNAs and about <strong>80 proteins</strong>, in a <strong>large and a small subunit</strong> when inactive. A <strong>translational unit</strong> runs from the <strong>start codon (AUG)</strong> to a <strong>stop codon</strong>; <strong>untranslated regions (UTRs)</strong> at the 5′ and 3′ ends help efficient translation.</p>
+    </div>
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Making a polypeptide</h3>
+        <span class="fig-label">Fig 12 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="tl-prev">← Back</button>
+        <button class="btn primary" id="tl-next">Next step →</button>
+      </div>
+      <div class="svg-scroll"><svg id="tlsvg" viewBox="0 0 680 250" role="img" aria-label="Ribosome moving along an mRNA from AUG to a stop codon, with charged tRNAs bringing amino acids and the polypeptide growing"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="tl-k"></div><div id="tl-t"></div></div>
+      <p class="fig-note">Diagrammatic. The amino acids follow the codons shown (Met, Phe, Gly).</p>
+    </div>
+    <div class="callout"><span class="tag">NEET trap</span>The ribosome is itself a catalyst: in bacteria the <strong>23S rRNA</strong> is the enzyme that forms the peptide bond, a <strong>ribozyme</strong>. Charging of tRNA (<strong>aminoacylation</strong>) uses <strong>ATP</strong>.</div>
+  </div>
+</section>
+
+<!-- 7 LAC -->
+<section class="topic" id="lac">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>Regulation of gene expression: the lac operon</h2>
+    </div>
+    <div class="prose stack">
+      <p>In eukaryotes, expression can be regulated at the <strong>transcriptional, processing (splicing), mRNA transport</strong> and <strong>translational</strong> levels. In prokaryotes, control of the <strong>rate of transcriptional initiation</strong> dominates. Accessory proteins act as <strong>activators</strong> (positive) or <strong>repressors</strong> (negative); repressors bind <strong>operators</strong> next to promoters. Each operon has its own operator and repressor.</p>
+      <p>The lac operon was worked out by geneticist <strong>François Jacob</strong> and biochemist <strong>Jacques Monod</strong>, the first transcriptionally regulated system. A <strong>polycistronic</strong> structural gene shares a common promoter and regulatory genes: this is an <strong>operon</strong> (others: trp, ara, his, val).</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The lac operon, off and on</h3>
+        <span class="fig-label">Fig 13 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Lactose in medium">
+          <button id="lc-off" aria-pressed="true">No lactose</button>
+          <button id="lc-on" aria-pressed="false">Lactose present</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="lcsvg" viewBox="0 0 680 270" role="img" aria-label="Lac operon with i gene, promoter, operator and structural genes z, y and a; repressor on the operator blocks RNA polymerase unless lactose inactivates it"></svg></div>
+      <div class="readout">
+        <div><b id="lc-rep">On operator</b><span>Repressor</span></div>
+        <div><b id="lc-tx">Blocked</b><span>Transcription of z, y, a</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="lc-t"></div></div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Gene</th><th>Product</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td>i (from "inhibitor", not inducer)</td><td>Repressor</td><td>Made all the time (constitutively); binds the operator</td></tr>
+          <tr><td>z</td><td>β-galactosidase</td><td>Hydrolyses lactose into galactose and glucose</td></tr>
+          <tr><td>y</td><td>Permease</td><td>Increases permeability of the cell to β-galactosides</td></tr>
+          <tr><td>a</td><td>Transacetylase</td><td>Also needed for lactose metabolism</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span><strong>Lactose (or allolactose)</strong> is the inducer; <strong>glucose or galactose cannot</strong> induce. A very low level of expression is always present, or lactose could not enter the cell. Control by the repressor is <strong>negative regulation</strong>; it is regulation of enzyme synthesis <strong>by its substrate</strong>. The operon shuts down again once lactose is used up.</div>
+  </div>
+</section>
+
+<!-- 8 GENOME -->
+<section class="topic" id="genome">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>Human Genome Project and DNA fingerprinting</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>Human Genome Project (HGP)</strong>, launched in <strong>1990</strong> and completed in <strong>2003</strong>, was a <strong>13-year mega project</strong> coordinated by the US Department of Energy and the National Institute of Health, with the Wellcome Trust (UK) and others. At about US $3 per bp for 3 × 10⁹ bp, the estimated cost was <strong>9 billion US dollars</strong>; printed at 1000 letters a page and 1000 pages a book, one cell's sequence would fill <strong>3300 books</strong>. It drove the growth of <strong>bioinformatics</strong>.</p>
+    </div>
+    <div class="two-col" style="margin-top:1rem">
+      <div class="stack">
+        <h3>Goals</h3>
+        <ul class="clean">
+          <li>Identify all the approximately <strong>20,000–25,000 genes</strong></li>
+          <li>Sequence the <strong>3 billion</strong> base pairs</li>
+          <li>Store the data; improve analysis tools</li>
+          <li>Transfer technologies to other sectors</li>
+          <li>Address <strong>ethical, legal and social issues (ELSI)</strong></li>
+        </ul>
+        <h3>Methods</h3>
+        <p><strong>Expressed Sequence Tags (ESTs)</strong>: identify genes expressed as RNA. Or sequence everything and later assign functions: <strong>sequence annotation</strong>. DNA was fragmented and cloned in <strong>BAC</strong> and <strong>YAC</strong> vectors, sequenced by automated sequencers using <strong>Frederick Sanger</strong>'s method, and aligned by computer using overlaps.</p>
+      </div>
+      <div class="stack">
+        <h3>Salient features</h3>
+        <ul class="clean">
+          <li><strong>3164.7 million bp</strong></li>
+          <li>Average gene <strong>3000 bases</strong>; largest, <strong>dystrophin</strong>, 2.4 million bases</li>
+          <li>About <strong>30,000 genes</strong>; <strong>99.9%</strong> of bases identical in all humans</li>
+          <li>Functions unknown for <strong>over 50%</strong> of genes</li>
+          <li><strong>Less than 2%</strong> codes for proteins; repeats make up a very large part</li>
+          <li><strong>Chromosome 1</strong> has most genes (<strong>2968</strong>); <strong>Y</strong> fewest (<strong>231</strong>)</li>
+          <li>About <strong>1.4 million SNPs</strong> ("snips")</li>
+          <li>Chromosome 1 was the last sequenced, in <strong>May 2006</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.6rem">DNA fingerprinting</h3>
+    <div class="prose stack">
+      <p>DNA fingerprinting compares individuals at <strong>repetitive DNA</strong>. In density gradient centrifugation, bulk DNA forms a major peak and the small peaks are <strong>satellite DNA</strong> (micro-satellites, mini-satellites). These do not code for proteins but show a high degree of <strong>polymorphism</strong>: a variant at a locus with frequency <strong>greater than 0.01</strong> in a population. DNA from any tissue (blood, hair follicle, skin, bone, saliva, sperm) shows the same pattern, and patterns are inherited, so it is used in <strong>forensics</strong> and <strong>paternity testing</strong>.</p>
+      <p>Developed by <strong>Alec Jeffreys</strong>, using a mini-satellite probe called <strong>VNTR (Variable Number of Tandem Repeats)</strong>, 0.1 to 20 kb in size, in <strong>Southern blot hybridisation</strong>. Bands differ between individuals except <strong>monozygotic twins</strong>. With <strong>PCR</strong>, a single cell's DNA is enough.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Who matches the crime scene?</h3>
+        <span class="fig-label">Fig 14 · interactive</span>
+      </div>
+      <div class="controls" id="fp-steps" role="group" aria-label="Fingerprinting step"></div>
+      <div class="two-col" style="grid-template-columns:1.2fr 1fr">
+        <div class="step-box" aria-live="polite" style="align-self:start"><div class="k" id="fp-k">Steps</div><div id="fp-t">Pick a step to read it. Then compare the suspects on the gel.</div></div>
+        <div class="stack">
+          <div class="seg" role="group" aria-label="Compare with" id="fp-seg">
+            <button data-s="A" aria-pressed="false">Compare suspect A</button>
+            <button data-s="B" aria-pressed="false">Compare suspect B</button>
+          </div>
+          <div class="svg-scroll"><svg id="fpsvg" viewBox="0 0 300 260" style="min-width:260px" role="img" aria-label="Autoradiogram with bands for crime scene DNA, individual A and individual B"></svg></div>
+          <div class="readout"><div><b id="fp-r">—</b><span>Result</span></div></div>
+        </div>
+      </div>
+      <p class="fig-note">Band positions are illustrative, after NCERT Fig 5.16, where the crime-scene pattern matches individual B.</p>
+    </div>
+
+    <h3 style="margin-bottom:.8rem">Landmark experiments and scientists</h3>
+    <div class="timeline">
+      <div><span class="yr">1869</span><b>Friedrich Meischer</b><p>Identified DNA in the nucleus; named it "nuclein".</p></div>
+      <div><span class="yr">1928</span><b>Frederick Griffith</b><p>Transforming principle in <em>Streptococcus pneumoniae</em>.</p></div>
+      <div><span class="yr">1933–44</span><b>Avery, MacLeod, McCarty</b><p>The transforming principle is DNA.</p></div>
+      <div><span class="yr">1952</span><b>Hershey and Chase</b><p>Unequivocal proof with ³²P and ³⁵S phages.</p></div>
+      <div><span class="yr">1953</span><b>Watson and Crick</b><p>Double helix, from Wilkins and Franklin's X-ray data and Chargaff's rules.</p></div>
+      <div><span class="yr">1958</span><b>Meselson and Stahl; Taylor</b><p>Semiconservative replication in <em>E. coli</em>; in <em>Vicia faba</em>.</p></div>
+      <div><span class="yr">Genetic code</span><b>Gamow, Khorana, Nirenberg, Ochoa</b><p>Triplet idea; chemical RNA synthesis; cell-free system; polynucleotide phosphorylase.</p></div>
+      <div><span class="yr">Lac operon</span><b>Jacob and Monod</b><p>First transcriptionally regulated system.</p></div>
+      <div><span class="yr">Sequencing</span><b>Frederick Sanger</b><p>DNA sequencing method; also protein sequencing.</p></div>
+      <div><span class="yr">Fingerprinting</span><b>Alec Jeffreys</b><p>VNTR probe and Southern blot hybridisation.</p></div>
+      <div><span class="yr">1990–2003</span><b>Human Genome Project</b><p>Chromosome 1 completed last, May 2006.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 9</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>3.4 nm · 10 bp · 0.34 nm</b><span>Pitch · bp per turn · distance between base pairs</span></div>
+      <div><b>2.2 m</b><span>DNA in a mammalian cell (6.6 × 10⁹ bp)</span></div>
+      <div><b>200 bp</b><span>DNA in one nucleosome, around a histone octamer</span></div>
+      <div><b>18 min · 2000 bp/s</b><span><em>E. coli</em> replication (4.6 × 10⁶ bp)</span></div>
+      <div><b>61 + 3</b><span>Sense codons + stop codons (UAA, UAG, UGA)</span></div>
+      <div><b>I · II · III</b><span>RNA pol: rRNAs · hnRNA · tRNA, 5S rRNA, snRNA</span></div>
+      <div><b>200–300</b><span>Adenylate residues added in tailing</span></div>
+      <div><b>~30,000 · &lt; 2%</b><span>Human genes · genome coding for protein</span></div>
+      <div><b>2968 · 231</b><span>Genes on chromosome 1 · on Y</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Molecular Basis of Inheritance". Lecture 5 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const press = (sel, attr, val) => $$(sel).forEach(b => b.setAttribute("aria-pressed", String(b.dataset[attr] === val)));
+  const SUP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
+  const sci = n => { if (n < 1e5) return Math.round(n).toLocaleString("en-IN"); const e = Math.floor(Math.log10(n)); const m = n / 10 ** e; return m.toFixed(1).replace(/\.0$/, "") + " × 10" + String(e).split("").map(c => SUP[c]).join(""); };
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  const tile = b => `<span class="bt ${"ATGCU".includes(b) ? b : "x"}">${b}</span>`;
+  const comp = { A: "T", T: "A", G: "C", C: "G" };
+
+  /* ---------- Fig 1 Double strand ---------- */
+  const bpIn = $("#bp-in");
+  function renderBp() {
+    const s = bpIn.value.toUpperCase().replace(/[^ATGC]/g, "").slice(0, 16);
+    if (bpIn.value !== s) bpIn.value = s;
+    const c = s.split("").map(b => comp[b]);
+    const at = s.split("").filter(b => b === "A" || b === "T").length, gc = s.length - at;
+    $("#bp-view").innerHTML =
+      `<div class="brow"><span class="lab">Top strand</span><span class="end">5′</span>${s.split("").map(tile).join("")}<span class="end">3′</span></div>` +
+      `<div class="brow"><span class="lab">H-bonds</span><span class="end"></span>${s.split("").map(b => `<span class="hb">${b === "A" || b === "T" ? "||" : "|||"}</span>`).join("")}<span class="end"></span></div>` +
+      `<div class="brow"><span class="lab">Complementary</span><span class="end">3′</span>${c.map(tile).join("")}<span class="end">5′</span></div>`;
+    $("#bp-n").textContent = s.length; $("#bp-h").textContent = 2 * at + 3 * gc; $("#bp-at").textContent = at; $("#bp-gc").textContent = gc;
+    $("#bp-t").innerHTML = s.length ? `Complementary strand written <strong>5′ → 3′</strong>: <span class="mono">${c.slice().reverse().join("")}</span>. Every purine (A, G) faces a pyrimidine (T, C), so purines = pyrimidines = <strong>${s.length}</strong>.` : "Type some bases to build a strand.";
+  }
+  bpIn.addEventListener("input", renderBp);
+  $("#bp-rand").addEventListener("click", () => { bpIn.value = Array.from({ length: 12 }, () => "ATGC"[Math.floor(Math.random() * 4)]).join(""); renderBp(); });
+  renderBp();
+
+  /* ---------- Fig 2 Chargaff ---------- */
+  const chC = $("#ch-c");
+  function renderCh() {
+    const c = +chC.value, a = (100 - 2 * c) / 2;
+    $("#ch-c-o").textContent = c + "%";
+    ["a", "t"].forEach(k => $("#ch-" + k).textContent = a + "%");
+    $("#ch-g").textContent = c + "%"; $("#ch-cc").textContent = c + "%";
+    const bar = $("#ch-bar"); bar.innerHTML = "";
+    [["A", a, "var(--leaf)"], ["T", a, "var(--sun)"], ["G", c, "var(--blue)"], ["C", c, "var(--red)"]].forEach(([n, v, col]) => {
+      const d = document.createElement("div"); d.style.width = v + "%"; d.style.background = col; d.textContent = v >= 6 ? n + " " + v + "%" : ""; bar.appendChild(d);
+    });
+  }
+  chC.addEventListener("input", renderCh); renderCh();
+
+  /* ---------- Fig 3 Nucleosome ---------- */
+  (function () {
+    const s = $("#nusvg");
+    el("ellipse", { cx: 120, cy: 112, rx: 58, ry: 44, class: "f-sunsoft s-sun", "stroke-width": 1.5 }, s);
+    [[-30, -14], [-10, -14], [10, -14], [30, -14], [-30, 14], [-10, 14], [10, 14], [30, 14]].forEach(([dx, dy]) => el("circle", { cx: 120 + dx, cy: 112 + dy, r: 9, class: "f-card s-sun", "stroke-width": 1 }, s));
+    el("path", { d: "M 10 150 C 40 150, 52 90, 90 70 C 140 46, 190 70, 186 112 C 182 158, 110 170, 70 150 C 40 132, 52 80, 110 64 C 160 52, 200 90, 196 124 C 192 160, 230 170, 250 170", class: "f-none s-blue", "stroke-width": 4, "stroke-linecap": "round" }, s);
+    txt(s, 120, 22, "histone octamer (8 histones)", { "text-anchor": "middle", class: "t-sun", "font-weight": 500 });
+    txt(s, 120, 200, "DNA wraps around: ~200 bp per nucleosome", { "text-anchor": "middle", class: "t-blue", "font-size": 10 });
+    el("line", { x1: 270, y1: 112, x2: 410, y2: 112, class: "s-blue", "stroke-width": 2 }, s);
+    [290, 330, 370, 400].forEach(x => el("circle", { cx: x, cy: 112, r: 11, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, s));
+    txt(s, 340, 86, "beads-on-string", { "text-anchor": "middle", "font-weight": 500 });
+    txt(s, 340, 146, "(chromatin under EM)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+  })();
+
+  /* ---------- Fig 4 Length ---------- */
+  const LN = {
+    lam: [48502, false, "Bacteriophage lambda: 48502 bp (NCERT). φ×174 has 5386 nucleotides."],
+    eco: [4.6e6, false, "<em>E. coli</em> has no histones; its DNA is held in the nucleoid in large loops. NCERT's exercise uses 1.36 mm for its length; with 4.6 × 10⁶ bp the calculation gives about 1.56 mm."],
+    hh: [3.3e9, true, "Haploid content of human DNA: 3.3 × 10⁹ bp."],
+    hd: [6.6e9, true, "Diploid human (typical mammalian cell): 6.6 × 10⁹ bp × 0.34 × 10⁻⁹ m ≈ <strong>2.2 m</strong>, inside a nucleus about 10⁻⁶ m across."]
+  };
+  const setLn = k => {
+    const [bp, euk, note] = LN[k];
+    press("#ln-seg button", "k", k);
+    const m = bp * 0.34e-9;
+    $("#ln-bp").textContent = sci(bp);
+    $("#ln-len").textContent = m >= 1 ? m.toFixed(2) + " m" : m >= 1e-3 ? (m * 1e3).toFixed(2) + " mm" : (m * 1e6).toFixed(1) + " µm";
+    $("#ln-turn").textContent = sci(bp / 10);
+    $("#ln-nuc").textContent = euk ? sci(bp / 200) : "none";
+    $("#ln-note").innerHTML = note;
+  };
+  $$("#ln-seg button").forEach(b => b.addEventListener("click", () => setLn(b.dataset.k)));
+  setLn("hd");
+
+  /* ---------- Fig 5 Griffith ---------- */
+  const gf = $("#gfsvg");
+  (function () {
+    const cols = [
+      [85, [["S", 1], ["S", 1], ["S", 1]], "Live S", "Mouse dies", "t-red"],
+      [255, [["R", 1], ["R", 1], ["R", 1]], "Live R", "Mouse lives", "t-leaf"],
+      [425, [["S", 0], ["S", 0], ["S", 0]], "Heat-killed S", "Mouse lives", "t-leaf"],
+      [595, [["S", 0], ["R", 1], ["S", 0]], "Heat-killed S + live R", "Mouse dies; live S recovered", "t-red"]
+    ];
+    marker(gf, "m5", "--ink");
+    cols.forEach(([cx, cells, lab, out, cls], i) => {
+      const g = el("g", { class: "zg", id: "gf-" + (i + 1) }, gf);
+      cells.forEach(([t, live], j) => {
+        const x = cx - 30 + j * 30, y = 50;
+        if (t === "S") el("circle", { cx: x, cy: y, r: 13, class: "f-none s-sun", "stroke-width": 3, opacity: live ? 1 : 0.4, "stroke-dasharray": live ? "none" : "3 2" }, g);
+        el("circle", { cx: x, cy: y, r: 8, class: live ? "f-leaf" : "f-paper s-muted", "stroke-width": 1.2 }, g);
+        if (!live) { el("line", { x1: x - 5, y1: y - 5, x2: x + 5, y2: y + 5, class: "s-muted", "stroke-width": 1.5 }, g); el("line", { x1: x + 5, y1: y - 5, x2: x - 5, y2: y + 5, class: "s-muted", "stroke-width": 1.5 }, g); }
+      });
+      txt(g, cx, 92, lab, { "text-anchor": "middle", "font-weight": 500 });
+      el("line", { x1: cx, y1: 102, x2: cx, y2: 128, class: "s-ink", "stroke-width": 1.4, "marker-end": "url(#m5)" }, g);
+      const parts = out.split("; ");
+      txt(g, cx, 148, parts[0], { "text-anchor": "middle", class: cls, "font-weight": 500, "font-size": 12 });
+      if (parts[1]) txt(g, cx, 166, parts[1], { "text-anchor": "middle", class: cls, "font-size": 11 });
+    });
+    txt(gf, 20, 200, "S: polysaccharide coat (ring) · R: no coat · crossed: heat-killed", { "font-size": 10, class: "t-muted" });
+  })();
+  const gfText = {
+    0: "Pick an injection. Griffith used heat to kill bacteria.",
+    1: "Live <strong>S strain</strong> (with mucous coat) is <strong>virulent</strong>: the mouse dies of pneumonia.",
+    2: "Live <strong>R strain</strong> (no coat) does not cause pneumonia: the mouse lives.",
+    3: "<strong>Heat-killed S</strong> does not kill the mouse.",
+    4: "<strong>Heat-killed S + live R</strong>: the mouse <strong>dies</strong>, and <strong>living S bacteria</strong> are recovered. A <strong>'transforming principle'</strong> from the dead S cells changed R into S, letting it make a smooth polysaccharide coat. Its biochemical nature was not known from this experiment."
+  };
+  let gfS = 0;
+  const renderGf = () => {
+    gf.classList.toggle("dim", gfS !== 0);
+    [1, 2, 3, 4].forEach(i => $("#gf-" + i).classList.toggle("on", i === gfS));
+    press("#gf-seg button", "s", String(gfS));
+    $("#gf-t").innerHTML = gfText[gfS];
+  };
+  $$("#gf-seg button").forEach(b => b.addEventListener("click", () => { gfS = gfS === +b.dataset.s ? 0 : +b.dataset.s; renderGf(); }));
+  renderGf();
+
+  /* ---------- Fig 6 Avery ---------- */
+  const AV = {
+    none: ["Yes", "Intact", "Purified <strong>DNA alone</strong> from heat-killed S cells transformed live R cells into S cells."],
+    prot: ["Yes", "Intact", "<strong>Proteases</strong> digest protein, yet transformation still happens. So the transforming substance is <strong>not protein</strong>."],
+    rna: ["Yes", "Intact", "<strong>RNases</strong> digest RNA, yet transformation still happens. So it is <strong>not RNA</strong>."],
+    dna: ["No", "Digested", "<strong>DNase</strong> digests DNA and <strong>inhibits transformation</strong>. Conclusion: <strong>DNA is the hereditary material</strong>, though not all biologists were convinced."]
+  };
+  const setAv = e => { press("#av-seg button", "e", e); const a = AV[e]; $("#av-r").textContent = a[0]; $("#av-d").textContent = a[1]; $("#av-t").innerHTML = a[2]; };
+  $$("#av-seg button").forEach(b => b.addEventListener("click", () => setAv(b.dataset.e)));
+  setAv("none");
+
+  /* ---------- Fig 7 Hershey-Chase ---------- */
+  const hc = $("#hcsvg");
+  function drawHc(P) {
+    hc.innerHTML = ""; marker(hc, "m7", "--muted");
+    $("#hc-p").setAttribute("aria-pressed", P); $("#hc-s").setAttribute("aria-pressed", !P);
+    const coat = P ? "s-ink" : "s-red", dna = P ? "s-red" : "s-ink";
+    const phage = (x, y, withDna) => {
+      el("polygon", { points: [0, 1, 2, 3, 4, 5].map(k => { const a = Math.PI / 3 * k + Math.PI / 6; return (x + 16 * Math.cos(a)) + "," + (y + 16 * Math.sin(a)); }).join(" "), class: "f-card " + coat, "stroke-width": 2 }, hc);
+      if (withDna) el("path", { d: `M ${x - 8} ${y} q 4 -8 8 0 t 8 0`, class: "f-none " + dna, "stroke-width": 2 }, hc);
+      el("line", { x1: x, y1: y + 16, x2: x, y2: y + 38, class: coat, "stroke-width": 3 }, hc);
+      el("path", { d: `M ${x - 10} ${y + 46} L ${x} ${y + 38} L ${x + 10} ${y + 46}`, class: "f-none " + coat, "stroke-width": 1.5 }, hc);
+    };
+    const bact = (x, y, inside) => {
+      el("rect", { x: x - 60, y, width: 120, height: 52, rx: 26, class: "f-leafsoft s-leaf", "stroke-width": 1.5 }, hc);
+      if (inside) el("path", { d: `M ${x - 24} ${y + 26} q 6 -10 12 0 t 12 0 t 12 0 t 12 0`, class: "f-none " + dna, "stroke-width": 2.2 }, hc);
+    };
+    bact(110, 90, true); phage(110, 32, false);
+    txt(hc, 110, 172, "1. Infection", { "text-anchor": "middle", "font-weight": 500 });
+    txt(hc, 110, 188, "phage DNA enters", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    bact(340, 110, true); phage(300, 30, false); phage(380, 40, false);
+    txt(hc, 340, 190, "2. Blending", { "text-anchor": "middle", "font-weight": 500 });
+    txt(hc, 340, 206, "coats removed from bacteria", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    el("line", { x1: 190, y1: 116, x2: 260, y2: 116, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, hc);
+    el("line", { x1: 420, y1: 116, x2: 500, y2: 116, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, hc);
+    el("path", { d: "M 540 20 V 170 Q 540 196 570 196 Q 600 196 600 170 V 20", class: "f-card s-ink", "stroke-width": 1.5 }, hc);
+    el("rect", { x: 542, y: 40, width: 56, height: 110, class: P ? "f-paper" : "f-red", opacity: P ? 0.6 : 0.25 }, hc);
+    el("ellipse", { cx: 570, cy: 180, rx: 26, ry: 12, class: P ? "f-red" : "f-leaf", opacity: P ? 0.9 : 0.6 }, hc);
+    txt(hc, 610, 90, "supernatant:", { "font-size": 10 }); txt(hc, 610, 103, "phage coats", { "font-size": 10, class: P ? "t-muted" : "t-red", "font-weight": 500 });
+    txt(hc, 610, 176, "pellet:", { "font-size": 10 }); txt(hc, 610, 189, "bacteria", { "font-size": 10, class: P ? "t-red" : "t-muted", "font-weight": 500 });
+    txt(hc, 570, 222, "3. Centrifugation", { "text-anchor": "middle", "font-weight": 500 });
+    $("#hc-t").innerHTML = P
+      ? "Phages grown on <strong>radioactive phosphorus</strong> have radioactive <strong>DNA</strong> (DNA has P, protein does not). After infection, blending and centrifugation, the <strong>bacteria are radioactive</strong>: DNA passed from virus to bacterium."
+      : "Phages grown on <strong>radioactive sulphur</strong> have radioactive <strong>protein</strong> (protein has S, DNA does not). After blending and centrifugation, the <strong>bacteria are not radioactive</strong>; the label stays with the removed coats. Protein did not enter. So <strong>DNA is the genetic material</strong>.";
+  }
+  $("#hc-p").addEventListener("click", () => drawHc(true));
+  $("#hc-s").addEventListener("click", () => drawHc(false));
+  drawHc(true);
+
+  /* ---------- Fig 8 Meselson-Stahl ---------- */
+  const ms = $("#mssvg"), msG = $("#ms-g");
+  function drawMs() {
+    const g = +msG.value; ms.innerHTML = "";
+    $("#ms-g-o").textContent = g + " (" + g * 20 + " min)";
+    const total = 2 ** g;
+    const heavy = g === 0 ? 1 : 0, hyb = g === 0 ? 0 : 2, light = g === 0 ? 0 : total - 2;
+    const fr = [heavy / total, hyb / total, light / total];
+    el("path", { d: "M 40 14 V 190 Q 40 214 75 214 Q 110 214 110 190 V 14", class: "f-card s-ink", "stroke-width": 1.5 }, ms);
+    const ys = [160, 112, 64], labs = ["heavy ¹⁵N/¹⁵N", "hybrid ¹⁵N/¹⁴N", "light ¹⁴N/¹⁴N"];
+    ys.forEach((y, i) => {
+      el("line", { x1: 112, y1: y, x2: 128, y2: y, class: "s-line", "stroke-width": 1 }, ms);
+      txt(ms, 132, y + 4, labs[i], { "font-size": 10, class: fr[i] > 0 ? "" : "t-muted" });
+      if (fr[i] > 0) el("rect", { x: 44, y: y - (2 + fr[i] * 7), width: 62, height: 4 + fr[i] * 14, rx: 2, class: i === 0 ? "f-blue" : i === 1 ? "f-leaf" : "f-ink", opacity: 0.85 }, ms);
+    });
+    txt(ms, 75, 228, "CsCl gradient", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    const mols = [];
+    for (let i = 0; i < heavy; i++) mols.push(["H", "H"]);
+    for (let i = 0; i < hyb; i++) mols.push(["H", "L"]);
+    for (let i = 0; i < light; i++) mols.push(["L", "L"]);
+    const x0 = 250, step = Math.min(50, 410 / mols.length);
+    mols.forEach((m, i) => {
+      const x = x0 + i * step;
+      m.forEach((s, k) => el("rect", { x: x + k * 11, y: 60, width: 8, height: 90, rx: 3, class: s === "H" ? "f-blue" : "f-paper s-muted", "stroke-width": 1 }, ms));
+    });
+    txt(ms, x0, 40, total + " DNA molecule" + (total > 1 ? "s" : ""), { "font-weight": 500 });
+    ["#ms-h", "#ms-y", "#ms-l"].forEach((s, i) => $(s).textContent = (fr[i] * 100).toFixed(fr[i] * 100 % 1 ? 1 : 0) + "%");
+    $("#ms-t").innerHTML = [
+      "Grown in ¹⁵N for many generations: all DNA is <strong>heavy</strong>.",
+      "After <strong>one generation (20 min)</strong> in ¹⁴N: all DNA is <strong>hybrid</strong>, of intermediate density. Each molecule has one old heavy strand and one new light strand.",
+      "After <strong>two generations (40 min)</strong>: <strong>equal amounts of hybrid and light</strong> DNA. This is exactly what semiconservative replication predicts.",
+      "After three generations (60 min): 2 hybrid out of 8 molecules (25%); the rest light.",
+      "After <strong>80 minutes</strong> (four generations): <strong>hybrid 1/8 (12.5%), light 7/8 (87.5%)</strong>. This answers NCERT's in-text question. The two original heavy strands are never lost; they stay in two hybrid molecules."
+    ][g];
+  }
+  msG.addEventListener("input", drawMs); drawMs();
+
+  /* ---------- Fig 9 Replication fork ---------- */
+  const rf = $("#rfsvg");
+  (function () {
+    marker(rf, "m9l", "--leaf"); marker(rf, "m9s", "--sun");
+    const G = id => el("g", { id: "rf-" + id }, rf);
+    const t = G("tpl");
+    el("line", { x1: 470, y1: 118, x2: 660, y2: 118, class: "s-ink", "stroke-width": 3 }, t);
+    el("line", { x1: 470, y1: 142, x2: 660, y2: 142, class: "s-ink", "stroke-width": 3 }, t);
+    for (let x = 480; x < 660; x += 14) el("line", { x1: x, y1: 120, x2: x, y2: 140, class: "s-line", "stroke-width": 2 }, t);
+    el("path", { d: "M 470 118 C 440 118, 430 70, 400 70 L 40 70", class: "f-none s-ink", "stroke-width": 3 }, t);
+    el("path", { d: "M 470 142 C 440 142, 430 190, 400 190 L 40 190", class: "f-none s-ink", "stroke-width": 3 }, t);
+    txt(t, 22, 74, "3′", { "font-weight": 500 }); txt(t, 22, 194, "5′", { "font-weight": 500 });
+    txt(t, 664, 122, "5′", { "font-weight": 500 }); txt(t, 664, 146, "3′", { "font-weight": 500 });
+    txt(t, 220, 56, "template 3′ → 5′ (left to right)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(t, 220, 212, "template 5′ → 3′ (left to right)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(t, 565, 100, "parental DNA", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(t, 470, 30, "fork moves →", { "text-anchor": "middle", "font-size": 11, class: "t-sun", "font-weight": 500 });
+    const ld = G("lead");
+    el("line", { x1: 40, y1: 90, x2: 410, y2: 90, class: "s-leaf", "stroke-width": 3, "marker-end": "url(#m9l)" }, ld);
+    txt(ld, 22, 94, "5′", { class: "t-leaf", "font-weight": 500 });
+    txt(ld, 220, 112, "continuous new strand", { "text-anchor": "middle", class: "t-leaf", "font-weight": 500 });
+    const lg = G("lag");
+    [[150, 60], [262, 172], [374, 284]].forEach(([a, b]) => el("line", { x1: a, y1: 170, x2: b, y2: 170, class: "s-sun", "stroke-width": 3, "marker-end": "url(#m9s)" }, lg));
+    txt(lg, 220, 156, "discontinuous fragments, each 5′ → 3′", { "text-anchor": "middle", class: "t-sun", "font-weight": 500 });
+    const li = G("lig");
+    [158, 270].forEach(x => { el("circle", { cx: x, cy: 170, r: 7, class: "f-red" }, li); });
+    txt(li, 214, 240, "DNA ligase joins the fragments", { "text-anchor": "middle", class: "t-red", "font-weight": 500 });
+  })();
+  const rfSteps = [
+    ["tpl", "Replication starts at a definite <strong>origin of replication</strong>. The helix opens only in a small region, the <strong>replication fork</strong>, because separating the whole length would need too much energy. Each parental strand is a template."],
+    ["lead", "DNA-dependent DNA polymerase works <strong>only 5′ → 3′</strong>. On the template with polarity <strong>3′ → 5′</strong>, it can follow the fork, so synthesis is <strong>continuous</strong>."],
+    ["lag", "On the template with polarity <strong>5′ → 3′</strong>, the new strand must grow away from the fork, so it is made <strong>discontinuously</strong>, in short fragments."],
+    ["lig", "The discontinuously made fragments are later joined by the enzyme <strong>DNA ligase</strong>. Each daughter duplex has one parental and one new strand."]
+  ];
+  let rfS = 0;
+  const renderRf = all => {
+    if (all) rfS = 3;
+    rfSteps.forEach(([id], i) => { const g = $("#rf-" + id); g.style.display = i <= rfS ? "" : "none"; g.style.opacity = all || i === rfS || i === 0 ? 1 : 0.45; });
+    $("#rf-k").textContent = all ? "Whole fork" : `Step ${rfS + 1} of 4`;
+    $("#rf-t").innerHTML = all ? "Leading strand continuous; lagging strand discontinuous, joined by ligase. Polymerase can't start on its own and needs an origin; in eukaryotes this happens in the <strong>S phase</strong>." : rfSteps[rfS][1];
+    $("#rf-prev").disabled = rfS === 0 && !all; $("#rf-next").disabled = rfS === 3 && !all;
+  };
+  $("#rf-next").addEventListener("click", () => { rfS = Math.min(rfS + 1, 3); renderRf(); });
+  $("#rf-prev").addEventListener("click", () => { rfS = Math.max(rfS - 1, 0); renderRf(); });
+  $("#rf-all").addEventListener("click", () => renderRf(true));
+  renderRf();
+
+  /* ---------- Fig 10 Transcription ---------- */
+  const tx = $("#txsvg");
+  let txMode = "b", txS = 0;
+  const txB = [
+    ["Initiation", "<strong>RNA polymerase</strong> binds the <strong>promoter</strong> with the initiation factor <strong>σ (sigma)</strong>. It uses nucleoside triphosphates as substrates and opens the helix."],
+    ["Elongation", "The polymerase moves along the <strong>structural gene</strong>, polymerising RNA complementary to the <strong>template strand</strong>. Only a short stretch of RNA stays bound to the enzyme."],
+    ["Termination", "At the <strong>terminator</strong>, with the termination factor <strong>ρ (rho)</strong>, the nascent RNA and the polymerase fall off. In bacteria translation can begin even before the mRNA is complete."]
+  ];
+  const txE = [
+    ["Primary transcript", "<strong>RNA polymerase II</strong> makes <strong>hnRNA</strong> (heterogeneous nuclear RNA). It contains both <strong>exons</strong> and <strong>introns</strong> and is non-functional."],
+    ["Capping", "An unusual nucleotide, <strong>methyl guanosine triphosphate</strong>, is added to the <strong>5′ end</strong>."],
+    ["Tailing", "<strong>200–300 adenylate residues</strong> are added at the <strong>3′ end</strong>, in a <strong>template-independent</strong> manner."],
+    ["Splicing", "<strong>Introns are removed</strong> and exons joined in a defined order. The fully processed RNA, now <strong>mRNA</strong>, leaves the nucleus for translation."]
+  ];
+  function drawTx() {
+    tx.innerHTML = ""; marker(tx, "m10", "--ink");
+    const steps = txMode === "b" ? txB : txE;
+    $("#tx-b").setAttribute("aria-pressed", txMode === "b"); $("#tx-e").setAttribute("aria-pressed", txMode === "e");
+    if (txMode === "b") {
+      el("line", { x1: 30, y1: 140, x2: 650, y2: 140, class: "s-ink", "stroke-width": 3 }, tx);
+      el("line", { x1: 30, y1: 154, x2: 650, y2: 154, class: "s-ink", "stroke-width": 3 }, tx);
+      txt(tx, 14, 144, "5′", { "font-size": 10 }); txt(tx, 654, 144, "3′", { "font-size": 10 });
+      txt(tx, 14, 158, "3′", { "font-size": 10 }); txt(tx, 654, 158, "5′", { "font-size": 10 });
+      txt(tx, 340, 178, "coding strand (top, 5′→3′) · template strand (bottom, 3′→5′)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+      [[60, 140, "Promoter", "f-sunsoft s-sun"], [140, 520, "Structural gene", "f-leafsoft s-leaf"], [520, 600, "Terminator", "f-card s-red"]].forEach(([a, b, l, c]) => {
+        el("rect", { x: a, y: 132, width: b - a, height: 30, class: c, opacity: 0.7, "stroke-width": 1 }, tx);
+        txt(tx, (a + b) / 2, 206, l, { "text-anchor": "middle", "font-weight": 500 });
+      });
+      const px = [110, 360, 590][txS], py = txS === 2 ? 92 : 132;
+      el("ellipse", { cx: px, cy: py, rx: 40, ry: 24, class: "f-card s-blue", "stroke-width": 2 }, tx);
+      txt(tx, px, py + 4, "RNA pol", { "text-anchor": "middle", "font-size": 10, class: "t-blue", "font-weight": 500 });
+      if (txS === 0) { el("circle", { cx: px - 34, cy: py - 22, r: 12, class: "f-sun" }, tx); txt(tx, px - 34, py - 18, "σ", { "text-anchor": "middle", "font-size": 12, class: "t-card", style: "fill: var(--card)" }); }
+      if (txS === 1) el("path", { d: `M 160 116 Q 220 70 280 96 T ${px - 30} 112`, class: "f-none s-sun", "stroke-width": 3 }, tx);
+      if (txS === 2) {
+        el("circle", { cx: px + 36, cy: py - 20, r: 12, class: "f-red" }, tx); txt(tx, px + 36, py - 16, "ρ", { "text-anchor": "middle", "font-size": 12, style: "fill: var(--card)" });
+        el("path", { d: "M 170 50 Q 260 20 340 50 T 500 46", class: "f-none s-sun", "stroke-width": 3 }, tx);
+        txt(tx, 340, 76, "RNA released", { "text-anchor": "middle", class: "t-sun", "font-weight": 500 });
+      }
+    } else {
+      const segs = [[150, 230, "E1", 1], [230, 290, "I", 0], [290, 400, "E2", 1], [400, 450, "I", 0], [450, 540, "E3", 1]];
+      const y = txS === 3 ? 60 : 100;
+      if (txS < 3) segs.forEach(([a, b, l, ex]) => { el("rect", { x: a, y, width: b - a, height: 26, class: ex ? "f-leaf" : "f-paper s-muted", "stroke-width": 1 }, tx); txt(tx, (a + b) / 2, y + 17, ex ? "exon" : "intron", { "text-anchor": "middle", "font-size": 10, class: ex ? "" : "t-muted", style: ex ? "fill: var(--paper)" : "" }); });
+      if (txS >= 1) { el("circle", { cx: txS === 3 ? 196 : 136, cy: y + 13, r: 12, class: "f-sun" }, tx); txt(tx, txS === 3 ? 196 : 136, y - 6, "cap (5′)", { "text-anchor": "middle", "font-size": 10, class: "t-sun", "font-weight": 500 }); }
+      if (txS >= 2) { const tx0 = txS === 3 ? 494 : 544; txt(tx, tx0, y + 18, "AAAA…A", { "font-weight": 500, class: "t-blue" }); txt(tx, tx0 + 4, y - 6, "poly-A tail (3′)", { "font-size": 10, class: "t-blue" }); }
+      if (txS === 3) {
+        [[210, 290], [290, 400], [400, 490]].forEach(([a, b]) => el("rect", { x: a, y, width: b - a, height: 26, class: "f-leaf", "stroke-width": 1 }, tx));
+        txt(tx, 350, y + 17, "exons joined: mRNA", { "text-anchor": "middle", "font-size": 11, style: "fill: var(--paper)", "font-weight": 500 });
+        [[250, 60], [420, 50]].forEach(([x, w]) => { el("rect", { x, y: 140, width: w, height: 18, class: "f-paper s-muted", "stroke-dasharray": "3 2", "stroke-width": 1 }, tx); });
+        txt(tx, 340, 176, "introns removed", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+        el("line", { x1: 580, y1: 73, x2: 650, y2: 73, class: "s-ink", "stroke-width": 1.4, "marker-end": "url(#m10)" }, tx);
+        txt(tx, 615, 96, "to cytoplasm", { "text-anchor": "middle", "font-size": 10 });
+      }
+      txt(tx, 340, 206, txS === 3 ? "mature mRNA" : "hnRNA in the nucleus", { "text-anchor": "middle", "font-weight": 500 });
+    }
+    $("#tx-k").textContent = `${steps[txS][0]} · step ${txS + 1} of ${steps.length}`;
+    $("#tx-t").innerHTML = steps[txS][1];
+    $("#tx-prev").disabled = txS === 0; $("#tx-next").disabled = txS === steps.length - 1;
+  }
+  $("#tx-b").addEventListener("click", () => { txMode = "b"; txS = 0; drawTx(); });
+  $("#tx-e").addEventListener("click", () => { txMode = "e"; txS = 0; drawTx(); });
+  $("#tx-next").addEventListener("click", () => { txS = Math.min(txS + 1, (txMode === "b" ? txB : txE).length - 1); drawTx(); });
+  $("#tx-prev").addEventListener("click", () => { txS = Math.max(txS - 1, 0); drawTx(); });
+  drawTx();
+
+  /* ---------- Fig 11 Genetic code ---------- */
+  const B = "UCAG", AA1 = "FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG";
+  const N3 = { F: "Phe", L: "Leu", S: "Ser", Y: "Tyr", C: "Cys", W: "Trp", P: "Pro", H: "His", Q: "Gln", R: "Arg", I: "Ile", M: "Met", T: "Thr", N: "Asn", K: "Lys", V: "Val", A: "Ala", D: "Asp", E: "Glu", G: "Gly", "*": "Stop" };
+  const code = c => N3[AA1[B.indexOf(c[0]) * 16 + B.indexOf(c[1]) * 4 + B.indexOf(c[2])]];
+  (function () {
+    const t = $("#cd-table");
+    let h = `<thead><tr><th>1st ↓ / 2nd →</th>${B.split("").map(b => `<th>${b}</th>`).join("")}<th>3rd</th></tr></thead><tbody>`;
+    B.split("").forEach(f => B.split("").forEach((th, k) => {
+      h += `<tr>${k === 0 ? `<td rowspan="4" style="vertical-align:middle">${f}</td>` : ""}${B.split("").map(s => { const c = f + s + th; const a = code(c); return `<td style="${a === "Stop" ? "color:var(--red)" : c === "AUG" ? "color:var(--leaf);font-weight:700" : ""}">${c} ${a}</td>`; }).join("")}<td>${th}</td></tr>`;
+    }));
+    t.innerHTML = h + "</tbody>";
+  })();
+  const NC = "ATGTTTTTCTTCTTTTTTTTCTAA";
+  const cdIn = $("#cd-in");
+  let cdPrev = null, cdMsg = "";
+  const prot = s => { const r = s.replace(/T/g, "U"), out = []; for (let i = 0; i + 3 <= r.length; i += 3) { const a = code(r.slice(i, i + 3)); out.push(a); if (a === "Stop") break; } return out; };
+  function renderCd() {
+    const s = cdIn.value.toUpperCase().replace(/[^ATGC]/g, "").slice(0, 36);
+    if (cdIn.value !== s) cdIn.value = s;
+    const tmpl = s.split("").map(b => comp[b]).join(""), m = s.replace(/T/g, "U");
+    const codons = []; for (let i = 0; i < s.length; i += 3) codons.push(i);
+    const row = (lab, str, e1, e2) => `<div class="brow"><span class="lab">${lab}</span><span class="end">${e1}</span>${codons.map(i => `<span class="cdn">${str.slice(i, i + 3).split("").map(tile).join("")}</span>`).join("")}<span class="end">${e2}</span></div>`;
+    let stopped = false;
+    const aas = codons.map(i => {
+      const c = m.slice(i, i + 3);
+      if (c.length < 3) return `<span class="aa dead">—</span>`;
+      if (stopped) return `<span class="aa dead">${code(c)}</span>`;
+      const a = code(c); if (a === "Stop") { stopped = true; return `<span class="aa stop">Stop</span>`; }
+      return `<span class="aa">${a}</span>`;
+    }).join("");
+    $("#cd-view").innerHTML = row("Coding (DNA)", s, "5′", "3′") + row("Template (DNA)", tmpl, "3′", "5′") + row("mRNA", m, "5′", "3′") +
+      `<div class="brow"><span class="lab">Polypeptide</span><span class="end">N</span>${aas}<span class="end"></span></div>`;
+    const p = prot(s);
+    $("#cd-t").innerHTML = (cdMsg ? cdMsg + " " : "") + `Polypeptide: <strong>${p.filter(a => a !== "Stop").join("–") || "none"}</strong>${p.includes("Stop") ? " (then stop)" : " (no stop codon reached)"}. The mRNA has the coding-strand sequence with <strong>U in place of T</strong>.`;
+    cdMsg = "";
+  }
+  const mutate = (f, msg) => { cdPrev = cdIn.value; cdIn.value = f(cdIn.value); cdMsg = msg; renderCd(); };
+  $("#cd-ins1").addEventListener("click", () => mutate(s => s.slice(0, 9) + "G" + s.slice(9), "<strong>One base inserted</strong> after codon 3: every codon after it is read in a <strong>new frame</strong>, a <strong>frameshift</strong> (like RAM HAS BRE DCA P)."));
+  $("#cd-ins3").addEventListener("click", () => mutate(s => s.slice(0, 9) + "GGC" + s.slice(9), "<strong>Three bases inserted</strong>: one extra codon (one extra amino acid, Gly). The reading frame <strong>after it is unchanged</strong> (like RAM HAS BIG RED CAP)."));
+  $("#cd-del1").addEventListener("click", () => mutate(s => s.slice(0, 9) + s.slice(10), "<strong>One base deleted</strong> at codon 4: the frame shifts from that point, a <strong>frameshift deletion</strong>."));
+  $("#cd-reset").addEventListener("click", () => { cdIn.value = NC; cdMsg = "NCERT's example: <span class='mono'>AUG UUU UUC UUC UUU UUU UUC</span>, plus a stop codon."; renderCd(); });
+  cdIn.addEventListener("input", () => renderCd());
+  cdIn.value = NC; renderCd();
+
+  /* ---------- Fig 12 Translation ---------- */
+  const tl = $("#tlsvg");
+  const cods = [["AUG", "UAC", "Met"], ["UUU", "AAA", "Phe"], ["GGC", "CCG", "Gly"], ["UAA", "", "Stop"]];
+  const cx = i => 170 + i * 80;
+  const tlSteps = [
+    ["Charging of tRNA", "Amino acids are <strong>activated with ATP</strong> and linked to their cognate tRNA: <strong>aminoacylation</strong>. Two charged tRNAs close together favour peptide bond formation energetically."],
+    ["Initiation", "The <strong>small subunit</strong> meets the mRNA. The ribosome binds at the <strong>start codon AUG</strong>, which is recognised only by the <strong>initiator tRNA</strong> (carrying Met). The 5′ UTR comes before it."],
+    ["Large subunit joins", "The large subunit has <strong>two sites</strong> where successive amino acids bind, close enough to form a peptide bond."],
+    ["Elongation", "A charged tRNA with anticodon <strong>AAA</strong> pairs with codon UUU. A <strong>peptide bond</strong> forms between Met and Phe, catalysed by the ribosome (<strong>23S rRNA, a ribozyme</strong>, in bacteria)."],
+    ["Moving along", "The ribosome moves <strong>codon to codon</strong>. tRNA-Gly (anticodon CCG) brings Gly; the chain grows to Met–Phe–Gly."],
+    ["Termination", "At the <strong>stop codon (UAA)</strong> no tRNA binds. A <strong>release factor</strong> binds, ending translation and releasing the complete polypeptide. The 3′ UTR follows."]
+  ];
+  let tlS = 0;
+  function drawTl() {
+    tl.innerHTML = "";
+    el("line", { x1: 30, y1: 210, x2: 660, y2: 210, class: "s-ink", "stroke-width": 2 }, tl);
+    txt(tl, 30, 236, "5′ UTR", { "font-size": 10, class: "t-muted" }); txt(tl, 610, 236, "3′ UTR", { "font-size": 10, class: "t-muted" });
+    txt(tl, 14, 214, "5′", { "font-size": 10 }); txt(tl, 664, 214, "3′", { "font-size": 10 });
+    cods.forEach(([c], i) => { el("rect", { x: cx(i) - 34, y: 200, width: 68, height: 22, rx: 4, class: c === "UAA" ? "f-card s-red" : c === "AUG" ? "f-leafsoft s-leaf" : "f-card s-line", "stroke-width": 1.2 }, tl); txt(tl, cx(i), 215, c, { "text-anchor": "middle", "font-weight": 500 }); });
+    const trna = (x, i, aa = true, faded = false) => {
+      const g = el("g", { opacity: faded ? 0.35 : 1 }, tl);
+      el("rect", { x: x - 22, y: 150, width: 44, height: 22, rx: 4, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, g);
+      el("line", { x1: x, y1: 150, x2: x, y2: 112, class: "s-sun", "stroke-width": 3 }, g);
+      txt(g, x, 166, cods[i][1], { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+      if (aa) { el("circle", { cx: x, cy: 100, r: 13, class: "f-leaf" }, g); txt(g, x, 104, cods[i][2], { "text-anchor": "middle", "font-size": 9, style: "fill: var(--paper)" }); }
+    };
+    const ribo = (k, big) => {
+      el("ellipse", { cx: cx(k) + 40, cy: 222, rx: 96, ry: 18, class: "f-none s-blue", "stroke-width": 2, opacity: 0.9 }, tl);
+      if (big) el("path", { d: `M ${cx(k) - 56} 196 Q ${cx(k) + 40} 40 ${cx(k) + 136} 196`, class: "f-none s-blue", "stroke-width": 2 }, tl);
+    };
+    const chain = (n, x, y) => { for (let i = 0; i < n; i++) { el("circle", { cx: x - i * 26, cy: y, r: 12, class: "f-leaf" }, tl); txt(tl, x - i * 26, y + 4, cods[n - 1 - i][2], { "text-anchor": "middle", "font-size": 9, style: "fill: var(--paper)" }); if (i) el("line", { x1: x - i * 26 + 12, y1: y, x2: x - (i - 1) * 26 - 12, y2: y, class: "s-leaf", "stroke-width": 2 }, tl); } };
+    if (tlS === 0) {
+      txt(tl, 90, 60, "amino acid + tRNA + ATP", { "font-weight": 500 }); txt(tl, 330, 60, "→", { "font-size": 16 });
+      trna(450, 1); txt(tl, 450, 40, "charged tRNA (aminoacyl-tRNA)", { "text-anchor": "middle", "font-size": 10, class: "t-leaf" });
+    }
+    if (tlS === 1) { ribo(0, false); trna(cx(0), 0); txt(tl, cx(0) + 40, 248, "small subunit", { "text-anchor": "middle", "font-size": 10, class: "t-blue" }); txt(tl, cx(0) + 30, 100, "initiator tRNA", { "font-size": 10 }); }
+    if (tlS === 2) { ribo(0, true); trna(cx(0), 0); txt(tl, cx(0) + 40, 70, "large subunit", { "text-anchor": "middle", "font-size": 10, class: "t-blue" }); }
+    if (tlS === 3) { ribo(0, true); trna(cx(0), 0, false, true); trna(cx(1), 1, false); chain(2, cx(1) + 13, 96); txt(tl, cx(1) + 70, 70, "peptide bond", { "font-size": 10, class: "t-leaf", "font-weight": 500 }); }
+    if (tlS === 4) { ribo(1, true); trna(cx(1), 1, false, true); trna(cx(2), 2, false); chain(3, cx(2) + 13, 96); }
+    if (tlS === 5) {
+      ribo(2, true);
+      el("rect", { x: cx(3) - 20, y: 148, width: 40, height: 26, rx: 6, class: "f-red" }, tl); txt(tl, cx(3), 165, "RF", { "text-anchor": "middle", "font-size": 10, style: "fill: var(--paper)" });
+      txt(tl, cx(3), 140, "release factor", { "text-anchor": "middle", "font-size": 10, class: "t-red" });
+      chain(3, 300, 40); txt(tl, 340, 44, "polypeptide released", { "font-size": 10, class: "t-leaf", "font-weight": 500 });
+    }
+    $("#tl-k").textContent = `${tlSteps[tlS][0]} · step ${tlS + 1} of 6`;
+    $("#tl-t").innerHTML = tlSteps[tlS][1];
+    $("#tl-prev").disabled = tlS === 0; $("#tl-next").disabled = tlS === 5;
+  }
+  $("#tl-next").addEventListener("click", () => { tlS = Math.min(tlS + 1, 5); drawTl(); });
+  $("#tl-prev").addEventListener("click", () => { tlS = Math.max(tlS - 1, 0); drawTl(); });
+  drawTl();
+
+  /* ---------- Fig 13 Lac operon ---------- */
+  const lc = $("#lcsvg");
+  function drawLc(on) {
+    lc.innerHTML = ""; marker(lc, "m13", "--ink");
+    $("#lc-off").setAttribute("aria-pressed", !on); $("#lc-on").setAttribute("aria-pressed", on);
+    el("line", { x1: 20, y1: 160, x2: 660, y2: 160, class: "s-ink", "stroke-width": 3 }, lc);
+    [[30, 100, "i", "f-card s-blue"], [180, 240, "p", "f-sunsoft s-sun"], [240, 290, "o", "f-card s-red"], [290, 410, "z", "f-leafsoft s-leaf"], [410, 530, "y", "f-leafsoft s-leaf"], [530, 650, "a", "f-leafsoft s-leaf"]].forEach(([a, b, l, c]) => {
+      el("rect", { x: a, y: 148, width: b - a, height: 24, class: c, "stroke-width": 1.2 }, lc);
+      txt(lc, (a + b) / 2, 165, l, { "text-anchor": "middle", "font-weight": 500 });
+    });
+    txt(lc, 65, 190, "regulatory gene", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(lc, 235, 190, "promoter · operator", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(lc, 470, 190, "structural genes", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    el("path", { d: "M 65 146 V 90", "data-x": 1, class: "f-none s-ink", "stroke-width": 1.4, "marker-end": "url(#m13)" }, lc);
+    txt(lc, 20, 30, "i gene: repressor made constitutively", { "font-size": 10, class: "t-muted" });
+    const rep = (x, y, active) => {
+      el("path", { d: active ? `M ${x - 26} ${y - 14} H ${x + 26} V ${y + 14} H ${x + 8} L ${x} ${y + 4} L ${x - 8} ${y + 14} H ${x - 26} Z` : `M ${x - 26} ${y - 14} H ${x + 26} V ${y + 14} H ${x - 26} Z`, class: "f-card s-blue", "stroke-width": 2 }, lc);
+      txt(lc, x, y + 3, "repressor", { "text-anchor": "middle", "font-size": 8, class: "t-blue", "font-weight": 500 });
+    };
+    if (!on) {
+      rep(265, 132, true);
+      el("ellipse", { cx: 196, cy: 120, rx: 30, ry: 20, class: "f-card s-ink", "stroke-width": 1.5 }, lc);
+      txt(lc, 196, 124, "RNA pol", { "text-anchor": "middle", "font-size": 9 });
+      el("line", { x1: 222, y1: 96, x2: 238, y2: 112, class: "s-red", "stroke-width": 2.5 }, lc); el("line", { x1: 238, y1: 96, x2: 222, y2: 112, class: "s-red", "stroke-width": 2.5 }, lc);
+      txt(lc, 470, 230, "no transcription of z, y, a", { "text-anchor": "middle", class: "t-red", "font-weight": 500 });
+      el("path", { d: "M 70 86 Q 160 60 250 112", class: "f-none s-blue", "stroke-width": 1.4, "stroke-dasharray": "4 3", "marker-end": "url(#m13)" }, lc);
+    } else {
+      rep(65, 64, false);
+      el("polygon", { points: "88,52 100,46 112,52 112,64 100,70 88,64", class: "f-sun" }, lc);
+      txt(lc, 150, 46, "lactose (inducer)", { "font-size": 10, class: "t-sun", "font-weight": 500 });
+      txt(lc, 150, 60, "inactivates repressor", { "font-size": 10, class: "t-muted" });
+      el("ellipse", { cx: 470, cy: 120, rx: 34, ry: 20, class: "f-card s-ink", "stroke-width": 1.5 }, lc);
+      txt(lc, 470, 124, "RNA pol", { "text-anchor": "middle", "font-size": 9 });
+      el("line", { x1: 300, y1: 120, x2: 432, y2: 120, class: "s-ink", "stroke-width": 1.2, "stroke-dasharray": "4 3", "marker-end": "url(#m13)" }, lc);
+      el("path", { d: "M 296 214 Q 350 204 410 214 T 530 214 T 646 214", class: "f-none s-sun", "stroke-width": 3 }, lc);
+      txt(lc, 470, 206, "one polycistronic mRNA", { "text-anchor": "middle", "font-size": 10, class: "t-sun" });
+      [[350, "β-galactosidase"], [470, "permease"], [590, "transacetylase"]].forEach(([x, l]) => txt(lc, x, 244, l, { "text-anchor": "middle", "font-size": 11, "font-weight": 500, class: "t-leaf" }));
+    }
+    $("#lc-rep").textContent = on ? "Inactivated by inducer" : "On operator";
+    $("#lc-tx").textContent = on ? "Proceeds" : "Blocked";
+    $("#lc-t").innerHTML = on
+      ? "<strong>Lactose present</strong> (no glucose): lactose enters via permease and acts as the <strong>inducer</strong>. It binds and <strong>inactivates the repressor</strong>, which leaves the operator. RNA polymerase reaches the promoter and transcribes <strong>z, y and a</strong> together."
+      : "<strong>No lactose</strong>: the repressor, made all the time from the <strong>i gene</strong>, binds the <strong>operator</strong> and prevents RNA polymerase from transcribing the operon. This is <strong>negative regulation</strong>.";
+  }
+  $("#lc-off").addEventListener("click", () => drawLc(false));
+  $("#lc-on").addEventListener("click", () => drawLc(true));
+  drawLc(false);
+
+  /* ---------- Fig 14 Fingerprinting ---------- */
+  const FP = [
+    ["Isolate DNA", "Isolate DNA from the sample: blood, hair follicle, skin, bone, saliva, sperm. Every tissue of a person gives the same pattern."],
+    ["Digest", "Cut the DNA with <strong>restriction endonucleases</strong>."],
+    ["Electrophoresis", "Separate the fragments by size using <strong>electrophoresis</strong>."],
+    ["Blot", "Transfer (blot) the fragments onto a <strong>synthetic membrane</strong>, such as <strong>nitrocellulose or nylon</strong>."],
+    ["Hybridise", "Hybridise with a <strong>labelled VNTR probe</strong> (radiolabelled in the original technique)."],
+    ["Autoradiography", "Detect the hybridised fragments by <strong>autoradiography</strong>. Because VNTR copy number varies, you get many bands of different sizes: a pattern unique to each person except identical twins."]
+  ];
+  FP.forEach(([l, t], i) => {
+    const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = (i + 1) + ". " + l;
+    b.addEventListener("click", () => { $$("#fp-steps button").forEach(x => x.setAttribute("aria-pressed", x === b)); $("#fp-k").textContent = `Step ${i + 1} of 6 · ${l}`; $("#fp-t").innerHTML = t; });
+    $("#fp-steps").appendChild(b);
+  });
+  const lanes = { CS: [44, 88, 128, 170, 212], A: [58, 88, 140, 182, 224], B: [44, 88, 128, 170, 212] };
+  function drawFp(cmp) {
+    const s = $("#fpsvg"); s.innerHTML = "";
+    press("#fp-seg button", "s", cmp);
+    [["CS", 60, "Crime scene"], ["A", 150, "A"], ["B", 240, "B"]].forEach(([k, x, l]) => {
+      el("rect", { x: x - 30, y: 26, width: 60, height: 226, rx: 4, class: "f-paper s-line" }, s);
+      txt(s, x, 16, l, { "text-anchor": "middle", "font-weight": 500, "font-size": 11 });
+      lanes[k].forEach(y => el("rect", { x: x - 22, y, width: 44, height: 7, rx: 2, class: "f-ink", opacity: cmp && k !== "CS" && k !== cmp ? 0.25 : 1 }, s));
+    });
+    if (cmp) {
+      lanes.CS.forEach(y => {
+        const hit = lanes[cmp].includes(y);
+        el("line", { x1: 90, y1: y + 3, x2: cmp === "A" ? 128 : 218, y2: y + 3, class: hit ? "s-leaf" : "s-red", "stroke-width": 1.4, "stroke-dasharray": "4 3" }, s);
+      });
+      const shared = lanes.CS.filter(y => lanes[cmp].includes(y)).length;
+      $("#fp-r").textContent = shared === 5 ? `Suspect ${cmp}: all 5 bands match` : `Suspect ${cmp}: ${shared} of 5 bands match`;
+    } else $("#fp-r").textContent = "—";
+  }
+  $$("#fp-seg button").forEach(b => b.addEventListener("click", () => drawFp(b.dataset.s)));
+  drawFp(null);
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "A double-stranded DNA has 20 per cent cytosine. What is the percentage of adenine?", o: ["20%", "30%", "40%", "60%"], a: 1, e: "C = G = 20%, so A + T = 60%; with A = T, adenine is 30% (Chargaff's rule)." },
+    { q: "Which human chromosome has the most genes, according to the Human Genome Project?", o: ["Chromosome 21", "X chromosome", "Chromosome 1", "Y chromosome"], a: 2, e: "Chromosome 1 has the most genes (2968) and Y the fewest (231)." },
+    { q: "Histones are positively charged because they are rich in:", o: ["Aspartic acid and glutamic acid", "Lysine and arginine", "Glycine and alanine", "Cysteine and methionine"], a: 1, e: "Lysine and arginine are basic residues carrying positive charges on their side chains, so histones bind negatively charged DNA." },
+    { q: "In the Hershey–Chase experiment, radioactivity was found inside the bacteria when phages were grown on:", o: ["Radioactive sulphur", "Radioactive phosphorus", "Radioactive nitrogen", "Radioactive carbon"], a: 1, e: "³²P labels DNA, which entered the bacteria. ³⁵S labels protein, which stayed outside with the coats." },
+    { q: "In Meselson and Stahl's experiment, after 80 minutes in ¹⁴N medium, the proportion of hybrid DNA would be:", o: ["1/2", "1/4", "1/8", "0"], a: 2, e: "80 min = 4 generations: 16 molecules, of which 2 are hybrid (1/8) and 14 light (7/8)." },
+    { q: "If the coding strand is 5′-ATGCAT-3′, the mRNA is:", o: ["5′-UACGUA-3′", "5′-AUGCAU-3′", "3′-AUGCAU-5′", "5′-TACGTA-3′"], a: 1, e: "mRNA has the same sequence and polarity as the coding strand, with U in place of T." },
+    { q: "Which pair is correctly matched?", o: ["RNA polymerase I: hnRNA", "RNA polymerase II: tRNA and 5S rRNA", "RNA polymerase III: 28S, 18S, 5.8S rRNA", "RNA polymerase I: 28S, 18S and 5.8S rRNA"], a: 3, e: "Pol I makes 28S, 18S, 5.8S rRNA; Pol II makes hnRNA; Pol III makes tRNA, 5S rRNA and snRNAs." },
+    { q: "Which statement about processing of hnRNA is NOT true?", o: ["Methyl guanosine triphosphate is added at the 5′ end", "200–300 adenylate residues are added at the 3′ end", "Tailing is template dependent", "Introns are removed by splicing"], a: 2, e: "Adenylate residues are added in a template-independent manner." },
+    { q: "Which of these is NOT a stop codon?", o: ["UAA", "UAG", "UGA", "UGG"], a: 3, e: "UGG codes for tryptophan. UAA, UAG and UGA are the three stop codons." },
+    { q: "Assertion (A): Insertion of a single base in a structural gene alters the codons downstream of it. Reason (R): The genetic code is read contiguously, without punctuation.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "Because there are no punctuations, one inserted base shifts the reading frame: a frameshift mutation." },
+    { q: "The inducer of the lac operon is:", o: ["Glucose", "Galactose", "Lactose", "β-galactosidase"], a: 2, e: "Lactose (or allolactose) inactivates the repressor. Glucose and galactose cannot act as inducers." },
+    { q: "In bacteria, the peptide bond during translation is formed by:", o: ["Peptidyl transferase protein of the small subunit", "23S rRNA acting as a ribozyme", "tRNA", "Release factor"], a: 1, e: "NCERT: the ribosome acts as a catalyst; 23S rRNA in bacteria is the enzyme, a ribozyme." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

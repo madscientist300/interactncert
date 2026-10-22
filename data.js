@@ -593,5 +593,154 @@ window.CHAPTERS = {
     "e": "Perisperm is persistent nucellus. Pericarp is the fruit wall formed from the ovary wall."
    }
   ]
+ },
+ "molecular": {
+  "title": "Molecular Basis of Inheritance",
+  "file": "class-12/Molecular Basis of Inheritance.html",
+  "lede": "DNA's structure, the experiments that proved it is the genetic material, and how it is copied, read and regulated.",
+  "topics": [
+   "The structure and packaging of DNA",
+   "The search for the genetic material",
+   "Replication",
+   "Transcription",
+   "The genetic code and mutations",
+   "Translation",
+   "Regulation of gene expression: the lac operon",
+   "Human Genome Project and DNA fingerprinting"
+  ],
+  "questions": [
+   {
+    "q": "A double-stranded DNA has 20 per cent cytosine. What is the percentage of adenine?",
+    "o": [
+     "20%",
+     "30%",
+     "40%",
+     "60%"
+    ],
+    "a": 1,
+    "e": "C = G = 20%, so A + T = 60%; with A = T, adenine is 30% (Chargaff's rule)."
+   },
+   {
+    "q": "Which human chromosome has the most genes, according to the Human Genome Project?",
+    "o": [
+     "Chromosome 21",
+     "X chromosome",
+     "Chromosome 1",
+     "Y chromosome"
+    ],
+    "a": 2,
+    "e": "Chromosome 1 has the most genes (2968) and Y the fewest (231)."
+   },
+   {
+    "q": "Histones are positively charged because they are rich in:",
+    "o": [
+     "Aspartic acid and glutamic acid",
+     "Lysine and arginine",
+     "Glycine and alanine",
+     "Cysteine and methionine"
+    ],
+    "a": 1,
+    "e": "Lysine and arginine are basic residues carrying positive charges on their side chains, so histones bind negatively charged DNA."
+   },
+   {
+    "q": "In the Hershey–Chase experiment, radioactivity was found inside the bacteria when phages were grown on:",
+    "o": [
+     "Radioactive sulphur",
+     "Radioactive phosphorus",
+     "Radioactive nitrogen",
+     "Radioactive carbon"
+    ],
+    "a": 1,
+    "e": "³²P labels DNA, which entered the bacteria. ³⁵S labels protein, which stayed outside with the coats."
+   },
+   {
+    "q": "In Meselson and Stahl's experiment, after 80 minutes in ¹⁴N medium, the proportion of hybrid DNA would be:",
+    "o": [
+     "1/2",
+     "1/4",
+     "1/8",
+     "0"
+    ],
+    "a": 2,
+    "e": "80 min = 4 generations: 16 molecules, of which 2 are hybrid (1/8) and 14 light (7/8)."
+   },
+   {
+    "q": "If the coding strand is 5′-ATGCAT-3′, the mRNA is:",
+    "o": [
+     "5′-UACGUA-3′",
+     "5′-AUGCAU-3′",
+     "3′-AUGCAU-5′",
+     "5′-TACGTA-3′"
+    ],
+    "a": 1,
+    "e": "mRNA has the same sequence and polarity as the coding strand, with U in place of T."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "RNA polymerase I: hnRNA",
+     "RNA polymerase II: tRNA and 5S rRNA",
+     "RNA polymerase III: 28S, 18S, 5.8S rRNA",
+     "RNA polymerase I: 28S, 18S and 5.8S rRNA"
+    ],
+    "a": 3,
+    "e": "Pol I makes 28S, 18S, 5.8S rRNA; Pol II makes hnRNA; Pol III makes tRNA, 5S rRNA and snRNAs."
+   },
+   {
+    "q": "Which statement about processing of hnRNA is NOT true?",
+    "o": [
+     "Methyl guanosine triphosphate is added at the 5′ end",
+     "200–300 adenylate residues are added at the 3′ end",
+     "Tailing is template dependent",
+     "Introns are removed by splicing"
+    ],
+    "a": 2,
+    "e": "Adenylate residues are added in a template-independent manner."
+   },
+   {
+    "q": "Which of these is NOT a stop codon?",
+    "o": [
+     "UAA",
+     "UAG",
+     "UGA",
+     "UGG"
+    ],
+    "a": 3,
+    "e": "UGG codes for tryptophan. UAA, UAG and UGA are the three stop codons."
+   },
+   {
+    "q": "Assertion (A): Insertion of a single base in a structural gene alters the codons downstream of it. Reason (R): The genetic code is read contiguously, without punctuation.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "Because there are no punctuations, one inserted base shifts the reading frame: a frameshift mutation."
+   },
+   {
+    "q": "The inducer of the lac operon is:",
+    "o": [
+     "Glucose",
+     "Galactose",
+     "Lactose",
+     "β-galactosidase"
+    ],
+    "a": 2,
+    "e": "Lactose (or allolactose) inactivates the repressor. Glucose and galactose cannot act as inducers."
+   },
+   {
+    "q": "In bacteria, the peptide bond during translation is formed by:",
+    "o": [
+     "Peptidyl transferase protein of the small subunit",
+     "23S rRNA acting as a ribozyme",
+     "tRNA",
+     "Release factor"
+    ],
+    "a": 1,
+    "e": "NCERT: the ribosome acts as a catalyst; 23S rRNA in bacteria is the enzyme, a ribozyme."
+   }
+  ]
  }
 };
