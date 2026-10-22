@@ -1,7 +1,7 @@
 window.CHAPTERS = {
  "photosynthesis": {
   "title": "Photosynthesis in Higher Plants",
-  "file": "Photosynthesis in Higher Plants.html",
+  "file": "class-11/Photosynthesis in Higher Plants.html",
   "lede": "How a leaf turns light, water and carbon dioxide into sugar.",
   "topics": [
    "What we know, and how we found out",
@@ -149,7 +149,7 @@ window.CHAPTERS = {
  },
  "respiration": {
   "title": "Respiration in Plants",
-  "file": "Respiration in Plants.html",
+  "file": "class-11/Respiration in Plants.html",
   "lede": "How a cell breaks glucose down in small steps and traps the energy as ATP.",
   "topics": [
    "Do plants breathe?",
@@ -298,7 +298,7 @@ window.CHAPTERS = {
  },
  "growth": {
   "title": "Plant Growth and Development",
-  "file": "Plant Growth and Development.html",
+  "file": "class-11/Plant Growth and Development.html",
   "lede": "How a plant grows, how its cells specialise, and how five plant growth regulators steer it all.",
   "topics": [
    "What growth is, and where it happens",
@@ -446,7 +446,7 @@ window.CHAPTERS = {
  },
  "sexualrepro": {
   "title": "Sexual Reproduction in Flowering Plants",
-  "file": "Sexual Reproduction in Flowering Plants.html",
+  "file": "class-12/Sexual Reproduction in Flowering Plants.html",
   "lede": "From anther and ovule to pollination, double fertilisation, seed and fruit.",
   "topics": [
    "The flower, the stamen and the microsporangium",
