@@ -742,5 +742,153 @@ window.CHAPTERS = {
     "e": "NCERT: the ribosome acts as a catalyst; 23S rRNA in bacteria is the enzyme, a ribozyme."
    }
   ]
+ },
+ "plantkingdom": {
+  "title": "Plant Kingdom",
+  "file": "class-11/Plant Kingdom.html",
+  "lede": "From simple thalloid algae to flowering plants: how each group is built, how it reproduces, and how plants slowly freed themselves from water.",
+  "topics": [
+   "How plants have been classified",
+   "Algae: general features and reproduction",
+   "The three classes of algae",
+   "Bryophytes: liverworts and mosses",
+   "Pteridophytes: the first vascular land plants",
+   "Gymnosperms: naked seeds",
+   "Angiosperms, and the groups compared"
+  ],
+  "questions": [
+   {
+    "q": "Agar, used to grow microbes and in ice-creams and jellies, is obtained from:",
+    "o": [
+     "Laminaria and Sargassum",
+     "Gelidium and Gracilaria",
+     "Chlorella",
+     "Fucus and Dictyota"
+    ],
+    "a": 1,
+    "e": "NCERT: agar is a commercial product obtained from Gelidium and Gracilaria, both red algae."
+   },
+   {
+    "q": "The stored food in red algae is:",
+    "o": [
+     "Starch",
+     "Mannitol and laminarin",
+     "Floridean starch",
+     "Glycogen"
+    ],
+    "a": 2,
+    "e": "Red algae store floridean starch, very similar to amylopectin and glycogen in structure. Green algae store starch; brown algae store mannitol or laminarin."
+   },
+   {
+    "q": "The olive green to brown colour of Phaeophyceae is due to:",
+    "o": [
+     "r-phycoerythrin",
+     "Fucoxanthin",
+     "Chlorophyll d",
+     "Chlorophyll b"
+    ],
+    "a": 1,
+    "e": "The amount of the xanthophyll fucoxanthin decides the colour of brown algae."
+   },
+   {
+    "q": "Fusion of a large non-motile female gamete with a small motile male gamete occurs in:",
+    "o": [
+     "Ulothrix",
+     "Spirogyra",
+     "Eudorina",
+     "Volvox and Fucus"
+    ],
+    "a": 3,
+    "e": "This is oogamy, seen in Volvox and Fucus. Ulothrix and Spirogyra are isogamous; Eudorina is anisogamous."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Chlamydomonas: moss",
+     "Cycas: pteridophyte",
+     "Selaginella: pteridophyte",
+     "Sphagnum: alga"
+    ],
+    "a": 2,
+    "e": "From NCERT exercise 10: Chlamydomonas is an alga, Cycas a gymnosperm, Selaginella a pteridophyte, Sphagnum a moss."
+   },
+   {
+    "q": "Which statement about bryophytes is NOT true?",
+    "o": [
+     "The main plant body is haploid",
+     "The archegonium is flask-shaped and makes a single egg",
+     "The sporophyte is free-living",
+     "Antherozoids are biflagellate"
+    ],
+    "a": 2,
+    "e": "The bryophyte sporophyte is not free-living; it is attached to the photosynthetic gametophyte and derives nourishment from it."
+   },
+   {
+    "q": "In mosses, the protonema develops directly from:",
+    "o": [
+     "A spore",
+     "The zygote",
+     "A gemma",
+     "The secondary protonema"
+    ],
+    "a": 0,
+    "e": "The protonema, the first gametophyte stage, develops directly from a spore. The leafy stage arises as a lateral bud from the secondary protonema."
+   },
+   {
+    "q": "Assertion (A): Living pteridophytes are restricted to narrow geographical regions. Reason (R): Their gametophytes need cool, damp, shady places, and water is needed for fertilisation.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT gives exactly this reason for the limited spread of living pteridophytes."
+   },
+   {
+    "q": "Heterosporous pteridophytes include:",
+    "o": [
+     "Dryopteris and Pteris",
+     "Selaginella and Salvinia",
+     "Equisetum and Adiantum",
+     "Psilotum and Lycopodium"
+    ],
+    "a": 1,
+    "e": "Selaginella and Salvinia produce megaspores and microspores. Most pteridophytes are homosporous."
+   },
+   {
+    "q": "Coralloid roots associated with N₂-fixing cyanobacteria are found in:",
+    "o": [
+     "Pinus",
+     "Cycas",
+     "Cedrus",
+     "Ginkgo"
+    ],
+    "a": 1,
+    "e": "Cycas has coralloid roots with N₂-fixing cyanobacteria; Pinus roots have mycorrhiza."
+   },
+   {
+    "q": "The ploidy of a prothallus cell of a fern is:",
+    "o": [
+     "n",
+     "2n",
+     "3n",
+     "4n"
+    ],
+    "a": 0,
+    "e": "The prothallus is the gametophyte, which grows from a haploid spore."
+   },
+   {
+    "q": "The classification of flowering plants given by George Bentham and Joseph Dalton Hooker is:",
+    "o": [
+     "Artificial",
+     "Natural",
+     "Phylogenetic",
+     "Numerical"
+    ],
+    "a": 1,
+    "e": "It is a natural system, based on natural affinities and both external and internal features."
+   }
+  ]
  }
 };
