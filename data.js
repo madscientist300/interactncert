@@ -1038,5 +1038,151 @@ window.CHAPTERS = {
     "e": "The parenchymatous cells between xylem and phloem in the root are the conjunctive tissue."
    }
   ]
+ },
+ "livingworld": {
+  "title": "The Living World",
+  "file": "class-11/The Living World.html",
+  "lede": "How biologists name, identify and arrange the 1.7–1.8 million known species, and the ladder of taxonomic categories from species to kingdom.",
+  "topics": [
+   "Diversity in the living world",
+   "Identification and nomenclature",
+   "Classification, taxonomy and systematics",
+   "Taxonomic categories and the hierarchy",
+   "How closely are two organisms related?"
+  ],
+  "questions": [
+   {
+    "q": "The number of species that are known and described is about:",
+    "o": [
+     "0.7–0.8 million",
+     "1.7–1.8 million",
+     "17–18 million",
+     "170–180 million"
+    ],
+    "a": 1,
+    "e": "NCERT: the number of known and described species ranges between 1.7 and 1.8 million."
+   },
+   {
+    "q": "Which is the correctly written scientific name of mango?",
+    "o": [
+     "Mangifera Indica",
+     "mangifera indica",
+     "Mangifera indica",
+     "MANGIFERA indica"
+    ],
+    "a": 2,
+    "e": "Genus starts with a capital letter, the specific epithet with a small letter, and both are italicised in print (NCERT exercise 5)."
+   },
+   {
+    "q": "In Mangifera indica Linn., 'Linn.' indicates that:",
+    "o": [
+     "The species belongs to the family of Linnaeus",
+     "The species was first described by Linnaeus",
+     "It is the specific epithet",
+     "It is the genus"
+    ],
+    "a": 1,
+    "e": "The author's name appears abbreviated after the specific epithet and shows who first described the species."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "ICZN: naming of plants",
+     "ICBN: naming of animals",
+     "ICBN: naming of plants",
+     "ICZN: naming of bacteria"
+    ],
+    "a": 2,
+    "e": "Plants are named under the International Code for Botanical Nomenclature (ICBN); animals under the International Code of Zoological Nomenclature (ICZN)."
+   },
+   {
+    "q": "Which sequence of taxonomic categories is in correct ascending order?",
+    "o": [
+     "Species, Genus, Order, Phylum",
+     "Genus, Species, Order, Kingdom",
+     "Species, Order, Genus, Kingdom",
+     "Family, Genus, Species, Class"
+    ],
+    "a": 0,
+    "e": "Ascending order runs Species → Genus → Family → Order → Class → Phylum → Kingdom. Only (a) keeps that order (it skips family and class but never goes backwards)."
+   },
+   {
+    "q": "Going up the hierarchy from species to kingdom, the number of common characteristics:",
+    "o": [
+     "Increases",
+     "Decreases",
+     "Stays the same",
+     "First increases, then decreases"
+    ],
+    "a": 1,
+    "e": "The lower the taxon, the more characteristics its members share; the higher the category, the fewer."
+   },
+   {
+    "q": "Solanum, Petunia and Datura are placed in the family:",
+    "o": [
+     "Convolvulaceae",
+     "Anacardiaceae",
+     "Solanaceae",
+     "Poaceae"
+    ],
+    "a": 2,
+    "e": "NCERT gives these three genera as members of Solanaceae."
+   },
+   {
+    "q": "The order Polymoniales includes Convolvulaceae and Solanaceae mainly on the basis of:",
+    "o": [
+     "Vegetative characters",
+     "Floral characters",
+     "Root characters",
+     "Chromosome number"
+    ],
+    "a": 1,
+    "e": "These families are included in Polymoniales mainly based on floral characters."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "Species is the lowest category for all organisms",
+     "Genera are aggregates of closely related species",
+     "Families of plants are characterised only on vegetative features",
+     "An order is an assemblage of families with a few similar characters"
+    ],
+    "a": 2,
+    "e": "Families are characterised on both vegetative and reproductive features of plant species."
+   },
+   {
+    "q": "Assertion (A): Panthera and Felis are placed in the same family. Reason (R): The family Felidae includes Panthera (lion, tiger, leopard) and Felis (cats).",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT: genus Panthera is put along with genus Felis in the family Felidae."
+   },
+   {
+    "q": "According to Table 1.1, the order of the housefly is:",
+    "o": [
+     "Muscidae",
+     "Diptera",
+     "Insecta",
+     "Arthropoda"
+    ],
+    "a": 1,
+    "e": "Housefly (Musca domestica): genus Musca, family Muscidae, order Diptera, class Insecta, phylum Arthropoda."
+   },
+   {
+    "q": "Linnaeus used which title for his publication, from which the word 'systematics' comes?",
+    "o": [
+     "Origin of Species",
+     "Systema Naturae",
+     "Genera Plantarum",
+     "Historia Plantarum"
+    ],
+    "a": 1,
+    "e": "Systematics comes from the Latin systema, systematic arrangement; Linnaeus titled his publication Systema Naturae."
+   }
+  ]
  }
 };
