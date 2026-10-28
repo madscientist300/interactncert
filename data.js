@@ -1480,5 +1480,299 @@ window.CHAPTERS = {
     "e": "G0 cells remain metabolically active but no longer proliferate unless called on to do so, depending on the requirement of the organism."
    }
   ]
+ },
+ "bioclass": {
+  "title": "Biological Classification",
+  "file": "class-11/Biological Classification.html",
+  "lede": "From Aristotle's trees and shrubs to Whittaker's five kingdoms: Monera, Protista and Fungi in detail, a look at Plantae and Animalia, and the agents left out of the system altogether. Explore each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "How classification systems changed",
+   "Kingdom Monera",
+   "Kingdom Protista",
+   "Kingdom Fungi",
+   "Kingdoms Plantae and Animalia",
+   "Viruses, viroids, prions and lichens"
+  ],
+  "questions": [
+   {
+    "q": "The Five Kingdom Classification was proposed by:",
+    "o": [
+     "Linnaeus",
+     "Aristotle",
+     "R.H. Whittaker",
+     "T.O. Diener"
+    ],
+    "a": 2,
+    "e": "R.H. Whittaker (1969) proposed Monera, Protista, Fungi, Plantae and Animalia."
+   },
+   {
+    "q": "Chemosynthetic autotrophic bacteria obtain energy for ATP production by:",
+    "o": [
+     "Absorbing sunlight with chlorophyll a",
+     "Oxidising inorganic substances such as nitrates, nitrites and ammonia",
+     "Decomposing dead organic matter",
+     "Fixing nitrogen in heterocysts"
+    ],
+    "a": 1,
+    "e": "They oxidise various inorganic substances and use the released energy for ATP production; they recycle N, P, Fe and S."
+   },
+   {
+    "q": "Methane (biogas) is produced from the dung of cows and buffaloes by:",
+    "o": [
+     "Halophiles",
+     "Thermoacidophiles",
+     "Methanogens",
+     "Cyanobacteria"
+    ],
+    "a": 2,
+    "e": "Methanogens are archaebacteria found in marshy areas and in the gut of ruminants."
+   },
+   {
+    "q": "Atmospheric nitrogen is fixed in specialised cells called heterocysts in:",
+    "o": [
+     "Nostoc and Anabaena",
+     "Gonyaulax",
+     "Euglena",
+     "Mycoplasma"
+    ],
+    "a": 0,
+    "e": "Some cyanobacteria, e.g. Nostoc and Anabaena, fix nitrogen in heterocysts."
+   },
+   {
+    "q": "Diatomaceous earth is used in polishing and filtration because diatom cell walls are:",
+    "o": [
+     "Made of chitin",
+     "Made of stiff cellulose plates",
+     "Embedded with silica and indestructible",
+     "A protein-rich pellicle"
+    ],
+    "a": 2,
+    "e": "Silica-embedded diatom walls accumulate over billions of years; the gritty soil is used for polishing and filtering oils and syrups."
+   },
+   {
+    "q": "'Red tides' are caused by the rapid multiplication of:",
+    "o": [
+     "Diatoms",
+     "Red dinoflagellates such as Gonyaulax",
+     "Cyanobacteria",
+     "Slime moulds"
+    ],
+    "a": 1,
+    "e": "Red dinoflagellates like Gonyaulax make the sea appear red; their toxins may kill fishes."
+   },
+   {
+    "q": "Instead of a cell wall, euglenoids have:",
+    "o": [
+     "A silica shell",
+     "Cellulose plates",
+     "A protein-rich pellicle",
+     "A chitin wall"
+    ],
+    "a": 2,
+    "e": "The protein-rich pellicle makes their body flexible."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Albugo: smut",
+     "Ustilago: rust",
+     "Puccinia: wheat rust",
+     "Agaricus: bread mould"
+    ],
+    "a": 2,
+    "e": "Albugo is the parasitic fungus on mustard, Ustilago is a smut, Agaricus is a mushroom; Puccinia causes wheat rust."
+   },
+   {
+    "q": "Assertion (A): Deuteromycetes are called imperfect fungi. Reason (R): Only the asexual or vegetative phases of these fungi are known.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "They are 'imperfect' precisely because their sexual (perfect) stages are unknown."
+   },
+   {
+    "q": "A dikaryotic stage (n + n) occurs in:",
+    "o": [
+     "Phycomycetes only",
+     "Ascomycetes and basidiomycetes",
+     "Deuteromycetes",
+     "All protists"
+    ],
+    "a": 1,
+    "e": "NCERT: in ascomycetes and basidiomycetes an intervening dikaryotic stage occurs before karyogamy."
+   },
+   {
+    "q": "Viroids differ from viruses in having:",
+    "o": [
+     "DNA with a protein coat",
+     "Free RNA without a protein coat",
+     "Both RNA and DNA",
+     "Abnormally folded protein only"
+    ],
+    "a": 1,
+    "e": "Diener (1971) found the viroid to be free, low molecular weight RNA lacking the viral protein coat."
+   },
+   {
+    "q": "Which statement about viruses is NOT true?",
+    "o": [
+     "They are inert outside their specific host cell",
+     "Some viruses contain both RNA and DNA",
+     "Bacteriophages are usually double-stranded DNA viruses",
+     "The capsid is made of capsomeres"
+    ],
+    "a": 1,
+    "e": "No virus contains both RNA and DNA."
+   }
+  ]
+ },
+ "morphology": {
+  "title": "Morphology of Flowering Plants",
+  "file": "class-11/Morphology of Flowering Plants.html",
+  "lede": "The standard terms for roots, stems, leaves, inflorescences, flowers, fruits and seeds, and how to write a flowering plant down as a floral formula. Explore each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "The root",
+   "The stem and the leaf",
+   "The inflorescence",
+   "The flower",
+   "The fruit and the seed",
+   "Semi-technical description and Solanaceae"
+  ],
+  "questions": [
+   {
+    "q": "In the majority of dicotyledonous plants, the primary root is formed by:",
+    "o": [
+     "The base of the stem",
+     "Direct elongation of the radicle",
+     "Nodes of the stem",
+     "The plumule"
+    ],
+    "a": 1,
+    "e": "Direct elongation of the radicle forms the primary root, which with its branches makes the tap root system."
+   },
+   {
+    "q": "Roots that arise from parts of the plant other than the radicle, as in grass, Monstera and banyan, are:",
+    "o": [
+     "Tap roots",
+     "Fibrous roots",
+     "Adventitious roots",
+     "Lateral roots"
+    ],
+    "a": 2,
+    "e": "NCERT: such roots are called adventitious roots."
+   },
+   {
+    "q": "The region of the root responsible for its growth in length is the:",
+    "o": [
+     "Root cap",
+     "Region of meristematic activity",
+     "Region of elongation",
+     "Region of maturation"
+    ],
+    "a": 2,
+    "e": "Cells in the region of elongation undergo rapid elongation and enlargement and are responsible for growth in length."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "China rose: opposite phyllotaxy",
+     "Guava: whorled phyllotaxy",
+     "Alstonia: whorled phyllotaxy",
+     "Calotropis: alternate phyllotaxy"
+    ],
+    "a": 2,
+    "e": "China rose is alternate; guava and Calotropis are opposite; Alstonia is whorled."
+   },
+   {
+    "q": "In a racemose inflorescence:",
+    "o": [
+     "The main axis ends in a flower and flowers are basipetal",
+     "The main axis continues to grow and flowers are acropetal",
+     "The main axis ends in a flower and flowers are acropetal",
+     "Flowers are always solitary"
+    ],
+    "a": 1,
+    "e": "Racemose: main axis keeps growing; flowers are lateral in acropetal succession."
+   },
+   {
+    "q": "Assertion (A): The ovary of an epigynous flower is inferior. Reason (R): The margin of the thalamus grows upward, enclosing the ovary completely and fusing with it, and the other floral parts arise above the ovary.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "That is exactly NCERT's description of an epigynous flower (guava, cucumber, ray florets of sunflower)."
+   },
+   {
+    "q": "Vexillary aestivation is found in:",
+    "o": [
+     "Calotropis",
+     "China rose",
+     "Cassia",
+     "Pea and bean"
+    ],
+    "a": 3,
+    "e": "In pea and bean the standard overlaps the wings, which overlap the keel."
+   },
+   {
+    "q": "Stamens united into two bundles (diadelphous) are found in:",
+    "o": [
+     "China rose",
+     "Pea",
+     "Citrus",
+     "Brinjal"
+    ],
+    "a": 1,
+    "e": "China rose is monoadelphous, pea diadelphous, citrus polyadelphous; brinjal stamens are epipetalous."
+   },
+   {
+    "q": "A one-chambered ovary that becomes two-chambered due to a false septum, with ovules on the inner wall, shows:",
+    "o": [
+     "Axile placentation",
+     "Free central placentation",
+     "Parietal placentation",
+     "Basal placentation"
+    ],
+    "a": 2,
+    "e": "Parietal placentation, as in mustard and Argemone."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "Drupes develop from monocarpellary superior ovaries",
+     "Mango and coconut are one-seeded drupes",
+     "The mesocarp of coconut is fleshy and edible",
+     "A fruit formed without fertilisation is parthenocarpic"
+    ],
+    "a": 2,
+    "e": "In coconut the mesocarp is fibrous; the fleshy edible mesocarp is mango's."
+   },
+   {
+    "q": "In the maize grain, the plumule is enclosed in a sheath called the:",
+    "o": [
+     "Coleorhiza",
+     "Coleoptile",
+     "Scutellum",
+     "Aleurone layer"
+    ],
+    "a": 1,
+    "e": "Coleoptile sheathes the plumule; coleorhiza sheathes the radicle; the scutellum is the cotyledon; the aleurone layer is proteinous."
+   },
+   {
+    "q": "The gynoecium of Solanaceae is:",
+    "o": [
+     "Monocarpellary with marginal placentation",
+     "Bicarpellary, obliquely placed, syncarpous, superior, with axile placentation",
+     "Tricarpellary with parietal placentation",
+     "Bicarpellary, apocarpous, inferior"
+    ],
+    "a": 1,
+    "e": "NCERT: bicarpellary, obliquely placed, syncarpous; ovary superior, bilocular, swollen placenta with many ovules, axile."
+   }
+  ]
  }
 };

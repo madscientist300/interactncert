@@ -1,7 +1,9 @@
 /* Registry: which class and chapter number each chapter belongs to. Add new chapters here and in data.js. */
 window.REGISTRY = [
   { id: "livingworld",     cls: 11, ch: 1,  unit: "Diversity in the Living World" },
+  { id: "bioclass",        cls: 11, ch: 2,  unit: "Diversity in the Living World" },
   { id: "plantkingdom",    cls: 11, ch: 3,  unit: "Diversity in the Living World" },
+  { id: "morphology",      cls: 11, ch: 5,  unit: "Structural Organisation in Plants" },
   { id: "anatomy",         cls: 11, ch: 6,  unit: "Structural Organisation in Plants" },
   { id: "cellunit",        cls: 11, ch: 8,  unit: "Cell: Structure and Functions" },
   { id: "cellcycle",       cls: 11, ch: 10, unit: "Cell: Structure and Functions" },

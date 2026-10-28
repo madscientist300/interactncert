@@ -1,0 +1,1266 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Biological Classification</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 11 · Chapter 2</span>
+      <h1>Biological Classification</h1>
+      <p class="lede">From Aristotle's trees and shrubs to Whittaker's five kingdoms: Monera, Protista and Fungi in detail, a look at Plantae and Animalia, and the agents left out of the system altogether. Explore each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">6 topics</span>
+        <span class="pill">8 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Whittaker's five kingdoms">
+      <span class="fig-label">R.H. Whittaker, 1969</span>
+      <span class="eq">Monera · Protista · Fungi · Plantae · Animalia</span>
+      <span class="over">criteria: cell structure, body organisation, mode of nutrition, reproduction, phylogenetic relationships</span>
+      <span class="muted" style="font-size:.82rem">Viruses, viroids, prions and lichens have no place in the five kingdoms.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#systems"><span class="n">1</span>Classification systems</a>
+      <a href="#monera"><span class="n">2</span>Monera</a>
+      <a href="#protista"><span class="n">3</span>Protista</a>
+      <a href="#fungi"><span class="n">4</span>Fungi</a>
+      <a href="#plantae"><span class="n">5</span>Plantae &amp; Animalia</a>
+      <a href="#acellular"><span class="n">6</span>Viruses, viroids, prions, lichens</a>
+      <a href="#quiz"><span class="n">7</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 SYSTEMS -->
+<section class="topic" id="systems">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>How classification systems changed</h2>
+    </div>
+    <div class="prose stack">
+      <p>Early classification was instinctive, based on our use of organisms for food, shelter and clothing. <strong>Aristotle</strong> made the earliest attempt at a scientific basis: he used simple morphological characters to classify plants into <strong>trees, shrubs and herbs</strong>, and divided animals into those <strong>with red blood</strong> and those without.</p>
+      <p>In <strong>Linnaeus'</strong> time a <strong>Two Kingdom</strong> system (Plantae and Animalia) was developed. It did not distinguish <strong>eukaryotes from prokaryotes</strong>, <strong>unicellular from multicellular</strong> organisms, or <strong>photosynthetic</strong> (green algae) from <strong>non-photosynthetic</strong> (fungi) organisms, and many organisms fitted neither kingdom. Characters such as cell structure, nature of wall, mode of nutrition, habitat, reproduction and evolutionary relationships were needed too.</p>
+      <p><strong>R.H. Whittaker (1969)</strong> proposed the <strong>Five Kingdom Classification</strong>: Monera, Protista, Fungi, Plantae and Animalia. A <strong>three-domain system</strong> has also been proposed, dividing Monera into two domains and leaving the eukaryotic kingdoms in the third, giving a six kingdom classification.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Same organisms, two systems</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="controls" role="group" aria-label="System">
+          <button class="btn" id="ks-2" aria-pressed="true">Two kingdoms (Linnaeus)</button>
+          <button class="btn" id="ks-5" aria-pressed="false">Five kingdoms (Whittaker)</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="kssvg" viewBox="0 0 680 330" role="img" aria-label="Twelve organisms sorted into kingdoms under the chosen system"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ks-k"></div><div id="ks-t"></div></div>
+      <p class="fig-note">Switch systems and watch the organisms move. Click an organism to see why it is placed where it is.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Characteristics of the five kingdoms (NCERT Table 2.1)</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Character</th><th>Monera</th><th>Protista</th><th>Fungi</th><th>Plantae</th><th>Animalia</th></tr></thead>
+        <tbody>
+          <tr><td>Cell type</td><td>Prokaryotic</td><td>Eukaryotic</td><td>Eukaryotic</td><td>Eukaryotic</td><td>Eukaryotic</td></tr>
+          <tr><td>Cell wall</td><td>Noncellulosic (polysaccharide + amino acid)</td><td>Present in some</td><td>Present, with chitin</td><td>Present (cellulose)</td><td>Absent</td></tr>
+          <tr><td>Nuclear membrane</td><td>Absent</td><td>Present</td><td>Present</td><td>Present</td><td>Present</td></tr>
+          <tr><td>Body organisation</td><td>Cellular</td><td>Cellular</td><td>Multicellular / loose tissue</td><td>Tissue / organ</td><td>Tissue / organ / organ system</td></tr>
+          <tr><td>Mode of nutrition</td><td>Autotrophic (chemosynthetic and photosynthetic) and heterotrophic (saprophytic / parasitic)</td><td>Autotrophic (photosynthetic) and heterotrophic</td><td>Heterotrophic (saprophytic / parasitic)</td><td>Autotrophic (photosynthetic)</td><td>Heterotrophic (holozoic / saprophytic etc.)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Which kingdom fits?</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <p class="muted mono" style="font-size:.78rem">Pick one option in any row; kingdoms that do not fit fade out. Or load an organism.</p>
+      <div class="controls" id="kf-pre" role="group" aria-label="Load an organism"></div>
+      <div id="kf-groups" class="stack" style="gap:.6rem"></div>
+      <div class="grp" id="kf-out" style="margin-top:.9rem"></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="kf-k"></div><div id="kf-t"></div></div>
+      <div class="controls"><button class="btn" id="kf-clear">Clear choices</button></div>
+      <p class="fig-note">Built from Table 2.1 and the kingdom descriptions in the chapter (for example, yeast is a unicellular fungus; Chlamydomonas is a walled, photosynthetic protist).</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span>The older "Plants" kingdom was unified by one character: <strong>a cell wall</strong>. So it lumped prokaryotic <strong>bacteria and blue-green algae</strong> with eukaryotes, unicellular <strong>Chlamydomonas</strong> with multicellular <strong>Spirogyra</strong>, and heterotrophic <strong>fungi</strong> (chitin walls) with autotrophic green plants (cellulose walls). Protista now brings together walled <strong>Chlamydomonas and Chlorella</strong> with wall-less <strong>Paramoecium and Amoeba</strong>.</div>
+  </div>
+</section>
+
+<!-- 2 MONERA -->
+<section class="topic" id="monera">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Kingdom Monera</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Bacteria are the sole members</strong> of Monera and the <strong>most abundant</strong> micro-organisms. Hundreds live in a handful of soil; others live in extreme habitats such as hot springs, deserts, snow and deep oceans, or as parasites. By shape they are <strong>coccus</strong> (spherical), <strong>bacillus</strong> (rod), <strong>vibrium</strong> (comma) and <strong>spirillum</strong> (spiral).</p>
+      <p>Though structurally simple, bacteria are complex in behaviour and show the <strong>most extensive metabolic diversity</strong> of any group. Some are autotrophic (photosynthetic or chemosynthetic); the <strong>vast majority are heterotrophs</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The diversity of bacteria</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="svg-scroll"><svg id="bdsvg" viewBox="0 0 680 400" role="img" aria-label="Tree of Kingdom Monera: archaebacteria with halophiles, thermoacidophiles and methanogens; eubacteria with photosynthetic autotrophs, chemosynthetic autotrophs and heterotrophs; and mycoplasma"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bd-k"></div><div id="bd-t"></div></div>
+      <p class="fig-note">Click any box.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Reproduction</strong>: mainly by <strong>fission</strong>; under unfavourable conditions by <strong>spores</strong>; and a sort of sexual reproduction by a <strong>primitive type of DNA transfer</strong> from one bacterium to another.</div>
+      <div class="callout"><span class="tag">NEET trap</span>Archaebacteria survive extreme conditions because of their <strong>different cell wall structure</strong>. <strong>Mycoplasma</strong> completely lack a cell wall, are the <strong>smallest living cells</strong> known and can <strong>survive without oxygen</strong>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 PROTISTA -->
+<section class="topic" id="protista">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Kingdom Protista</h2>
+    </div>
+    <div class="prose stack">
+      <p>All <strong>single-celled eukaryotes</strong> are placed in Protista, but its boundaries are not well defined: a "photosynthetic protistan" to one biologist may be "a plant" to another. NCERT includes <strong>Chrysophytes, Dinoflagellates, Euglenoids, Slime moulds and Protozoans</strong>. Protists are <strong>primarily aquatic</strong>, have a well-defined nucleus and membrane-bound organelles, some have flagella or cilia, and they reproduce asexually and sexually (cell fusion and zygote formation). The kingdom forms a <strong>link</strong> with plants, animals and fungi.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The five protist groups</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="controls" role="group" aria-label="Group" id="pr-seg">
+          <button class="btn" data-k="chr" aria-pressed="true">Chrysophytes</button>
+          <button class="btn" data-k="din" aria-pressed="false">Dinoflagellates</button>
+          <button class="btn" data-k="eug" aria-pressed="false">Euglenoids</button>
+          <button class="btn" data-k="sli" aria-pressed="false">Slime moulds</button>
+          <button class="btn" data-k="pro" aria-pressed="false">Protozoans</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="prsvg" viewBox="0 0 680 250" role="img" aria-label="Drawing of the chosen protist group"></svg></div>
+      <div class="readout">
+        <div><b id="pr-w" style="font-size:1.05rem"></b><span>Cell wall</span></div>
+        <div><b id="pr-n" style="font-size:1.05rem"></b><span>Nutrition</span></div>
+        <div><b id="pr-h" style="font-size:1.05rem"></b><span>Habitat</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="pr-k"></div><div id="pr-t"></div></div>
+      <p class="fig-note">After NCERT Fig 2.4. In the protozoan view, click each organism.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Euglena: plant or animal?</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <label class="ctl" for="eu-l">Sunlight <output id="eu-l-o"></output></label>
+      <input type="range" id="eu-l" min="0" max="100" step="1" value="80">
+      <div class="svg-scroll"><svg id="eusvg" viewBox="0 0 680 220" role="img" aria-label="Euglena in light or darkness, photosynthesising or capturing smaller organisms"></svg></div>
+      <div class="readout">
+        <div><b id="eu-m" style="font-size:1.05rem"></b><span>Behaves as</span></div>
+        <div><b id="eu-f" style="font-size:1.05rem"></b><span>Food comes from</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="eu-t"></div></div>
+      <p class="fig-note">Drag the slider. The light level at which Euglena switches is illustrative; NCERT says only "in the presence of sunlight" and "when deprived of sunlight".</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Four groups of protozoans</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Group</th><th>Features</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Amoeboid</strong></td><td>Fresh water, sea water or moist soil; move and capture prey with <strong>pseudopodia</strong> (false feet). Marine forms have <strong>silica shells</strong>. Some are parasites.</td><td><em>Amoeba</em>; parasitic <em>Entamoeba</em></td></tr>
+          <tr><td><strong>Flagellated</strong></td><td>Free-living or parasitic; have <strong>flagella</strong>. Parasitic forms cause diseases such as <strong>sleeping sickness</strong>.</td><td><em>Trypanosoma</em></td></tr>
+          <tr><td><strong>Ciliated</strong></td><td>Aquatic, actively moving with <strong>thousands of cilia</strong>. A cavity, the <strong>gullet</strong>, opens to the outside; rows of cilia steer food-laden water into it.</td><td><em>Paramoecium</em></td></tr>
+          <tr><td><strong>Sporozoans</strong></td><td>Have an <strong>infectious spore-like stage</strong> in the life cycle.</td><td><em>Plasmodium</em> (malaria)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem">
+      <div class="callout"><span class="tag">Remember</span>Diatom walls are <strong>embedded with silica</strong> and indestructible; deposits over billions of years form <strong>diatomaceous earth</strong>, gritty soil used in <strong>polishing</strong> and <strong>filtration of oils and syrups</strong>. Diatoms are the <strong>chief producers in the oceans</strong>.</div>
+      <div class="callout"><span class="tag">NEET trap</span><strong>Red tides</strong>: red dinoflagellates such as <strong><em>Gonyaulax</em></strong> multiply so rapidly that the sea looks red, and their toxins may kill fish. <strong>Algal blooms</strong> are formed by <strong>cyanobacteria</strong> in polluted water (Monera, not Protista).</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 FUNGI -->
+<section class="topic" id="fungi">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Kingdom Fungi</h2>
+    </div>
+    <div class="prose stack">
+      <p>Fungi are a unique kingdom of <strong>heterotrophs</strong>, found on moist bread and rotten fruit, as mushrooms and toadstools, as white spots on mustard leaves, as bread- and beer-making <strong>yeast</strong>, as wheat rust (<strong><em>Puccinia</em></strong>) and as antibiotic sources (<strong><em>Penicillium</em></strong>). They prefer <strong>warm and humid</strong> places (hence the refrigerator).</p>
+      <p>Except for unicellular <strong>yeasts</strong>, fungi are <strong>filamentous</strong>: thread-like <strong>hyphae</strong> form a network, the <strong>mycelium</strong>. <strong>Coenocytic</strong> hyphae are continuous multinucleate tubes; others have <strong>septae</strong> (cross walls). Walls are of <strong>chitin and polysaccharides</strong>. Most are <strong>saprophytes</strong>; others are <strong>parasites</strong> or <strong>symbionts</strong> (with algae as <strong>lichens</strong>, with roots as <strong>mycorrhiza</strong>).</p>
+      <p><strong>Vegetative</strong> reproduction: fragmentation, fission, budding. <strong>Asexual</strong>: conidia, sporangiospores or zoospores. <strong>Sexual</strong>: oospores, ascospores and basidiospores, produced in <strong>fruiting bodies</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The sexual cycle of fungi</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="controls" role="group" aria-label="Type">
+          <button class="btn" id="fs-d" aria-pressed="true">With dikaryon (asco- and basidiomycetes)</button>
+          <button class="btn" id="fs-n" aria-pressed="false">Without dikaryon</button>
+        </div>
+      </div>
+      <div class="controls" id="fs-seg" role="group" aria-label="Step"></div>
+      <div class="svg-scroll"><svg id="fssvg" viewBox="0 0 680 230" role="img" aria-label="Cells and nuclei at the chosen step of the fungal sexual cycle"></svg></div>
+      <div class="readout">
+        <div><b id="fs-p" style="font-size:1.05rem"></b><span>Ploidy</span></div>
+        <div><b id="fs-u" style="font-size:1.05rem"></b><span>Nuclei per cell</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="fs-k"></div><div id="fs-t"></div></div>
+      <div class="controls"><button class="btn" id="fs-prev">← Back</button><button class="btn primary" id="fs-next">Next step →</button></div>
+      <p class="fig-note">Red and blue nuclei come from the two compatible mating types. Diagrammatic.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The four classes of fungi</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="controls" role="group" aria-label="Class" id="fc-seg">
+          <button class="btn" data-k="phy" aria-pressed="true">Phycomycetes</button>
+          <button class="btn" data-k="asc" aria-pressed="false">Ascomycetes</button>
+          <button class="btn" data-k="bas" aria-pressed="false">Basidiomycetes</button>
+          <button class="btn" data-k="deu" aria-pressed="false">Deuteromycetes</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="fcsvg" viewBox="0 0 680 250" role="img" aria-label="Mycelium and spore-bearing structures of the chosen class of fungi"></svg></div>
+      <div class="readout">
+        <div><b id="fc-m" style="font-size:1.05rem"></b><span>Mycelium</span></div>
+        <div><b id="fc-a" style="font-size:1.05rem"></b><span>Asexual spores</span></div>
+        <div><b id="fc-s" style="font-size:1.05rem"></b><span>Sexual spores</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="fc-k"></div><div id="fc-t"></div></div>
+      <p class="fig-note">After NCERT Fig 2.5. Diagrammatic; not to scale.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Class</th><th>Common name</th><th>Nutrition / habitat</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Phycomycetes</strong></td><td>—</td><td>Aquatic; decaying wood in moist places; <strong>obligate parasites</strong> on plants</td><td><em>Mucor</em>, <em>Rhizopus</em> (bread mould), <em>Albugo</em> (on mustard)</td></tr>
+          <tr><td><strong>Ascomycetes</strong></td><td>Sac fungi</td><td>Saprophytic, decomposers, parasitic or <strong>coprophilous</strong> (on dung)</td><td><em>Penicillium</em>, yeast (<em>Saccharomyces</em>), <em>Aspergillus</em>, <em>Claviceps</em>, <em>Neurospora</em>; morels and truffles</td></tr>
+          <tr><td><strong>Basidiomycetes</strong></td><td>Mushrooms, bracket fungi, puffballs</td><td>Soil, logs, tree stumps; parasites (rusts, smuts)</td><td><em>Agaricus</em> (mushroom), <em>Ustilago</em> (smut), <em>Puccinia</em> (rust)</td></tr>
+          <tr><td><strong>Deuteromycetes</strong></td><td>Imperfect fungi</td><td>Saprophytes or parasites; many decompose litter and help in <strong>mineral cycling</strong></td><td><em>Alternaria</em>, <em>Colletotrichum</em>, <em>Trichoderma</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span><strong>Endogenous</strong> spores form inside a structure: sporangiospores (phycomycetes) and <strong>ascospores in asci</strong>. <strong>Exogenous</strong> spores form outside: <strong>conidia on conidiophores</strong> and <strong>basidiospores on basidia</strong>. <em>Neurospora</em> is used extensively in <strong>biochemical and genetic work</strong>.</div>
+  </div>
+</section>
+
+<!-- 5 PLANTAE & ANIMALIA -->
+<section class="topic" id="plantae">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Kingdoms Plantae and Animalia</h2>
+    </div>
+    <div class="two-col">
+      <div class="prose stack">
+        <h3>Plantae</h3>
+        <p>All <strong>eukaryotic, chlorophyll-containing</strong> organisms: algae, bryophytes, pteridophytes, gymnosperms and angiosperms. Cells have prominent chloroplasts and a wall mainly of <strong>cellulose</strong>.</p>
+        <p>A few are <strong>partially heterotrophic</strong>: insectivorous <strong>bladderwort</strong> and <strong>Venus fly trap</strong>, and the parasite <strong><em>Cuscuta</em></strong>.</p>
+        <p>The life cycle alternates between a diploid <strong>sporophytic</strong> and a haploid <strong>gametophytic</strong> phase: <strong>alternation of generation</strong>. The lengths of the phases, and whether each is free-living or dependent, vary among groups (Chapter 3).</p>
+      </div>
+      <div class="prose stack">
+        <h3>Animalia</h3>
+        <p><strong>Heterotrophic, eukaryotic, multicellular</strong> organisms whose cells <strong>lack cell walls</strong>. They depend directly or indirectly on plants for food, digest food in an internal cavity and store reserves as <strong>glycogen or fat</strong>.</p>
+        <p>Nutrition is <strong>holozoic</strong> (by ingestion). They follow a definite growth pattern to a definite shape and size; higher forms have elaborate sensory and neuromotor mechanisms; most can move.</p>
+        <p>Sexual reproduction is by <strong>copulation</strong> of male and female followed by <strong>embryological development</strong> (Chapter 4).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 ACELLULAR -->
+<section class="topic" id="acellular">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Viruses, viroids, prions and lichens</h2>
+    </div>
+    <div class="prose stack">
+      <p>Whittaker's system has no place for <strong>lichens</strong> or acellular agents like <strong>viruses, viroids and prions</strong>. Viruses are not considered truly "living" if living means having a cell structure. They are <strong>non-cellular</strong>, have an <strong>inert crystalline structure</strong> outside the living cell, and once inside a cell take over its machinery to replicate, killing the host. Virus means <strong>venom or poisonous fluid</strong>.</p>
+      <p>A virus is a <strong>nucleoprotein</strong>: a protein coat plus genetic material that is <strong>either RNA or DNA, never both</strong>, and the genetic material is infectious. Plant viruses generally have <strong>single-stranded RNA</strong>; animal viruses have single- or double-stranded RNA or double-stranded DNA; <strong>bacteriophages</strong> usually have <strong>double-stranded DNA</strong>. The coat, the <strong>capsid</strong>, is made of subunits called <strong>capsomeres</strong> in helical or polyhedral arrangements.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Agents outside the five kingdoms</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="controls" role="group" aria-label="Agent">
+          <button class="btn" id="ag-tmv" aria-pressed="true">TMV</button>
+          <button class="btn" id="ag-pha" aria-pressed="false">Bacteriophage</button>
+          <button class="btn" id="ag-vir" aria-pressed="false">Viroid</button>
+          <button class="btn" id="ag-pri" aria-pressed="false">Prion</button>
+          <button class="btn" id="ag-lic" aria-pressed="false">Lichen</button>
+        </div>
+      </div>
+      <div class="controls" id="ag-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="agsvg" viewBox="0 0 680 260" role="img" aria-label="Structure of the chosen agent with clickable parts"></svg></div>
+      <div class="readout">
+        <div><b id="ag-a" style="font-size:1.05rem"></b><span>Genetic material</span></div>
+        <div><b id="ag-b" style="font-size:1.05rem"></b><span>Protein coat</span></div>
+        <div><b id="ag-c" style="font-size:1.05rem"></b><span>Example</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ag-k"></div><div id="ag-t"></div></div>
+      <p class="fig-note">After NCERT Fig 2.6. Click a part or a button. Diagrammatic; not to scale.</p>
+    </div>
+
+    <h3 style="margin-bottom:.8rem">Discovering viruses and viroids</h3>
+    <div class="timeline">
+      <div><span class="yr">1892</span><b>Dmitri Ivanowsky</b><p>Microbes causing mosaic disease of tobacco were smaller than bacteria: they passed through bacteria-proof filters.</p></div>
+      <div><span class="yr">1898</span><b>M.W. Beijerinck</b><p>Extract of infected tobacco infected healthy plants; named it "virus" and the fluid <em>Contagium vivum fluidum</em> (infectious living fluid).</p></div>
+      <div><span class="yr">1935</span><b>W.M. Stanley</b><p>Viruses could be crystallised; the crystals consist largely of proteins.</p></div>
+      <div><span class="yr">1969</span><b>R.H. Whittaker</b><p>Five Kingdom Classification.</p></div>
+      <div><span class="yr">1971</span><b>T.O. Diener</b><p>Discovered the viroid, a free RNA smaller than viruses, causing potato spindle tuber disease.</p></div>
+    </div>
+
+    <div class="table-scroll" style="margin-top:1.4rem">
+      <table>
+        <thead><tr><th>Agent</th><th>Made of</th><th>Diseases (NCERT)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Virus</strong></td><td>Protein capsid + RNA <em>or</em> DNA</td><td>Mumps, small pox, herpes, influenza, AIDS; in plants: mosaic formation, leaf rolling and curling, yellowing and vein clearing, dwarfing and stunted growth</td></tr>
+          <tr><td><strong>Viroid</strong></td><td>Free RNA of <strong>low molecular weight</strong>, <strong>no protein coat</strong></td><td>Potato spindle tuber disease</td></tr>
+          <tr><td><strong>Prion</strong></td><td><strong>Abnormally folded protein</strong>, similar in size to viruses</td><td>Bovine spongiform encephalopathy (BSE, mad cow disease); Cr–Jacob disease (CJD) in humans</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span><strong>Lichens</strong> are symbiotic (mutually useful) associations of <strong>algae and fungi</strong>. The algal partner, the <strong>phycobiont</strong>, is autotrophic and prepares food; the fungal partner, the <strong>mycobiont</strong>, is heterotrophic and provides shelter and absorbs minerals and water. Lichens are very good <strong>pollution indicators</strong>: they do not grow in polluted areas.</div>
+  </div>
+</section>
+
+<!-- 7 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>1969</b><span>Whittaker's five kingdoms</span></div>
+      <div><b>1892 · 1898 · 1935</b><span>Ivanowsky · Beijerinck · Stanley (viruses)</span></div>
+      <div><b>1971</b><span>Diener: viroid, potato spindle tuber</span></div>
+      <div><b>Halo · thermoacido · methano</b><span>Archaebacteria of salt, hot springs, marshes (and ruminant gut)</span></div>
+      <div><b>Nostoc · Anabaena</b><span>Nitrogen fixation in heterocysts</span></div>
+      <div><b>Silica · cellulose plates · pellicle</b><span>Diatoms · dinoflagellates · euglenoids</span></div>
+      <div><b>Plasmogamy → karyogamy → meiosis</b><span>Fungal sexual cycle; dikaryon n + n in asco- and basidiomycetes</span></div>
+      <div><b>Zygo · asco · basidio · conidia</b><span>Phyco · asco · basidio · deutero signature spores</span></div>
+      <div><b>Phycobiont + mycobiont</b><span>Lichen: alga + fungus; pollution indicator</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XI, "Biological Classification". Lecture 11 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const rad = a => a * Math.PI / 180;
+  const press = (sel, test) => $$(sel).forEach(b => b.setAttribute("aria-pressed", String(test(b))));
+  const lab = (g, ax, ay, lx, ly, s, anchor = "start") => {
+    el("line", { x1: ax, y1: ay, x2: anchor === "end" ? lx + 6 : lx - 6, y2: ly - 4, class: "s-muted", "stroke-width": 0.9 }, g);
+    el("circle", { cx: ax, cy: ay, r: 2.2, class: "f-ink" }, g);
+    txt(g, lx, ly, s, { "font-weight": 500, "text-anchor": anchor });
+  };
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Generic clickable-parts figure ---------- */
+  function partsFigure(prefix, modes, draw) {
+    const svg = $("#" + prefix + "svg");
+    let mode = Object.keys(modes)[0], sel = null;
+    const apply = () => {
+      const M = modes[mode], p = M.parts.find(x => x.k === sel);
+      const ids = p ? (p.ids || [p.k]) : [];
+      svg.classList.toggle("dim", !!p);
+      $$("g.zg", svg).forEach(g => g.classList.toggle("on", ids.includes(g.dataset.k)));
+      $$("#" + prefix + "-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === sel)));
+      $("#" + prefix + "-k").textContent = p ? p.b : M.intro[0];
+      $("#" + prefix + "-t").innerHTML = p ? p.d : M.intro[1];
+    };
+    const render = () => {
+      svg.innerHTML = "";
+      const G = k => el("g", { class: "zg", "data-k": k, style: "cursor:pointer" }, svg);
+      draw(svg, mode, G);
+      $$("g.zg", svg).forEach(g => g.addEventListener("click", e => { e.stopPropagation(); sel = sel === g.dataset.k ? null : g.dataset.k; apply(); }));
+      const seg = $("#" + prefix + "-seg"); seg.innerHTML = "";
+      modes[mode].parts.forEach(p => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.dataset.k = p.k; b.textContent = p.b;
+        b.addEventListener("click", () => { sel = sel === p.k ? null : p.k; apply(); });
+        seg.appendChild(b);
+      });
+      const R = modes[mode].read || {};
+      for (const id in R) $("#" + id).textContent = R[id];
+      apply();
+    };
+    render();
+    return { set: m => { mode = m; sel = null; render(); } };
+  }
+
+  /* ---------- Fig 1 Two vs five kingdoms ---------- */
+  const KS = [
+    ["Bacteria", "Plantae", "Monera", "Has a cell wall, so the old system called it a plant. It is <strong>prokaryotic</strong>, so Whittaker placed it in <strong>Monera</strong>."],
+    ["Nostoc", "Plantae", "Monera", "A <strong>blue-green alga</strong> (cyanobacterium) once grouped with plants. Being <strong>prokaryotic</strong>, it moves to <strong>Monera</strong>."],
+    ["Chlamydomonas", "Plantae", "Protista", "A walled, unicellular alga that the old system kept with <strong>Spirogyra</strong> under algae. As a <strong>single-celled eukaryote</strong> it is now in <strong>Protista</strong>."],
+    ["Chlorella", "Plantae", "Protista", "Walled and photosynthetic, once a plant (alga). Single-celled eukaryote, so <strong>Protista</strong>."],
+    ["Amoeba", "Animalia", "Protista", "<strong>No cell wall</strong>, so once an animal. As a <strong>single-celled eukaryote</strong> it joins Chlamydomonas in <strong>Protista</strong>."],
+    ["Paramoecium", "Animalia", "Protista", "Wall-less and once an animal; now a <strong>ciliated protozoan</strong> in <strong>Protista</strong>."],
+    ["Yeast", "Plantae", "Fungi", "Has a wall, so once a plant. The wall is <strong>chitin</strong> and the nutrition <strong>heterotrophic</strong>, so it belongs in <strong>Fungi</strong> (a rare unicellular fungus)."],
+    ["Mushroom", "Plantae", "Fungi", "Once a plant because of its wall; a heterotroph with chitin walls, so <strong>Fungi</strong>."],
+    ["Spirogyra", "Plantae", "Plantae", "A <strong>multicellular</strong> green alga: it stays in <strong>Plantae</strong>. The old system lumped it with unicellular Chlamydomonas."],
+    ["Moss", "Plantae", "Plantae", "Eukaryotic, chlorophyll-containing and multicellular: <strong>Plantae</strong> in both systems."],
+    ["Fern", "Plantae", "Plantae", "<strong>Plantae</strong> in both systems."],
+    ["Mango", "Plantae", "Plantae", "<strong>Plantae</strong> in both systems."],
+    ["Cow", "Animalia", "Animalia", "Multicellular, wall-less, holozoic: <strong>Animalia</strong> in both systems."]
+  ];
+  const ks = $("#kssvg");
+  let ksSys = 2, ksSel = -1;
+  const COLS = { 2: [["Plantae", 0, 440], ["Animalia", 450, 680]], 5: ["Monera", "Protista", "Fungi", "Plantae", "Animalia"].map((n, i) => [n, i * 136, i * 136 + 136]) };
+  const head = el("g", {}, ks), pills = [];
+  KS.forEach((o, i) => {
+    const g = el("g", { style: "cursor:pointer; transition: transform .6s ease" }, ks);
+    const r = el("rect", { x: 0, y: 0, width: 120, height: 30, rx: 15, class: "f-card s-line", "stroke-width": 1.4 }, g);
+    txt(g, 60, 19.5, o[0], { "text-anchor": "middle", "font-size": 11.5, "font-style": o[0] === "Bacteria" || o[0] === "Moss" || o[0] === "Fern" || o[0] === "Mango" || o[0] === "Cow" || o[0] === "Mushroom" || o[0] === "Yeast" ? "normal" : "italic" });
+    g.addEventListener("click", () => { ksSel = i; drawKs(); });
+    pills.push([g, r]);
+  });
+  function drawKs() {
+    head.innerHTML = "";
+    press("#ks-2, #ks-5", b => b.id === "ks-" + ksSys);
+    const cols = COLS[ksSys], count = {};
+    cols.forEach(([n, x0, x1], ci) => {
+      el("rect", { x: x0 + 3, y: 8, width: x1 - x0 - 6, height: 314, rx: 10, class: ci % 2 ? "f-paper" : "f-leafsoft", opacity: 0.6 }, head);
+      txt(head, (x0 + x1) / 2, 32, n, { "text-anchor": "middle", "font-weight": 500, "font-size": 13 });
+    });
+    KS.forEach((o, i) => {
+      const kname = ksSys === 2 ? o[1] : o[2], [, x0, x1] = cols.find(c => c[0] === kname);
+      const k = count[kname] = (count[kname] || 0) + 1, idx = k - 1;
+      let x, y;
+      if (ksSys === 2 && kname === "Plantae") { x = x0 + 40 + (idx % 2) * 200; y = 52 + Math.floor(idx / 2) * 44; }
+      else { x = (x0 + x1) / 2 - 60; y = 52 + idx * 44; }
+      pills[i][0].style.transform = `translate(${x}px, ${y}px)`;
+      const moved = o[1] !== o[2];
+      pills[i][1].setAttribute("class", i === ksSel ? "f-leaf s-leaf" : (ksSys === 5 && moved ? "f-sunsoft s-sun" : "f-card s-line"));
+      pills[i][0].querySelector("text").style.fill = i === ksSel ? "var(--paper)" : "";
+    });
+    if (ksSel >= 0) { $("#ks-k").textContent = KS[ksSel][0] + " · " + (ksSys === 2 ? KS[ksSel][1] : KS[ksSel][2]); $("#ks-t").innerHTML = KS[ksSel][3]; }
+    else if (ksSys === 2) { $("#ks-k").textContent = "Two kingdoms"; $("#ks-t").innerHTML = "One character decides: <strong>a cell wall makes it a plant</strong>. Prokaryotes, fungi, unicellular and multicellular algae all land in Plantae."; }
+    else { $("#ks-k").textContent = "Five kingdoms"; $("#ks-t").innerHTML = "Cell structure, body organisation, nutrition, reproduction and phylogeny now count. Amber organisms <strong>changed kingdom</strong>."; }
+  }
+  [["ks-2", 2], ["ks-5", 5]].forEach(([id, v]) => $("#" + id).addEventListener("click", () => { ksSys = v; drawKs(); }));
+  drawKs();
+
+  /* ---------- Fig 2 Which kingdom fits ---------- */
+  const KG = ["Monera", "Protista", "Fungi", "Plantae", "Animalia"];
+  const GRP = [
+    { k: "cell", l: "Cell type", o: [["Prokaryotic", ["Monera"]], ["Eukaryotic", ["Protista", "Fungi", "Plantae", "Animalia"]]] },
+    { k: "wall", l: "Cell wall", o: [["Polysaccharide + amino acid", ["Monera"]], ["Chitin", ["Fungi"]], ["Cellulose", ["Plantae", "Protista"]], ["No wall", ["Animalia", "Protista"]]] },
+    { k: "body", l: "Body", o: [["Unicellular", ["Monera", "Protista", "Fungi"]], ["Multicellular / loose tissue", ["Fungi"]], ["Tissues and organs", ["Plantae", "Animalia"]]] },
+    { k: "nut", l: "Nutrition", o: [["Photosynthetic", ["Monera", "Protista", "Plantae"]], ["Chemosynthetic", ["Monera"]], ["Saprophytic / parasitic", ["Monera", "Protista", "Fungi", "Animalia"]], ["Holozoic (ingestion)", ["Animalia", "Protista"]]] }
+  ];
+  const PRE = { Nostoc: { cell: 0, wall: 0, nut: 0 }, Yeast: { cell: 1, wall: 1, body: 0, nut: 2 }, Chlamydomonas: { cell: 1, wall: 2, body: 0, nut: 0 }, Amoeba: { cell: 1, wall: 3, body: 0, nut: 3 }, Mushroom: { cell: 1, wall: 1, body: 1, nut: 2 }, Mango: { cell: 1, wall: 2, body: 2, nut: 0 }, Cow: { cell: 1, wall: 3, body: 2, nut: 3 } };
+  let kf = {}, kfName = "";
+  const kfG = $("#kf-groups");
+  GRP.forEach(gp => {
+    const row = document.createElement("div"); row.className = "controls";
+    const l = document.createElement("span"); l.className = "mono muted"; l.style.cssText = "font-size:.78rem;min-width:5.5rem"; l.textContent = gp.l; row.appendChild(l);
+    gp.o.forEach(([t], j) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.dataset.g = gp.k; b.dataset.j = j; b.textContent = t; b.addEventListener("click", () => { kf[gp.k] = kf[gp.k] === j ? undefined : j; kfName = ""; drawKf(); }); row.appendChild(b); });
+    kfG.appendChild(row);
+  });
+  Object.keys(PRE).forEach(n => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = n; b.addEventListener("click", () => { kf = Object.assign({}, PRE[n]); kfName = n; drawKf(); }); $("#kf-pre").appendChild(b); });
+  $("#kf-clear").addEventListener("click", () => { kf = {}; kfName = ""; drawKf(); });
+  function drawKf() {
+    $$("#kf-groups button").forEach(b => b.setAttribute("aria-pressed", String(kf[b.dataset.g] === +b.dataset.j)));
+    $$("#kf-pre button").forEach(b => b.setAttribute("aria-pressed", String(b.textContent === kfName)));
+    const why = {}; KG.forEach(k => why[k] = []);
+    GRP.forEach(gp => { if (kf[gp.k] === undefined) return; const [t, ok] = gp.o[kf[gp.k]]; KG.forEach(k => { if (!ok.includes(k)) why[k].push(t.toLowerCase()); }); });
+    const fit = KG.filter(k => !why[k].length);
+    $("#kf-out").innerHTML = KG.map(k => `<div class="${why[k].length ? "" : "yes"}"><b>${k}</b>${why[k].length ? "ruled out" : "fits"}</div>`).join("");
+    const any = GRP.some(gp => kf[gp.k] !== undefined);
+    $("#kf-k").textContent = !any ? "No choices yet" : fit.length === 1 ? (kfName ? kfName + " → " : "") + fit[0] : fit.length === 0 ? "No kingdom fits" : fit.length + " kingdoms still fit";
+    $("#kf-t").innerHTML = !any ? "Every kingdom is still possible. Choose a feature, or load an organism above."
+      : fit.length === 0 ? "This combination contradicts Table 2.1. Clear a row and try again."
+      : KG.filter(k => why[k].length).map(k => `<strong>${k}</strong>: not ${why[k].join(", not ")}`).join(" · ") + (fit.length > 1 ? " · Add another feature to narrow it down." : "");
+  }
+  drawKf();
+
+  /* ---------- Fig 3 Bacterial diversity tree ---------- */
+  const BD = [
+    { id: "root", x: 8, y: 170, w: 132, h: 48, t: ["Kingdom Monera", "(bacteria)"], d: ["Kingdom Monera", "<strong>Bacteria are the sole members.</strong> They are the most abundant micro-organisms, occur almost everywhere and show the <strong>most extensive metabolic diversity</strong> of any group: some are autotrophs, but the vast majority are heterotrophs."] },
+    { id: "arc", p: "root", x: 184, y: 66, w: 150, h: 40, t: ["Archaebacteria"], d: ["Archaebacteria", "Live in some of the most <strong>harsh habitats</strong>. They differ from other bacteria in having a <strong>different cell wall structure</strong>, which is responsible for their survival in extreme conditions."] },
+    { id: "eub", p: "root", x: 184, y: 226, w: 150, h: 40, t: ["Eubacteria"], d: ["Eubacteria ('true bacteria')", "Thousands of kinds, characterised by a <strong>rigid cell wall</strong> and, if motile, a <strong>flagellum</strong>."] },
+    { id: "myc", p: "root", x: 184, y: 344, w: 150, h: 40, t: ["Mycoplasma"], d: ["Mycoplasma", "<strong>Completely lack a cell wall.</strong> They are the <strong>smallest living cells</strong> known and can <strong>survive without oxygen</strong>. Many are pathogenic in animals and plants."] },
+    { id: "hal", p: "arc", x: 384, y: 10, w: 286, h: 34, t: ["Halophiles · extreme salty areas"], d: ["Halophiles", "Archaebacteria of <strong>extreme salty areas</strong>."] },
+    { id: "the", p: "arc", x: 384, y: 52, w: 286, h: 34, t: ["Thermoacidophiles · hot springs"], d: ["Thermoacidophiles", "Archaebacteria of <strong>hot springs</strong>."] },
+    { id: "met", p: "arc", x: 384, y: 94, w: 286, h: 34, t: ["Methanogens · marshes, ruminant gut"], d: ["Methanogens", "Archaebacteria of <strong>marshy areas</strong>, also present in the <strong>gut of ruminants</strong> such as cows and buffaloes. They produce <strong>methane (biogas)</strong> from the dung of these animals."] },
+    { id: "pho", p: "eub", x: 384, y: 160, w: 286, h: 34, t: ["Photosynthetic autotrophs · cyanobacteria"], d: ["Cyanobacteria (blue-green algae)", "Have <strong>chlorophyll a</strong> like green plants. Unicellular, colonial or filamentous; freshwater, marine or terrestrial. Colonies have a <strong>gelatinous sheath</strong>; they often form <strong>blooms in polluted water</strong>. Some fix atmospheric nitrogen in <strong>heterocysts</strong>, e.g. <em>Nostoc</em> and <em>Anabaena</em>."] },
+    { id: "che", p: "eub", x: 384, y: 228, w: 286, h: 34, t: ["Chemosynthetic autotrophs"], d: ["Chemosynthetic autotrophic bacteria", "Oxidise inorganic substances such as <strong>nitrates, nitrites and ammonia</strong> and use the released energy to make <strong>ATP</strong>. They play a great role in <strong>recycling nitrogen, phosphorous, iron and sulphur</strong>."] },
+    { id: "het", p: "eub", x: 384, y: 296, w: 286, h: 34, t: ["Heterotrophs · most abundant"], d: ["Heterotrophic bacteria", "<strong>Most abundant</strong> in nature; the majority are important <strong>decomposers</strong>. Helpful in making <strong>curd</strong> from milk, producing <strong>antibiotics</strong> and <strong>fixing nitrogen in legume roots</strong>. Some are pathogens: <strong>cholera, typhoid, tetanus, citrus canker</strong>."] }
+  ];
+  const bd = $("#bdsvg");
+  let bdSel = "root";
+  function drawBd() {
+    bd.innerHTML = "";
+    BD.forEach(n => { if (!n.p) return; const p = BD.find(q => q.id === n.p); const x0 = p.x + p.w, y0 = p.y + p.h / 2, x1 = n.x, y1 = n.y + n.h / 2, xm = (x0 + x1) / 2; el("path", { d: `M ${x0} ${y0} C ${xm} ${y0}, ${xm} ${y1}, ${x1} ${y1}`, class: "f-none s-muted", "stroke-width": 1.3 }, bd); });
+    BD.forEach(n => {
+      const g = el("g", { style: "cursor:pointer" }, bd), on = n.id === bdSel;
+      const lvl = n.p ? (BD.find(q => q.id === n.p).p ? 2 : 1) : 0;
+      el("rect", { x: n.x, y: n.y, width: n.w, height: n.h, rx: 8, class: on ? "f-leaf s-leaf" : lvl === 2 ? "f-card s-line" : "f-leafsoft s-leaf", "stroke-width": 1.4 }, g);
+      n.t.forEach((t, i) => txt(g, n.x + n.w / 2, n.y + n.h / 2 + 4 + (i - (n.t.length - 1) / 2) * 15, t, { "text-anchor": "middle", "font-size": lvl === 2 ? 11 : 12, "font-weight": lvl === 2 ? 400 : 500, style: on ? "fill: var(--paper)" : "" }));
+      g.addEventListener("click", () => { bdSel = n.id; drawBd(); });
+    });
+    const n = BD.find(q => q.id === bdSel);
+    $("#bd-k").textContent = n.d[0]; $("#bd-t").innerHTML = n.d[1];
+  }
+  drawBd();
+
+  /* ---------- Fig 4 Protists ---------- */
+  const PZ = [
+    ["Amoeboid protozoans", "Fresh water, sea, moist soil", "Move and capture prey by <strong>pseudopodia</strong> (false feet), as in <em>Amoeba</em>. Marine forms have <strong>silica shells</strong>; some, like <em>Entamoeba</em>, are parasites."],
+    ["Flagellated protozoans", "Free-living or parasitic", "Have <strong>flagella</strong>. Parasitic forms cause diseases such as <strong>sleeping sickness</strong>: <em>Trypanosoma</em>."],
+    ["Ciliated protozoans", "Aquatic", "Actively moving with <strong>thousands of cilia</strong>. A cavity, the <strong>gullet</strong>, opens to the outside; coordinated rows of cilia steer food-laden water into it: <em>Paramoecium</em>."],
+    ["Sporozoans", "Parasitic", "Diverse organisms with an <strong>infectious spore-like stage</strong>. The most notorious is <em>Plasmodium</em>, the malarial parasite, which has a staggering effect on human population."]
+  ];
+  let prK = "chr", pzSel = -1;
+  const PR = {
+    chr: ["Chrysophytes", "Silica-embedded shells", "Mostly photosynthetic", "Fresh water and marine", "Diatoms and golden algae (desmids). <strong>Microscopic</strong> and float passively in water currents: <strong>plankton</strong>. In diatoms the wall forms <strong>two thin overlapping shells</strong> fitting together like a <strong>soap box</strong>; the walls are embedded with <strong>silica</strong>, hence indestructible. Their deposits form <strong>diatomaceous earth</strong>. Diatoms are the <strong>chief producers in the oceans</strong>."],
+    din: ["Dinoflagellates", "Stiff cellulose plates", "Photosynthetic", "Mostly marine", "Appear <strong>yellow, green, brown, blue or red</strong> depending on their main pigments. Most have <strong>two flagella</strong>: one lies <strong>longitudinally</strong>, the other <strong>transversely</strong> in a furrow between the wall plates. Red dinoflagellates such as <em>Gonyaulax</em> can multiply so fast that the sea looks red: <strong>red tides</strong>, whose toxins may kill fishes."],
+    eug: ["Euglenoids", "None: protein-rich pellicle", "Photosynthetic or heterotrophic", "Fresh water, stagnant", "Instead of a cell wall, a <strong>protein-rich pellicle</strong> makes the body <strong>flexible</strong>. They have <strong>two flagella, a short and a long one</strong>. Photosynthetic in sunlight, but when deprived of sunlight they <strong>behave like heterotrophs</strong> by predating on smaller organisms. Their pigments are <strong>identical to those of higher plants</strong>. Example: <em>Euglena</em>."],
+    sli: ["Slime moulds", "Spores have true walls", "Saprophytic", "Decaying twigs and leaves", "The body moves along decaying twigs and leaves <strong>engulfing organic material</strong>. Under suitable conditions they form an aggregation, the <strong>plasmodium</strong>, which may spread over several feet. In <strong>unfavourable conditions</strong> it forms <strong>fruiting bodies</strong> bearing spores at their tips. The spores have <strong>true walls</strong>, are extremely resistant, survive for many years and are <strong>dispersed by air currents</strong>."],
+    pro: ["Protozoans", "None", "Heterotrophs: predators or parasites", "Varied", "All protozoans are <strong>heterotrophs</strong>, living as predators or parasites. They are believed to be <strong>primitive relatives of animals</strong>. There are <strong>four major groups</strong>: click each organism."]
+  };
+  function drawPr() {
+    const s = $("#prsvg"); s.innerHTML = ""; seed = 7;
+    press("#pr-seg button", b => b.dataset.k === prK);
+    const g = el("g", {}, s);
+    if (prK === "chr") {
+      for (let i = 0; i < 26; i++) el("circle", { cx: 20 + rnd() * 640, cy: 10 + rnd() * 230, r: 1.5 + rnd() * 2, class: "f-leaf", opacity: 0.25 }, g);
+      el("rect", { x: 70, y: 112, width: 190, height: 56, rx: 12, class: "f-sunsoft s-sun", "stroke-width": 2 }, g);
+      el("rect", { x: 60, y: 82, width: 210, height: 56, rx: 14, class: "f-sunsoft s-ink", "stroke-width": 2 }, g);
+      for (let x = 78; x < 262; x += 12) el("line", { x1: x, y1: 88, x2: x, y2: 132, class: "s-sun", "stroke-width": 1 }, g);
+      el("ellipse", { cx: 165, cy: 110, rx: 22, ry: 12, class: "f-leaf", opacity: 0.6 }, g);
+      lab(g, 268, 96, 300, 74, "upper shell (lid)"); lab(g, 255, 160, 300, 184, "lower shell (box)"); lab(g, 120, 100, 30, 52, "silica-embedded wall");
+      txt(g, 165, 214, "Diatom (side view): soap box", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+      const dx = 520;
+      [-1, 1].forEach(sd => el("path", { d: `M ${dx} 125 C ${dx + sd * 10} 90, ${dx + sd * 80} 80, ${dx + sd * 90} 125 C ${dx + sd * 80} 170, ${dx + sd * 10} 160, ${dx} 125 Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.8 }, g));
+      el("circle", { cx: dx, cy: 125, r: 5, class: "f-ink" }, g);
+      txt(g, dx, 214, "Desmid (golden alga group)", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    if (prK === "din") {
+      const cx = 280, cy = 125;
+      el("path", { d: `M ${cx} ${cy - 90} C ${cx + 80} ${cy - 80}, ${cx + 90} ${cy + 10}, ${cx + 60} ${cy + 60} L ${cx + 20} ${cy + 95} L ${cx - 30} ${cy + 70} C ${cx - 90} ${cy + 30}, ${cx - 80} ${cy - 80}, ${cx} ${cy - 90} Z`, class: "f-sunsoft s-ink", "stroke-width": 1.8 }, g);
+      [[cx - 60, cy - 50, cx - 10, cy - 30], [cx - 10, cy - 30, cx + 50, cy - 55], [cx - 10, cy - 30, cx - 5, cy - 85], [cx - 70, cy + 30, cx - 10, cy + 40], [cx - 10, cy + 40, cx + 55, cy + 35], [cx - 10, cy + 40, cx, cy + 85]].forEach(([a, b, c, d]) => el("line", { x1: a, y1: b, x2: c, y2: d, class: "s-ink", "stroke-width": 1, opacity: 0.6 }, g));
+      el("path", { d: `M ${cx - 78} ${cy + 2} Q ${cx} ${cy + 22} ${cx + 82} ${cy - 2}`, class: "f-none s-ink", "stroke-width": 10, opacity: 0.12 }, g);
+      let d = `M ${cx - 76} ${cy + 3}`; for (let x = cx - 70; x <= cx + 80; x += 6) d += ` L ${x} ${cy + 10 + 4 * Math.sin(x / 4) - (x - cx) * 0.06}`;
+      el("path", { d, class: "f-none s-blue", "stroke-width": 1.6 }, g);
+      el("path", { d: `M ${cx + 10} ${cy + 20} q 6 30 -4 50 t 0 50 t 12 40`, class: "f-none s-blue", "stroke-width": 1.8 }, g);
+      lab(g, cx + 40, cy - 64, 430, 50, "stiff cellulose plates"); lab(g, cx + 60, cy + 4, 430, 110, "transverse flagellum in furrow"); lab(g, cx + 12, cy + 120, 430, 200, "longitudinal flagellum");
+      [["yellow", "f-sun"], ["green", "f-leaf"], ["blue", "f-blue"], ["red", "f-red"]].forEach(([n, c], i) => { el("circle", { cx: 70, cy: 50 + i * 40, r: 9, class: c, opacity: 0.8 }, g); txt(g, 86, 54 + i * 40, n, { "font-size": 10, class: "t-muted" }); });
+    }
+    if (prK === "eug") {
+      const cx = 300, cy = 130;
+      el("path", { d: `M ${cx - 150} ${cy} C ${cx - 110} ${cy - 48}, ${cx + 90} ${cy - 56}, ${cx + 130} ${cy - 6} C ${cx + 95} ${cy + 44}, ${cx - 110} ${cy + 48}, ${cx - 150} ${cy} Z`, class: "f-leafsoft s-ink", "stroke-width": 1.8 }, g);
+      for (let x = cx - 120; x < cx + 120; x += 18) el("path", { d: `M ${x} ${cy - 38} q 10 38 -6 76`, class: "f-none s-leaf", "stroke-width": 0.8, opacity: 0.6 }, g);
+      [[cx - 70, cy - 10], [cx - 30, cy + 18], [cx + 20, cy - 16], [cx + 60, cy + 12], [cx - 100, cy + 6]].forEach(([x, y]) => el("ellipse", { cx: x, cy: y, rx: 15, ry: 7, class: "f-leaf", opacity: 0.85 }, g));
+      el("circle", { cx: cx - 10, cy: cy + 4, r: 13, class: "f-sunsoft s-ink", "stroke-width": 1.2 }, g);
+      el("path", { d: `M ${cx + 128} ${cy - 6} q 30 -30 60 -10 t 60 -14 t 60 -10`, class: "f-none s-ink", "stroke-width": 1.8 }, g);
+      el("path", { d: `M ${cx + 126} ${cy - 2} q 14 6 26 -4`, class: "f-none s-ink", "stroke-width": 1.8 }, g);
+      lab(g, cx + 240, cy - 34, 560, 30, "long flagellum", "end"); lab(g, cx + 148, cy - 4, 500, 210, "short flagellum");
+      lab(g, cx - 60, cy - 36, 30, 30, "pellicle (no wall)"); lab(g, cx + 60, cy + 12, 300, 210, "chloroplasts");
+      lab(g, cx - 10, cy + 4, 120, 210, "nucleus", "end");
+    }
+    if (prK === "sli") {
+      el("path", { d: "M 30 200 L 640 200", class: "s-sun", "stroke-width": 12, "stroke-linecap": "round", opacity: 0.5 }, g);
+      el("path", { d: "M 60 194 C 70 160, 110 170, 120 150 C 130 130, 160 150, 170 170 C 190 140, 230 160, 240 190 C 260 170, 280 180, 290 194 Z", class: "f-sunsoft s-sun", "stroke-width": 2 }, g);
+      [[100, 160, 80, 120], [160, 160, 170, 110], [220, 170, 250, 130]].forEach(([a, b, c, d]) => el("path", { d: `M ${a} ${b} Q ${(a + c) / 2 + 10} ${(b + d) / 2} ${c} ${d}`, class: "f-none s-sun", "stroke-width": 6, "stroke-linecap": "round" }, g));
+      txt(g, 170, 230, "plasmodium on decaying twig", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+      marker(s, "m4", "--muted");
+      el("line", { x1: 300, y1: 120, x2: 380, y2: 120, class: "s-muted", "stroke-width": 1.6, "marker-end": "url(#m4)" }, g);
+      txt(g, 340, 108, "unfavourable", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+      [450, 500, 550, 600].forEach((x, i) => { const h = 70 + (i % 2) * 20; el("line", { x1: x, y1: 194, x2: x, y2: 194 - h, class: "s-ink", "stroke-width": 2 }, g); el("circle", { cx: x, cy: 194 - h - 12, r: 13, class: "f-ink", opacity: 0.75 }, g); });
+      for (let i = 0; i < 16; i++) el("circle", { cx: 470 + rnd() * 170, cy: 20 + rnd() * 60, r: 2.4, class: "f-ink", opacity: 0.6 }, g);
+      txt(g, 525, 230, "fruiting bodies; spores blown by air", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    if (prK === "pro") {
+      const draws = [
+        (gg, cx, cy) => el("path", { d: `M ${cx - 40} ${cy} C ${cx - 70} ${cy - 30}, ${cx - 30} ${cy - 40}, ${cx - 15} ${cy - 30} C ${cx} ${cy - 70}, ${cx + 25} ${cy - 40}, ${cx + 20} ${cy - 20} C ${cx + 60} ${cy - 20}, ${cx + 55} ${cy + 15}, ${cx + 25} ${cy + 20} C ${cx + 30} ${cy + 55}, ${cx - 10} ${cy + 50}, ${cx - 15} ${cy + 25} C ${cx - 50} ${cy + 40}, ${cx - 65} ${cy + 10}, ${cx - 40} ${cy} Z`, class: "f-sunsoft s-ink", "stroke-width": 1.6 }, gg),
+        (gg, cx, cy) => { el("path", { d: `M ${cx - 55} ${cy + 10} C ${cx - 20} ${cy - 25}, ${cx + 20} ${cy + 25}, ${cx + 50} ${cy - 10} C ${cx + 20} ${cy + 10}, ${cx - 20} ${cy - 5}, ${cx - 55} ${cy + 10} Z`, class: "f-sunsoft s-ink", "stroke-width": 1.6 }, gg); el("path", { d: `M ${cx + 50} ${cy - 10} q 12 -10 22 -4`, class: "f-none s-ink", "stroke-width": 1.6 }, gg); el("path", { d: `M ${cx - 50} ${cy + 6} q 10 -14 20 -6 t 20 -4 t 20 4 t 20 -4 t 18 -8`, class: "f-none s-blue", "stroke-width": 1.2 }, gg); },
+        (gg, cx, cy) => { el("path", { d: `M ${cx - 60} ${cy} C ${cx - 55} ${cy - 30}, ${cx + 50} ${cy - 34}, ${cx + 62} ${cy - 4} C ${cx + 55} ${cy + 26}, ${cx - 50} ${cy + 30}, ${cx - 60} ${cy} Z`, class: "f-sunsoft s-ink", "stroke-width": 1.6 }, gg); for (let a = 0; a < 360; a += 12) { const x = cx + 62 * Math.cos(rad(a)), y = cy + 30 * Math.sin(rad(a)); el("line", { x1: x, y1: y, x2: x + 6 * Math.cos(rad(a)), y2: y + 6 * Math.sin(rad(a)), class: "s-ink", "stroke-width": 0.8 }, gg); } el("path", { d: `M ${cx} ${cy - 26} q 6 18 -4 26`, class: "f-none s-ink", "stroke-width": 2 }, gg); },
+        (gg, cx, cy) => { el("circle", { cx, cy, r: 40, class: "f-red", opacity: 0.25 }, gg); [[-14, -10, 20], [12, 8, -30], [-4, 18, 60]].forEach(([dx, dy, r]) => el("path", { d: `M ${cx + dx - 12} ${cy + dy} Q ${cx + dx} ${cy + dy - 10} ${cx + dx + 12} ${cy + dy}`, class: "f-none s-ink", "stroke-width": 4, "stroke-linecap": "round", transform: `rotate(${r} ${cx + dx} ${cy + dy})` }, gg)); }
+      ];
+      const names = ["Amoeba", "Trypanosoma", "Paramoecium", "Plasmodium"];
+      draws.forEach((f, i) => {
+        const cx = 85 + i * 170, gg = el("g", { style: "cursor:pointer", opacity: pzSel < 0 || pzSel === i ? 1 : 0.35 }, g);
+        el("rect", { x: cx - 80, y: 20, width: 160, height: 220, rx: 10, class: pzSel === i ? "f-leafsoft" : "f-paper", opacity: 0.7 }, gg);
+        f(gg, cx, 110);
+        txt(gg, cx, 196, names[i], { "text-anchor": "middle", "font-style": "italic", "font-weight": 500 });
+        txt(gg, cx, 214, PZ[i][0].replace(" protozoans", ""), { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+        gg.addEventListener("click", () => { pzSel = i; drawPr(); });
+      });
+    }
+    const P = PR[prK];
+    $("#pr-w").textContent = P[1]; $("#pr-n").textContent = P[2]; $("#pr-h").textContent = prK === "pro" && pzSel >= 0 ? PZ[pzSel][1] : P[3];
+    $("#pr-k").textContent = prK === "pro" && pzSel >= 0 ? PZ[pzSel][0] : P[0];
+    $("#pr-t").innerHTML = prK === "pro" && pzSel >= 0 ? PZ[pzSel][2] : P[4];
+  }
+  $$("#pr-seg button").forEach(b => b.addEventListener("click", () => { prK = b.dataset.k; pzSel = -1; drawPr(); }));
+  drawPr();
+
+  /* ---------- Fig 5 Euglena in light ---------- */
+  const euL = $("#eu-l");
+  function drawEu() {
+    const L = +euL.value, s = $("#eusvg"); s.innerHTML = ""; seed = 3;
+    const auto = L >= 25;
+    el("rect", { x: 0, y: 0, width: 680, height: 220, class: "f-blue", opacity: 0.05 + 0.1 * L / 100 }, s);
+    const sun = el("g", { opacity: 0.15 + 0.85 * L / 100 }, s);
+    el("circle", { cx: 60, cy: 50, r: 22, class: "f-sun" }, sun);
+    for (let a = 0; a < 360; a += 30) el("line", { x1: 60 + 28 * Math.cos(rad(a)), y1: 50 + 28 * Math.sin(rad(a)), x2: 60 + 38 * Math.cos(rad(a)), y2: 50 + 38 * Math.sin(rad(a)), class: "s-sun", "stroke-width": 2 }, sun);
+    if (auto) [[110, 70], [130, 90], [100, 95]].forEach(([x, y], i) => el("line", { x1: x, y1: y, x2: 250 + i * 30, y2: 110, class: "s-sun", "stroke-width": 1.4, "stroke-dasharray": "5 4", opacity: L / 100 }, s));
+    const cx = 340, cy = 120;
+    el("path", { d: `M ${cx - 130} ${cy} C ${cx - 95} ${cy - 42}, ${cx + 80} ${cy - 48}, ${cx + 115} ${cy - 4} C ${cx + 85} ${cy + 38}, ${cx - 95} ${cy + 42}, ${cx - 130} ${cy} Z`, class: "f-leafsoft s-ink", "stroke-width": 1.8 }, s);
+    [[cx - 60, cy - 8], [cx - 20, cy + 15], [cx + 25, cy - 14], [cx + 60, cy + 10], [cx - 90, cy + 4]].forEach(([x, y]) => el("ellipse", { cx: x, cy: y, rx: 14, ry: 6.5, class: "f-leaf", opacity: 0.25 + 0.7 * L / 100 }, s));
+    el("path", { d: `M ${cx + 113} ${cy - 4} q 30 -28 60 -8 t 60 -12`, class: "f-none s-ink", "stroke-width": 1.8 }, s);
+    if (!auto) {
+      [[cx - 170, cy - 30], [cx - 190, cy + 20], [cx - 160, cy + 50], [cx + 190, cy + 60], [cx - 210, cy - 10]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 6, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, s));
+      el("circle", { cx: cx - 112, cy: cy + 2, r: 6, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, s);
+      txt(s, cx - 175, cy + 86, "smaller organisms: prey", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    } else txt(s, cx, cy + 74, "making its own food by photosynthesis", { "text-anchor": "middle", "font-size": 10, class: "t-leaf" });
+    $("#eu-l-o").textContent = L + "%" + (L >= 70 ? " (bright)" : L >= 25 ? " (dim)" : " (dark)");
+    $("#eu-m").textContent = auto ? "Autotroph (photosynthetic)" : "Heterotroph (predator)";
+    $("#eu-f").textContent = auto ? "Sunlight and its own pigments" : "Smaller organisms it captures";
+    $("#eu-t").innerHTML = auto ? "In the presence of sunlight Euglena is <strong>photosynthetic</strong>. Its pigments are <strong>identical to those present in higher plants</strong>." : "Deprived of sunlight, Euglena <strong>behaves like a heterotroph</strong> by <strong>predating on other smaller organisms</strong>. One organism with both plant-like and animal-like nutrition: a reason Protista is a separate kingdom.";
+  }
+  euL.addEventListener("input", drawEu);
+  drawEu();
+
+  /* ---------- Fig 6 Fungal sexual cycle ---------- */
+  const FS = {
+    d: [
+      ["Two mating types", "n", "1", "Two <strong>haploid hyphae</strong> of <strong>compatible mating types</strong> come together."],
+      ["Plasmogamy", "n + n", "2", "<strong>Plasmogamy</strong>: fusion of the <strong>protoplasms</strong> of two motile or non-motile gametes (in basidiomycetes, of two vegetative cells of different strains). The two nuclei do <strong>not</strong> fuse yet."],
+      ["Dikaryophase", "n + n", "2", "In <strong>ascomycetes and basidiomycetes</strong> an intervening <strong>dikaryotic stage</strong> (n + n, two nuclei per cell) occurs. Such a condition is a <strong>dikaryon</strong>, and the phase is the <strong>dikaryophase</strong>."],
+      ["Karyogamy", "2n", "1", "<strong>Karyogamy</strong>: later, the parental nuclei <strong>fuse</strong> and the cells become <strong>diploid</strong>. In basidiomycetes this happens in the <strong>basidium</strong>."],
+      ["Meiosis → spores", "n", "1 per spore", "Fruiting bodies form, in which <strong>reduction division</strong> (meiosis) occurs, giving <strong>haploid spores</strong>: e.g. ascospores in asci, or <strong>four basidiospores</strong> on a basidium."]
+    ],
+    n: [
+      ["Two mating types", "n", "1", "Two <strong>haploid hyphae</strong> of <strong>compatible mating types</strong> come together."],
+      ["Fusion → diploid", "2n", "1", "In some fungi the fusion of two haploid cells <strong>immediately results in diploid cells (2n)</strong>: plasmogamy is followed straight away by karyogamy, with <strong>no dikaryophase</strong>."],
+      ["Meiosis → spores", "n", "1 per spore", "<strong>Meiosis in the zygote</strong> results in <strong>haploid spores</strong>."]
+    ]
+  };
+  let fsM = "d", fsS = 0;
+  function drawFs() {
+    const s = $("#fssvg"); s.innerHTML = ""; const g = el("g", {}, s);
+    const D = FS[fsM], step = D[fsS][0];
+    const cellRow = (x, y, n, cls, nuc) => { for (let i = 0; i < n; i++) { el("rect", { x: x + i * 62, y, width: 60, height: 36, rx: 8, class: "f-card " + cls, "stroke-width": 1.6 }, g); nuc(x + i * 62 + 30, y + 18); } };
+    const N = (x, y, c) => el("circle", { cx: x, cy: y, r: 7, class: c }, g);
+    const N2 = (x, y, r = 10) => { el("path", { d: `M ${x} ${y - r} A ${r} ${r} 0 0 0 ${x} ${y + r} Z`, class: "f-red" }, g); el("path", { d: `M ${x} ${y - r} A ${r} ${r} 0 0 1 ${x} ${y + r} Z`, class: "f-blue" }, g); };
+    if (step === "Two mating types") {
+      cellRow(40, 60, 4, "s-red", (x, y) => N(x, y, "f-red")); cellRow(392, 140, 4, "s-blue", (x, y) => N(x, y, "f-blue"));
+      txt(g, 40, 48, "mating type + (n)", { "font-size": 10, class: "t-red" }); txt(g, 392, 128, "mating type − (n)", { "font-size": 10, class: "t-blue" });
+    }
+    if (step === "Plasmogamy") {
+      cellRow(40, 60, 3, "s-red", (x, y) => N(x, y, "f-red")); cellRow(456, 60, 3, "s-blue", (x, y) => N(x, y, "f-blue"));
+      el("rect", { x: 280, y: 52, width: 120, height: 52, rx: 12, class: "f-sunsoft s-ink", "stroke-width": 2 }, g);
+      N(325, 78, "f-red"); N(355, 78, "f-blue");
+      txt(g, 340, 130, "protoplasms fused; two separate nuclei", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (step === "Dikaryophase") {
+      cellRow(60, 80, 9, "s-ink", (x, y) => { N(x - 9, y, "f-red"); N(x + 9, y, "f-blue"); });
+      txt(g, 340, 150, "dikaryotic hypha: every cell n + n", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    if (step === "Karyogamy" || step === "Fusion → diploid") {
+      el("rect", { x: 270, y: 60, width: 140, height: 70, rx: 16, class: "f-sunsoft s-ink", "stroke-width": 2 }, g); N2(340, 95, 16);
+      txt(g, 340, 160, step === "Karyogamy" ? "nuclei fused: diploid (2n)" : "two haploid cells fused: zygote is diploid (2n)", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    if (step === "Meiosis → spores") {
+      el("path", { d: "M 250 200 C 230 120, 260 60, 340 50 C 420 60, 450 120, 430 200 Z", class: "f-paper s-ink", "stroke-width": 1.6 }, g);
+      ["f-red", "f-blue", "f-red", "f-blue"].forEach((c, i) => { const x = 290 + i * 34, y = 120; el("ellipse", { cx: x, cy: y, rx: 14, ry: 20, class: "f-card s-ink", "stroke-width": 1.4 }, g); N(x, y, c); });
+      txt(g, 340, 222, "fruiting body: meiosis gives haploid spores", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    const R = D[fsS];
+    $("#fs-p").textContent = R[1]; $("#fs-u").textContent = R[2];
+    $("#fs-k").textContent = `Step ${fsS + 1} of ${D.length} · ${R[0]}`; $("#fs-t").innerHTML = R[3];
+    const seg = $("#fs-seg"); seg.innerHTML = "";
+    D.forEach((r, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = r[0]; b.setAttribute("aria-pressed", String(i === fsS)); b.addEventListener("click", () => { fsS = i; drawFs(); }); seg.appendChild(b); });
+    $("#fs-prev").disabled = fsS === 0; $("#fs-next").disabled = fsS === D.length - 1;
+    press("#fs-d, #fs-n", b => b.id === "fs-" + fsM);
+  }
+  $("#fs-prev").addEventListener("click", () => { fsS = Math.max(0, fsS - 1); drawFs(); });
+  $("#fs-next").addEventListener("click", () => { fsS = Math.min(FS[fsM].length - 1, fsS + 1); drawFs(); });
+  [["fs-d", "d"], ["fs-n", "n"]].forEach(([id, m]) => $("#" + id).addEventListener("click", () => { fsM = m; fsS = 0; drawFs(); }));
+  drawFs();
+
+  /* ---------- Fig 7 Fungal classes ---------- */
+  const FC = {
+    phy: ["Phycomycetes", "Aseptate, coenocytic", "Zoospores / aplanospores", "Zygospore", "Found in <strong>aquatic habitats</strong>, on <strong>decaying wood</strong> in moist, damp places, or as <strong>obligate parasites</strong> on plants. Asexual spores are <strong>zoospores</strong> (motile) or <strong>aplanospores</strong> (non-motile), produced <strong>endogenously in a sporangium</strong>. A <strong>zygospore</strong> forms by fusion of two gametes, which may be similar (<strong>isogamous</strong>) or dissimilar (<strong>anisogamous or oogamous</strong>). Examples: <em>Mucor</em>, <em>Rhizopus</em>, <em>Albugo</em>."],
+    asc: ["Ascomycetes (sac fungi)", "Branched, septate", "Conidia (exogenous)", "Ascospores in asci", "Mostly multicellular (<em>Penicillium</em>), rarely unicellular (yeast). Saprophytic, decomposers, parasitic or <strong>coprophilous</strong>. <strong>Conidia</strong> form <strong>exogenously</strong> on special mycelium called <strong>conidiophores</strong>. <strong>Ascospores</strong> form <strong>endogenously</strong> in sac-like <strong>asci</strong>, arranged in fruiting bodies called <strong>ascocarps</strong>. Examples: <em>Aspergillus</em>, <em>Claviceps</em>, <em>Neurospora</em>."],
+    bas: ["Basidiomycetes", "Branched, septate", "Generally absent", "Basidiospores on basidia", "Mushrooms, bracket fungi, puffballs; in soil, on logs and stumps, and as parasites (<strong>rusts and smuts</strong>). Asexual spores are generally absent, but <strong>fragmentation</strong> is common. <strong>Sex organs are absent</strong>: plasmogamy is by fusion of two vegetative cells of different strains. The dikaryon gives rise to the <strong>basidium</strong>, where karyogamy and meiosis produce <strong>four basidiospores, exogenously</strong>. Basidia are in <strong>basidiocarps</strong>. Examples: <em>Agaricus</em>, <em>Ustilago</em>, <em>Puccinia</em>."],
+    deu: ["Deuteromycetes (imperfect fungi)", "Septate, branched", "Conidia only", "Not known", "Only the <strong>asexual or vegetative phases</strong> are known. When a member's sexual (perfect) stage is discovered, it is moved to its rightful class, often <strong>ascomycetes or basidiomycetes</strong>. Saprophytes or parasites; many <strong>decompose litter</strong> and help in <strong>mineral cycling</strong>. Examples: <em>Alternaria</em>, <em>Colletotrichum</em>, <em>Trichoderma</em>."]
+  };
+  let fcK = "phy";
+  function drawFc() {
+    const s = $("#fcsvg"); s.innerHTML = ""; const g = el("g", {}, s); seed = 9;
+    press("#fc-seg button", b => b.dataset.k === fcK);
+    const septate = fcK !== "phy";
+    el("rect", { x: 30, y: 206, width: 620, height: 18, rx: 9, class: "f-sunsoft s-sun", "stroke-width": 1.6 }, g);
+    if (septate) for (let x = 90; x < 640; x += 60) el("line", { x1: x, y1: 206, x2: x, y2: 224, class: "s-sun", "stroke-width": 2 }, g);
+    for (let x = 45; x < 640; x += septate ? 60 : 22) el("circle", { cx: x + (septate ? 15 : 0), cy: 215, r: 2.6, class: "f-ink" }, g);
+    txt(g, 40, 244, septate ? "septate hypha (cross walls)" : "aseptate, coenocytic hypha (many nuclei, no cross walls)", { "font-size": 10, class: "t-muted" });
+    const stalk = (x, top) => el("rect", { x: x - 4, y: top, width: 8, height: 206 - top, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, g);
+    const conidia = (x, top) => { stalk(x, top); el("circle", { cx: x, cy: top, r: 12, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, g); for (let a = -160; a <= -20; a += 28) for (let k = 1; k <= 3; k++) el("circle", { cx: x + (12 + k * 9) * Math.cos(rad(a)), cy: top + (12 + k * 9) * Math.sin(rad(a)), r: 4, class: "f-leaf", opacity: 0.85 }, g); };
+    if (fcK === "phy") {
+      stalk(170, 90); el("circle", { cx: 170, cy: 66, r: 40, class: "f-paper s-ink", "stroke-width": 1.8 }, g);
+      for (let i = 0; i < 22; i++) { const a = rnd() * 360, r = rnd() * 30; el("circle", { cx: 170 + r * Math.cos(rad(a)), cy: 66 + r * Math.sin(rad(a)), r: 3, class: "f-ink", opacity: 0.7 }, g); }
+      lab(g, 205, 50, 260, 40, "sporangium: spores inside (endogenous)");
+      el("rect", { x: 430, y: 150, width: 40, height: 30, rx: 6, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, g); el("rect", { x: 530, y: 150, width: 40, height: 30, rx: 6, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, g);
+      el("circle", { cx: 500, cy: 165, r: 26, class: "f-ink", opacity: 0.8 }, g);
+      for (let a = 0; a < 360; a += 30) el("circle", { cx: 500 + 26 * Math.cos(rad(a)), cy: 165 + 26 * Math.sin(rad(a)), r: 3, class: "f-ink" }, g);
+      [450, 550].forEach(x => el("rect", { x: x - 4, y: 180, width: 8, height: 26, class: "f-sunsoft s-sun" }, g));
+      lab(g, 520, 146, 560, 110, "zygospore");
+    }
+    if (fcK === "asc") {
+      conidia(170, 80); lab(g, 196, 60, 250, 40, "conidia on conidiophore (exogenous)");
+      el("path", { d: "M 490 190 L 490 80 C 490 50, 540 50, 540 80 L 540 190 Z", class: "f-paper s-ink", "stroke-width": 1.8 }, g);
+      for (let i = 0; i < 8; i++) el("ellipse", { cx: 515, cy: 78 + i * 14, rx: 9, ry: 6, class: "f-leaf", opacity: 0.85 }, g);
+      lab(g, 490, 100, 470, 60, "ascus: 8 ascospores", "end");
+      txt(g, 470, 78, "(endogenous)", { "font-size": 10, "text-anchor": "end", class: "t-muted" });
+    }
+    if (fcK === "bas") {
+      el("path", { d: "M 100 110 C 110 40, 230 40, 240 110 Z", class: "f-sunsoft s-ink", "stroke-width": 1.8 }, g);
+      for (let x = 110; x < 236; x += 8) el("line", { x1: x, y1: 110, x2: x, y2: 118, class: "s-ink", "stroke-width": 0.8 }, g);
+      el("rect", { x: 158, y: 110, width: 24, height: 96, rx: 6, class: "f-sunsoft s-ink", "stroke-width": 1.6 }, g);
+      lab(g, 210, 70, 260, 40, "basidiocarp (mushroom); basidia on gills");
+      el("path", { d: "M 500 200 L 500 120 C 500 90, 540 90, 540 120 L 540 200 Z", class: "f-paper s-ink", "stroke-width": 1.8 }, g);
+      [[-12, -30], [-4, -38], [4, -38], [12, -30]].forEach(([dx, dy]) => { el("line", { x1: 520 + dx * 0.6, y1: 98, x2: 520 + dx * 1.6, y2: 98 + dy * 0.6, class: "s-ink", "stroke-width": 1.4 }, g); el("ellipse", { cx: 520 + dx * 1.9, cy: 98 + dy, rx: 5, ry: 7, class: "f-leaf", opacity: 0.9 }, g); });
+      lab(g, 538, 66, 570, 40, "4 basidiospores");
+      txt(g, 570, 56, "(exogenous)", { "font-size": 10, class: "t-muted" });
+      txt(g, 520, 150, "basidium", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (fcK === "deu") {
+      conidia(170, 80); lab(g, 196, 60, 250, 40, "conidia only");
+      el("rect", { x: 440, y: 70, width: 180, height: 90, rx: 10, class: "f-none s-muted", "stroke-width": 1.4, "stroke-dasharray": "6 5" }, g);
+      txt(g, 530, 112, "sexual stage", { "text-anchor": "middle", "font-size": 12, class: "t-muted" });
+      txt(g, 530, 130, "not known", { "text-anchor": "middle", "font-size": 12, class: "t-muted" });
+    }
+    const F = FC[fcK];
+    $("#fc-m").textContent = F[1]; $("#fc-a").textContent = F[2]; $("#fc-s").textContent = F[3];
+    $("#fc-k").textContent = F[0]; $("#fc-t").innerHTML = F[4];
+  }
+  $$("#fc-seg button").forEach(b => b.addEventListener("click", () => { fcK = b.dataset.k; drawFc(); }));
+  drawFc();
+
+  /* ---------- Fig 8 Acellular agents and lichen ---------- */
+  const ag = partsFigure("ag", {
+    tmv: {
+      parts: [
+        { k: "rna", b: "RNA", d: "<strong>Single-stranded RNA</strong>, wound helically inside the coat. Plant viruses generally have ssRNA. The genetic material is <strong>infectious</strong>." },
+        { k: "cap", b: "Capsid (capsomeres)", d: "The protein coat, the <strong>capsid</strong>, is made of small subunits, <strong>capsomeres</strong>, arranged here in a <strong>helical</strong> form. It protects the nucleic acid." }
+      ], intro: ["Tobacco Mosaic Virus (TMV)", "The virus Ivanowsky (1892) studied. Click a part. Cut away at the right to show the RNA."],
+      read: { "ag-a": "ssRNA", "ag-b": "Helical capsid", "ag-c": "Mosaic disease of tobacco" }
+    },
+    pha: {
+      parts: [
+        { k: "head", b: "Head", d: "Polyhedral <strong>capsid</strong> of capsomeres enclosing the nucleic acid." },
+        { k: "dna", b: "DNA", d: "Bacteriophages are usually <strong>double-stranded DNA</strong> viruses." },
+        { k: "col", b: "Collar", d: "Joins the head to the tail sheath (NCERT Fig 2.6b)." },
+        { k: "sh", b: "Sheath", d: "The tail <strong>sheath</strong> (NCERT Fig 2.6b)." },
+        { k: "tf", b: "Tail fibres", d: "<strong>Tail fibres</strong> at the base of the tail (NCERT Fig 2.6b)." }
+      ], intro: ["Bacteriophage", "A virus that infects bacteria. Click a part."],
+      read: { "ag-a": "dsDNA (usually)", "ag-b": "Polyhedral head + tail", "ag-c": "Infects bacteria" }
+    },
+    vir: {
+      parts: [{ k: "rna", b: "Free RNA", d: "A viroid is <strong>free RNA</strong> of <strong>low molecular weight</strong>. It <strong>lacks the protein coat</strong> found in viruses, hence the name viroid. Discovered by <strong>T.O. Diener in 1971</strong>; smaller than viruses." }],
+      intro: ["Viroid", "An infectious agent smaller than viruses. Click the RNA."],
+      read: { "ag-a": "Free RNA, low mol. wt.", "ag-b": "None", "ag-c": "Potato spindle tuber" }
+    },
+    pri: {
+      parts: [
+        { k: "nor", b: "Normal protein", d: "A normally folded protein, for comparison (illustrative)." },
+        { k: "ab", b: "Abnormally folded protein", d: "Prions are agents consisting of <strong>abnormally folded protein</strong>, similar in size to viruses, that transmit certain <strong>infectious neurological diseases</strong>: <strong>BSE (mad cow disease)</strong> in cattle and its analogous variant <strong>Cr–Jacob disease (CJD)</strong> in humans." }
+      ], intro: ["Prion", "No nucleic acid at all. Click a shape."],
+      read: { "ag-a": "None", "ag-b": "Abnormally folded protein", "ag-c": "BSE (mad cow), CJD" }
+    },
+    lic: {
+      parts: [
+        { k: "phy", b: "Phycobiont (alga)", d: "The <strong>algal</strong> partner, <strong>autotrophic</strong>: it prepares food for the fungus." },
+        { k: "myc", b: "Mycobiont (fungus)", d: "The <strong>fungal</strong> partner, <strong>heterotrophic</strong>: it provides <strong>shelter</strong> and absorbs <strong>mineral nutrients and water</strong> for its partner." }
+      ], intro: ["Lichen", "A symbiotic (mutually useful) association so close you would never guess two organisms are involved. Lichens do not grow in polluted areas: <strong>good pollution indicators</strong>."],
+      read: { "ag-a": "Alga + fungus (cellular)", "ag-b": "Not applicable", "ag-c": "Pollution indicator" }
+    }
+  }, (svg, mode, G) => {
+    if (mode === "tmv") {
+      const cap = G("cap"), rna = G("rna");
+      for (let x = 60; x < 470; x += 14) for (let r = 0; r < 5; r++) el("ellipse", { cx: x + (r % 2) * 7, cy: 92 + r * 18, rx: 7, ry: 9, class: "f-leafsoft s-leaf", "stroke-width": 1 }, cap);
+      el("rect", { x: 470, y: 82, width: 160, height: 92, class: "f-paper s-line", "stroke-width": 1 }, cap);
+      let d = "M 60 128"; for (let x = 60; x <= 630; x += 4) d += ` L ${x} ${128 + 26 * Math.sin(x / 9)}`;
+      el("path", { d, class: "f-none s-red", "stroke-width": 2.6 }, rna);
+      el("rect", { x: 60, y: 82, width: 410, height: 92, class: "f-none", style: "stroke:none" }, cap);
+      lab(cap, 300, 82, 300, 40, "capsid of capsomeres"); lab(rna, 560, 150, 560, 220, "RNA");
+    }
+    if (mode === "pha") {
+      const head = G("head"), dna = G("dna"), col = G("col"), sh = G("sh"), tf = G("tf"), cx = 280;
+      el("polygon", { points: [0, 1, 2, 3, 4, 5].map(k => `${cx + 56 * Math.cos(rad(60 * k + 30))},${70 + 56 * Math.sin(rad(60 * k + 30))}`).join(" "), class: "f-leafsoft s-leaf", "stroke-width": 2 }, head);
+      let d = `M ${cx - 30} 60`; for (let i = 0; i < 14; i++) d += ` q ${i % 2 ? -8 : 8} 6 ${i % 2 ? 4 : 0} ${i % 2 ? 2 : 4} ` + `l ${i % 3 ? 4 : -2} 0`;
+      el("path", { d: `M ${cx - 30} 50 C ${cx + 40} 20, ${cx - 40} 70, ${cx + 30} 60 C ${cx - 30} 110, ${cx + 20} 80, ${cx - 20} 96 C ${cx + 30} 100, ${cx} 40, ${cx + 26} 86`, class: "f-none s-red", "stroke-width": 2.2 }, dna);
+      el("rect", { x: cx - 18, y: 126, width: 36, height: 10, class: "f-ink", opacity: 0.7 }, col);
+      el("rect", { x: cx - 12, y: 136, width: 24, height: 64, class: "f-sunsoft s-sun", "stroke-width": 1.6 }, sh);
+      for (let y = 142; y < 200; y += 8) el("line", { x1: cx - 12, y1: y, x2: cx + 12, y2: y, class: "s-sun", "stroke-width": 1 }, sh);
+      el("rect", { x: cx - 22, y: 200, width: 44, height: 6, class: "f-ink" }, tf);
+      [[-1, 1], [1, 1], [-1, 0.5], [1, 0.5]].forEach(([s, k]) => el("polyline", { points: `${cx + s * 20},${206} ${cx + s * (40 + 20 * k)},${222} ${cx + s * (30 + 30 * k)},${240}`, class: "f-none s-ink", "stroke-width": 1.6 }, tf));
+      lab(head, cx + 50, 50, 420, 40, "Head (capsid)"); lab(dna, cx + 18, 80, 420, 86, "DNA"); lab(col, cx + 18, 131, 420, 132, "Collar"); lab(sh, cx + 12, 170, 420, 176, "Sheath"); lab(tf, cx + 60, 222, 420, 226, "Tail fibres");
+    }
+    if (mode === "vir") {
+      const rna = G("rna");
+      let d = "M 120 130"; for (let x = 120; x <= 560; x += 5) d += ` L ${x} ${130 + 8 * Math.sin(x / 6)}`;
+      el("path", { d, class: "f-none s-red", "stroke-width": 3 }, rna);
+      for (let x = 130; x < 560; x += 12) el("line", { x1: x, y1: 118, x2: x, y2: 142, class: "s-red", "stroke-width": 1, opacity: 0.4 }, rna);
+      lab(rna, 340, 124, 340, 70, "free RNA, no protein coat");
+      txt(svg, 340, 200, "compare: TMV RNA sits inside a capsid", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (mode === "pri") {
+      const nor = G("nor"), ab = G("ab");
+      let d = "M 80 130"; for (let i = 0; i < 6; i++) d += ` c 10 -40, 30 -40, 40 0`;
+      el("path", { d: "M 90 130 C 90 70, 170 70, 170 110 C 170 150, 110 150, 120 110 C 130 80, 210 80, 210 130 C 210 180, 130 190, 140 150", class: "f-none s-leaf", "stroke-width": 7, "stroke-linecap": "round" }, nor);
+      txt(nor, 150, 220, "normal fold", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+      el("polyline", { points: "400,80 560,80 400,105 560,105 400,130 560,130 400,155 560,155", class: "f-none s-red", "stroke-width": 7, "stroke-linejoin": "round", "stroke-linecap": "round" }, ab);
+      txt(ab, 480, 220, "abnormally folded: prion", { "text-anchor": "middle", "font-size": 11, "font-weight": 500 });
+    }
+    if (mode === "lic") {
+      const myc = G("myc"), phy = G("phy"); seed = 21;
+      for (let i = 0; i < 18; i++) { const x = 60 + rnd() * 560, y = 30 + rnd() * 200, a = rnd() * 180; el("path", { d: `M ${x} ${y} q ${40 * Math.cos(rad(a))} ${30 * Math.sin(rad(a))} ${90 * Math.cos(rad(a))} ${10 * Math.sin(rad(a))} t ${80 * Math.cos(rad(a + 20))} ${40 * Math.sin(rad(a + 20))}`, class: "f-none s-sun", "stroke-width": 4, "stroke-linecap": "round", opacity: 0.8 }, myc); }
+      for (let i = 0; i < 22; i++) el("circle", { cx: 80 + rnd() * 520, cy: 40 + rnd() * 180, r: 7 + rnd() * 4, class: "f-leaf", opacity: 0.85 }, phy);
+      txt(svg, 340, 252, "green: algal cells · amber: fungal hyphae", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+  });
+  const AGM = ["tmv", "pha", "vir", "pri", "lic"];
+  AGM.forEach(m => $("#ag-" + m).addEventListener("click", () => { press(AGM.map(x => "#ag-" + x).join(", "), b => b.id === "ag-" + m); ag.set(m); }));
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "The Five Kingdom Classification was proposed by:", o: ["Linnaeus", "Aristotle", "R.H. Whittaker", "T.O. Diener"], a: 2, e: "R.H. Whittaker (1969) proposed Monera, Protista, Fungi, Plantae and Animalia." },
+    { q: "Chemosynthetic autotrophic bacteria obtain energy for ATP production by:", o: ["Absorbing sunlight with chlorophyll a", "Oxidising inorganic substances such as nitrates, nitrites and ammonia", "Decomposing dead organic matter", "Fixing nitrogen in heterocysts"], a: 1, e: "They oxidise various inorganic substances and use the released energy for ATP production; they recycle N, P, Fe and S." },
+    { q: "Methane (biogas) is produced from the dung of cows and buffaloes by:", o: ["Halophiles", "Thermoacidophiles", "Methanogens", "Cyanobacteria"], a: 2, e: "Methanogens are archaebacteria found in marshy areas and in the gut of ruminants." },
+    { q: "Atmospheric nitrogen is fixed in specialised cells called heterocysts in:", o: ["Nostoc and Anabaena", "Gonyaulax", "Euglena", "Mycoplasma"], a: 0, e: "Some cyanobacteria, e.g. Nostoc and Anabaena, fix nitrogen in heterocysts." },
+    { q: "Diatomaceous earth is used in polishing and filtration because diatom cell walls are:", o: ["Made of chitin", "Made of stiff cellulose plates", "Embedded with silica and indestructible", "A protein-rich pellicle"], a: 2, e: "Silica-embedded diatom walls accumulate over billions of years; the gritty soil is used for polishing and filtering oils and syrups." },
+    { q: "'Red tides' are caused by the rapid multiplication of:", o: ["Diatoms", "Red dinoflagellates such as Gonyaulax", "Cyanobacteria", "Slime moulds"], a: 1, e: "Red dinoflagellates like Gonyaulax make the sea appear red; their toxins may kill fishes." },
+    { q: "Instead of a cell wall, euglenoids have:", o: ["A silica shell", "Cellulose plates", "A protein-rich pellicle", "A chitin wall"], a: 2, e: "The protein-rich pellicle makes their body flexible." },
+    { q: "Which pair is correctly matched?", o: ["Albugo: smut", "Ustilago: rust", "Puccinia: wheat rust", "Agaricus: bread mould"], a: 2, e: "Albugo is the parasitic fungus on mustard, Ustilago is a smut, Agaricus is a mushroom; Puccinia causes wheat rust." },
+    { q: "Assertion (A): Deuteromycetes are called imperfect fungi. Reason (R): Only the asexual or vegetative phases of these fungi are known.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "They are 'imperfect' precisely because their sexual (perfect) stages are unknown." },
+    { q: "A dikaryotic stage (n + n) occurs in:", o: ["Phycomycetes only", "Ascomycetes and basidiomycetes", "Deuteromycetes", "All protists"], a: 1, e: "NCERT: in ascomycetes and basidiomycetes an intervening dikaryotic stage occurs before karyogamy." },
+    { q: "Viroids differ from viruses in having:", o: ["DNA with a protein coat", "Free RNA without a protein coat", "Both RNA and DNA", "Abnormally folded protein only"], a: 1, e: "Diener (1971) found the viroid to be free, low molecular weight RNA lacking the viral protein coat." },
+    { q: "Which statement about viruses is NOT true?", o: ["They are inert outside their specific host cell", "Some viruses contain both RNA and DNA", "Bacteriophages are usually double-stranded DNA viruses", "The capsid is made of capsomeres"], a: 1, e: "No virus contains both RNA and DNA." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>
