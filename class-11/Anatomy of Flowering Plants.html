@@ -1,0 +1,1265 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Anatomy of Flowering Plants</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 11 · Chapter 6</span>
+      <h1>Anatomy of Flowering Plants</h1>
+      <p class="lede">The internal structure of roots, stems and leaves, and how monocots and dicots differ inside. Click through each section, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">7 topics</span>
+        <span class="pill">8 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Three tissue systems and three kinds of vascular bundle">
+      <span class="fig-label">Core idea</span>
+      <span class="eq">Epidermal · Ground · Vascular</span>
+      <span class="over">the three tissue systems, classified by structure and location</span>
+      <span class="eq" style="font-size:.95rem">Radial (roots) · Conjoint closed (monocot stem) · Conjoint open (dicot stem)</span>
+      <span class="muted" style="font-size:.82rem">Anatomy is the study of internal structure: cells form tissues, and tissues form organs.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#systems"><span class="n">1</span>Tissue systems</a>
+      <a href="#epidermal"><span class="n">2</span>Epidermis &amp; stomata</a>
+      <a href="#vascular"><span class="n">3</span>Ground &amp; vascular</a>
+      <a href="#roots"><span class="n">4</span>Roots</a>
+      <a href="#stems"><span class="n">5</span>Stems</a>
+      <a href="#leaves"><span class="n">6</span>Leaves</a>
+      <a href="#identify"><span class="n">7</span>Identify a section</a>
+      <a href="#quiz"><span class="n">8</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 SYSTEMS -->
+<section class="topic" id="systems">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>The three tissue systems</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>study of internal structure</strong> of plants is <strong>anatomy</strong>. Different organs differ inside, monocots and dicots differ from each other, and internal structure shows adaptations to the environment.</p>
+      <p>Tissues can be grouped by where they lie in the plant. On the basis of <strong>structure and location</strong> there are <strong>three tissue systems</strong>: <strong>epidermal</strong>, <strong>ground (fundamental)</strong> and <strong>vascular (conducting)</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Find each tissue system in a young dicot stem</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Tissue system" id="ts-seg">
+          <button data-k="all" aria-pressed="true">All</button>
+          <button data-k="epi" aria-pressed="false">Epidermal</button>
+          <button data-k="gro" aria-pressed="false">Ground</button>
+          <button data-k="vas" aria-pressed="false">Vascular</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="tssvg" viewBox="0 0 640 300" role="img" aria-label="Schematic transverse section of a dicot stem coloured by tissue system: epidermis outside, ground tissue of cortex, pericycle, medullary rays and pith, and a ring of vascular bundles"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ts-k"></div><div id="ts-t"></div></div>
+      <p class="fig-note">Schematic. Each region is drawn as a plain band; Topic 5 shows the cells.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Tissue system</th><th>Made of</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>Epidermal</td><td>Epidermal cells, stomata, epidermal appendages (trichomes and hairs)</td><td>Outermost covering of the whole plant body</td></tr>
+          <tr><td>Ground (fundamental)</td><td>Simple tissues: parenchyma, collenchyma, sclerenchyma</td><td>All tissues except epidermis and vascular bundles: cortex, pericycle, pith, medullary rays; <strong>mesophyll</strong> in leaves</td></tr>
+          <tr><td>Vascular (conducting)</td><td>Complex tissues: <strong>xylem and phloem</strong>, together forming vascular bundles</td><td>Vascular bundles of root, stem and leaf</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">Remember</span>The NCERT summary recalls that tissues are <strong>meristematic</strong> (apical, lateral and intercalary) or <strong>permanent</strong> (simple and complex). Their main jobs: making and storing food, carrying water, minerals and photosynthates, and mechanical support.</div>
+  </div>
+</section>
+
+<!-- 2 EPIDERMAL -->
+<section class="topic" id="epidermal">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Epidermal tissue system and stomata</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>epidermis</strong> is the outermost layer of the primary plant body: elongated, <strong>compactly arranged</strong> cells in a continuous layer, usually <strong>single-layered</strong>. The cells are <strong>parenchymatous</strong>, with a little cytoplasm lining the wall and a <strong>large vacuole</strong>. Outside is often a waxy, thick <strong>cuticle</strong> that prevents water loss; <strong>the cuticle is absent in roots</strong>.</p>
+      <p><strong>Stomata</strong> in the epidermis of leaves regulate <strong>transpiration and gaseous exchange</strong>. Each stoma has two <strong>guard cells</strong> around a <strong>stomatal pore</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The stomatal apparatus</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Guard cell shape">
+          <button id="st-bean" aria-pressed="true">Bean-shaped</button>
+          <button id="st-dumb" aria-pressed="false">Dumb-bell (grasses)</button>
+        </div>
+      </div>
+      <div class="controls" id="st-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="stsvg" viewBox="0 0 640 280" role="img" aria-label="Surface view of a stoma with guard cells, stomatal pore, chloroplasts, subsidiary cells and epidermal cells"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="st-k"></div><div id="st-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 6.1. Click a part on the diagram or a button above.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">NEET trap</span>Guard cell walls: the <strong>outer walls</strong> (away from the pore) are <strong>thin</strong>; the <strong>inner walls</strong> (towards the pore) are <strong>highly thickened</strong>. Guard cells <strong>have chloroplasts</strong>. The pore, guard cells and surrounding <strong>subsidiary cells</strong> together form the <strong>stomatal apparatus</strong>.</div>
+      <div class="callout"><span class="tag">Remember</span><strong>Root hairs</strong> are <strong>unicellular</strong> outgrowths of epidermal cells that absorb water and minerals. On the stem, epidermal hairs are <strong>trichomes</strong>: usually <strong>multicellular</strong>, branched or unbranched, soft or stiff, sometimes <strong>secretory</strong>. They help prevent water loss by transpiration.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 GROUND & VASCULAR -->
+<section class="topic" id="vascular">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Ground tissue and vascular bundles</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>ground tissue</strong> is everything except the epidermis and vascular bundles. It is made of the simple tissues <strong>parenchyma, collenchyma and sclerenchyma</strong>. Parenchyma lies in the <strong>cortex, pericycle, pith and medullary rays</strong> of primary stems and roots. In leaves, the ground tissue is thin-walled, chloroplast-containing <strong>mesophyll</strong>.</p>
+      <p>The <strong>vascular system</strong> is made of the complex tissues <strong>phloem and xylem</strong>, which together form <strong>vascular bundles</strong>. Bundles are classified by the <strong>presence of cambium</strong> and the <strong>position of xylem and phloem</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Three kinds of vascular bundle</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Bundle type" id="vb-seg">
+          <button data-k="rad" aria-pressed="true">Radial</button>
+          <button data-k="cc" aria-pressed="false">Conjoint closed</button>
+          <button data-k="co" aria-pressed="false">Conjoint open</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="vbsvg" viewBox="0 0 640 260" role="img" aria-label="Diagram of the chosen vascular bundle type"></svg></div>
+      <div class="readout">
+        <div><b id="vb-pos" style="font-size:1.05rem"></b><span>Xylem and phloem</span></div>
+        <div><b id="vb-cam" style="font-size:1.05rem"></b><span>Cambium</span></div>
+        <div><b id="vb-sec" style="font-size:1.05rem"></b><span>Secondary tissues</span></div>
+        <div><b id="vb-where" style="font-size:1.05rem"></b><span>Found in</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="vb-t"></div></div>
+      <p class="fig-note">After NCERT Fig 6.2. Xylem blue, phloem green, cambium red.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Type</th><th>Arrangement</th><th>Cambium</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Radial</td><td>Xylem and phloem <strong>alternate on different radii</strong></td><td>Not in the bundle</td><td>Roots</td></tr>
+          <tr><td>Conjoint closed</td><td>Xylem and phloem on the <strong>same radius</strong>; phloem usually on the outer side</td><td><strong>Absent</strong>: no secondary tissues</td><td>Monocot stems (and leaves)</td></tr>
+          <tr><td>Conjoint open</td><td>Same radius; <strong>cambium between phloem and xylem</strong></td><td><strong>Present</strong>: can form secondary xylem and phloem</td><td>Dicot stems</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 ROOTS -->
+<section class="topic" id="roots">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Dicot and monocot roots</h2>
+    </div>
+    <div class="prose stack">
+      <p>Tissue organisation is best studied in <strong>transverse sections of the mature zones</strong>. NCERT's dicot root is the <strong>sunflower</strong>. Moving inward: <strong>epiblema</strong> with unicellular <strong>root hairs</strong>; <strong>cortex</strong> of thin-walled parenchyma with intercellular spaces; <strong>endodermis</strong>; <strong>pericycle</strong>; vascular bundles; pith.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>T.S. of root, layer by layer</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Root type">
+          <button id="rt-di" aria-pressed="true">Dicot (sunflower)</button>
+          <button id="rt-mo" aria-pressed="false">Monocot</button>
+        </div>
+      </div>
+      <div class="controls" id="rt-seg" role="group" aria-label="Root tissue"></div>
+      <div class="svg-scroll"><svg id="rtsvg" viewBox="0 0 640 360" role="img" aria-label="Transverse section of a root with epiblema and root hairs, cortex, endodermis with casparian strips, pericycle, alternating xylem and phloem, conjunctive tissue and pith"></svg></div>
+      <div class="readout">
+        <div><b id="rt-x" style="font-size:1.05rem"></b><span>Xylem bundles</span></div>
+        <div><b id="rt-p" style="font-size:1.05rem"></b><span>Pith</span></div>
+        <div><b id="rt-s" style="font-size:1.05rem"></b><span>Secondary growth</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="rt-k"></div><div id="rt-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 6.3. Not to scale; the monocot root is drawn with 8 xylem bundles.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Dicot root</th><th>Monocot root</th></tr></thead>
+        <tbody>
+          <tr><td>Xylem bundles</td><td><strong>2 to 4</strong> xylem and phloem patches</td><td>Usually <strong>more than six (polyarch)</strong></td></tr>
+          <tr><td>Pith</td><td><strong>Small or inconspicuous</strong></td><td><strong>Large and well developed</strong></td></tr>
+          <tr><td>Secondary growth</td><td>A cambium ring develops later between xylem and phloem</td><td><strong>None</strong></td></tr>
+          <tr><td>Common to both</td><td colspan="2">Epidermis (epiblema) with root hairs, cortex, endodermis, pericycle, radial vascular bundles, pith; no cuticle</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>Endodermal cells are <strong>barrel-shaped</strong>, with <strong>no intercellular spaces</strong>. Their <strong>tangential as well as radial walls</strong> carry water-impermeable, waxy <strong>suberin</strong> as <strong>casparian strips</strong>. The <strong>pericycle</strong> (thick-walled parenchyma) gives rise to <strong>lateral roots</strong> and to the <strong>vascular cambium</strong> during secondary growth.</div>
+  </div>
+</section>
+
+<!-- 5 STEMS -->
+<section class="topic" id="stems">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Dicot and monocot stems</h2>
+    </div>
+    <div class="prose stack">
+      <p>In a young dicot stem, the <strong>cortex</strong> (between epidermis and pericycle) has three sub-zones: <strong>hypodermis</strong> of collenchyma, cortical parenchyma, and <strong>endodermis</strong>. In a monocot stem the bundles are <strong>scattered</strong> through a large ground tissue.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>T.S. of stem, part by part</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Stem type">
+          <button id="sm-di" aria-pressed="true">Dicot</button>
+          <button id="sm-mo" aria-pressed="false">Monocot</button>
+        </div>
+      </div>
+      <div class="controls" id="sm-seg" role="group" aria-label="Stem tissue"></div>
+      <div class="svg-scroll"><svg id="smsvg" viewBox="0 0 640 360" role="img" aria-label="Transverse section of a stem"></svg></div>
+      <div class="readout">
+        <div><b id="sm-a" style="font-size:1.05rem"></b><span>Bundle arrangement</span></div>
+        <div><b id="sm-b" style="font-size:1.05rem"></b><span>Bundle type</span></div>
+        <div><b id="sm-c" style="font-size:1.05rem"></b><span>Hypodermis</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="sm-k"></div><div id="sm-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 6.4. Not to scale.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Dicot stem</th><th>Monocot stem</th></tr></thead>
+        <tbody>
+          <tr><td>Hypodermis</td><td><strong>Collenchymatous</strong>, a few layers; gives mechanical strength to the young stem</td><td><strong>Sclerenchymatous</strong></td></tr>
+          <tr><td>Cortex</td><td>Hypodermis, parenchyma with intercellular spaces, endodermis (<strong>starch sheath</strong>)</td><td>Not divided; large, conspicuous parenchymatous <strong>ground tissue</strong></td></tr>
+          <tr><td>Pericycle</td><td><strong>Semi-lunar patches of sclerenchyma</strong> above the phloem</td><td>Not described in NCERT</td></tr>
+          <tr><td>Vascular bundles</td><td>Many, in a <strong>ring</strong>; <strong>conjoint, open, endarch</strong> protoxylem</td><td>Many, <strong>scattered</strong>; <strong>conjoint, closed</strong>; each with a <strong>sclerenchymatous bundle sheath</strong>; peripheral ones smaller</td></tr>
+          <tr><td>Within bundles</td><td>Cambium between phloem and xylem</td><td><strong>No phloem parenchyma</strong>; <strong>water-containing cavities</strong></td></tr>
+          <tr><td>Centre</td><td><strong>Pith</strong>: rounded parenchyma with large intercellular spaces; <strong>medullary rays</strong> between bundles</td><td>Ground tissue</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 6 LEAVES -->
+<section class="topic" id="leaves">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Dorsiventral and isobilateral leaves</h2>
+    </div>
+    <div class="prose stack">
+      <p>A vertical section through the lamina of a <strong>dorsiventral (dicot) leaf</strong> shows <strong>epidermis, mesophyll and vascular system</strong>. The upper surface is <strong>adaxial</strong>, the lower <strong>abaxial</strong>; both have a conspicuous cuticle.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>V.S. of leaf</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Leaf type">
+          <button id="lf-di" aria-pressed="true">Dorsiventral (dicot)</button>
+          <button id="lf-mo" aria-pressed="false">Isobilateral (monocot)</button>
+        </div>
+      </div>
+      <div class="controls" id="lf-seg" role="group" aria-label="Leaf tissue"></div>
+      <div class="svg-scroll"><svg id="lfsvg" viewBox="0 0 640 250" role="img" aria-label="Vertical section of a leaf"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="lf-k"></div><div id="lf-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 6.5. Upper (adaxial) side at the top.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Dorsiventral (dicot)</th><th>Isobilateral (monocot)</th></tr></thead>
+        <tbody>
+          <tr><td>Stomata</td><td><strong>More on the abaxial</strong> (lower) epidermis; adaxial may lack them</td><td>On <strong>both surfaces</strong></td></tr>
+          <tr><td>Mesophyll</td><td><strong>Palisade</strong> (adaxial, elongated, vertical, parallel) and <strong>spongy</strong> (oval or round, loose, large air spaces)</td><td><strong>Not differentiated</strong> into palisade and spongy</td></tr>
+          <tr><td>Venation and bundles</td><td><strong>Reticulate</strong>; bundle size varies with the vein</td><td><strong>Parallel</strong>; bundles of near similar size (except main veins)</td></tr>
+          <tr><td>Bundle sheath</td><td>Thick-walled bundle sheath cells around each bundle</td><td>Present</td></tr>
+          <tr><td>Bulliform cells</td><td>Absent</td><td>In <strong>grasses</strong>, on the adaxial epidermis along the veins</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Bulliform cells and leaf rolling in grasses</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <label class="ctl" for="bu-w">Water status of the leaf <output id="bu-w-o">Well watered</output></label>
+      <input type="range" id="bu-w" min="0" max="100" step="5" value="100">
+      <div class="svg-scroll"><svg id="busvg" viewBox="0 0 640 250" role="img" aria-label="Cross-section of a grass leaf that rolls inwards as the bulliform cells on its upper surface lose water"></svg></div>
+      <div class="readout">
+        <div><b id="bu-c" style="font-size:1.05rem"></b><span>Bulliform cells</span></div>
+        <div><b id="bu-l" style="font-size:1.05rem"></b><span>Leaf surface</span></div>
+        <div><b id="bu-x" style="font-size:1.05rem"></b><span>Water loss</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="bu-t"></div></div>
+      <p class="fig-note">Illustrative model of the leaf curling; bulliform cells drawn large on the upper surface.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 IDENTIFY -->
+<section class="topic" id="identify">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>Identify the section</h2>
+    </div>
+    <div class="prose stack">
+      <p>NEET often describes a section and asks what it is, just like NCERT exercise 3. Pick the features you "see"; the section that has all of them lights up. To revise, load every feature of one organ at once.</p>
+    </div>
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Section identifier</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls" id="id-list" role="group" aria-label="Observed features"></div>
+      <div class="controls" id="id-orgs" role="group" aria-label="Show all features of an organ"><span class="mono muted" style="font-size:.78rem">Show all features of:</span></div>
+      <div class="controls"><button class="btn" id="id-clear">Clear</button></div>
+      <div class="grp" id="id-grp"></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="id-k">No features picked</div><div id="id-t">Pick one or more features.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Facts to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>3 systems</b><span>Epidermal, ground (fundamental), vascular (conducting)</span></div>
+      <div><b>Bean · dumb-bell</b><span>Guard cell shape: usual · in grasses</span></div>
+      <div><b>Inner wall thick</b><span>Guard cell walls towards the pore; outer walls thin</span></div>
+      <div><b>Suberin</b><span>Casparian strips on tangential and radial endodermal walls</span></div>
+      <div><b>2–4 · &gt; 6</b><span>Xylem bundles in dicot root · monocot root (polyarch)</span></div>
+      <div><b>Pericycle</b><span>Origin of lateral roots and of vascular cambium in roots</span></div>
+      <div><b>Starch sheath</b><span>Endodermis of the dicot stem</span></div>
+      <div><b>Conjoint, open, endarch</b><span>Dicot stem bundle, in a ring</span></div>
+      <div><b>Bulliform cells</b><span>Grasses: curl the leaf inwards when flaccid</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XI, "Anatomy of Flowering Plants". Lecture 7 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const press = (sel, attr, val) => $$(sel).forEach(b => b.setAttribute("aria-pressed", String(b.dataset[attr] === val)));
+  const rad = a => a * Math.PI / 180;
+  const polar = (cx, cy) => (r, a) => [cx + r * Math.cos(rad(a)), cy + r * Math.sin(rad(a))];
+  const lab = (g, ax, ay, ly, s, lx = 392) => {
+    el("polyline", { points: `${ax},${ay} ${lx - 8},${ly - 4}`, class: "f-none s-muted", "stroke-width": 0.9 }, g);
+    el("circle", { cx: ax, cy: ay, r: 2.2, class: "f-ink" }, g);
+    txt(g, lx, ly, s, { "font-weight": 500 });
+  };
+  const ringRects = (g, P, r, n, w, h, cls, sw = 1) => { for (let i = 0; i < n; i++) { const a = i * 360 / n; const [x, y] = P(r, a); el("rect", { x: x - w / 2, y: y - h / 2, width: w, height: h, rx: 2, class: cls, "stroke-width": sw, transform: `rotate(${a + 90} ${x} ${y})` }, g); } };
+  const ringCircles = (g, P, r, rr, cls, sw = 0.8, off = 0) => { const n = Math.max(1, Math.round(2 * Math.PI * r / (rr * 2.3))); for (let i = 0; i < n; i++) { const [x, y] = P(r, off + i * 360 / n); el("circle", { cx: x, cy: y, r: rr, class: cls, "stroke-width": sw }, g); } };
+  const discCells = (g, cx, cy, R, step, rr, cls) => { for (let x = -R; x <= R; x += step) for (let y = -R; y <= R; y += step) { const ox = (Math.round(y / step) % 2) * step / 2; if (Math.hypot(x + ox, y) <= R - rr) el("circle", { cx: cx + x + ox, cy: cy + y, r: rr, class: cls, "stroke-width": 0.8 }, g); } };
+  const sector = (P, r1, r2, a, hw) => { const [x1, y1] = P(r2, a - hw), [x2, y2] = P(r2, a + hw), [x3, y3] = P(r1, a + hw), [x4, y4] = P(r1, a - hw); return `M ${x1} ${y1} A ${r2} ${r2} 0 0 1 ${x2} ${y2} L ${x3} ${y3} A ${r1} ${r1} 0 0 0 ${x4} ${y4} Z`; };
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Generic labelled-section figure ---------- */
+  function partsFigure(prefix, modes, draw) {
+    const svg = $("#" + prefix + "svg");
+    let mode = Object.keys(modes)[0], sel = null;
+    const apply = () => {
+      const M = modes[mode], p = M.parts.find(x => x.k === sel);
+      const ids = p ? (p.ids || [p.k]) : [];
+      svg.classList.toggle("dim", !!p);
+      $$("g.zg", svg).forEach(g => g.classList.toggle("on", ids.includes(g.dataset.k)));
+      $$("#" + prefix + "-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === sel)));
+      $("#" + prefix + "-k").textContent = p ? p.b : M.intro[0];
+      $("#" + prefix + "-t").innerHTML = p ? p.d : M.intro[1];
+    };
+    const render = () => {
+      svg.innerHTML = "";
+      const G = k => el("g", { class: "zg", "data-k": k, style: "cursor:pointer" }, svg);
+      draw(svg, mode, G);
+      $$("g.zg", svg).forEach(g => g.addEventListener("click", () => { sel = sel === g.dataset.k ? null : g.dataset.k; apply(); }));
+      const seg = $("#" + prefix + "-seg"); seg.innerHTML = "";
+      modes[mode].parts.forEach(p => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.dataset.k = p.k; b.textContent = p.b;
+        b.addEventListener("click", () => { sel = sel === p.k ? null : p.k; apply(); });
+        seg.appendChild(b);
+      });
+      const R = modes[mode].read || {};
+      for (const id in R) $("#" + id).textContent = R[id];
+      apply();
+    };
+    render();
+    return m => { mode = m; sel = null; render(); };
+  }
+  const modeButtons = (ids, setter) => ids.forEach(([id, m]) => $("#" + id).addEventListener("click", () => { ids.forEach(([j, n]) => $("#" + j).setAttribute("aria-pressed", String(n === m))); setter(m); }));
+
+  /* ---------- Fig 1 Tissue systems ---------- */
+  const ts = $("#tssvg");
+  (function () {
+    const cx = 150, cy = 150, P = polar(cx, cy);
+    const G = k => el("g", { class: "zg", id: "ts-" + k }, ts);
+    const gro = G("gro");
+    el("circle", { cx, cy, r: 124, class: "f-leafsoft" }, gro);
+    el("circle", { cx, cy, r: 96, class: "f-none s-leaf", "stroke-width": 1.5, "stroke-dasharray": "5 4" }, gro);
+    for (let i = 0; i < 8; i++) { const [x1, y1] = P(56, i * 45 + 22.5), [x2, y2] = P(92, i * 45 + 22.5); el("line", { x1, y1, x2, y2, class: "s-leaf", "stroke-width": 1, "stroke-dasharray": "2 3" }, gro); }
+    lab(gro, ...P(112, -70), 86, "Cortex", 330);
+    lab(gro, ...P(96, -40), 124, "Pericycle", 330);
+    lab(gro, ...P(74, 22.5), 162, "Medullary rays", 330);
+    lab(gro, cx + 14, cy + 10, 200, "Pith", 330);
+    const vas = G("vas");
+    for (let i = 0; i < 8; i++) {
+      el("path", { d: sector(P, 78, 92, i * 45, 11), class: "f-leaf", opacity: 0.85 }, vas);
+      el("path", { d: sector(P, 56, 77, i * 45, 9), class: "f-blue", opacity: 0.85 }, vas);
+    }
+    lab(vas, ...P(70, 0), 248, "Vascular bundles: xylem + phloem", 330);
+    const epi = G("epi");
+    el("circle", { cx, cy, r: 127, class: "f-none s-sun", "stroke-width": 6 }, epi);
+    [-120, -30, 60, 150, 210].forEach(a => { const [x1, y1] = P(130, a), [x2, y2] = P(144, a); el("line", { x1, y1, x2, y2, class: "s-sun", "stroke-width": 2.4 }, epi); });
+    lab(epi, ...P(128, -45), 44, "Epidermis, stomata, trichomes", 330);
+  })();
+  const TS = {
+    all: ["Three tissue systems", "Click a system. <strong>Epidermal</strong> (amber) covers the plant; <strong>ground</strong> (light green) fills it; <strong>vascular</strong> (blue and green) conducts."],
+    epi: ["Epidermal tissue system", "<strong>Epidermal cells, stomata</strong> and <strong>epidermal appendages</strong> (trichomes and hairs). It forms the outermost covering of the whole plant body."],
+    gro: ["Ground tissue system", "<strong>All tissues except the epidermis and vascular bundles</strong>: simple tissues (parenchyma, collenchyma, sclerenchyma). In primary stems and roots: <strong>cortex, pericycle, pith and medullary rays</strong>. In leaves: <strong>mesophyll</strong>."],
+    vas: ["Vascular tissue system", "Complex tissues, <strong>xylem and phloem</strong>, which together make up the <strong>vascular bundles</strong>."]
+  };
+  const setTs = k => {
+    press("#ts-seg button", "k", k);
+    ts.classList.toggle("dim", k !== "all");
+    ["epi", "gro", "vas"].forEach(x => $("#ts-" + x).classList.toggle("on", x === k));
+    $("#ts-k").textContent = TS[k][0]; $("#ts-t").innerHTML = TS[k][1];
+  };
+  $$("#ts-seg button").forEach(b => b.addEventListener("click", () => setTs(b.dataset.k)));
+  setTs("all");
+
+  /* ---------- Fig 2 Stomata ---------- */
+  const stParts = dumb => [
+    { k: "epid", b: "Epidermal cells", d: "Ordinary <strong>epidermal cells</strong>: elongated, compactly arranged, parenchymatous, with a large vacuole." },
+    { k: "sub", b: "Subsidiary cells", d: "Epidermal cells next to the guard cells that become specialised in shape and size: <strong>subsidiary cells</strong>." },
+    { k: "guard", b: "Guard cells", d: dumb ? "In <strong>grasses</strong> the guard cells are <strong>dumb-bell shaped</strong>. They regulate opening and closing of the pore." : "Each stoma has two <strong>bean-shaped guard cells</strong> that enclose the pore and regulate its opening and closing." },
+    { k: "chloro", b: "Chloroplasts", d: "Guard cells <strong>possess chloroplasts</strong>." },
+    { k: "wall", b: "Guard cell walls", d: "The <strong>inner walls</strong> (towards the pore) are <strong>highly thickened</strong>; the <strong>outer walls</strong> (away from the pore) are <strong>thin</strong>." },
+    { k: "pore", b: "Stomatal pore", d: "The <strong>stomatal pore</strong>: stomata regulate <strong>transpiration and gaseous exchange</strong>." },
+    { k: "app", b: "Stomatal apparatus", ids: ["app", "sub", "guard", "pore", "wall", "chloro"], d: "<strong>Stomatal apparatus</strong> = the stomatal aperture + guard cells + the surrounding subsidiary cells." }
+  ];
+  const setSt = partsFigure("st", {
+    bean: { parts: stParts(false), intro: ["Bean-shaped guard cells", "Click any part of the stoma."] },
+    dumb: { parts: stParts(true), intro: ["Dumb-bell shaped guard cells", "Seen in grasses. Click any part."] }
+  }, (svg, mode, G) => {
+    const cx = 200, cy = 140;
+    const epid = G("epid");
+    if (mode === "bean") {
+      for (let r = 0; r < 7; r++) for (let c = 0; c < 7; c++) {
+        const x = 40 + c * 46 + (r % 2) * 23, y = 14 + r * 42;
+        el("polygon", { points: [[0, -24], [21, -12], [21, 12], [0, 24], [-21, 12], [-21, -12]].map(([a, b]) => `${x + a},${y + b}`).join(" "), class: "f-paper s-muted", "stroke-width": 1 }, epid);
+      }
+    } else {
+      for (let r = 0; r < 8; r++) for (let c = 0; c < 5; c++) {
+        const x = 30 + c * 64 + (r % 2) * 32, y = 4 + r * 36;
+        el("rect", { x, y, width: 64, height: 36, class: "f-paper s-muted", "stroke-width": 1 }, epid);
+      }
+    }
+    lab(epid, mode === "bean" ? 320 : 330, 30, 32, "Epidermal cells", 410);
+    const sub = G("sub"), guard = G("guard"), pore = G("pore"), wall = G("wall"), chloro = G("chloro"), app = G("app");
+    if (mode === "bean") {
+      [-1, 1].forEach(s => {
+        el("path", { d: `M ${cx} ${cy - 62} C ${cx + s * 95} ${cy - 62} ${cx + s * 95} ${cy + 62} ${cx} ${cy + 62} L ${cx} ${cy + 40} C ${cx + s * 44} ${cy + 40} ${cx + s * 44} ${cy - 40} ${cx} ${cy - 40} Z`, class: "f-card s-ink", "stroke-width": 1.2 }, sub);
+        el("path", { d: `M ${cx} ${cy - 40} C ${cx + s * 44} ${cy - 40} ${cx + s * 44} ${cy + 40} ${cx} ${cy + 40} C ${cx + s * 14} ${cy + 24} ${cx + s * 14} ${cy - 24} ${cx} ${cy - 40} Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.2 }, guard);
+        [-18, 0, 18].forEach(dy => el("ellipse", { cx: cx + s * (dy ? 26 : 29), cy: cy + dy, rx: 4.5, ry: 3.2, class: "f-leaf" }, chloro));
+      });
+      el("path", { d: `M ${cx} ${cy - 40} C ${cx - 14} ${cy - 24} ${cx - 14} ${cy + 24} ${cx} ${cy + 40} C ${cx + 14} ${cy + 24} ${cx + 14} ${cy - 24} ${cx} ${cy - 40} Z`, class: "f-paper s-muted", "stroke-width": 0.8 }, pore);
+      [-1, 1].forEach(s => el("path", { d: `M ${cx} ${cy - 40} C ${cx + s * 14} ${cy - 24} ${cx + s * 14} ${cy + 24} ${cx} ${cy + 40}`, class: "f-none s-ink", "stroke-width": 4.5 }, wall));
+      lab(sub, cx + 70, cy - 34, 82, "Subsidiary cells", 410);
+      lab(guard, cx + 34, cy - 28, 124, "Guard cells (bean-shaped)", 410);
+      lab(chloro, cx + 29, cy, 160, "Chloroplast", 410);
+      lab(wall, cx + 11, cy + 24, 196, "Inner wall, thick", 410);
+      lab(pore, cx + 2, cy + 6, 230, "Stomatal pore", 410);
+      lab(app, cx + 72, cy + 48, 264, "Stomatal apparatus", 410);
+    } else {
+      el("rect", { x: cx - 50, y: cy - 58, width: 100, height: 116, class: "f-card" }, sub);
+      [-1, 1].forEach(s => {
+        el("rect", { x: s < 0 ? cx - 48 : cx + 20, y: cy - 54, width: 28, height: 108, rx: 14, class: "f-card s-ink", "stroke-width": 1.2 }, sub);
+        const x0 = cx + s * 9;
+        el("path", { d: `M ${x0 + 3} ${cy - 24.5} A 10 10 0 1 0 ${x0 - 3} ${cy - 24.5} L ${x0 - 3} ${cy + 24.5} A 10 10 0 1 0 ${x0 + 3} ${cy + 24.5} Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.2 }, guard);
+        [-34, 34].forEach(dy => el("ellipse", { cx: x0, cy: cy + dy, rx: 3.5, ry: 2.6, class: "f-leaf" }, chloro));
+      });
+      el("rect", { x: cx - 6, y: cy - 22, width: 12, height: 44, class: "f-paper s-muted", "stroke-width": 0.8 }, pore);
+      [-1, 1].forEach(s => el("line", { x1: cx + s * 6, y1: cy - 22, x2: cx + s * 6, y2: cy + 22, class: "s-ink", "stroke-width": 3.5 }, wall));
+      lab(sub, cx + 34, cy - 40, 82, "Subsidiary cells", 410);
+      lab(guard, cx + 12, cy - 40, 124, "Guard cells (dumb-bell)", 410);
+      lab(chloro, cx + 9, cy + 34, 160, "Chloroplast", 410);
+      lab(wall, cx + 6, cy + 14, 196, "Inner wall, thick", 410);
+      lab(pore, cx + 1, cy + 2, 230, "Stomatal pore", 410);
+      lab(app, cx + 48, cy + 50, 264, "Stomatal apparatus", 410);
+    }
+  });
+  modeButtons([["st-bean", "bean"], ["st-dumb", "dumb"]], setSt);
+
+  /* ---------- Fig 3 Vascular bundle types ---------- */
+  const vb = $("#vbsvg");
+  const VB = {
+    rad: ["Alternate, different radii", "Not in the bundle", "Dicot root: cambium ring forms later", "Roots", "<strong>Radial</strong>: xylem and phloem are arranged <strong>alternately on different radii</strong>, as in roots."],
+    cc: ["Same radius, phloem outside", "Absent", "Not formed", "Monocot stems", "<strong>Conjoint closed</strong>: xylem and phloem lie together on the same radius, with phloem on the outer side. There is <strong>no cambium</strong>, so no secondary tissues form: the bundle is <strong>closed</strong>."],
+    co: ["Same radius, phloem outside", "Present", "Secondary xylem and phloem", "Dicot stems", "<strong>Conjoint open</strong>: as conjoint, but with <strong>cambium between phloem and xylem</strong>. It can form secondary xylem and phloem, so the bundle is <strong>open</strong>."]
+  };
+  function drawVb(k) {
+    vb.innerHTML = ""; marker(vb, "m3", "--muted");
+    press("#vb-seg button", "k", k);
+    const cx = 260, cy = 128;
+    const xc = (x, y, r) => el("circle", { cx: x, cy: y, r, class: "f-card s-blue", "stroke-width": 1.6 }, vb);
+    if (k === "rad") {
+      const P = polar(cx, cy);
+      el("circle", { cx, cy, r: 100, class: "f-paper s-muted", "stroke-width": 1.2 }, vb);
+      for (let i = 0; i < 4; i++) {
+        const a = i * 90; [[86, 4], [72, 6], [54, 8], [34, 9]].forEach(([r, rr]) => xc(...P(r, a), rr));
+        const [px, py] = P(78, a + 45);
+        el("ellipse", { cx: px, cy: py, rx: 14, ry: 9, class: "f-leafsoft s-leaf", "stroke-width": 1.6, transform: `rotate(${a + 135} ${px} ${py})` }, vb);
+      }
+      el("line", { x1: cx, y1: cy, x2: cx + 98, y2: cy, class: "s-blue", "stroke-width": 1.2, "stroke-dasharray": "4 3" }, vb);
+      const [qx, qy] = P(98, 45); el("line", { x1: cx, y1: cy, x2: qx, y2: qy, class: "s-leaf", "stroke-width": 1.2, "stroke-dasharray": "4 3" }, vb);
+      lab(vb, cx + 86, cy, 80, "Xylem on one radius", 400);
+      lab(vb, ...P(78, 45), 150, "Phloem on another radius", 400);
+    } else {
+      txt(vb, 470, 30, "outer side ↑", { class: "t-muted", "font-size": 10 });
+      if (k === "cc") {
+        el("ellipse", { cx, cy, rx: 74, ry: 96, class: "f-card s-ink", "stroke-width": 6 }, vb);
+        el("ellipse", { cx, cy: cy - 50, rx: 44, ry: 26, class: "f-leafsoft s-leaf", "stroke-width": 1.6 }, vb);
+        xc(cx - 26, cy + 10, 16); xc(cx + 26, cy + 10, 16); xc(cx, cy + 40, 7);
+        el("circle", { cx, cy: cy + 64, r: 11, class: "f-paper s-muted", "stroke-width": 1.2, "stroke-dasharray": "3 2" }, vb);
+        lab(vb, cx + 30, cy - 56, 60, "Phloem (outer side)", 400);
+        lab(vb, cx + 40, cy + 10, 110, "Xylem", 400);
+        lab(vb, cx + 72, cy - 20, 160, "Bundle sheath; no cambium", 400);
+      } else {
+        el("path", { d: `M ${cx - 90} 30 L ${cx + 90} 30 L ${cx + 50} 230 L ${cx - 50} 230 Z`, class: "f-paper s-muted", "stroke-width": 1.2 }, vb);
+        el("path", { d: `M ${cx - 86} 34 L ${cx + 86} 34 L ${cx + 78} 84 L ${cx - 78} 84 Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, vb);
+        el("line", { x1: cx - 77, y1: 92, x2: cx + 77, y2: 92, class: "s-red", "stroke-width": 4 }, vb);
+        [[-40, 120, 12], [0, 116, 13], [40, 120, 12], [-20, 160, 9], [20, 160, 9], [0, 196, 6], [0, 218, 4]].forEach(([dx, y, r]) => xc(cx + dx, y, r));
+        lab(vb, cx + 60, 58, 60, "Phloem (outer side)", 400);
+        lab(vb, cx + 70, 92, 110, "Cambium", 400);
+        lab(vb, cx + 50, 120, 160, "Xylem", 400);
+        lab(vb, cx + 4, 218, 210, "Protoxylem towards centre", 400);
+      }
+    }
+    const d = VB[k];
+    $("#vb-pos").textContent = d[0]; $("#vb-cam").textContent = d[1]; $("#vb-sec").textContent = d[2]; $("#vb-where").textContent = d[3]; $("#vb-t").innerHTML = d[4];
+  }
+  $$("#vb-seg button").forEach(b => b.addEventListener("click", () => drawVb(b.dataset.k)));
+  drawVb("rad");
+
+  /* ---------- Fig 4 Roots ---------- */
+  const rootParts = mono => [
+    { k: "epi", b: "Epiblema", d: "The outermost layer is the <strong>epiblema</strong>. Many of its cells protrude as <strong>unicellular root hairs</strong>. Roots have <strong>no cuticle</strong>." },
+    { k: "cor", b: "Cortex", d: "Several layers of <strong>thin-walled parenchyma</strong> with <strong>intercellular spaces</strong>." },
+    { k: "endo", b: "Endodermis", d: "The <strong>innermost layer of the cortex</strong>: a single layer of <strong>barrel-shaped</strong> cells with <strong>no intercellular spaces</strong>. Their tangential and radial walls carry waxy, water-impermeable <strong>suberin</strong> as <strong>casparian strips</strong> (red marks)." },
+    { k: "peri", b: "Pericycle", d: "A few layers of <strong>thick-walled parenchyma</strong> next to the endodermis. <strong>Lateral roots</strong> and, during secondary growth, the <strong>vascular cambium</strong> start here." },
+    { k: "xyl", b: "Xylem", d: mono ? "Usually <strong>more than six</strong> xylem bundles: <strong>polyarch</strong>. Small protoxylem lies outside, large metaxylem towards the centre." : "<strong>2 to 4</strong> xylem patches alternate with phloem on different radii (<strong>radial</strong>). Small protoxylem lies outside, larger metaxylem towards the centre." },
+    { k: "phl", b: "Phloem", d: mono ? "Phloem patches lie <strong>between</strong> the xylem bundles, on different radii." : "Phloem patches lie <strong>between</strong> the xylem arms, on different radii. Later, a <strong>cambium ring</strong> develops between xylem and phloem." },
+    { k: "conj", b: "Conjunctive tissue", d: "The <strong>parenchyma cells between the xylem and the phloem</strong> are called <strong>conjunctive tissue</strong>." },
+    { k: "pith", b: "Pith", d: mono ? "Pith is <strong>large and well developed</strong>." : "Pith is <strong>small or inconspicuous</strong>." },
+    { k: "stele", b: "Stele", ids: ["peri", "xyl", "phl", "conj", "pith"], d: "All tissues <strong>on the inner side of the endodermis</strong>: pericycle, vascular bundles and pith, together form the <strong>stele</strong>." }
+  ];
+  const setRt = partsFigure("rt", {
+    di: { parts: rootParts(false), intro: ["T.S. of dicot root", "Click a layer, or work inwards with the buttons."], read: { "rt-x": "2 to 4", "rt-p": "Small or inconspicuous", "rt-s": "Yes: cambium ring later" } },
+    mo: { parts: rootParts(true), intro: ["T.S. of monocot root", "Similar to the dicot root in many respects. Click a layer."], read: { "rt-x": "More than 6 (polyarch)", "rt-p": "Large, well developed", "rt-s": "None" } }
+  }, (svg, mode, G) => {
+    const mono = mode === "mo", cx = 180, cy = 180, P = polar(cx, cy);
+    const cor = G("cor"); [137, 126, 115].forEach((r, i) => ringCircles(cor, P, r, 5.2, "f-paper s-muted", 0.8, i * 3));
+    const epi = G("epi"); ringRects(epi, P, 148, 72, 12, 8, "f-card s-ink");
+    [-150, -110, -78, -25, 15, 60, 100, 140, 200, 235].forEach(a => { const [x1, y1] = P(152, a), [cxq, cyq] = P(164, a + 5), [x2, y2] = P(174, a); el("path", { d: `M ${x1} ${y1} Q ${cxq} ${cyq} ${x2} ${y2}`, class: "f-none s-ink", "stroke-width": 2 }, epi); });
+    const endo = G("endo"); ringRects(endo, P, 104, 48, 11, 8, "f-card s-ink", 1.1);
+    for (let i = 0; i < 48; i++) { const a = (i + 0.5) * 7.5; const [x1, y1] = P(100, a), [x2, y2] = P(108, a); el("line", { x1, y1, x2, y2, class: "s-red", "stroke-width": 2.4 }, endo); }
+    const peri = G("peri"); ringCircles(peri, P, 94, 3.6, "f-sunsoft s-sun");
+    const n = mono ? 8 : 4, step = 360 / n;
+    const conj = G("conj"), phl = G("phl"), xyl = G("xyl"), pith = G("pith");
+    if (mono) discCells(pith, cx, cy, 46, 11, 5, "f-paper s-muted");
+    else { el("circle", { cx, cy, r: 6, class: "f-paper s-muted" }, pith); ringCircles(pith, P, 15, 5, "f-paper s-muted"); }
+    for (let i = 0; i < n; i++) {
+      const a = i * step, b = a + step / 2;
+      el("circle", { cx: P(84, a)[0], cy: P(84, a)[1], r: 3.4, class: "f-card s-blue", "stroke-width": 1.6 }, xyl);
+      (mono ? [[71, 4], [58, 8.5]] : [[70, 5], [54, 6.5], [36, 7.5]]).forEach(([r, rr]) => { const [x, y] = P(r, a); el("circle", { cx: x, cy: y, r: rr, class: "f-card s-blue", "stroke-width": 1.6 }, xyl); });
+      const [px, py] = P(80, b);
+      el("ellipse", { cx: px, cy: py, rx: mono ? 8 : 11, ry: 6, class: "f-leafsoft s-leaf", "stroke-width": 1.4, transform: `rotate(${b + 90} ${px} ${py})` }, phl);
+      (mono ? [64, 53] : [64, 52, 40]).forEach(r => { const [x, y] = P(r, b); el("circle", { cx: x, cy: y, r: 4, class: "f-paper s-muted", "stroke-width": 0.8 }, conj); });
+    }
+    lab(epi, ...P(150, -62), 26, "Epiblema with root hairs");
+    lab(cor, ...P(126, -48), 58, "Cortex");
+    lab(endo, ...P(104, -36), 90, "Endodermis (casparian strips)");
+    lab(peri, ...P(94, -24), 122, "Pericycle");
+    lab(xyl, ...P(84, 0), 158, "Protoxylem (outer)");
+    lab(xyl, ...P(mono ? 58 : 54, 0), 188, "Metaxylem (inner)");
+    lab(phl, ...P(80, step / 2), 224, "Phloem");
+    lab(conj, ...P(52, step / 2), 258, "Conjunctive tissue");
+    lab(pith, cx + (mono ? 22 : 4), cy + (mono ? 24 : 4), 300, "Pith");
+  });
+  modeButtons([["rt-di", "di"], ["rt-mo", "mo"]], setRt);
+
+  /* ---------- Fig 5 Stems ---------- */
+  const stemDi = [
+    { k: "epi", b: "Epidermis", d: "Outermost protective layer, covered with a thin <strong>cuticle</strong>; may bear <strong>trichomes</strong> and a few stomata." },
+    { k: "cortex", b: "Whole cortex", ids: ["hyp", "cor", "endo"], d: "The cells in multiple layers between epidermis and pericycle form the <strong>cortex</strong>, in <strong>three sub-zones</strong>: hypodermis, cortical parenchyma and endodermis." },
+    { k: "hyp", b: "Hypodermis", d: "Outer zone of the cortex: a few layers of <strong>collenchyma</strong> just below the epidermis, giving <strong>mechanical strength</strong> to the young stem." },
+    { k: "cor", b: "Cortical parenchyma", d: "Rounded, thin-walled <strong>parenchyma</strong> with <strong>conspicuous intercellular spaces</strong>." },
+    { k: "endo", b: "Endodermis", d: "Innermost layer of the cortex. Its cells are <strong>rich in starch grains</strong>, so it is called the <strong>starch sheath</strong>." },
+    { k: "peri", b: "Pericycle", d: "On the inner side of the endodermis, above the phloem, as <strong>semi-lunar patches of sclerenchyma</strong>." },
+    { k: "phl", b: "Phloem", d: "Phloem lies on the <strong>outer side</strong> of each conjoint bundle." },
+    { k: "camb", b: "Cambium", d: "<strong>Cambium</strong> between phloem and xylem makes each bundle <strong>open</strong>: able to form secondary xylem and phloem." },
+    { k: "xyl", b: "Xylem", d: "Protoxylem lies <strong>towards the centre</strong>: <strong>endarch</strong>. Each bundle is <strong>conjoint, open, endarch</strong>, and the bundles form a <strong>ring</strong>, characteristic of the dicot stem." },
+    { k: "mr", b: "Medullary rays", d: "A few layers of <strong>radially placed parenchyma</strong> between the vascular bundles." },
+    { k: "pith", b: "Pith", d: "Many <strong>rounded parenchyma</strong> cells with <strong>large intercellular spaces</strong>, occupying the centre of the stem." }
+  ];
+  const stemMo = [
+    { k: "epi", b: "Epidermis", d: "Epidermis with cuticle." },
+    { k: "hyp", b: "Hypodermis", d: "The monocot stem has a <strong>sclerenchymatous hypodermis</strong>." },
+    { k: "gt", b: "Ground tissue", d: "A <strong>large, conspicuous parenchymatous ground tissue</strong>, in which the bundles lie scattered." },
+    { k: "bs", b: "Bundle sheath", d: "Each bundle is surrounded by a <strong>sclerenchymatous bundle sheath</strong>. Bundles are <strong>conjoint and closed</strong>; <strong>peripheral bundles are generally smaller</strong> than central ones." },
+    { k: "phl", b: "Phloem", d: "Phloem lies on the outer side of each bundle. <strong>Phloem parenchyma is absent</strong>." },
+    { k: "xyl", b: "Xylem", d: "Xylem lies on the inner side. There is <strong>no cambium</strong>, so the bundles are closed." },
+    { k: "cav", b: "Water cavity", d: "<strong>Water-containing cavities</strong> are present within the vascular bundles." }
+  ];
+  const setSm = partsFigure("sm", {
+    di: { parts: stemDi, intro: ["T.S. of young dicot stem", "Click a part, or use the buttons."], read: { "sm-a": "Ring", "sm-b": "Conjoint, open, endarch", "sm-c": "Collenchyma" } },
+    mo: { parts: stemMo, intro: ["T.S. of monocot stem", "Click a part, or use the buttons."], read: { "sm-a": "Scattered", "sm-b": "Conjoint, closed", "sm-c": "Sclerenchyma" } }
+  }, (svg, mode, G) => {
+    const cx = 180, cy = 180, P = polar(cx, cy);
+    if (mode === "di") {
+      const pith = G("pith"); discCells(pith, cx, cy, 46, 11, 5, "f-paper s-muted");
+      const cor = G("cor"); [122, 112].forEach((r, i) => ringCircles(cor, P, r, 5, "f-paper s-muted", 0.8, i * 3));
+      const hyp = G("hyp"); ringRects(hyp, P, 141, 66, 10, 8, "f-card s-sun", 2.2); ringRects(hyp, P, 132, 60, 10, 8, "f-card s-sun", 2.2);
+      const epi = G("epi"); ringRects(epi, P, 150, 72, 12, 8, "f-card s-ink");
+      el("circle", { cx, cy, r: 155, class: "f-none s-ink", "stroke-width": 2 }, epi);
+      [-120, -20, 120, 200].forEach(a => [160, 168].forEach(r => { const [x, y] = P(r, a); el("rect", { x: x - 3, y: y - 4, width: 6, height: 8, class: "f-card s-ink", "stroke-width": 1, transform: `rotate(${a + 90} ${x} ${y})` }, epi); }));
+      const endo = G("endo"); ringRects(endo, P, 102, 52, 10, 7, "f-card s-ink");
+      for (let i = 0; i < 52; i++) { const [x, y] = P(102, i * 360 / 52); el("circle", { cx: x, cy: y, r: 1.6, class: "f-ink" }, endo); }
+      const mr = G("mr"), peri = G("peri"), phl = G("phl"), camb = G("camb"), xyl = G("xyl");
+      for (let i = 0; i < 8; i++) {
+        const a = i * 45 + 15;
+        el("path", { d: sector(P, 89, 96, a, 10), class: "f-ink", opacity: 0.45 }, peri);
+        el("path", { d: sector(P, 77, 88, a, 11), class: "f-leafsoft s-leaf", "stroke-width": 1.2 }, phl);
+        const [c1x, c1y] = P(75, a - 11), [c2x, c2y] = P(75, a + 11);
+        el("path", { d: `M ${c1x} ${c1y} A 75 75 0 0 1 ${c2x} ${c2y}`, class: "f-none s-red", "stroke-width": 2.4 }, camb);
+        [[68, a - 4.5, 4], [68, a + 4.5, 4], [60, a, 3.4], [52, a, 2.4]].forEach(([r, b, rr]) => { const [x, y] = P(r, b); el("circle", { cx: x, cy: y, r: rr, class: "f-card s-blue", "stroke-width": 1.5 }, xyl); });
+        [54, 63, 72, 81, 90].forEach(r => { const [x, y] = P(r, a + 22.5); el("circle", { cx: x, cy: y, r: 3.6, class: "f-paper s-muted", "stroke-width": 0.8 }, mr); });
+      }
+      lab(epi, ...P(152, -68), 24, "Epidermis with cuticle");
+      lab(hyp, ...P(137, -56), 54, "Hypodermis (collenchyma)");
+      lab(cor, ...P(117, -46), 84, "Cortical parenchyma");
+      lab(endo, ...P(102, -36), 114, "Endodermis (starch sheath)");
+      lab(peri, ...P(92.5, 15), 148, "Pericycle (sclerenchyma)");
+      lab(phl, ...P(83, 15), 178, "Phloem");
+      lab(camb, ...P(75, 15), 208, "Cambium");
+      lab(xyl, ...P(60, 15), 238, "Xylem (protoxylem inner)");
+      lab(mr, ...P(72, 37.5), 270, "Medullary ray");
+      lab(pith, cx + 10, cy + 8, 304, "Pith");
+    } else {
+      const gt = G("gt"); discCells(gt, cx, cy, 136, 12, 5, "f-paper s-muted");
+      const hyp = G("hyp"); el("circle", { cx, cy, r: 141, class: "f-none s-ink", "stroke-width": 9, opacity: 0.45 }, hyp);
+      const epi = G("epi"); ringRects(epi, P, 150, 72, 12, 8, "f-card s-ink");
+      el("circle", { cx, cy, r: 155, class: "f-none s-ink", "stroke-width": 2 }, epi);
+      const bs = G("bs"), phl = G("phl"), xyl = G("xyl"), cav = G("cav");
+      const rings = [[118, 15, 0.55, 0], [92, 11, 0.75, 12], [62, 8, 0.95, 7], [30, 4, 1.1, 30], [0, 1, 1.15, -90]];
+      let anchor = null;
+      rings.forEach(([r, n, s, off], ri) => {
+        for (let i = 0; i < n; i++) {
+          const a = off + i * 360 / n, [x, y] = P(r, a), tf = `translate(${x} ${y}) rotate(${a + 90}) scale(${s})`;
+          el("ellipse", { cx: 0, cy: 0, rx: 11, ry: 14, class: "f-card s-ink", "stroke-width": 2.8, transform: tf }, bs);
+          el("ellipse", { cx: 0, cy: -6, rx: 6.5, ry: 4.5, class: "f-leafsoft s-leaf", "stroke-width": 1, transform: tf }, phl);
+          [[-5, 2, 2.8], [5, 2, 2.8], [0, 5.5, 1.4]].forEach(([u, v, rr]) => el("circle", { cx: u, cy: v, r: rr, class: "f-card s-blue", "stroke-width": 1, transform: tf }, xyl));
+          el("circle", { cx: 0, cy: 10, r: 2.4, class: "f-paper s-muted", "stroke-width": 0.8, transform: tf }, cav);
+          if (ri === 1 && i === 0) anchor = { x, y, a, s };
+        }
+      });
+      const T = (u, v) => { const t = rad(anchor.a + 90), c = Math.cos(t), sn = Math.sin(t); return [anchor.x + anchor.s * (u * c - v * sn), anchor.y + anchor.s * (u * sn + v * c)]; };
+      lab(epi, ...P(152, -62), 30, "Epidermis with cuticle");
+      lab(hyp, ...P(141, -50), 64, "Hypodermis (sclerenchyma)");
+      lab(gt, ...P(76, -32), 100, "Ground tissue");
+      lab(bs, ...T(-11, 0), 150, "Bundle sheath (sclerenchyma)");
+      lab(phl, ...T(0, -6), 186, "Phloem (no phloem parenchyma)");
+      lab(xyl, ...T(5, 2), 222, "Xylem");
+      lab(cav, ...T(0, 10), 258, "Water-containing cavity");
+      txt(svg, 392, 300, "Peripheral bundles are smaller", { "font-size": 10, class: "t-muted" });
+      txt(svg, 392, 314, "than central ones", { "font-size": 10, class: "t-muted" });
+    }
+  });
+  modeButtons([["sm-di", "di"], ["sm-mo", "mo"]], setSm);
+
+  /* ---------- Fig 6 Leaves ---------- */
+  const leafDi = [
+    { k: "cut", b: "Cuticle", d: "A conspicuous <strong>cuticle</strong> covers both the adaxial and abaxial epidermis." },
+    { k: "uep", b: "Upper epidermis", d: "<strong>Adaxial</strong> (upper) epidermis. It has fewer stomata than the lower, and <strong>may even lack them</strong>." },
+    { k: "pal", b: "Palisade", d: "<strong>Palisade parenchyma</strong>, placed <strong>adaxially</strong>: <strong>elongated</strong> cells arranged <strong>vertically and parallel</strong> to each other. Mesophyll has chloroplasts and carries out photosynthesis." },
+    { k: "spo", b: "Spongy", d: "<strong>Spongy parenchyma</strong>: oval or round, <strong>loosely arranged</strong> cells below the palisade, extending to the lower epidermis, with numerous <strong>large spaces and air cavities</strong>." },
+    { k: "vb", b: "Vascular bundle", d: "Bundles lie in the veins and midrib; their size depends on the vein (<strong>reticulate venation</strong>). Each is surrounded by thick-walled <strong>bundle sheath</strong> cells. <strong>Xylem faces the adaxial (upper) side</strong>; phloem faces the abaxial side." },
+    { k: "lep", b: "Lower epidermis", d: "<strong>Abaxial</strong> (lower) epidermis: generally bears <strong>more stomata</strong> than the adaxial." },
+    { k: "sto", b: "Stomata", d: "Stomata, each with an air space above it, mostly in the <strong>lower (abaxial)</strong> epidermis." }
+  ];
+  const leafMo = [
+    { k: "cut", b: "Cuticle", d: "Cuticle on both surfaces." },
+    { k: "bul", b: "Bulliform cells", d: "In <strong>grasses</strong>, some <strong>adaxial epidermal cells along the veins</strong> become large, empty, colourless <strong>bulliform cells</strong>. See Fig 7." },
+    { k: "uep", b: "Upper epidermis", d: "Adaxial epidermis. In an isobilateral leaf it also bears stomata." },
+    { k: "sto", b: "Stomata", d: "Stomata are present on <strong>both surfaces</strong> of the epidermis." },
+    { k: "mes", b: "Mesophyll", d: "The mesophyll is <strong>not differentiated into palisade and spongy</strong> parenchyma." },
+    { k: "vb", b: "Vascular bundles", d: "<strong>Parallel venation</strong> shows as bundles of <strong>near similar size</strong> (except in main veins). Each has a bundle sheath; xylem faces the upper side." },
+    { k: "lep", b: "Lower epidermis", d: "Abaxial epidermis, also with stomata." }
+  ];
+  const bundle = (g, x, y, r, s = 1) => {
+    ringCircles(g, polar(x, y), r, 4.6 * s, "f-card s-ink", 1);
+    [[-8, -8, 4.5], [8, -8, 4.5], [0, -14, 3.5]].forEach(([u, v, rr]) => el("circle", { cx: x + u * s, cy: y + v * s, r: rr * s, class: "f-card s-blue", "stroke-width": 1.4 }, g));
+    [[-6, 8], [6, 8], [0, 13]].forEach(([u, v]) => el("circle", { cx: x + u * s, cy: y + v * s, r: 3.4 * s, class: "f-leafsoft s-leaf", "stroke-width": 1 }, g));
+  };
+  const stoma = (g, cav, x, y, up) => {
+    [-1, 1].forEach(s => el("ellipse", { cx: x + s * 6, cy: y, rx: 5, ry: 7, class: "f-leafsoft s-leaf", "stroke-width": 1.2 }, g));
+    el("ellipse", { cx: x, cy: y + (up ? 18 : -18), rx: 14, ry: 9, class: "f-paper s-muted", "stroke-width": 0.9, "stroke-dasharray": "3 2" }, cav);
+  };
+  const setLf = partsFigure("lf", {
+    di: { parts: leafDi, intro: ["V.S. of dorsiventral leaf", "Three main parts: epidermis, mesophyll and vascular system. Click a part."] },
+    mo: { parts: leafMo, intro: ["V.S. of isobilateral leaf", "Similar to the dorsiventral leaf, with key differences. Click a part."] }
+  }, (svg, mode, G) => {
+    const X0 = 20, X1 = 460;
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    const cut = G("cut");
+    [17, 223].forEach(y => el("line", { x1: X0, y1: y, x2: X1, y2: y, class: "s-ink", "stroke-width": 3 }, cut));
+    const uep = G("uep"), lep = G("lep"), sto = G("sto");
+    if (mode === "di") {
+      for (let x = X0; x < X1; x += 20) el("rect", { x, y: 19, width: 20, height: 16, class: "f-card s-ink", "stroke-width": 1 }, uep);
+      const pal = G("pal"); for (let x = X0 + 2; x < X1 - 10; x += 15) { el("rect", { x, y: 38, width: 12, height: 58, rx: 5, class: "f-leafsoft s-leaf", "stroke-width": 1 }, pal); [52, 66, 80].forEach(y => el("circle", { cx: x + 6, cy: y, r: 1.8, class: "f-leaf" }, pal)); }
+      const stx = [100, 330, 410];
+      const spo = G("spo");
+      for (let y = 114; y < 196; y += 22) for (let x = X0 + 14; x < X1 - 8; x += 26) {
+        const jx = x + (rnd() - 0.5) * 8 + ((y / 22) % 2) * 13, jy = y + (rnd() - 0.5) * 6;
+        if (Math.hypot(jx - 240, jy - 140) < 40 || stx.some(s => Math.hypot(jx - s, jy - 188) < 22) || jx > X1 - 8) continue;
+        el("ellipse", { cx: jx, cy: jy, rx: 10, ry: 7.5, class: "f-leafsoft s-leaf", "stroke-width": 1 }, spo);
+      }
+      for (let x = X0; x < X1; x += 20) { if (stx.some(s => Math.abs(x + 10 - s) < 16)) continue; el("rect", { x, y: 205, width: 20, height: 16, class: "f-card s-ink", "stroke-width": 1 }, lep); }
+      stx.forEach(s => stoma(sto, sto, s, 213, false));
+      const vbg = G("vb"); bundle(vbg, 240, 140, 28);
+      lab(cut, 440, 17, 18, "Cuticle", 486);
+      lab(uep, 450, 27, 44, "Upper epidermis", 486);
+      lab(pal, 451, 70, 72, "Palisade parenchyma", 486);
+      lab(spo, 430, 160, 104, "Spongy parenchyma", 486);
+      lab(vbg, 248, 132, 134, "Xylem (upper side)", 486);
+      lab(vbg, 246, 148, 162, "Phloem (lower side)", 486);
+      lab(sto, 416, 213, 194, "Stoma, air space", 486);
+      lab(lep, 452, 213, 226, "Lower epidermis", 486);
+    } else {
+      const bulx = [150, 390], ustx = [42, 270], lstx = [150, 270, 390], vbx = [90, 210, 330, 440];
+      const bul = G("bul");
+      for (let x = X0; x < X1; x += 20) { if (bulx.some(b => Math.abs(x + 10 - b) < 26) || ustx.some(s => Math.abs(x + 10 - s) < 16)) continue; el("rect", { x, y: 19, width: 20, height: 16, class: "f-card s-ink", "stroke-width": 1 }, uep); }
+      bulx.forEach(b => [-1, 1].forEach(s => el("rect", { x: b + (s < 0 ? -24 : 1), y: 19, width: 23, height: 32, rx: 9, class: "f-paper s-sun", "stroke-width": 1.8 }, bul)));
+      const mes = G("mes");
+      for (let y = 66; y < 196; y += 17) for (let x = X0 + 10; x < X1 - 6; x += 17) {
+        const jx = x + ((Math.round(y / 17)) % 2) * 8.5;
+        if (vbx.some(v => Math.hypot(jx - v, y - 124) < 36) || ustx.some(s => Math.hypot(jx - s, y - 45) < 20) || lstx.some(s => Math.hypot(jx - s, y - 195) < 18) || jx > X1 - 8) continue;
+        el("circle", { cx: jx, cy: y, r: 7.2, class: "f-leafsoft s-leaf", "stroke-width": 1 }, mes);
+      }
+      for (let x = X0; x < X1; x += 20) { if (lstx.some(s => Math.abs(x + 10 - s) < 16)) continue; el("rect", { x, y: 205, width: 20, height: 16, class: "f-card s-ink", "stroke-width": 1 }, lep); }
+      ustx.forEach(s => stoma(sto, sto, s, 27, true));
+      lstx.forEach(s => stoma(sto, sto, s, 213, false));
+      const vbg = G("vb"); vbx.forEach(v => bundle(vbg, v, 124, 26, 0.95));
+      lab(cut, 440, 17, 18, "Cuticle", 486);
+      lab(bul, 404, 34, 44, "Bulliform cells", 486);
+      lab(uep, 450, 27, 72, "Upper epidermis", 486);
+      lab(sto, 276, 27, 100, "Stomata, both sides", 486);
+      lab(mes, 418, 185, 132, "Uniform mesophyll", 486);
+      lab(vbg, 448, 116, 162, "Similar bundles", 486);
+      lab(lep, 452, 213, 222, "Lower epidermis", 486);
+    }
+  });
+  modeButtons([["lf-di", "di"], ["lf-mo", "mo"]], setLf);
+
+  /* ---------- Fig 7 Bulliform cells ---------- */
+  const bu = $("#busvg"), buW = $("#bu-w");
+  function drawBu() {
+    const w = +buW.value / 100;
+    bu.innerHTML = "";
+    const k = (1 - w) / 85, cx = 320, cy = 200, L = 230, t = 24;
+    const pt = (s, off) => {
+      if (k < 1e-5) return [cx + s, cy - off];
+      const th = s * k; const x = cx + Math.sin(th) / k, y = cy - (1 - Math.cos(th)) / k;
+      return [x - Math.sin(th) * off, y - Math.cos(th) * off];
+    };
+    const top = [], bot = [];
+    for (let s = -L; s <= L; s += 5) { top.push(pt(s, t / 2)); bot.push(pt(s, -t / 2)); }
+    el("path", { d: "M " + top.map(p => p.join(" ")).join(" L ") + " L " + bot.reverse().map(p => p.join(" ")).join(" L ") + " Z", class: "f-leafsoft s-leaf", "stroke-width": 1.6 }, bu);
+    [-150, -50, 50, 150].forEach(s => { const [x, y] = pt(s, -2); el("circle", { cx: x, cy: y, r: 5, class: "f-card s-blue", "stroke-width": 1.4 }, bu); });
+    const rr = 3 + 6.5 * w;
+    [-100, 0, 100].forEach(c => [-1, 1].forEach(d => { const [x, y] = pt(c + d * 9, t / 2 - rr - 0.5); el("circle", { cx: x, cy: y, r: rr, class: "f-card s-sun", "stroke-width": 1.8 }, bu); }));
+    const [lx, ly] = pt(0, t / 2);
+    txt(bu, 470, 24, "adaxial (upper) surface", { "font-size": 10, class: "t-muted" });
+    el("line", { x1: 468, y1: 28, x2: lx + 14, y2: ly - 4, class: "s-muted", "stroke-width": 0.9 }, bu);
+    txt(bu, 20, 24, "amber: bulliform cells", { "font-size": 10, class: "t-sun" });
+    txt(bu, 20, 38, "blue: vascular bundles", { "font-size": 10, class: "t-blue" });
+    $("#bu-w-o").textContent = w >= 0.8 ? "Well watered" : w >= 0.4 ? "Mild water stress" : "Severe water stress";
+    const turg = w >= 0.65, flac = w <= 0.3;
+    $("#bu-c").textContent = turg ? "Turgid" : flac ? "Flaccid" : "Losing water";
+    $("#bu-l").textContent = turg ? "Exposed (flat)" : flac ? "Curled inwards" : "Starting to curl";
+    $("#bu-x").textContent = turg ? "Normal" : flac ? "Minimised" : "Reduced";
+    $("#bu-t").innerHTML = turg
+      ? "When the <strong>bulliform cells</strong> have absorbed water and are <strong>turgid</strong>, the <strong>leaf surface is exposed</strong>."
+      : "When the bulliform cells become <strong>flaccid due to water stress</strong>, they make the leaf <strong>curl inwards</strong>, so its upper surface is hidden and <strong>water loss is minimised</strong>.";
+  }
+  buW.addEventListener("input", drawBu); drawBu();
+
+  /* ---------- Fig 8 Identifier ---------- */
+  const CAND = [["DR", "Dicot root"], ["MR", "Monocot root"], ["DS", "Dicot stem"], ["MS", "Monocot stem"], ["DL", "Dicot leaf"], ["ML", "Monocot leaf"]];
+  const FEAT = [
+    ["Radial vascular bundles", "DR MR"], ["Conjoint vascular bundles", "DS MS DL ML"], ["2–4 xylem bundles", "DR"], ["More than six xylem bundles", "MR"],
+    ["Root hairs", "DR MR"], ["Casparian strips", "DR MR"], ["Cuticle present", "DS MS DL ML"], ["Small or inconspicuous pith", "DR"], ["Large and well-developed pith", "MR DS"],
+    ["Bundles in a ring", "DS"], ["Scattered bundles", "MS"], ["Sclerenchymatous bundle sheath", "MS"], ["Phloem parenchyma absent", "MS"], ["Cambium in bundles", "DS"],
+    ["Collenchymatous hypodermis", "DS"], ["Sclerenchymatous hypodermis", "MS"], ["Starch sheath", "DS"], ["Medullary rays", "DS"],
+    ["Palisade and spongy mesophyll", "DL"], ["Stomata on both surfaces", "ML"], ["Bulliform cells", "ML"]
+  ];
+  const picked = new Set();
+  let orgShown = null;
+  $("#id-grp").innerHTML = CAND.map(([c, n]) => `<div id="id-${c}"><b>${n}</b><span>—</span></div>`).join("");
+  FEAT.forEach(([f], i) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = f; b.dataset.i = i; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => { picked.has(i) ? picked.delete(i) : picked.add(i); renderId(); });
+    $("#id-list").appendChild(b);
+  });
+  function renderId() {
+    $$("#id-list button").forEach(b => b.setAttribute("aria-pressed", String(picked.has(+b.dataset.i))));
+    const n = picked.size;
+    const score = CAND.map(([c, name]) => [c, name, [...picked].filter(i => FEAT[i][1].split(" ").includes(c)).length]);
+    score.forEach(([c, , k]) => { const d = $("#id-" + c); d.classList.toggle("yes", n > 0 && k === n); d.querySelector("span").textContent = n ? `${k} of ${n}` : "—"; });
+    const full = score.filter(s => n && s[2] === n);
+    if (!n) { $("#id-k").textContent = "No features picked"; $("#id-t").textContent = "Pick one or more features."; return; }
+    const orgMatch = orgShown && [...picked].length === FEAT.filter(([, h]) => h.split(" ").includes(orgShown)).length && [...picked].every(i => FEAT[i][1].split(" ").includes(orgShown));
+    $$("#id-orgs button").forEach(b => b.setAttribute("aria-pressed", String(!!orgMatch && b.dataset.c === orgShown)));
+    if (orgMatch) { const nm = CAND.find(x => x[0] === orgShown)[1]; const shared = [...picked].filter(i => FEAT[i][1].split(" ").length > 1).map(i => FEAT[i][0].toLowerCase()); const own = [...picked].filter(i => FEAT[i][1].split(" ").length === 1).map(i => FEAT[i][0].toLowerCase()); $("#id-k").textContent = "All features of the " + nm.toLowerCase(); $("#id-t").innerHTML = `<strong>Only in the ${nm.toLowerCase()}:</strong> ${own.join(", ") || "none"}.` + (shared.length ? ` <strong>Shared with other sections:</strong> ${shared.join(", ")}.` : ""); return; }
+    if (full.length === 1) { $("#id-k").textContent = "Identified: " + full[0][1]; $("#id-t").innerHTML = `Only the <strong>${full[0][1].toLowerCase()}</strong> has all ${n} feature${n > 1 ? "s" : ""} you picked.`; }
+    else if (full.length > 1) { $("#id-k").textContent = full.length + " possible sections"; $("#id-t").innerHTML = `Still possible: <strong>${full.map(s => s[1].toLowerCase()).join(", ")}</strong>. Pick another feature to narrow it down.`; }
+    else { const best = Math.max(...score.map(s => s[2])); $("#id-k").textContent = "No section has all of these"; $("#id-t").innerHTML = `These features don't occur together. Closest: <strong>${score.filter(s => s[2] === best).map(s => s[1].toLowerCase()).join(", ")}</strong> (${best} of ${n}).`; }
+  }
+  CAND.forEach(([c, name]) => {
+    const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.dataset.c = c; b.textContent = name; b.setAttribute("aria-pressed", "false");
+    b.addEventListener("click", () => {
+      picked.clear(); FEAT.forEach(([, h], i) => { if (h.split(" ").includes(c)) picked.add(i); });
+      orgShown = c; renderId();
+    });
+    $("#id-orgs").appendChild(b);
+  });
+  $("#id-clear").addEventListener("click", () => { picked.clear(); orgShown = null; renderId(); });
+  renderId();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "The cuticle is absent in:", o: ["Leaves", "Young stems", "Roots", "Monocot stems"], a: 2, e: "NCERT: the waxy cuticle often covers the epidermis to prevent water loss, but it is absent in roots." },
+    { q: "In grasses, the guard cells are:", o: ["Bean-shaped", "Dumb-bell shaped", "Kidney-shaped with thin inner walls", "Absent"], a: 1, e: "Guard cells are usually bean-shaped; in grasses they are dumb-bell shaped." },
+    { q: "The stomatal apparatus consists of:", o: ["Guard cells only", "Stomatal pore and guard cells", "Stomatal aperture, guard cells and surrounding subsidiary cells", "Guard cells and trichomes"], a: 2, e: "The stomatal aperture, guard cells and surrounding subsidiary cells together are called the stomatal apparatus." },
+    { q: "Casparian strips on the endodermis of roots are made of:", o: ["Lignin", "Cutin", "Suberin", "Pectin"], a: 2, e: "The tangential and radial walls of endodermal cells have water-impermeable, waxy suberin as casparian strips." },
+    { q: "Lateral roots and the vascular cambium (during secondary growth) of a dicot root arise from the:", o: ["Endodermis", "Pericycle", "Cortex", "Conjunctive tissue"], a: 1, e: "Initiation of lateral roots and vascular cambium during secondary growth takes place in the pericycle cells." },
+    { q: "Which pair is correctly matched?", o: ["Radial vascular bundles: dicot stem", "Conjoint closed bundles: monocot stem", "Open vascular bundles: monocot stem", "Polyarch xylem: dicot root"], a: 1, e: "Monocot stem bundles are conjoint and closed. Radial bundles are in roots, open bundles in dicot stems, and polyarch xylem in monocot roots." },
+    { q: "A transverse section shows conjoint, scattered vascular bundles each surrounded by a sclerenchymatous bundle sheath, and phloem parenchyma is absent. It is a:", o: ["Dicot root", "Monocot root", "Dicot stem", "Monocot stem"], a: 3, e: "This is NCERT exercise 3: these are the features of a monocot stem." },
+    { q: "Which statement about a young dicot stem is NOT true?", o: ["Hypodermis is collenchymatous", "Endodermis is called the starch sheath", "Vascular bundles are scattered", "Vascular bundles are conjoint, open, with endarch protoxylem"], a: 2, e: "Dicot stem bundles are arranged in a ring; scattered bundles are a monocot stem feature." },
+    { q: "Assertion (A): Vascular bundles of monocotyledons are called closed. Reason (R): They have no cambium and so do not form secondary tissues.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "NCERT: since monocot bundles lack cambium and do not form secondary tissues, they are referred to as closed." },
+    { q: "Bulliform cells are:", o: ["Large, empty, colourless adaxial epidermal cells along the veins of grass leaves", "Chloroplast-rich cells of the palisade", "Thick-walled cells around vascular bundles", "Specialised cells next to guard cells"], a: 0, e: "In grasses, certain adaxial epidermal cells along the veins become large, empty, colourless bulliform cells, which curl the leaf when flaccid." },
+    { q: "In a dorsiventral leaf, stomata are generally more numerous on the:", o: ["Adaxial epidermis", "Abaxial epidermis", "Both surfaces equally", "Palisade layer"], a: 1, e: "The abaxial (lower) epidermis generally bears more stomata; the adaxial may even lack them." },
+    { q: "In a dicot root, the parenchyma cells lying between the xylem and the phloem are called:", o: ["Medullary rays", "Pericycle", "Conjunctive tissue", "Pith"], a: 2, e: "The parenchymatous cells between xylem and phloem in the root are the conjunctive tissue." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

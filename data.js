@@ -890,5 +890,153 @@ window.CHAPTERS = {
     "e": "It is a natural system, based on natural affinities and both external and internal features."
    }
   ]
+ },
+ "anatomy": {
+  "title": "Anatomy of Flowering Plants",
+  "file": "class-11/Anatomy of Flowering Plants.html",
+  "lede": "The internal structure of roots, stems and leaves, and how monocots and dicots differ inside. Click through each section, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "The three tissue systems",
+   "Epidermal tissue system and stomata",
+   "Ground tissue and vascular bundles",
+   "Dicot and monocot roots",
+   "Dicot and monocot stems",
+   "Dorsiventral and isobilateral leaves",
+   "Identify the section"
+  ],
+  "questions": [
+   {
+    "q": "The cuticle is absent in:",
+    "o": [
+     "Leaves",
+     "Young stems",
+     "Roots",
+     "Monocot stems"
+    ],
+    "a": 2,
+    "e": "NCERT: the waxy cuticle often covers the epidermis to prevent water loss, but it is absent in roots."
+   },
+   {
+    "q": "In grasses, the guard cells are:",
+    "o": [
+     "Bean-shaped",
+     "Dumb-bell shaped",
+     "Kidney-shaped with thin inner walls",
+     "Absent"
+    ],
+    "a": 1,
+    "e": "Guard cells are usually bean-shaped; in grasses they are dumb-bell shaped."
+   },
+   {
+    "q": "The stomatal apparatus consists of:",
+    "o": [
+     "Guard cells only",
+     "Stomatal pore and guard cells",
+     "Stomatal aperture, guard cells and surrounding subsidiary cells",
+     "Guard cells and trichomes"
+    ],
+    "a": 2,
+    "e": "The stomatal aperture, guard cells and surrounding subsidiary cells together are called the stomatal apparatus."
+   },
+   {
+    "q": "Casparian strips on the endodermis of roots are made of:",
+    "o": [
+     "Lignin",
+     "Cutin",
+     "Suberin",
+     "Pectin"
+    ],
+    "a": 2,
+    "e": "The tangential and radial walls of endodermal cells have water-impermeable, waxy suberin as casparian strips."
+   },
+   {
+    "q": "Lateral roots and the vascular cambium (during secondary growth) of a dicot root arise from the:",
+    "o": [
+     "Endodermis",
+     "Pericycle",
+     "Cortex",
+     "Conjunctive tissue"
+    ],
+    "a": 1,
+    "e": "Initiation of lateral roots and vascular cambium during secondary growth takes place in the pericycle cells."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Radial vascular bundles: dicot stem",
+     "Conjoint closed bundles: monocot stem",
+     "Open vascular bundles: monocot stem",
+     "Polyarch xylem: dicot root"
+    ],
+    "a": 1,
+    "e": "Monocot stem bundles are conjoint and closed. Radial bundles are in roots, open bundles in dicot stems, and polyarch xylem in monocot roots."
+   },
+   {
+    "q": "A transverse section shows conjoint, scattered vascular bundles each surrounded by a sclerenchymatous bundle sheath, and phloem parenchyma is absent. It is a:",
+    "o": [
+     "Dicot root",
+     "Monocot root",
+     "Dicot stem",
+     "Monocot stem"
+    ],
+    "a": 3,
+    "e": "This is NCERT exercise 3: these are the features of a monocot stem."
+   },
+   {
+    "q": "Which statement about a young dicot stem is NOT true?",
+    "o": [
+     "Hypodermis is collenchymatous",
+     "Endodermis is called the starch sheath",
+     "Vascular bundles are scattered",
+     "Vascular bundles are conjoint, open, with endarch protoxylem"
+    ],
+    "a": 2,
+    "e": "Dicot stem bundles are arranged in a ring; scattered bundles are a monocot stem feature."
+   },
+   {
+    "q": "Assertion (A): Vascular bundles of monocotyledons are called closed. Reason (R): They have no cambium and so do not form secondary tissues.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT: since monocot bundles lack cambium and do not form secondary tissues, they are referred to as closed."
+   },
+   {
+    "q": "Bulliform cells are:",
+    "o": [
+     "Large, empty, colourless adaxial epidermal cells along the veins of grass leaves",
+     "Chloroplast-rich cells of the palisade",
+     "Thick-walled cells around vascular bundles",
+     "Specialised cells next to guard cells"
+    ],
+    "a": 0,
+    "e": "In grasses, certain adaxial epidermal cells along the veins become large, empty, colourless bulliform cells, which curl the leaf when flaccid."
+   },
+   {
+    "q": "In a dorsiventral leaf, stomata are generally more numerous on the:",
+    "o": [
+     "Adaxial epidermis",
+     "Abaxial epidermis",
+     "Both surfaces equally",
+     "Palisade layer"
+    ],
+    "a": 1,
+    "e": "The abaxial (lower) epidermis generally bears more stomata; the adaxial may even lack them."
+   },
+   {
+    "q": "In a dicot root, the parenchyma cells lying between the xylem and the phloem are called:",
+    "o": [
+     "Medullary rays",
+     "Pericycle",
+     "Conjunctive tissue",
+     "Pith"
+    ],
+    "a": 2,
+    "e": "The parenchymatous cells between xylem and phloem in the root are the conjunctive tissue."
+   }
+  ]
  }
 };
