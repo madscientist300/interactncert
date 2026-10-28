@@ -284,6 +284,12 @@ button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); 
 .genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
 .genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
 b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
 </style>
 
 <header class="hero">
