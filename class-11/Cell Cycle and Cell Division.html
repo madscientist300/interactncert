@@ -1,0 +1,1380 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cell Cycle and Cell Division</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 11 · Chapter 10</span>
+      <h1>Cell Cycle and Cell Division</h1>
+      <p class="lede">How one cell copies its DNA and splits in two, and how meiosis halves the chromosome number to make gametes. Step through each stage, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">6 topics</span>
+        <span class="pill">8 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Mitosis versus meiosis">
+      <span class="fig-label">Two kinds of division</span>
+      <span class="eq">Mitosis: 2n → 2n + 2n (equational)</span>
+      <span class="eq">Meiosis: 2n → n + n + n + n (reductional)</span>
+      <span class="over">Meiosis: one round of DNA replication, two divisions</span>
+      <span class="muted" style="font-size:.82rem">Fertilisation restores 2n, so the chromosome number of a species stays constant across generations.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#cycle"><span class="n">1</span>Cell cycle</a>
+      <a href="#mitosis"><span class="n">2</span>Mitosis</a>
+      <a href="#cyto"><span class="n">3</span>Cytokinesis &amp; significance</a>
+      <a href="#prophase1"><span class="n">4</span>Prophase I</a>
+      <a href="#meiosis"><span class="n">5</span>Meiosis I &amp; II</a>
+      <a href="#compare"><span class="n">6</span>Compare &amp; track</a>
+      <a href="#quiz"><span class="n">7</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 CELL CYCLE -->
+<section class="topic" id="cycle">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>The cell cycle</h2>
+    </div>
+    <div class="prose stack">
+      <p>All cells reproduce by dividing into two. During division, <strong>DNA replication</strong> and <strong>cell growth</strong> also take place, and all three must be coordinated so that each daughter cell gets an intact genome. The <strong>cell cycle</strong> is the sequence of events by which a cell duplicates its genome, synthesises the other constituents of the cell and eventually divides into two daughter cells.</p>
+      <p>Cell growth (cytoplasmic increase) is <strong>continuous</strong>, but <strong>DNA synthesis occurs only in one specific stage</strong>. These events are under <strong>genetic control</strong>.</p>
+      <p>Human cells in culture divide about <strong>once every 24 hours</strong>; <strong>yeast</strong> can complete the cycle in about <strong>90 minutes</strong>. The cycle has two basic phases: <strong>interphase</strong> and the <strong>M phase</strong> (mitosis phase). Of a 24-hour human cycle, cell division proper lasts only <strong>about an hour</strong>; interphase takes <strong>more than 95%</strong> of the time.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Walk around the cell cycle</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Organism">
+          <button id="cc-hu" aria-pressed="true">Human cell (24 h)</button>
+          <button id="cc-ye" aria-pressed="false">Yeast (90 min)</button>
+        </div>
+        <button class="btn" id="cc-g0" aria-pressed="false">Exit to G0</button>
+      </div>
+      <label class="ctl" for="cc-t">Time since the last division <output id="cc-t-o">0 h</output></label>
+      <input type="range" id="cc-t" min="0" max="100" step="1" value="5">
+      <div class="svg-scroll"><svg id="ccsvg" viewBox="0 0 680 320" role="img" aria-label="Cell cycle wheel with G1, S, G2 and M phases, a G0 exit from G1, and a pointer for the chosen time"></svg></div>
+      <div class="readout">
+        <div><b id="cc-ph" style="font-size:1.05rem"></b><span>Phase</span></div>
+        <div><b id="cc-c" style="font-size:1.05rem"></b><span>DNA per cell</span></div>
+        <div><b id="cc-n" style="font-size:1.05rem"></b><span>Chromosomes</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="cc-k"></div><div id="cc-t2"></div></div>
+      <p class="fig-note">Drag the slider or click a phase. NCERT gives the total length (24 h, 90 min) and M ≈ 1 h of 24 h; the sizes of G1, S and G2 here are illustrative.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Phases of interphase</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Phase</th><th>What happens</th><th>DNA</th><th>Chromosomes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>G1</strong> (Gap 1)</td><td>Interval between mitosis and the start of DNA replication. Cell is metabolically active and grows continuously but does <strong>not</strong> replicate DNA.</td><td>2C</td><td>2n</td></tr>
+          <tr><td><strong>S</strong> (Synthesis)</td><td>DNA replication; DNA per cell <strong>doubles</strong>. In animal cells DNA replication begins in the nucleus and the <strong>centriole duplicates</strong> in the cytoplasm.</td><td>2C → 4C</td><td>2n (no change)</td></tr>
+          <tr><td><strong>G2</strong> (Gap 2)</td><td><strong>Proteins are synthesised</strong> in preparation for mitosis while cell growth continues.</td><td>4C</td><td>2n</td></tr>
+          <tr><td><strong>G0</strong> (quiescent)</td><td>Cells that do not divide further exit G1 into an inactive stage. They stay <strong>metabolically active</strong> but no longer proliferate unless called on to do so. Example: heart cells of adult animals.</td><td>2C</td><td>2n</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem">
+      <div class="callout"><span class="tag">NEET trap</span>Interphase is called the <strong>resting phase</strong>, but the cell is busy preparing for division: growing and replicating DNA in an orderly manner. In the S phase the <strong>DNA doubles (2C → 4C)</strong> but the <strong>chromosome number does not</strong> (2n stays 2n).</div>
+      <div class="callout"><span class="tag">Remember</span>In animals, mitosis is seen only in <strong>diploid somatic cells</strong>, with exceptions such as <strong>male honey bees</strong>, whose haploid cells divide by mitosis. Plants show mitosis in <strong>both haploid and diploid</strong> cells (for example, the haploid gametophytes in alternation of generations).</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 MITOSIS -->
+<section class="topic" id="mitosis">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>M phase: mitosis</h2>
+    </div>
+    <div class="prose stack">
+      <p>The M phase is the most dramatic period of the cycle: virtually every component of the cell is reorganised. Because the parent and progeny cells have the <strong>same number of chromosomes</strong>, mitosis is called <strong>equational division</strong>. It starts with nuclear division (<strong>karyokinesis</strong>, separation of daughter chromosomes) and usually ends with division of the cytoplasm (<strong>cytokinesis</strong>).</p>
+      <p>Karyokinesis is divided into four stages for convenience: <strong>prophase, metaphase, anaphase and telophase</strong>. Division is a progressive process, so very clear-cut lines cannot be drawn between stages.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Step through mitosis</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Cell type">
+          <button id="mi-an" aria-pressed="true">Animal cell</button>
+          <button id="mi-pl" aria-pressed="false">Plant cell</button>
+        </div>
+      </div>
+      <div class="controls" id="mi-seg" role="group" aria-label="Stage"></div>
+      <div class="svg-scroll"><svg id="misvg" viewBox="0 0 680 300" role="img" aria-label="A cell with four chromosomes at the chosen stage of mitosis"></svg></div>
+      <div class="readout">
+        <div><b id="mi-n" style="font-size:1.05rem"></b><span>Chromosomes per cell</span></div>
+        <div><b id="mi-c" style="font-size:1.05rem"></b><span>DNA per cell</span></div>
+        <div><b id="mi-e" style="font-size:1.05rem"></b><span>Nuclear envelope</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="mi-k"></div><div id="mi-t"></div></div>
+      <div class="controls"><button class="btn" id="mi-prev">← Back</button><button class="btn primary" id="mi-next">Next stage →</button></div>
+      <p class="fig-note">After NCERT Fig 10.2. 2n = 4 in the diagram: blue and red are the two members of each homologous pair.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Key events of each stage</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Stage</th><th>Key events (NCERT)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Prophase</strong></td><td>Follows S and G2. Chromosomal material <strong>condenses</strong> into compact mitotic chromosomes, each of <strong>two chromatids</strong> attached at the centromere. The duplicated <strong>centrosome</strong> moves to opposite poles; each radiates microtubules called <strong>asters</strong>. The two asters with spindle fibres form the <strong>mitotic apparatus</strong>. By the end, Golgi complexes, ER, nucleolus and nuclear envelope are no longer seen.</td></tr>
+          <tr><td><strong>Metaphase</strong></td><td>Starts with <strong>complete disintegration of the nuclear envelope</strong>. Condensation is complete: <strong>best stage to study chromosome morphology</strong>. Spindle fibres attach to <strong>kinetochores</strong> (small disc-shaped structures on the centromere). Chromosomes align at the equator on the <strong>metaphase plate</strong>, sister chromatids attached to fibres from opposite poles.</td></tr>
+          <tr><td><strong>Anaphase</strong></td><td><strong>Centromeres split</strong> and chromatids separate; the daughter chromosomes move to <strong>opposite poles</strong>, centromere leading and arms trailing.</td></tr>
+          <tr><td><strong>Telophase</strong></td><td>Chromosomes cluster at the poles, <strong>decondense</strong> and lose their identity. The <strong>nuclear envelope</strong> reforms around each cluster, giving two daughter nuclei. <strong>Nucleolus, Golgi complex and ER reform</strong>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>The <strong>start of metaphase</strong> is marked by the <strong>complete disintegration of the nuclear envelope</strong>, not the start of condensation. Chromosome morphology is studied at <strong>metaphase</strong>, because condensation is complete then.</div>
+  </div>
+</section>
+
+<!-- 3 CYTOKINESIS -->
+<section class="topic" id="cyto">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Cytokinesis and the significance of mitosis</h2>
+    </div>
+    <div class="prose stack">
+      <p>Karyokinesis segregates the duplicated chromosomes into daughter nuclei; <strong>cytokinesis</strong> separates the cytoplasm, completing cell division. During it, organelles such as <strong>mitochondria and plastids</strong> are distributed between the two daughter cells.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Three ways the cytoplasm can end up</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Mode" id="ck-seg">
+          <button data-k="an" aria-pressed="true">Animal: furrow</button>
+          <button data-k="pl" aria-pressed="false">Plant: cell plate</button>
+          <button data-k="sy" aria-pressed="false">No cytokinesis</button>
+        </div>
+      </div>
+      <label class="ctl" for="ck-p"><span id="ck-l">Progress of cytokinesis</span> <output id="ck-p-o">0%</output></label>
+      <input type="range" id="ck-p" min="0" max="100" step="1" value="35">
+      <div class="svg-scroll"><svg id="cksvg" viewBox="0 0 680 260" role="img" aria-label="Cytokinesis in the chosen kind of cell"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ck-k"></div><div id="ck-t"></div></div>
+      <p class="fig-note">Drag the slider. Diagrammatic.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Animal cell</th><th>Plant cell</th></tr></thead>
+        <tbody>
+          <tr><td>Why different</td><td>No cell wall</td><td>Enclosed by a relatively <strong>inextensible cell wall</strong></td></tr>
+          <tr><td>How</td><td>A <strong>furrow</strong> appears in the plasma membrane, deepens and joins in the centre</td><td>Wall formation starts <strong>in the centre</strong> and grows <strong>outward</strong> to meet the lateral walls</td></tr>
+          <tr><td>Direction</td><td>Outside → in (centripetal)</td><td>Centre → out (centrifugal)</td></tr>
+          <tr><td>First structure</td><td>Furrow</td><td><strong>Cell plate</strong>, which represents the <strong>middle lamella</strong> between the two new walls</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.6rem">Significance of mitosis</h3>
+    <div class="prose stack">
+      <p>Mitosis is usually restricted to <strong>diploid cells</strong>, though in some <strong>lower plants</strong> and some <strong>social insects</strong> haploid cells also divide by mitosis. It usually produces <strong>diploid daughter cells with identical genetic complement</strong>.</p>
+      <ul>
+        <li><strong>Growth</strong> of multicellular organisms is due to mitosis.</li>
+        <li>Cell growth disturbs the ratio between nucleus and cytoplasm; division restores the <strong>nucleo-cytoplasmic ratio</strong>.</li>
+        <li><strong>Cell repair</strong>: cells of the upper layer of the epidermis, the lining of the gut and blood cells are constantly replaced.</li>
+        <li>Mitosis in <strong>meristematic tissues</strong> (apical and lateral cambium) gives continuous growth of plants throughout their life.</li>
+      </ul>
+    </div>
+    <div class="callout" style="margin-top:1rem"><span class="tag">NEET trap</span>When karyokinesis is <strong>not followed by cytokinesis</strong>, a multinucleate condition arises, forming a <strong>syncytium</strong>. NCERT's example is the <strong>liquid endosperm of coconut</strong>.</div>
+  </div>
+</section>
+
+<!-- 4 PROPHASE I -->
+<section class="topic" id="prophase1">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Meiosis and the long prophase I</h2>
+    </div>
+    <div class="prose stack">
+      <p>Sexual reproduction fuses two gametes, each with a <strong>haploid</strong> set of chromosomes. Gametes are formed from specialised diploid cells by <strong>meiosis</strong>, the division that <strong>halves the chromosome number</strong>. Meiosis ensures the haploid phase of the life cycle; <strong>fertilisation restores the diploid</strong> phase. It occurs during <strong>gametogenesis</strong> in plants and animals.</p>
+      <p>Key features of meiosis:</p>
+      <ul>
+        <li><strong>Two</strong> sequential cycles of nuclear and cell division (meiosis I and II) but only <strong>one</strong> cycle of DNA replication.</li>
+        <li>Meiosis I begins after the parental chromosomes have replicated into identical sister chromatids in the S phase.</li>
+        <li><strong>Pairing of homologous chromosomes</strong> and <strong>recombination between non-sister chromatids</strong>.</li>
+        <li><strong>Four haploid cells</strong> at the end of meiosis II.</li>
+      </ul>
+      <p>Prophase I is longer and more complex than mitotic prophase, and is subdivided into five stages: <strong>Leptotene, Zygotene, Pachytene, Diplotene, Diakinesis</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The five stages of prophase I</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="controls" id="p1-seg" role="group" aria-label="Substage"></div>
+      <div class="svg-scroll"><svg id="p1svg" viewBox="0 0 680 270" role="img" aria-label="One pair of homologous chromosomes inside the nucleus at the chosen substage of prophase I"></svg></div>
+      <div class="readout">
+        <div><b id="p1-a" style="font-size:1.05rem"></b><span>Synaptonemal complex</span></div>
+        <div><b id="p1-b" style="font-size:1.05rem"></b><span>Seen as</span></div>
+        <div><b id="p1-c" style="font-size:1.05rem"></b><span>Key word</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="p1-k"></div><div id="p1-t"></div></div>
+      <div class="controls"><button class="btn" id="p1-prev">← Back</button><button class="btn primary" id="p1-next">Next substage →</button></div>
+      <p class="fig-note">One homologous pair: red from one parent, blue from the other. Each homologue has two sister chromatids. Diagrammatic.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Substage</th><th>Hallmark</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Leptotene</strong></td><td>Chromosomes gradually become <strong>visible</strong> under the light microscope; compaction continues.</td></tr>
+          <tr><td><strong>Zygotene</strong></td><td>Homologous chromosomes start pairing: <strong>synapsis</strong>, with formation of the <strong>synaptonemal complex</strong>. A synapsed pair is a <strong>bivalent</strong> or <strong>tetrad</strong>.</td></tr>
+          <tr><td><strong>Pachytene</strong></td><td>Longer stage. Four chromatids of each bivalent become distinct (<strong>tetrads</strong>). <strong>Recombination nodules</strong> appear, where <strong>crossing over</strong> occurs between <strong>non-sister chromatids</strong>, catalysed by the enzyme <strong>recombinase</strong>. Recombination is complete by the end of pachytene.</td></tr>
+          <tr><td><strong>Diplotene</strong></td><td><strong>Synaptonemal complex dissolves</strong>; homologues tend to separate except at the crossover sites, the X-shaped <strong>chiasmata</strong>. Can last <strong>months or years</strong> in oocytes of some vertebrates.</td></tr>
+          <tr><td><strong>Diakinesis</strong></td><td><strong>Terminalisation of chiasmata</strong>. Chromosomes fully condensed; the meiotic <strong>spindle</strong> assembles. By its end the <strong>nucleolus disappears</strong> and the <strong>nuclear envelope breaks down</strong>. Transition to metaphase.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Where does the crossover fall?</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="xo-off" aria-pressed="false">No crossing over</button>
+      </div>
+      <label class="ctl" for="xo-p">Position of the chiasma along the arm <output id="xo-p-o"></output></label>
+      <input type="range" id="xo-p" min="4" max="96" step="1" value="58">
+      <div class="svg-scroll"><svg id="xosvg" viewBox="0 0 680 280" role="img" aria-label="A bivalent with genes A and B on one homologue and a and b on the other, and the four chromatids that result after crossing over at the chosen point"></svg></div>
+      <div class="readout">
+        <div><b id="xo-g" style="font-size:1.05rem"></b><span>Four chromatids carry</span></div>
+        <div><b id="xo-r" style="font-size:1.05rem"></b><span>Recombinant chromatids</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="xo-t"></div></div>
+      <p class="fig-note">The gene labels A/a and B/b are added to show recombination; they are not in the NCERT figure.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span><strong>Crossing over</strong> is the exchange of genetic material between two homologous chromosomes. It is <strong>enzyme-mediated</strong> (<strong>recombinase</strong>) and happens in <strong>pachytene</strong>. The <strong>chiasmata</strong> that show where it happened become visible in <strong>diplotene</strong> and are <strong>terminalised in diakinesis</strong>.</div>
+  </div>
+</section>
+
+<!-- 5 MEIOSIS I & II -->
+<section class="topic" id="meiosis">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Meiosis I and meiosis II</h2>
+    </div>
+    <div class="prose stack">
+      <p>Each meiotic division has four phases: prophase, metaphase, anaphase and telophase, numbered I or II. <strong>Meiosis I</strong> separates <strong>homologous chromosomes</strong>; <strong>meiosis II</strong> separates <strong>sister chromatids</strong> and resembles a normal mitosis.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Follow two homologous pairs through meiosis</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls" id="me-seg" role="group" aria-label="Stage"></div>
+      <div class="svg-scroll"><svg id="mesvg" viewBox="0 0 680 300" role="img" aria-label="Cells at the chosen stage of meiosis, with two homologous pairs coloured red and blue"></svg></div>
+      <div class="readout">
+        <div><b id="me-cells" style="font-size:1.05rem"></b><span>Cells</span></div>
+        <div><b id="me-n" style="font-size:1.05rem"></b><span>Chromosomes per cell</span></div>
+        <div><b id="me-c" style="font-size:1.05rem"></b><span>DNA per cell</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="me-k"></div><div id="me-t"></div></div>
+      <div class="controls"><button class="btn" id="me-prev">← Back</button><button class="btn primary" id="me-next">Next stage →</button></div>
+      <p class="fig-note">After NCERT Figs 10.3 and 10.4. 2n = 4; the coloured tips are segments exchanged by crossing over. In this run the long pair and the short pair line up in opposite orientations, so each pole gets a mix.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Stage</th><th>Meiosis I</th><th>Meiosis II</th></tr></thead>
+        <tbody>
+          <tr><td>Prophase</td><td>Long and complex: five substages, synapsis, crossing over</td><td>Much simpler; begins immediately after cytokinesis, usually before chromosomes have fully elongated. Nuclear membrane disappears by its end; chromosomes become compact again.</td></tr>
+          <tr><td>Metaphase</td><td><strong>Bivalents</strong> align on the equatorial plate; microtubules from opposite poles attach to the kinetochores of <strong>homologous chromosomes</strong></td><td>Chromosomes align at the equator; microtubules from opposite poles attach to kinetochores of <strong>sister chromatids</strong></td></tr>
+          <tr><td>Anaphase</td><td><strong>Homologous chromosomes separate</strong>; sister chromatids stay together at their centromeres</td><td><strong>Centromere splits</strong> simultaneously; sister chromatids move to opposite poles by shortening of kinetochore microtubules</td></tr>
+          <tr><td>Telophase</td><td>Nuclear membrane and nucleolus reappear; cytokinesis gives a <strong>dyad of cells</strong></td><td>Nuclear envelope forms around each group; cytokinesis gives a <strong>tetrad of cells</strong>: four haploid daughter cells</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col" style="margin-top:1.2rem">
+      <div class="callout"><span class="tag">NEET trap</span><strong>Interkinesis</strong> is the stage between the two meiotic divisions. It is generally short-lived and has <strong>no DNA replication</strong>. In telophase I, chromosomes may disperse a little but never reach the extended state of an interphase nucleus.</div>
+      <div class="callout"><span class="tag">Remember</span><strong>Significance of meiosis</strong>: it conserves the specific chromosome number of each species across generations in sexually reproducing organisms, even though it halves the number. It also <strong>increases genetic variability</strong> from one generation to the next, and variations are very important for evolution.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 COMPARE -->
+<section class="topic" id="compare">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Comparing the divisions and tracking N and C</h2>
+    </div>
+    <div class="prose stack">
+      <p>NCERT exercise 16 asks how two numbers change through the cycle: the <strong>number of chromosomes (N) per cell</strong> and the <strong>amount of DNA (C) per cell</strong>. Count chromosomes by centromeres: a chromosome of two sister chromatids is still one chromosome.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>N and C through mitosis and meiosis</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Division">
+          <button id="nc-mi" aria-pressed="true">Mitosis</button>
+          <button id="nc-me" aria-pressed="false">Meiosis</button>
+        </div>
+        <div class="seg" role="group" aria-label="Species" id="nc-sp">
+          <button data-n="16" aria-pressed="true">Onion root tip, 2n = 16</button>
+          <button data-n="46" aria-pressed="false">Human, 2n = 46</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="ncsvg" viewBox="0 0 680 300" role="img" aria-label="Step chart of DNA content and chromosome number per cell across the stages of the chosen division"></svg></div>
+      <div class="readout">
+        <div><b id="nc-st" style="font-size:1.05rem"></b><span>Stage</span></div>
+        <div><b id="nc-n" style="font-size:1.05rem"></b><span>Chromosomes per cell (N)</span></div>
+        <div><b id="nc-c" style="font-size:1.05rem"></b><span>DNA per cell (C)</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="nc-t"></div></div>
+      <p class="fig-note">Hover over or tap a stage. "Per cell" means per cell until cytokinesis splits it. In anaphase each separated chromatid is counted as a daughter chromosome.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Mitosis vs meiosis</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Mitosis</th><th>Meiosis</th></tr></thead>
+        <tbody>
+          <tr><td>Type</td><td><strong>Equational</strong> division</td><td><strong>Reduction</strong> division</td></tr>
+          <tr><td>Occurs in</td><td>Somatic cells (diploid; also haploid in some lower plants, social insects)</td><td>Specialised diploid cells destined to form gametes</td></tr>
+          <tr><td>Divisions / DNA replications</td><td>One / one</td><td>Two / one</td></tr>
+          <tr><td>Daughter cells</td><td>Two, diploid (2n), genetically identical</td><td>Four, haploid (n), genetically varied</td></tr>
+          <tr><td>Prophase</td><td>Short, simple</td><td>Prophase I long, five substages</td></tr>
+          <tr><td>Pairing and crossing over</td><td>Absent</td><td>Synapsis, bivalents and crossing over in prophase I</td></tr>
+          <tr><td>Metaphase plate</td><td>Individual chromosomes</td><td>Bivalents (metaphase I)</td></tr>
+          <tr><td>Anaphase</td><td>Centromeres split; <strong>chromatids</strong> separate</td><td>Anaphase I: <strong>homologues</strong> separate, centromeres do not split. Anaphase II: centromeres split</td></tr>
+          <tr><td>Role</td><td>Growth, repair, nucleo-cytoplasmic ratio</td><td>Gametes, constant chromosome number, variability</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Name the stage</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <p class="muted mono" style="font-size:.78rem">Read the event and pick the stage where it happens. Includes NCERT exercise 6.</p>
+      <div class="step-box" aria-live="polite"><div class="k" id="ns-k"></div><div id="ns-q" style="font-size:1.08rem;font-weight:500"></div></div>
+      <div class="controls" id="ns-opts" role="group" aria-label="Stage options"></div>
+      <div class="step-box" aria-live="polite"><div id="ns-t">Choose an answer.</div></div>
+      <div class="readout">
+        <div><b id="ns-s" style="font-size:1.05rem"></b><span>Score</span></div>
+      </div>
+      <div class="controls"><button class="btn primary" id="ns-next">Next event →</button><button class="btn" id="ns-reset">Start again</button></div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span>NCERT exercises 14 and 15. <strong>Mitosis without DNA replication?</strong> No: each daughter would get only half the DNA. <strong>DNA replication without cell division?</strong> Yes: S phase doubles the DNA before every division, and karyokinesis without cytokinesis (syncytium, liquid endosperm of coconut) shows that nuclei can multiply without the cell dividing.</div>
+      <div class="callout"><span class="tag">NEET trap</span>Exercise 9 (beyond the chapter text, from your reproduction chapters): the four products of meiosis are <strong>equal</strong> in the pollen tetrad (microspores), but <strong>unequal</strong> in megasporogenesis, where three of the four megaspores degenerate.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>24 h · 90 min</b><span>Human cell in culture · yeast cell cycle</span></div>
+      <div><b>~1 h · &gt;95%</b><span>M phase in a 24 h cycle · share of interphase</span></div>
+      <div><b>G1 → S → G2 → M</b><span>S doubles DNA 2C → 4C; chromosome number stays 2n</span></div>
+      <div><b>G0</b><span>Quiescent: metabolically active, not dividing (e.g. adult heart cells)</span></div>
+      <div><b>P · M · A · T</b><span>Karyokinesis stages; metaphase best for morphology</span></div>
+      <div><b>L · Z · P · D · D</b><span>Leptotene, zygotene, pachytene, diplotene, diakinesis</span></div>
+      <div><b>Recombinase</b><span>Enzyme of crossing over, at pachytene</span></div>
+      <div><b>Coconut</b><span>Liquid endosperm: syncytium (no cytokinesis)</span></div>
+      <div><b>1 replication · 2 divisions</b><span>Meiosis gives 4 haploid cells</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XI, "Cell Cycle and Cell Division". Lecture 10 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const rad = a => a * Math.PI / 180;
+  const press = (sel, test) => $$(sel).forEach(b => b.setAttribute("aria-pressed", String(test(b))));
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Chromosome drawing helpers ---------- */
+  const CW = 6;
+  // a polyline chromatid; tip = class of an exchanged segment at the first point
+  function ctd(g, pts, cls, tip, w = CW, tipLen = 14) {
+    el("polyline", { points: pts.map(p => p.join(",")).join(" "), class: "f-none " + cls, "stroke-width": w, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+    if (tip) {
+      const [a, b] = pts, d = Math.hypot(b[0] - a[0], b[1] - a[1]), k = Math.min(1, tipLen / d);
+      el("line", { x1: a[0], y1: a[1], x2: a[0] + (b[0] - a[0]) * k, y2: a[1] + (b[1] - a[1]) * k, class: tip, "stroke-width": w, "stroke-linecap": "round" }, g);
+    }
+  }
+  // duplicated chromosome: two sister chromatids joined at a central centromere
+  function chromV(g, x, y, L, cls, tips = [null, null], gap = 4.5, rot = 0, w = CW) {
+    const h = el("g", rot ? { transform: `rotate(${rot} ${x} ${y})` } : {}, g);
+    [-1, 1].forEach((s, i) => ctd(h, [[x + s * gap, y - L / 2], [x + s * gap, y + L / 2]], cls, tips[i], w));
+    el("ellipse", { cx: x, cy: y, rx: gap + 3.5, ry: 3.2, class: "f-ink" }, h);
+    return h;
+  }
+  // single chromatid moving to a pole: V shape, centromere leading
+  function chromA(g, x, y, L, cls, tip, dir) {
+    ctd(g, [[x - dir * 13, y - L / 2], [x, y], [x - dir * 13, y + L / 2]], cls, tip);
+    el("circle", { cx: x, cy: y, r: 3.2, class: "f-ink" }, g);
+  }
+  function aster(g, x, y) {
+    for (let a = 0; a < 360; a += 30) el("line", { x1: x, y1: y, x2: x + 13 * Math.cos(rad(a)), y2: y + 13 * Math.sin(rad(a)), class: "s-muted", "stroke-width": 1 }, g);
+    el("rect", { x: x - 4, y: y - 2, width: 8, height: 4, class: "f-ink" }, g);
+    el("rect", { x: x - 2, y: y - 4, width: 4, height: 8, class: "f-ink" }, g);
+  }
+  const spindle = (g, px, py, pts) => pts.forEach(([x, y]) => el("line", { x1: px, y1: py, x2: x, y2: y, class: "s-muted", "stroke-width": 0.9, opacity: 0.75 }, g));
+  function chromatin(g, cx, cy, r, n = 4) {
+    const cls = ["s-red", "s-blue", "s-red", "s-blue"];
+    let sd = Math.round(cx * 7 + cy * 3 + r);
+    const rn = () => (sd = (sd * 9301 + 49297) % 233280) / 233280;
+    for (let i = 0; i < n; i++) {
+      const pts = [];
+      for (let k = 0; k < 7; k++) { const a = rn() * 360, rr = r * (0.15 + 0.7 * Math.sqrt(rn())); pts.push([cx + rr * Math.cos(rad(a)), cy + rr * Math.sin(rad(a))]); }
+      let d = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+      for (let k = 1; k < pts.length - 1; k++) { const mx = (pts[k][0] + pts[k + 1][0]) / 2, my = (pts[k][1] + pts[k + 1][1]) / 2; d += ` Q ${pts[k][0].toFixed(1)} ${pts[k][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`; }
+      el("path", { d, class: "f-none " + cls[i % 4], "stroke-width": 1.5, "stroke-linecap": "round", opacity: 0.85 }, g);
+    }
+  }
+  function nucleus(g, cx, cy, r, state, nucleolus = true) {
+    // state: "solid" | "dashed" | "faint"
+    const a = { cx, cy, r, class: "f-sunsoft s-ink", "stroke-width": 1.4 };
+    if (state === "dashed") { a["stroke-dasharray"] = "7 6"; a.class = "f-none s-ink"; }
+    if (state === "faint") { a["stroke-dasharray"] = "3 9"; a.class = "f-none s-muted"; }
+    el("circle", a, g);
+    if (nucleolus) el("circle", { cx: cx + r * 0.42, cy: cy - r * 0.38, r: r * 0.16, class: "f-ink", opacity: state === "faint" ? 0.2 : 0.45 }, g);
+  }
+
+  /* ---------- Fig 1 Cell cycle wheel ---------- */
+  const PH = [
+    { k: "G1", f: 11 / 24, cls: "f-leafsoft s-leaf", name: "G1 phase (Gap 1)", t: "The interval between mitosis and the start of DNA replication. The cell is <strong>metabolically active</strong> and <strong>grows continuously</strong> but does <strong>not replicate its DNA</strong>." },
+    { k: "S", f: 8 / 24, cls: "f-blue", name: "S phase (Synthesis)", t: "DNA replication: the <strong>DNA per cell doubles from 2C to 4C</strong>, but the <strong>chromosome number does not change</strong> (2n stays 2n). In animal cells DNA replication begins in the nucleus while the <strong>centriole duplicates</strong> in the cytoplasm." },
+    { k: "G2", f: 4 / 24, cls: "f-sunsoft s-sun", name: "G2 phase (Gap 2)", t: "<strong>Proteins are synthesised</strong> in preparation for mitosis while <strong>cell growth continues</strong>. G1, S and G2 together make up interphase, more than 95% of the cycle." },
+    { k: "M", f: 1 / 24, cls: "f-red", name: "M phase", t: "<strong>Karyokinesis</strong> (prophase, metaphase, anaphase, telophase) and then <strong>cytokinesis</strong>. In a 24-hour human cell cycle, cell division proper lasts only <strong>about an hour</strong>. Each daughter cell gets 2n chromosomes and 2C DNA." }
+  ];
+  let ccOrg = "hu", ccG0 = false;
+  const ccT = $("#cc-t"), cc = $("#ccsvg"), CX = 175, CY = 165, R1 = 122, R0 = 76;
+  const arcPath = (a0, a1, r0, r1) => {
+    const p = (r, a) => [CX + r * Math.cos(rad(a)), CY + r * Math.sin(rad(a))];
+    const lg = a1 - a0 > 180 ? 1 : 0;
+    const [x1, y1] = p(r1, a0), [x2, y2] = p(r1, a1), [x3, y3] = p(r0, a1), [x4, y4] = p(r0, a0);
+    return `M ${x1} ${y1} A ${r1} ${r1} 0 ${lg} 1 ${x2} ${y2} L ${x3} ${y3} A ${r0} ${r0} 0 ${lg} 0 ${x4} ${y4} Z`;
+  };
+  const phaseAt = t => { let acc = 0; for (let i = 0; i < PH.length; i++) { if (t < acc + PH[i].f * 100 || i === PH.length - 1) return [i, (t - acc) / (PH[i].f * 100)]; acc += PH[i].f * 100; } };
+  const startOf = i => PH.slice(0, i).reduce((s, p) => s + p.f * 100, 0);
+  function drawCc() {
+    const t = +ccT.value; cc.innerHTML = ""; marker(cc, "m1", "--muted");
+    const [pi, frac] = phaseAt(t);
+    let a = -90;
+    PH.forEach((p, i) => {
+      const a1 = a + p.f * 360, on = !ccG0 && i === pi;
+      const g = el("g", { style: "cursor:pointer", opacity: on || ccG0 ? 1 : 0.55 }, cc);
+      el("path", { d: arcPath(a, a1, R0, R1), class: p.cls, "stroke-width": on ? 2.5 : 1, opacity: p.k === "S" || p.k === "M" ? 0.8 : 1 }, g);
+      const m = (a + a1) / 2, lr = p.k === "M" ? R1 + 18 : (R0 + R1) / 2;
+      txt(g, CX + lr * Math.cos(rad(m)), CY + lr * Math.sin(rad(m)) + 4, p.k, { "text-anchor": "middle", "font-weight": 500, "font-size": 13, class: p.k === "S" ? "" : "" , style: p.k === "S" ? "fill: var(--paper)" : "" });
+      g.addEventListener("click", () => { ccG0 = false; ccT.value = Math.round(startOf(i) + p.f * 50); drawCc(); });
+      a = a1;
+    });
+    txt(cc, CX, CY - 4, "Interphase", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    txt(cc, CX, CY + 12, "G1 + S + G2", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    // G0 branch off G1
+    const gA = -40, gx = CX + R1 * Math.cos(rad(gA)), gy = CY + R1 * Math.sin(rad(gA));
+    el("path", { d: `M ${gx} ${gy} Q ${gx + 30} ${gy - 30} 318 46`, class: "f-none s-muted", "stroke-width": 1.4, "stroke-dasharray": "4 3", "marker-end": "url(#m1)" }, cc);
+    el("circle", { cx: 336, cy: 40, r: 18, class: ccG0 ? "f-leaf" : "f-paper s-muted", "stroke-width": 1.4 }, cc);
+    txt(cc, 336, 44, "G0", { "text-anchor": "middle", "font-weight": 500, style: ccG0 ? "fill: var(--paper)" : "" });
+    // pointer
+    const pa = ccG0 ? gA : -90 + t * 3.6;
+    if (!ccG0) {
+      el("line", { x1: CX, y1: CY, x2: CX + (R1 + 6) * Math.cos(rad(pa)), y2: CY + (R1 + 6) * Math.sin(rad(pa)), class: "s-ink", "stroke-width": 2 }, cc);
+      el("circle", { cx: CX + (R1 + 6) * Math.cos(rad(pa)), cy: CY + (R1 + 6) * Math.sin(rad(pa)), r: 5, class: "f-ink" }, cc);
+    }
+    el("circle", { cx: CX, cy: CY, r: 3, class: "f-ink" }, cc);
+    // DNA mini-graph
+    const gx0 = 400, gx1 = 660, yy = c => 250 - (c - 2) * 70;
+    txt(cc, gx0, 40, "DNA per cell over one cycle", { "font-size": 11, "font-weight": 500 });
+    [2, 4].forEach(c => { el("line", { x1: gx0, x2: gx1, y1: yy(c), y2: yy(c), class: "s-line", "stroke-width": 1 }, cc); txt(cc, gx0 - 6, yy(c) + 4, c + "C", { "text-anchor": "end", "font-size": 10, class: "t-muted" }); });
+    const X = v => gx0 + v / 100 * (gx1 - gx0), s1 = startOf(1), s2 = startOf(2), s3 = startOf(3);
+    el("polyline", { points: `${X(0)},${yy(2)} ${X(s1)},${yy(2)} ${X(s2)},${yy(4)} ${X(100)},${yy(4)} ${X(100)},${yy(2)}`, class: "f-none s-leaf", "stroke-width": 2.5 }, cc);
+    [[0, s1, "G1"], [s1, s2, "S"], [s2, s3, "G2"], [s3, 100, "M"]].forEach(([a0, a1, l]) => { txt(cc, (X(a0) + X(a1)) / 2, 276, l, { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); el("line", { x1: X(a1), x2: X(a1), y1: 262, y2: 268, class: "s-muted" }, cc); });
+    const tl = ccOrg === "hu" ? "0 → 24 h" : "0 → 90 min";
+    txt(cc, gx1, 296, tl, { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    const c = pi === 0 ? 2 : pi === 1 ? 2 + 2 * frac : 4;
+    if (!ccG0) el("circle", { cx: X(t), cy: yy(c), r: 5.5, class: "f-ink" }, cc);
+    // readouts
+    const tt = ccOrg === "hu" ? (t * 0.24).toFixed(1) + " h" : Math.round(t * 0.9) + " min";
+    $("#cc-t-o").textContent = ccG0 ? "parked in G0" : tt + " of " + (ccOrg === "hu" ? "24 h" : "90 min");
+    if (ccG0) {
+      $("#cc-ph").textContent = "G0 (quiescent)"; $("#cc-c").textContent = "2C"; $("#cc-n").textContent = "2n";
+      $("#cc-k").textContent = "Quiescent stage (G0)";
+      $("#cc-t2").innerHTML = "Cells that do not divide further <strong>exit G1</strong> into this inactive stage. They remain <strong>metabolically active</strong> but no longer proliferate unless called on to do so, depending on the requirement of the organism. Example: <strong>heart cells</strong> of adult animals. Move the slider to send the cell back into the cycle.";
+    } else {
+      $("#cc-ph").textContent = PH[pi].k;
+      $("#cc-c").textContent = pi === 1 ? c.toFixed(1) + "C (2C → 4C)" : pi === 3 ? "4C → 2C per daughter" : c + "C";
+      $("#cc-n").textContent = pi === 3 ? "2n per daughter" : "2n";
+      $("#cc-k").textContent = PH[pi].name;
+      $("#cc-t2").innerHTML = PH[pi].t;
+    }
+    $("#cc-g0").setAttribute("aria-pressed", String(ccG0));
+  }
+  ccT.addEventListener("input", () => { ccG0 = false; drawCc(); });
+  $("#cc-g0").addEventListener("click", () => { ccG0 = !ccG0; if (ccG0) ccT.value = 20; drawCc(); });
+  [["cc-hu", "hu"], ["cc-ye", "ye"]].forEach(([id, m]) => $("#" + id).addEventListener("click", () => { ccOrg = m; press("#cc-hu, #cc-ye", b => b.id === "cc-" + m); drawCc(); }));
+  drawCc();
+
+  /* ---------- Fig 2 Mitosis ---------- */
+  const CH = [
+    { L: 50, cls: "s-red" }, { L: 32, cls: "s-red" }, { L: 50, cls: "s-blue" }, { L: 32, cls: "s-blue" }
+  ];
+  const MIY = [62, 116, 172, 228];
+  const MI = [
+    { s: "Interphase (G2)", n: "4 (2n)", c: "4C", e: "Intact", t: "Before mitosis the cell has passed through S and G2: DNA is replicated (4C) but the new DNA molecules are <strong>not distinct but intertwined</strong> in diffuse chromatin. The nucleus and nucleolus are visible.", ta: " The centrosome has already duplicated (in S phase)." },
+    { s: "Prophase", n: "4 (2n)", c: "4C", e: "Breaking up", t: "<strong>Chromosomal material condenses</strong> into compact mitotic chromosomes, each of <strong>two chromatids</strong> joined at the <strong>centromere</strong>. By the end of prophase, Golgi complexes, ER, nucleolus and the nuclear envelope are no longer seen.", ta: " The duplicated <strong>centrosome</strong> moves towards opposite poles, each radiating microtubules called <strong>asters</strong>. The two asters with the spindle fibres form the <strong>mitotic apparatus</strong>." },
+    { s: "Metaphase", n: "4 (2n)", c: "4C", e: "Disintegrated", t: "Begins with the <strong>complete disintegration of the nuclear envelope</strong>. Condensation is complete, so <strong>chromosome morphology is easiest to study now</strong>. Spindle fibres attach to the <strong>kinetochores</strong>; every chromosome lies at the equator, its two sister chromatids attached to fibres from <strong>opposite poles</strong>. This plane is the <strong>metaphase plate</strong>.", ta: "" },
+    { s: "Anaphase", n: "8 daughter chromosomes", c: "4C", e: "Absent", t: "Each chromosome at the plate splits <strong>simultaneously</strong>: <strong>centromeres split and chromatids separate</strong>. The daughter chromosomes move to <strong>opposite poles</strong>, centromere leading and arms trailing.", ta: "" },
+    { s: "Telophase", n: "4 + 4 (two nuclei)", c: "4C (2C per nucleus)", e: "Reforming", t: "Chromosomes cluster at the poles, <strong>decondense</strong> and lose their identity as discrete elements. The <strong>nuclear envelope</strong> forms around each cluster, giving two daughter nuclei; <strong>nucleolus, Golgi complex and ER reform</strong>.", ta: "" },
+    { s: "Cytokinesis", n: "4 (2n) per daughter", c: "2C per daughter", e: "Present", t: "", ta: "" }
+  ];
+  let miS = 0, miPl = false;
+  const miSeg = $("#mi-seg");
+  MI.forEach((m, i) => { const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = m.s.replace(" (G2)", ""); b.addEventListener("click", () => { miS = i; drawMi(); }); miSeg.appendChild(b); });
+  function drawMi() {
+    const s = $("#misvg"); s.innerHTML = "";
+    const g = el("g", {}, s), an = !miPl;
+    const cellShape = (x0, x1) => {
+      if (an) el("ellipse", { cx: (x0 + x1) / 2, cy: 150, rx: (x1 - x0) / 2, ry: 120, class: "f-card s-ink", "stroke-width": 1.6 }, g);
+      else { el("rect", { x: x0, y: 28, width: x1 - x0, height: 244, rx: 4, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, g); el("rect", { x: x0 + 7, y: 35, width: x1 - x0 - 14, height: 230, rx: 3, class: "f-card s-ink", "stroke-width": 1 }, g); }
+    };
+    if (miS < 5) cellShape(110, 570);
+    const PL = 140, PR = 540;
+    if (miS === 0) {
+      nucleus(g, 340, 150, 72, "solid"); chromatin(g, 340, 150, 60);
+      if (an) { aster(g, 440, 62); el("rect", { x: 452, y: 58, width: 4, height: 9, class: "f-ink" }, g); }
+    }
+    if (miS === 1) {
+      nucleus(g, 340, 150, 78, "dashed", false);
+      [[300, 118, -25], [372, 120, 35], [320, 190, 70], [384, 178, -10]].forEach(([x, y, r], i) => chromV(g, x, y, CH[i].L, CH[i].cls, [null, null], 4.5, r));
+      if (an) { aster(g, 220, 92); aster(g, 460, 92); }
+      txt(g, 340, 286, an ? "centrosomes moving apart; nuclear envelope breaking up" : "chromosomes condensing; nuclear envelope breaking up", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (miS === 2) {
+      const pts = [];
+      MIY.forEach((y, i) => { chromV(g, 340, y, CH[i].L, CH[i].cls); pts.push([334, y]); });
+      spindle(g, PL, 150, pts); spindle(g, PR, 150, pts.map(([x, y]) => [346, y]));
+      if (an) { aster(g, PL, 150); aster(g, PR, 150); }
+      el("line", { x1: 340, y1: 34, x2: 340, y2: 266, class: "s-sun", "stroke-width": 1, "stroke-dasharray": "4 4" }, g);
+      txt(g, 348, 278, "metaphase plate", { "font-size": 10, class: "t-sun" });
+    }
+    if (miS === 3) {
+      const l = [], r = [];
+      MIY.forEach((y, i) => { chromA(g, 236, y, CH[i].L, CH[i].cls, null, -1); chromA(g, 444, y, CH[i].L, CH[i].cls, null, 1); l.push([236, y]); r.push([444, y]); });
+      spindle(g, PL, 150, l); spindle(g, PR, 150, r);
+      [100, 200].forEach(y => el("line", { x1: PL, y1: 150, x2: PR, y2: y === 100 ? 150 : 150, class: "s-muted", "stroke-width": 0.6, opacity: 0.4 }, g));
+      if (an) { aster(g, PL, 150); aster(g, PR, 150); }
+      txt(g, 340, 286, "centromeres lead; arms trail", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (miS === 4) {
+      [200, 480].forEach(x => { nucleus(g, x, 150, 50, "dashed"); chromatin(g, x, 150, 42); });
+      if (an) { aster(g, 132, 150); aster(g, 548, 150); }
+      txt(g, 340, 286, "two daughter nuclei forming", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (miS === 5) {
+      if (an) {
+        el("path", { d: "M 340 52 C 300 10, 110 20, 110 150 C 110 280, 300 290, 340 248 C 380 290, 570 280, 570 150 C 570 20, 380 10, 340 52 Z", class: "f-card s-ink", "stroke-width": 1.6 }, g);
+        el("line", { x1: 340, y1: 52, x2: 340, y2: 248, class: "s-muted", "stroke-width": 0.8, "stroke-dasharray": "3 4" }, g);
+        txt(g, 352, 44, "furrow", { "font-size": 10, class: "t-muted" });
+      } else {
+        cellShape(110, 570);
+        el("rect", { x: 335, y: 35, width: 10, height: 230, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, g);
+        txt(g, 352, 50, "cell plate", { "font-size": 10, class: "t-leaf" });
+      }
+      [225, 455].forEach(x => { nucleus(g, x, 150, 48, "solid"); chromatin(g, x, 150, 40); });
+    }
+    const M = MI[miS];
+    $("#mi-n").textContent = M.n; $("#mi-c").textContent = M.c; $("#mi-e").textContent = M.e;
+    $("#mi-k").textContent = `Stage ${miS + 1} of ${MI.length} · ${M.s}`;
+    $("#mi-t").innerHTML = miS === 5
+      ? (an ? "In an animal cell a <strong>furrow</strong> appears in the plasma membrane, deepens and joins in the centre, dividing the cytoplasm into two." : "A plant cell has a relatively <strong>inextensible cell wall</strong>, so the new wall starts <strong>in the centre</strong> as a <strong>cell plate</strong> (the future middle lamella) and grows <strong>outward</strong> to meet the lateral walls.") + " Organelles such as mitochondria and plastids are shared between the daughter cells."
+      : M.t + (an ? M.ta : (miS <= 1 ? " Plant cells lack centrioles (Chapter 8), so no asters are drawn here." : ""));
+    $$("button", miSeg).forEach((b, i) => b.setAttribute("aria-pressed", String(i === miS)));
+    $("#mi-prev").disabled = miS === 0; $("#mi-next").disabled = miS === MI.length - 1;
+  }
+  $("#mi-prev").addEventListener("click", () => { miS = Math.max(0, miS - 1); drawMi(); });
+  $("#mi-next").addEventListener("click", () => { miS = Math.min(MI.length - 1, miS + 1); drawMi(); });
+  [["mi-an", false], ["mi-pl", true]].forEach(([id, v]) => $("#" + id).addEventListener("click", () => { miPl = v; press("#mi-an, #mi-pl", b => b.id === id); drawMi(); }));
+  drawMi();
+
+  /* ---------- Fig 3 Cytokinesis ---------- */
+  let ckM = "an";
+  const ckP = $("#ck-p");
+  function drawCk() {
+    const s = $("#cksvg"); s.innerHTML = ""; marker(s, "m3", "--ink");
+    const p = +ckP.value, g = el("g", {}, s);
+    press("#ck-seg button", b => b.dataset.k === ckM);
+    const mito = (x, y) => el("ellipse", { cx: x, cy: y, rx: 11, ry: 5.5, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, g);
+    const plast = (x, y) => el("ellipse", { cx: x, cy: y, rx: 11, ry: 6, class: "f-leaf", opacity: 0.75 }, g);
+    if (ckM === "an") {
+      const f = p;
+      el("path", { d: `M 100 130 C 100 20, 300 ${30 + f * 0.5}, 340 ${30 + f} C 380 ${30 + f * 0.5}, 580 20, 580 130 C 580 240, 380 ${230 - f * 0.5}, 340 ${230 - f} C 300 ${230 - f * 0.5}, 100 240, 100 130 Z`, class: "f-card s-ink", "stroke-width": 1.6 }, g);
+      [220, 460].forEach(x => { nucleus(g, x, 130, 40, "solid"); chromatin(g, x, 130, 32); });
+      [[160, 70], [280, 190], [400, 70], [520, 190], [175, 195], [505, 72]].forEach(([x, y]) => mito(x, y));
+      if (p < 100) { el("line", { x1: 340, y1: 6, x2: 340, y2: 22 + f * 0.9, class: "s-ink", "stroke-width": 1.8, "marker-end": "url(#m3)" }, g); el("line", { x1: 340, y1: 254, x2: 340, y2: 238 - f * 0.9, class: "s-ink", "stroke-width": 1.8, "marker-end": "url(#m3)" }, g); }
+      $("#ck-l").textContent = "Progress of cytokinesis"; $("#ck-p-o").textContent = p + "%";
+      $("#ck-k").textContent = "Animal cell: cleavage furrow";
+      $("#ck-t").innerHTML = p >= 100 ? "The furrow has <strong>joined in the centre</strong>: the cytoplasm is divided into two daughter cells, each with a nucleus and a share of the mitochondria." : "A <strong>furrow</strong> appears in the plasma membrane and gradually <strong>deepens</strong> from the outside inwards, until it joins in the centre.";
+    } else if (ckM === "pl") {
+      el("rect", { x: 100, y: 20, width: 480, height: 220, rx: 4, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, g);
+      el("rect", { x: 108, y: 28, width: 464, height: 204, rx: 3, class: "f-card s-ink", "stroke-width": 1 }, g);
+      [220, 460].forEach(x => { nucleus(g, x, 130, 40, "solid"); chromatin(g, x, 130, 32); });
+      [[160, 70], [280, 195], [400, 70], [520, 195]].forEach(([x, y]) => mito(x, y));
+      [[175, 195], [505, 70], [290, 65], [395, 195]].forEach(([x, y]) => plast(x, y));
+      const h = p / 100 * 102;
+      if (h > 0) el("rect", { x: 335, y: 130 - h, width: 10, height: 2 * h, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, g);
+      if (p < 100) {
+        [-1, 1].forEach(d => { for (let k = 0; k < 3; k++) el("circle", { cx: 340 + (k - 1) * 9, cy: 130 + d * (h + 8 + k % 2 * 5), r: 3.2, class: "f-card s-leaf", "stroke-width": 1.2 }, g); });
+        el("line", { x1: 360, y1: 130 - h + 10, x2: 360, y2: 130 - h - 22, class: "s-ink", "stroke-width": 1.6, "marker-end": "url(#m3)" }, g);
+        el("line", { x1: 360, y1: 130 + h - 10, x2: 360, y2: 130 + h + 22, class: "s-ink", "stroke-width": 1.6, "marker-end": "url(#m3)" }, g);
+      }
+      txt(g, 350, 252, "cell plate → middle lamella", { "text-anchor": "middle", "font-size": 10, class: "t-leaf" });
+      $("#ck-l").textContent = "Progress of cytokinesis"; $("#ck-p-o").textContent = p + "%";
+      $("#ck-k").textContent = "Plant cell: cell plate";
+      $("#ck-t").innerHTML = p >= 100 ? "The cell plate has met the existing lateral walls. It represents the <strong>middle lamella</strong> between the walls of the two adjacent daughter cells. Mitochondria and plastids are shared between them." : "The cell wall is relatively <strong>inextensible</strong>, so a furrow cannot form. Wall formation starts <strong>in the centre</strong> of the cell with a simple precursor, the <strong>cell plate</strong>, and grows <strong>outward</strong> to meet the lateral walls.";
+    } else {
+      const r = Math.round(p / 25), n = 2 ** r;
+      el("rect", { x: 100, y: 20, width: 480, height: 220, rx: 40, class: "f-card s-ink", "stroke-width": 1.6 }, g);
+      const cols = n <= 2 ? n : n <= 8 ? 4 : 8, rows = Math.ceil(n / cols), rr = n <= 4 ? 30 : n <= 8 ? 24 : 16;
+      for (let i = 0; i < n; i++) {
+        const cx = 100 + 480 * ((i % cols) + 0.5) / cols, cy = 20 + 220 * (Math.floor(i / cols) + 0.5) / rows;
+        nucleus(g, cx, cy, rr, "solid"); chromatin(g, cx, cy, rr * 0.8);
+      }
+      $("#ck-l").textContent = "Rounds of nuclear division"; $("#ck-p-o").textContent = r + (r === 1 ? " round" : " rounds") + " → " + n + (n === 1 ? " nucleus" : " nuclei");
+      $("#ck-k").textContent = "Karyokinesis without cytokinesis";
+      $("#ck-t").innerHTML = "In some organisms karyokinesis is <strong>not followed by cytokinesis</strong>, so nuclei multiply inside one undivided cytoplasm. The result is a <strong>multinucleate</strong> condition called a <strong>syncytium</strong>, for example the <strong>liquid endosperm in coconut</strong>.";
+    }
+  }
+  ckP.addEventListener("input", drawCk);
+  $$("#ck-seg button").forEach(b => b.addEventListener("click", () => { ckM = b.dataset.k; ckP.value = ckM === "sy" ? 50 : 35; drawCk(); }));
+  drawCk();
+
+  /* ---------- Fig 4 Prophase I ---------- */
+  const P1 = [
+    { s: "Leptotene", a: "Not yet formed", b: "Long thin threads", c: "Compaction", t: "Chromosomes become <strong>gradually visible</strong> under the light microscope. The <strong>compaction</strong> of chromosomes continues throughout leptotene. Sister chromatids are not yet distinguishable." },
+    { s: "Zygotene", a: "Forming", b: "Bivalent (tetrad)", c: "Synapsis", t: "Homologous chromosomes start <strong>pairing</strong>: this association is <strong>synapsis</strong>. Electron micrographs show that synapsis is accompanied by a complex structure, the <strong>synaptonemal complex</strong> (amber rungs). A synapsed pair is a <strong>bivalent</strong> or <strong>tetrad</strong>. Leptotene and zygotene are short-lived compared with pachytene." },
+    { s: "Pachytene", a: "Present", b: "4 distinct chromatids", c: "Crossing over", t: "The <strong>four chromatids</strong> of each bivalent become distinct: clear <strong>tetrads</strong>. <strong>Recombination nodules</strong> (amber dot) appear: the sites of <strong>crossing over between non-sister chromatids</strong> of homologous chromosomes. It is enzyme-mediated: <strong>recombinase</strong>. Recombination is completed by the end of pachytene, leaving the chromosomes linked at the crossover sites." },
+    { s: "Diplotene", a: "Dissolves", b: "X-shaped chiasmata", c: "Chiasmata", t: "Begins with the <strong>dissolution of the synaptonemal complex</strong>. The recombined homologues tend to <strong>separate</strong> except at the crossover sites. These X-shaped structures are <strong>chiasmata</strong>. Notice the exchanged colours beyond the chiasma. In oocytes of some vertebrates diplotene can last <strong>months or years</strong>." },
+    { s: "Diakinesis", a: "Gone", b: "Fully condensed", c: "Terminalisation", t: "Marked by <strong>terminalisation of chiasmata</strong> (the chiasma has moved to the end). Chromosomes are <strong>fully condensed</strong> and the <strong>meiotic spindle</strong> is assembled. By the end, the <strong>nucleolus disappears</strong> and the <strong>nuclear envelope breaks down</strong>. Diakinesis is the transition to metaphase I." }
+  ];
+  let p1 = 0;
+  const p1Seg = $("#p1-seg");
+  P1.forEach((m, i) => { const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = m.s; b.addEventListener("click", () => { p1 = i; drawP1(); }); p1Seg.appendChild(b); });
+  function drawP1() {
+    const s = $("#p1svg"); s.innerHTML = "";
+    const defs = el("defs", {}, s), cp = el("clipPath", { id: "p1tail" }, defs);
+    el("rect", { x: 380, y: 0, width: 300, height: 270 }, cp);
+    const g = el("g", {}, s);
+    el("ellipse", { cx: 320, cy: 135, rx: 245, ry: 118, class: p1 === 4 ? "f-none s-ink" : "f-sunsoft s-ink", "stroke-width": 1.4, "stroke-dasharray": p1 === 4 ? "7 7" : "", opacity: p1 === 4 ? 0.7 : 1 }, g);
+    if (p1 < 4) el("circle", { cx: 520, cy: 80, r: 18, class: "f-ink", opacity: 0.4 }, g);
+    const X0 = 140, X1 = 480, CEN = 220;
+    const wavy = (y, cls, amp) => { let d = ""; for (let x = X0; x <= X1; x += 10) d += (x === X0 ? "M " : " L ") + x + " " + (y + amp * Math.sin(x / 13)).toFixed(1); el("path", { d, class: "f-none " + cls, "stroke-width": 2.6, "stroke-linecap": "round" }, g); };
+    if (p1 === 0) {
+      wavy(92, "s-red", 6); wavy(180, "s-blue", 6);
+      [[CEN, 92], [CEN, 180]].forEach(([x, y]) => el("circle", { cx: x, cy: y + 6 * Math.sin(x / 13), r: 3.5, class: "f-ink" }, g));
+    }
+    if (p1 === 1) {
+      for (let x = X0 + 6; x <= 330; x += 10) el("line", { x1: x, y1: 122, x2: x, y2: 148, class: "s-sun", "stroke-width": 1.6 }, g);
+      ctd(g, [[X0, 120], [330, 120], [400, 100], [X1, 88]], "s-red", null, 4);
+      ctd(g, [[X0, 150], [330, 150], [400, 170], [X1, 182]], "s-blue", null, 4);
+      [120, 150].forEach(y => el("circle", { cx: CEN, cy: y, r: 3.5, class: "f-ink" }, g));
+      txt(g, 150, 106, "synaptonemal complex", { "font-size": 10, class: "t-sun" });
+      el("path", { d: "M 340 135 l 18 0", class: "s-muted", "stroke-width": 1 }, g);
+      txt(g, 362, 139, "pairing zips along", { "font-size": 10, class: "t-muted" });
+    }
+    if (p1 === 2) {
+      for (let x = X0 + 6; x <= X1; x += 10) el("line", { x1: x, y1: 125, x2: x, y2: 145, class: "s-sun", "stroke-width": 1.2, opacity: 0.6 }, g);
+      [[110, "s-red"], [121, "s-red"], [149, "s-blue"], [160, "s-blue"]].forEach(([y, c]) => ctd(g, [[X0, y], [X1, y]], c, null, 6));
+      [[CEN, 115.5], [CEN, 154.5]].forEach(([x, y]) => el("ellipse", { cx: x, cy: y, rx: 4, ry: 9, class: "f-ink" }, g));
+      el("circle", { cx: 380, cy: 135, r: 8, class: "f-sun" }, g);
+      txt(g, 380, 196, "recombination nodule", { "text-anchor": "middle", "font-size": 10, class: "t-sun" });
+      el("line", { x1: 380, y1: 184, x2: 380, y2: 146, class: "s-muted", "stroke-width": 0.9 }, g);
+    }
+    if (p1 >= 3) {
+      const cx = p1 === 3 ? 380 : 470, w = p1 === 3 ? 6 : 8;
+      const innerTop = p1 === 3 ? [[X0, 92], [cx - 40, 94], [cx, 128], [cx + 40, 94], [X1, 92]] : [[X0, 92], [cx - 34, 96], [cx + 4, 131]];
+      const innerBot = p1 === 3 ? [[X0, 178], [cx - 40, 176], [cx, 142], [cx + 40, 176], [X1, 178]] : [[X0, 178], [cx - 34, 174], [cx + 4, 139]];
+      ctd(g, [[X0, 78], [X1, 78]], "s-red", null, w);
+      ctd(g, [[X0, 192], [X1, 192]], "s-blue", null, w);
+      ctd(g, innerTop, "s-red", null, w); ctd(g, innerBot, "s-blue", null, w);
+      const tail = el("g", { "clip-path": "url(#p1tail)" }, g);
+      ctd(tail, innerTop, "s-blue", null, w); ctd(tail, innerBot, "s-red", null, w);
+      [[CEN, 85], [CEN, 185]].forEach(([x, y]) => el("ellipse", { cx: x, cy: y, rx: 4, ry: 10, class: "f-ink" }, g));
+      txt(g, cx, p1 === 3 ? 222 : 226, p1 === 3 ? "chiasma" : "terminal chiasma", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+      el("line", { x1: cx, y1: 212, x2: cx, y2: 150, class: "s-muted", "stroke-width": 0.9 }, g);
+      if (p1 === 4) { spindle(g, 60, 135, [[110, 90], [110, 180]]); spindle(g, 600, 135, [[560, 90], [560, 180]]); txt(g, 320, 248, "spindle assembling · nuclear envelope breaking down · no nucleolus", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); }
+    }
+    const M = P1[p1];
+    $("#p1-a").textContent = M.a; $("#p1-b").textContent = M.b; $("#p1-c").textContent = M.c;
+    $("#p1-k").textContent = `Substage ${p1 + 1} of 5 · ${M.s}`; $("#p1-t").innerHTML = M.t;
+    $$("button", p1Seg).forEach((b, i) => b.setAttribute("aria-pressed", String(i === p1)));
+    $("#p1-prev").disabled = p1 === 0; $("#p1-next").disabled = p1 === 4;
+  }
+  $("#p1-prev").addEventListener("click", () => { p1 = Math.max(0, p1 - 1); drawP1(); });
+  $("#p1-next").addEventListener("click", () => { p1 = Math.min(4, p1 + 1); drawP1(); });
+  drawP1();
+
+  /* ---------- Fig 5 Crossing over ---------- */
+  let xoOff = false;
+  const xoP = $("#xo-p");
+  function drawXo() {
+    const s = $("#xosvg"); s.innerHTML = "";
+    const p = +xoP.value, A0 = 150, A1 = 600, cx = A0 + p / 100 * (A1 - A0), AX = 300, BX = 480;
+    const defs = el("defs", {}, s), cp = el("clipPath", { id: "xotail" }, defs);
+    el("rect", { x: cx, y: 0, width: 700, height: 160 }, cp);
+    const g = el("g", {}, s);
+    const rows = [[36, "s-red", "A", "B"], [60, "s-red", "A", "B"], [96, "s-blue", "a", "b"], [120, "s-blue", "a", "b"]];
+    rows.forEach(([y, c]) => ctd(g, [[A0 - 20, y], [A1, y]], c, null, 7));
+    if (!xoOff) {
+      const t = el("g", { "clip-path": "url(#xotail)" }, g);
+      ctd(t, [[A0 - 20, 60], [A1, 60]], "s-blue", null, 7);
+      ctd(t, [[A0 - 20, 96], [A1, 96]], "s-red", null, 7);
+      el("line", { x1: cx - 9, y1: 64, x2: cx + 9, y2: 92, class: "s-ink", "stroke-width": 2 }, g);
+      el("line", { x1: cx + 9, y1: 64, x2: cx - 9, y2: 92, class: "s-ink", "stroke-width": 2 }, g);
+    }
+    [[48], [108]].forEach(([y]) => el("ellipse", { cx: A0 - 4, cy: y, rx: 5, ry: 16, class: "f-ink" }, g));
+    const allele = (row, gx) => { const base = row < 2 ? (gx === AX ? "A" : "B") : (gx === AX ? "a" : "b"); if (xoOff || gx < cx) return base; if (row === 1) return gx === AX ? "a" : "b"; if (row === 2) return gx === AX ? "A" : "B"; return base; };
+    const gene = (gg, x, y, l) => { el("circle", { cx: x, cy: y, r: 8.5, class: "f-card s-ink", "stroke-width": 1.2 }, gg); txt(gg, x, y + 4, l, { "text-anchor": "middle", "font-size": 11, "font-weight": 500 }); };
+    rows.forEach(([y], i) => [AX, BX].forEach(x => gene(g, x, y, allele(i, x))));
+    txt(g, A0 - 30, 52, "homologue 1", { "text-anchor": "end", "font-size": 10, class: "t-red" });
+    txt(g, A0 - 30, 112, "homologue 2", { "text-anchor": "end", "font-size": 10, class: "t-blue" });
+    if (!xoOff) txt(g, cx, 146, "chiasma", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    // results
+    txt(g, 20, 172, "After meiosis II, each chromatid ends up in a different cell:", { "font-size": 11, class: "t-muted" });
+    const sc = x => 150 + (x - A0) * 240 / (A1 - A0), combos = [];
+    let rec = 0;
+    rows.forEach(([, c], i) => {
+      const y = 194 + i * 24, gg = el("g", {}, s);
+      ctd(gg, [[150, y], [390, y]], c, null, 6);
+      if (!xoOff && (i === 1 || i === 2)) { const t2 = el("g", {}, gg); ctd(t2, [[sc(cx), y], [390, y]], i === 1 ? "s-blue" : "s-red", null, 6); }
+      const a = allele(i, AX), b = allele(i, BX), combo = a + b, isRec = !(combo === "AB" || combo === "ab");
+      combos.push(combo); if (isRec) rec++;
+      gene(gg, sc(AX), y, a); gene(gg, sc(BX), y, b);
+      txt(gg, 412, y + 4, `${combo} · ${isRec ? "recombinant" : "parental"}`, { "font-size": 11, "font-weight": isRec ? 500 : 400, class: isRec ? "t-leaf" : "t-muted" });
+    });
+    const zone = xoOff ? "none" : cx < AX ? "between centromere and A" : cx < BX ? "between A and B" : "beyond B";
+    $("#xo-p-o").textContent = xoOff ? "no crossover" : zone;
+    $("#xo-g").textContent = combos.join(", ");
+    $("#xo-r").textContent = rec + " of 4";
+    $("#xo-t").innerHTML = xoOff
+      ? "<strong>No crossing over</strong>: all four chromatids keep the parental combinations <strong>AB</strong> and <strong>ab</strong>."
+      : cx < AX ? "The crossover lies <strong>between the centromere and A</strong>, so both genes are swapped together. The segments were exchanged, but each chromatid still carries a parental combination (AB or ab)."
+      : cx < BX ? "The crossover lies <strong>between A and B</strong>. Only the two <strong>non-sister chromatids</strong> that crossed over change: they become <strong>recombinant (Ab and aB)</strong>. The other two stay parental. This is how crossing over leads to <strong>recombination</strong> and genetic variability."
+      : "The crossover lies <strong>beyond B</strong>: the exchanged tip carries neither gene, so the gene combinations stay parental.";
+    $("#xo-off").setAttribute("aria-pressed", String(xoOff));
+    xoP.disabled = xoOff;
+  }
+  xoP.addEventListener("input", drawXo);
+  $("#xo-off").addEventListener("click", () => { xoOff = !xoOff; drawXo(); });
+  drawXo();
+
+  /* ---------- Fig 6 Meiosis ---------- */
+  const HL = {
+    LR: { L: 56, cls: "s-red", tips: [null, "s-blue"] },
+    LB: { L: 56, cls: "s-blue", tips: ["s-red", null] },
+    SR: { L: 36, cls: "s-red", tips: [null, "s-blue"] },
+    SB: { L: 36, cls: "s-blue", tips: ["s-red", null] }
+  };
+  const dup = (g, k, x, y, rot = 0) => chromV(g, x, y, HL[k].L, HL[k].cls, HL[k].tips, 4.5, rot);
+  const one = (g, k, i, x, y) => { const h = HL[k]; ctd(g, [[x, y - h.L / 2], [x, y + h.L / 2]], h.cls, h.tips[i]); el("circle", { cx: x, cy: y, r: 3.2, class: "f-ink" }, g); };
+  const ME = [
+    { s: "Prophase I", cells: "1", n: "4 (2n, as 2 bivalents)", c: "4C", t: "Homologous chromosomes pair (synapsis) to form <strong>bivalents</strong>, and <strong>crossing over</strong> exchanges segments between non-sister chromatids (the coloured tips). The five substages are in Fig 4." },
+    { s: "Metaphase I", cells: "1", n: "4 (2 bivalents)", c: "4C", t: "The <strong>bivalents align on the equatorial plate</strong>. Microtubules from opposite poles attach to the kinetochores of the <strong>homologous chromosomes</strong>, so the two homologues of each pair face opposite poles." },
+    { s: "Anaphase I", cells: "1", n: "2 + 2 moving apart", c: "4C", t: "<strong>Homologous chromosomes separate</strong>, while <strong>sister chromatids remain associated at their centromeres</strong>. Each pole receives half the chromosome number of the parent cell." },
+    { s: "Telophase I", cells: "2 (dyad)", n: "2 (n) per cell", c: "2C per cell", t: "The <strong>nuclear membrane and nucleolus reappear</strong> and <strong>cytokinesis</strong> follows, giving a <strong>dyad of cells</strong>. The chromosomes may disperse a little but do not reach the extended state of an interphase nucleus." },
+    { s: "Interkinesis", cells: "2", n: "2 (n) per cell", c: "2C per cell", t: "The stage between the two meiotic divisions. It is generally <strong>short-lived</strong> and there is <strong>no replication of DNA</strong>. Each chromosome still has two chromatids." },
+    { s: "Prophase II", cells: "2", n: "2 (n) per cell", c: "2C per cell", t: "Meiosis II begins <strong>immediately after cytokinesis</strong>, usually before the chromosomes have fully elongated. It is <strong>much simpler</strong> than prophase I. The chromosomes become compact again and the <strong>nuclear membrane disappears</strong> by the end." },
+    { s: "Metaphase II", cells: "2", n: "2 (n) per cell", c: "2C per cell", t: "Chromosomes align at the equator; microtubules from opposite poles attach to the kinetochores of the <strong>sister chromatids</strong>." },
+    { s: "Anaphase II", cells: "2", n: "4 per cell (chromatids separated)", c: "2C per cell", t: "Begins with the <strong>simultaneous splitting of the centromere</strong> of each chromosome. Sister chromatids move to opposite poles by the <strong>shortening of microtubules</strong> attached to kinetochores." },
+    { s: "Telophase II", cells: "4 (tetrad)", n: "2 (n) per cell", c: "1C per cell", t: "The two groups of chromosomes are again enclosed by a <strong>nuclear envelope</strong>, and cytokinesis gives a <strong>tetrad of cells</strong>: <strong>four haploid daughter cells</strong>. Thanks to crossing over and the orientation of pairs at metaphase I, no two cells carry the same combination." }
+  ];
+  let me = 0;
+  const meSeg = $("#me-seg");
+  ME.forEach((m, i) => { const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = m.s; b.addEventListener("click", () => { me = i; drawMe(); }); meSeg.appendChild(b); });
+  function drawMe() {
+    const s = $("#mesvg"); s.innerHTML = ""; const g = el("g", {}, s);
+    const cell = (cx, rx) => el("ellipse", { cx, cy: 150, rx, ry: 118, class: "f-card s-ink", "stroke-width": 1.6 }, g);
+    if (me <= 2) cell(340, 230);
+    if (me === 0) {
+      nucleus(g, 340, 150, 85, "dashed", false);
+      dup(g, "LR", 304, 140, -20); dup(g, "LB", 320, 146, -20); dup(g, "SR", 376, 170, 30); dup(g, "SB", 390, 160, 30);
+      txt(g, 340, 290, "two bivalents; crossing over has exchanged tips", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (me === 1) {
+      dup(g, "LR", 328, 95); dup(g, "LB", 352, 95); dup(g, "SB", 328, 200); dup(g, "SR", 352, 200);
+      spindle(g, 130, 150, [[322, 95], [322, 200]]); spindle(g, 550, 150, [[358, 95], [358, 200]]);
+      el("line", { x1: 130, y1: 150, x2: 550, y2: 150, class: "s-muted", "stroke-width": 0.6, opacity: 0.4 }, g);
+      el("line", { x1: 340, y1: 36, x2: 340, y2: 264, class: "s-sun", "stroke-width": 1, "stroke-dasharray": "4 4" }, g);
+      txt(g, 348, 278, "equatorial plate", { "font-size": 10, class: "t-sun" });
+    }
+    if (me === 2) {
+      dup(g, "LR", 215, 95); dup(g, "SB", 215, 200); dup(g, "LB", 465, 95); dup(g, "SR", 465, 200);
+      spindle(g, 130, 150, [[209, 95], [209, 200]]); spindle(g, 550, 150, [[471, 95], [471, 200]]);
+      txt(g, 340, 150, "← homologues →", { "text-anchor": "middle", "font-size": 11, class: "t-muted" });
+    }
+    if (me >= 3 && me <= 7) {
+      [[175, ["LR", "SB"]], [505, ["LB", "SR"]]].forEach(([cx, ks]) => {
+        cell(cx, 152);
+        if (me <= 4) { nucleus(g, cx, 150, 58, me === 3 ? "dashed" : "solid"); dup(g, ks[0], cx - 16, 150); dup(g, ks[1], cx + 16, 150); }
+        if (me === 5) { nucleus(g, cx, 150, 62, "faint", false); dup(g, ks[0], cx - 18, 140, -15); dup(g, ks[1], cx + 18, 160, 20); }
+        if (me === 6) {
+          dup(g, ks[0], cx, 100); dup(g, ks[1], cx, 200);
+          spindle(g, cx - 128, 150, [[cx - 6, 100], [cx - 6, 200]]); spindle(g, cx + 128, 150, [[cx + 6, 100], [cx + 6, 200]]);
+          el("line", { x1: cx, y1: 40, x2: cx, y2: 260, class: "s-sun", "stroke-width": 1, "stroke-dasharray": "4 4" }, g);
+        }
+        if (me === 7) {
+          ks.forEach((k, j) => { const y = j ? 200 : 100, h = HL[k]; ctdV(g, cx - 62, y, h, 0, -1); ctdV(g, cx + 62, y, h, 1, 1); });
+          spindle(g, cx - 128, 150, [[cx - 62, 100], [cx - 62, 200]]); spindle(g, cx + 128, 150, [[cx + 62, 100], [cx + 62, 200]]);
+        }
+      });
+    }
+    if (me === 8) {
+      [[90, "LR", 0, "SB", 0], [250, "LR", 1, "SB", 1], [430, "LB", 0, "SR", 0], [590, "LB", 1, "SR", 1]].forEach(([cx, a, ai, b, bi]) => {
+        el("ellipse", { cx, cy: 150, rx: 74, ry: 96, class: "f-card s-ink", "stroke-width": 1.6 }, g);
+        nucleus(g, cx, 150, 46, "solid"); one(g, a, ai, cx - 12, 150); one(g, b, bi, cx + 12, 150);
+      });
+      txt(g, 340, 286, "four haploid cells, each with a different combination", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    const M = ME[me];
+    $("#me-cells").textContent = M.cells; $("#me-n").textContent = M.n; $("#me-c").textContent = M.c;
+    $("#me-k").textContent = `Stage ${me + 1} of ${ME.length} · ${M.s}`; $("#me-t").innerHTML = M.t;
+    $$("button", meSeg).forEach((b, i) => b.setAttribute("aria-pressed", String(i === me)));
+    $("#me-prev").disabled = me === 0; $("#me-next").disabled = me === ME.length - 1;
+  }
+  function ctdV(g, x, y, h, i, dir) { chromA(g, x, y, h.L, h.cls, h.tips[i], dir); }
+  $("#me-prev").addEventListener("click", () => { me = Math.max(0, me - 1); drawMe(); });
+  $("#me-next").addEventListener("click", () => { me = Math.min(ME.length - 1, me + 1); drawMe(); });
+  drawMe();
+
+  /* ---------- Fig 7 N and C ---------- */
+  const NC = {
+    mi: [["G1", 2, 2, "Cell grows; no DNA replication."], ["S", 2, [2, 4], "DNA doubles, 2C → 4C. The chromosome number does not change: each chromosome now has two chromatids."], ["G2", 2, 4, "Proteins made for mitosis; DNA stays 4C."], ["Pro", 2, 4, "Chromosomes condense, each of two chromatids."], ["Meta", 2, 4, "Chromosomes on the metaphase plate."], ["Ana", 4, 4, "Centromeres split: each chromatid becomes a daughter chromosome, so the count in the still-undivided cell doubles for a while."], ["Telo", 4, 4, "Two daughter nuclei, each with 2n chromosomes and 2C DNA, in one cell."], ["Cyto", 2, 2, "Two daughter cells, each 2n and 2C: the same as the parent. Equational division."]],
+    me: [["G1", 2, 2, "Diploid cell before meiosis."], ["S", 2, [2, 4], "The single round of DNA replication for the whole of meiosis: 2C → 4C."], ["G2", 2, 4, "DNA 4C; chromosomes 2n."], ["P I", 2, 4, "Bivalents form; crossing over. Still 2n chromosomes."], ["M I", 2, 4, "Bivalents on the equatorial plate."], ["A I", 2, 4, "Homologues separate but centromeres do not split, so the count stays 2n in the undivided cell."], ["T I", 1, 2, "After cytokinesis each cell of the dyad has n chromosomes (each of two chromatids) and 2C DNA. This is the reduction."], ["P II", 1, 2, "No DNA replication in interkinesis, so DNA stays 2C."], ["M II", 1, 2, "n chromosomes at the equator."], ["A II", 2, 2, "Centromeres split: chromatids separate, so the count briefly doubles to 2n in each cell."], ["T II", 1, 1, "Four haploid cells: n chromosomes and 1C DNA each. Fertilisation (n + n) restores 2n."]]
+  };
+  let ncM = "mi", ncSp = 16, ncSel = 0;
+  const nc = $("#ncsvg");
+  function drawNc() {
+    nc.innerHTML = "";
+    const D = NC[ncM], L0 = 80, L1 = 660, cw = (L1 - L0) / D.length;
+    const yC = v => 120 - v * 22, yN = v => 262 - v * 22;
+    el("rect", { x: L0 + ncSel * cw, y: 30, width: cw, height: 250, class: "f-leafsoft", opacity: 0.8 }, nc);
+    txt(nc, 20, 22, "DNA per cell (C)", { "font-size": 11, "font-weight": 500 });
+    txt(nc, 20, 158, "Chromosomes per cell (N)", { "font-size": 11, "font-weight": 500 });
+    [1, 2, 4].forEach(v => {
+      el("line", { x1: L0, x2: L1, y1: yC(v), y2: yC(v), class: "s-line", "stroke-width": 1 }, nc); txt(nc, L0 - 8, yC(v) + 4, v + "C", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+      el("line", { x1: L0, x2: L1, y1: yN(v), y2: yN(v), class: "s-line", "stroke-width": 1 }, nc); txt(nc, L0 - 8, yN(v) + 4, v === 1 ? "n" : v === 2 ? "2n" : "4n", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    });
+    let pc = "", pn = "";
+    D.forEach(([l, n, c], i) => {
+      const x0 = L0 + i * cw, x1 = x0 + cw;
+      if (Array.isArray(c)) pc += `${x0},${yC(c[0])} ${x1},${yC(c[1])} `; else pc += `${x0},${yC(c)} ${x1},${yC(c)} `;
+      pn += `${x0},${yN(n)} ${x1},${yN(n)} `;
+      txt(nc, (x0 + x1) / 2, 292, l, { "text-anchor": "middle", "font-size": 10, "font-weight": i === ncSel ? 500 : 400, class: i === ncSel ? "" : "t-muted" });
+    });
+    el("polyline", { points: pc, class: "f-none s-leaf", "stroke-width": 2.6 }, nc);
+    el("polyline", { points: pn, class: "f-none s-sun", "stroke-width": 2.6 }, nc);
+    const [l, n, c, t] = D[ncSel];
+    const cnt = n * ncSp / 2;
+    $("#nc-st").textContent = l;
+    $("#nc-n").textContent = `${cnt} (${n === 1 ? "n" : n === 2 ? "2n" : "4n"})`;
+    $("#nc-c").textContent = Array.isArray(c) ? "2C → 4C" : c + "C";
+    $("#nc-t").innerHTML = t + (ncSp === 16 && ncM === "mi" ? " <span class='muted'>Onion root tip: 16 chromosomes at G1, after S and after M (NCERT margin question).</span>" : "");
+  }
+  const ncPick = e => {
+    const r = nc.getBoundingClientRect(), x = (e.clientX - r.left) / r.width * 680, D = NC[ncM];
+    const i = Math.floor((x - 80) / ((660 - 80) / D.length));
+    if (i >= 0 && i < D.length && i !== ncSel) { ncSel = i; drawNc(); }
+  };
+  nc.addEventListener("pointermove", ncPick); nc.addEventListener("pointerdown", ncPick);
+  [["nc-mi", "mi"], ["nc-me", "me"]].forEach(([id, m]) => $("#" + id).addEventListener("click", () => { ncM = m; ncSel = 0; press("#nc-mi, #nc-me", b => b.id === id); drawNc(); }));
+  $$("#nc-sp button").forEach(b => b.addEventListener("click", () => { ncSp = +b.dataset.n; press("#nc-sp button", x => x === b); drawNc(); }));
+  drawNc();
+
+  /* ---------- Fig 8 Name the stage ---------- */
+  const EV = [
+    ["Chromosomes are moved to the spindle equator.", "Metaphase"],
+    ["Centromere splits and chromatids separate.", "Anaphase"],
+    ["Pairing between homologous chromosomes takes place.", "Zygotene"],
+    ["Crossing over between homologous chromosomes takes place.", "Pachytene"],
+    ["The amount of DNA per cell doubles from 2C to 4C.", "S phase"],
+    ["The cell stays metabolically active but no longer proliferates.", "G0"],
+    ["Proteins are synthesised in preparation for mitosis.", "G2 phase"],
+    ["Nuclear envelope, nucleolus, Golgi complex and ER reform.", "Telophase"],
+    ["The synaptonemal complex dissolves and chiasmata appear.", "Diplotene"],
+    ["Chiasmata terminalise; the nucleolus disappears.", "Diakinesis"],
+    ["Homologous chromosomes separate; sister chromatids stay together.", "Anaphase I"],
+    ["A short stage between the two meiotic divisions with no DNA replication.", "Interkinesis"],
+    ["Bivalents align on the equatorial plate.", "Metaphase I"],
+    ["Chromosomes gradually become visible as compaction begins.", "Leptotene"],
+    ["The duplicated centrosome moves towards opposite poles and radiates asters.", "Prophase"],
+    ["Four haploid daughter cells are formed.", "Telophase II"]
+  ];
+  const STAGES = [...new Set(EV.map(e => e[1]))];
+  let nsOrder = [], nsI = 0, nsRight = 0, nsDone = 0, nsAns = false;
+  const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  function nsReset() { nsOrder = shuffle(EV.map((_, i) => i)); nsI = 0; nsRight = 0; nsDone = 0; nsShow(); }
+  function nsShow() {
+    nsAns = false;
+    const [q, a] = EV[nsOrder[nsI]];
+    $("#ns-k").textContent = `Event ${nsI + 1} of ${EV.length}`;
+    $("#ns-q").textContent = q;
+    const opts = shuffle([a, ...shuffle(STAGES.filter(s => s !== a)).slice(0, 3)]);
+    const box = $("#ns-opts"); box.innerHTML = "";
+    opts.forEach(o => {
+      const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = o;
+      b.addEventListener("click", () => {
+        if (nsAns) return; nsAns = true; nsDone++;
+        const ok = o === a; if (ok) nsRight++;
+        $$("button", box).forEach(x => { x.disabled = true; if (x.textContent === a) x.setAttribute("aria-pressed", "true"); });
+        $("#ns-t").innerHTML = ok ? `<b class="ok">Correct.</b> ${a}.` : `<b class="no">Not quite.</b> It happens in <strong>${a}</strong>.`;
+        $("#ns-s").textContent = `${nsRight} / ${nsDone}`;
+        $("#ns-next").disabled = nsI === EV.length - 1;
+      });
+      box.appendChild(b);
+    });
+    $("#ns-t").textContent = "Choose an answer.";
+    $("#ns-s").textContent = `${nsRight} / ${nsDone}`;
+    $("#ns-next").disabled = true;
+  }
+  $("#ns-next").addEventListener("click", () => { if (nsI < EV.length - 1) { nsI++; nsShow(); } });
+  $("#ns-reset").addEventListener("click", nsReset);
+  nsReset();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Human cells in culture divide approximately once every:", o: ["90 minutes", "1 hour", "24 hours", "12 hours"], a: 2, e: "NCERT: human cells in culture divide about once every 24 hours; yeast can complete the cycle in about 90 minutes." },
+    { q: "In the 24-hour cell cycle of a human cell, the M phase lasts about:", o: ["1 hour", "6 hours", "12 hours", "More than 95% of the cycle"], a: 0, e: "Cell division proper lasts only about an hour; interphase takes more than 95% of the cycle." },
+    { q: "Onion root tip cells have 16 chromosomes. The number of chromosomes at G1, after S phase and after M phase is:", o: ["16, 32, 16", "16, 16, 16", "8, 16, 8", "16, 32, 32"], a: 1, e: "S phase doubles the DNA, not the chromosome number. Mitosis keeps the number the same, so it stays 16 throughout." },
+    { q: "If the DNA content after M phase is 2C, the DNA content at G1, after S and at G2 is:", o: ["2C, 4C, 4C", "2C, 2C, 4C", "1C, 2C, 2C", "4C, 4C, 2C"], a: 0, e: "G1 has 2C; S doubles it to 4C; it stays 4C through G2 until the cell divides." },
+    { q: "Which pair is correctly matched?", o: ["Leptotene: synapsis", "Zygotene: crossing over", "Pachytene: dissolution of synaptonemal complex", "Diakinesis: terminalisation of chiasmata"], a: 3, e: "Synapsis is in zygotene, crossing over in pachytene, dissolution of the synaptonemal complex in diplotene, terminalisation in diakinesis." },
+    { q: "Assertion (A): Mitosis is called equational division. Reason (R): The number of chromosomes in the parent and progeny cells is the same.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "NCERT: since the number of chromosomes in the parent and progeny cells is the same, mitosis is called equational division." },
+    { q: "Chromosome morphology is most easily studied at:", o: ["Prophase", "Metaphase", "Anaphase", "Telophase"], a: 1, e: "Condensation is complete at metaphase, so chromosomes are seen most clearly then." },
+    { q: "The enzyme involved in crossing over is:", o: ["Ligase", "Recombinase", "Helicase", "Polymerase"], a: 1, e: "Crossing over is enzyme-mediated; NCERT names the enzyme recombinase." },
+    { q: "In plant cells, cytokinesis takes place by:", o: ["A furrow that deepens from the periphery to the centre", "A cell plate that starts in the centre and grows outward", "A cell plate that starts at the walls and grows inward", "Pinching of the nuclear envelope"], a: 1, e: "The inextensible wall prevents a furrow; wall formation starts with the cell plate in the centre and grows outward to meet the lateral walls." },
+    { q: "The liquid endosperm of coconut is an example of:", o: ["Cytokinesis without karyokinesis", "Karyokinesis without cytokinesis", "Meiosis without DNA replication", "Arrest in G0"], a: 1, e: "Karyokinesis not followed by cytokinesis gives a multinucleate syncytium, e.g. the liquid endosperm in coconut." },
+    { q: "Which statement is NOT true?", o: ["Diplotene can last for months or years in oocytes of some vertebrates", "There is no DNA replication during interkinesis", "In anaphase I, centromeres split and sister chromatids separate", "Meiosis II resembles a normal mitosis"], a: 2, e: "In anaphase I the homologous chromosomes separate while sister chromatids stay together at their centromeres. Centromeres split in anaphase II." },
+    { q: "Cells in the quiescent stage (G0) are:", o: ["Metabolically inactive and dead", "Metabolically active but do not proliferate unless called on", "Replicating DNA continuously", "Always haploid"], a: 1, e: "G0 cells remain metabolically active but no longer proliferate unless called on to do so, depending on the requirement of the organism." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

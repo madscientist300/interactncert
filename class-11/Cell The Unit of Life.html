@@ -1,0 +1,1464 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cell: The Unit of Life</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 11 · Chapter 8</span>
+      <h1>Cell: The Unit of Life</h1>
+      <p class="lede">Cell theory, prokaryotic and eukaryotic cells, and every organelle from the plasma membrane to the nucleus. Click through each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">8 topics</span>
+        <span class="pill">11 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Cell theory today">
+      <span class="fig-label">Cell theory, as understood today</span>
+      <span class="eq">(i) All living organisms are composed of cells and products of cells.</span>
+      <span class="eq">(ii) All cells arise from pre-existing cells.</span>
+      <span class="over">Schleiden (1838) + Schwann (1839), completed by Virchow (1855): Omnis cellula-e cellula</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#theory"><span class="n">1</span>Cell &amp; cell theory</a>
+      <a href="#prok"><span class="n">2</span>Prokaryotic cells</a>
+      <a href="#euk"><span class="n">3</span>Eukaryotic cells</a>
+      <a href="#membrane"><span class="n">4</span>Membrane &amp; wall</a>
+      <a href="#endo"><span class="n">5</span>Endomembrane system</a>
+      <a href="#energy"><span class="n">6</span>Mitochondria, plastids, ribosomes</a>
+      <a href="#skeleton"><span class="n">7</span>Cytoskeleton, cilia, centrioles</a>
+      <a href="#nucleus"><span class="n">8</span>Nucleus &amp; chromosomes</a>
+      <a href="#quiz"><span class="n">9</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 THEORY -->
+<section class="topic" id="theory">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>What is a cell, and cell theory</h2>
+    </div>
+    <div class="prose stack">
+      <p>Unicellular organisms can (i) <strong>exist independently</strong> and (ii) <strong>perform the essential functions of life</strong>. Anything less than a complete cell cannot live independently. So the <strong>cell is the fundamental structural and functional unit</strong> of all living organisms.</p>
+      <p><strong>Anton von Leeuwenhoek</strong> first saw and described a <strong>live cell</strong>. <strong>Robert Brown</strong> later discovered the <strong>nucleus</strong>. The microscope, and later the electron microscope, revealed the structural details.</p>
+      <p><strong>Matthias Schleiden</strong> (1838), a German botanist, found that all plants are made of different kinds of cells forming tissues. <strong>Theodore Schwann</strong> (1839), a zoologist, found that animal cells have a thin outer layer, today's <strong>plasma membrane</strong>, and concluded that the <strong>cell wall is unique to plant cells</strong>. He proposed that bodies of animals and plants are made of <strong>cells and products of cells</strong>. Together they formulated the <strong>cell theory</strong>, but it did not explain how new cells form. <strong>Rudolf Virchow</strong> (1855) explained that cells divide and new cells come from pre-existing cells (<em>Omnis cellula-e cellula</em>), giving the theory its final shape.</p>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>Robert Brown discovered the <strong>nucleus</strong>, not the cell (NCERT exercise 1). NCERT describes Schwann as British; he was in fact German, but exam questions follow the NCERT wording.</div>
+
+    <div class="prose stack" style="margin-top:1.6rem">
+      <p>Cells with <strong>membrane-bound nuclei</strong> are <strong>eukaryotic</strong>; cells without are <strong>prokaryotic</strong>. In both, a semi-fluid <strong>cytoplasm</strong> fills the cell and is the main arena of cellular activity. Eukaryotic cells also have membrane-bound organelles; prokaryotes do not. <strong>Ribosomes</strong> are non-membrane-bound and found in <strong>all</strong> cells. Animal cells also have the non-membrane-bound <strong>centrosome</strong>, which helps in cell division.</p>
+      <p>Cells vary in shape (disc-like, polygonal, columnar, cuboid, thread-like, irregular), and shape can vary with function: round, biconcave RBCs; amoeboid WBCs; long, branched nerve cells; long, narrow columnar epithelial cells; elongated tracheids; round or oval mesophyll cells.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>How big are cells and their parts?</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <p class="muted mono" style="font-size:.78rem">Hover over or tap a row. The scale is logarithmic: each step is ten times bigger.</p>
+      <div class="svg-scroll"><svg id="szsvg" viewBox="0 0 680 400" role="img" aria-label="Logarithmic size chart from 0.01 to 100 micrometres for ribosomes, viruses, PPLO, mycoplasma, organelles, bacteria, red blood cells and eukaryotic cells"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="sz-k"></div><div id="sz-t"></div></div>
+      <p class="fig-note">Sizes from NCERT Section 8.3, Fig 8.2 and the organelle sections. Not on the scale: the ostrich egg, the largest isolated single cell, and nerve cells, some of the longest cells.</p>
+    </div>
+
+    <h3 style="margin-bottom:.8rem">Landmark scientists</h3>
+    <div class="timeline">
+      <div><span class="yr">First live cell</span><b>Anton von Leeuwenhoek</b><p>First saw and described a live cell.</p></div>
+      <div><span class="yr">1831</span><b>Robert Brown</b><p>Described the nucleus as a cell organelle.</p></div>
+      <div><span class="yr">1838</span><b>Matthias Schleiden</b><p>German botanist: all plants are made of cells forming tissues.</p></div>
+      <div><span class="yr">1839</span><b>Theodore Schwann</b><p>Plasma membrane in animal cells; cell wall unique to plants; cells and products of cells.</p></div>
+      <div><span class="yr">1855</span><b>Rudolf Virchow</b><p><em>Omnis cellula-e cellula</em>: cells arise from pre-existing cells.</p></div>
+      <div><span class="yr">Chromatin</span><b>Flemming</b><p>Named the nuclear material stained by basic dyes "chromatin".</p></div>
+      <div><span class="yr">1898</span><b>Camillo Golgi</b><p>Saw densely stained reticular structures near the nucleus: Golgi bodies.</p></div>
+      <div><span class="yr">1953</span><b>George Palade</b><p>First observed ribosomes as dense particles under the electron microscope.</p></div>
+      <div><span class="yr">1972</span><b>Singer and Nicolson</b><p>Fluid mosaic model of the cell membrane.</p></div>
+      <div><span class="yr">1954</span><b>G.N. Ramachandran</b><p>Unit opener: triple helix of collagen; the Ramachandran plot.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 PROKARYOTIC -->
+<section class="topic" id="prok">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Prokaryotic cells</h2>
+    </div>
+    <div class="prose stack">
+      <p>Prokaryotes are <strong>bacteria, blue-green algae, mycoplasma and PPLO</strong> (Pleuro Pneumonia Like Organisms). They are generally <strong>smaller</strong> and <strong>multiply more rapidly</strong> than eukaryotic cells. All have a <strong>cell wall</strong> around the cell membrane <strong>except mycoplasma</strong>. There is <strong>no well-defined nucleus</strong>: the genetic material is <strong>naked</strong>, not enveloped by a nuclear membrane. Apart from ribosomes, no eukaryote-like organelles are present.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Inside a bacterial cell</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls" id="bc-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="bcsvg" viewBox="0 0 680 270" role="img" aria-label="Rod-shaped bacterium with glycocalyx, cell wall, plasma membrane, mesosome, genomic DNA, plasmids, ribosomes, polysome, inclusion bodies, flagellum, pili and fimbriae"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bc-k"></div><div id="bc-t"></div></div>
+      <p class="fig-note">Diagrammatic; not to scale. Click a part or a button.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The four basic shapes of bacteria</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Bacterial shape" id="sh-seg">
+          <button data-k="0" aria-pressed="true">Bacillus</button>
+          <button data-k="1" aria-pressed="false">Coccus</button>
+          <button data-k="2" aria-pressed="false">Vibrio</button>
+          <button data-k="3" aria-pressed="false">Spirillum</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="shsvg" viewBox="0 0 680 150" role="img" aria-label="Bacillus rods, coccus spheres, vibrio commas and spirillum spirals"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="sh-t"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span>The <strong>cell envelope</strong> is three tightly bound layers: <strong>glycocalyx</strong>, <strong>cell wall</strong>, <strong>plasma membrane</strong>, acting together as one protective unit. By their envelopes and response to <strong>Gram's stain</strong>, bacteria are <strong>Gram positive</strong> (take up the stain) or <strong>Gram negative</strong> (do not).</div>
+      <div class="callout"><span class="tag">NEET trap</span><strong>Pili and fimbriae</strong> do <strong>not</strong> help in motility. <strong>Inclusion bodies</strong> (phosphate, cyanophycean and glycogen granules) are <strong>not membrane-bound</strong>. <strong>Gas vacuoles</strong> occur in blue-green, purple and green photosynthetic bacteria. <strong>Chromatophores</strong> (pigmented membrane extensions) occur in cyanobacteria.</div>
+    </div>
+
+    <h3 style="margin-top:2rem;margin-bottom:.6rem">Prokaryotic vs eukaryotic cells</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Prokaryotic</th><th>Eukaryotic</th></tr></thead>
+        <tbody>
+          <tr><td>Examples</td><td>Bacteria, blue-green algae, mycoplasma, PPLO</td><td>Protists, plants, animals, fungi</td></tr>
+          <tr><td>Nucleus</td><td>No nuclear membrane; genetic material naked</td><td>Organised nucleus with nuclear envelope</td></tr>
+          <tr><td>Genetic material</td><td>Single circular genomic DNA; often plasmids</td><td>Organised into chromosomes</td></tr>
+          <tr><td>Membrane-bound organelles</td><td>None</td><td>Many: extensive compartmentalisation of cytoplasm</td></tr>
+          <tr><td>Ribosomes</td><td><strong>70S</strong> (50S + 30S), associated with the plasma membrane</td><td><strong>80S</strong> (60S + 40S) in cytoplasm; 70S in mitochondria and chloroplasts</td></tr>
+          <tr><td>Special features</td><td>Mesosome, inclusion bodies, cell envelope</td><td>Complex locomotory and cytoskeletal structures</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3 EUKARYOTIC -->
+<section class="topic" id="euk">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Eukaryotic cells: plant vs animal</h2>
+    </div>
+    <div class="prose stack">
+      <p>Eukaryotes include <strong>all protists, plants, animals and fungi</strong>. Their cytoplasm is <strong>extensively compartmentalised</strong> by membrane-bound organelles; they have an organised nucleus with a nuclear envelope, complex locomotory and cytoskeletal structures, and chromosomes. Plant cells have <strong>cell walls, plastids and a large central vacuole</strong>; animal cells have <strong>centrioles</strong>, absent in almost all plant cells.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Organelle map</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Cell type">
+          <button id="ce-pl" aria-pressed="true">Plant cell</button>
+          <button id="ce-an" aria-pressed="false">Animal cell</button>
+        </div>
+      </div>
+      <div class="controls" id="ce-seg" role="group" aria-label="Organelle"></div>
+      <div class="svg-scroll"><svg id="cesvg" viewBox="0 0 680 380" role="img" aria-label="Diagram of a eukaryotic cell with labelled organelles"></svg></div>
+      <div class="readout"><div><b id="ce-w" style="font-size:1.05rem">—</b><span>Found in</span></div></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ce-k"></div><div id="ce-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Fig 8.3; not to scale.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Structure</th><th>Plant cell</th><th>Animal cell</th></tr></thead>
+        <tbody>
+          <tr><td>Cell wall</td><td>Present</td><td>Absent</td></tr>
+          <tr><td>Plastids</td><td>Present</td><td>Absent</td></tr>
+          <tr><td>Vacuole</td><td>Large central vacuole, up to 90% of cell volume</td><td>Small, if any</td></tr>
+          <tr><td>Centrioles</td><td>Absent in almost all</td><td>Present</td></tr>
+          <tr><td>Both</td><td colspan="2">Plasma membrane, nucleus, ER, Golgi, lysosomes, mitochondria, ribosomes, microbodies, cytoskeleton</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 MEMBRANE -->
+<section class="topic" id="membrane">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Cell membrane and cell wall</h2>
+    </div>
+    <div class="prose stack">
+      <p>Chemical studies, especially on human <strong>RBCs</strong>, showed the membrane is mainly <strong>lipids and proteins</strong>. The major lipids are <strong>phospholipids</strong> in a <strong>bilayer</strong>, with <strong>polar heads outward</strong> and <strong>hydrophobic tails inward</strong>, so the nonpolar tails are protected from water. The membrane also has <strong>cholesterol</strong>, proteins and carbohydrates. The <strong>RBC membrane</strong> is about <strong>52% protein and 40% lipid</strong>.</p>
+      <p>By ease of extraction, proteins are <strong>peripheral</strong> (on the surface) or <strong>integral</strong> (partly or totally buried). The <strong>fluid mosaic model</strong> of <strong>Singer and Nicolson (1972)</strong> says the <strong>quasi-fluid</strong> lipid lets proteins <strong>move laterally</strong>; this ability is the membrane's <strong>fluidity</strong>, important for cell growth, intercellular junctions, secretion, endocytosis and cell division.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Fluid mosaic model</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls" id="fm-seg" role="group" aria-label="Membrane component"></div>
+      <label class="ctl" for="fm-x">Slide the integral protein sideways (lateral movement) <output id="fm-x-o">centre</output></label>
+      <input type="range" id="fm-x" min="-200" max="200" step="5" value="0">
+      <div class="svg-scroll"><svg id="fmsvg" viewBox="0 0 680 260" role="img" aria-label="Phospholipid bilayer with integral and peripheral proteins, cholesterol and sugar chains"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="fm-k"></div><div id="fm-t"></div></div>
+      <p class="fig-note">After NCERT Fig 8.4. Diagrammatic.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Moving molecules across the membrane</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Transport type" id="tp-seg">
+          <button data-k="dif" aria-pressed="true">Simple diffusion</button>
+          <button data-k="osm" aria-pressed="false">Osmosis</button>
+          <button data-k="car" aria-pressed="false">Carrier protein</button>
+          <button data-k="act" aria-pressed="false">Active transport</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="tpsvg" viewBox="0 0 680 240" role="img" aria-label="Molecules crossing a membrane for the chosen transport type"></svg></div>
+      <div class="readout">
+        <div><b id="tp-e" style="font-size:1.05rem"></b><span>Energy (ATP)</span></div>
+        <div><b id="tp-d" style="font-size:1.05rem"></b><span>Direction</span></div>
+        <div><b id="tp-p" style="font-size:1.05rem"></b><span>Membrane protein</span></div>
+        <div><b id="tp-x" style="font-size:1.05rem"></b><span>What moves</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="tp-t"></div></div>
+      <p class="fig-note">Dot density shows concentration. Diagrammatic.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">The cell wall</h3>
+    <div class="prose stack">
+      <p>A <strong>non-living, rigid</strong> outer covering of the plasma membrane in <strong>fungi and plants</strong>. It gives shape, protects against mechanical damage and infection, helps cell-to-cell interaction and is a barrier to undesirable macromolecules.</p>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table>
+        <thead><tr><th>Part</th><th>Made of / feature</th></tr></thead>
+        <tbody>
+          <tr><td>Algal wall</td><td>Cellulose, galactans, mannans and minerals like calcium carbonate</td></tr>
+          <tr><td>Other plants</td><td>Cellulose, hemicellulose, pectins and proteins</td></tr>
+          <tr><td>Primary wall</td><td>In young cells; capable of growth, which diminishes as the cell matures</td></tr>
+          <tr><td>Secondary wall</td><td>Formed on the <strong>inner side</strong> (towards the membrane)</td></tr>
+          <tr><td>Middle lamella</td><td>Mainly <strong>calcium pectate</strong>; glues neighbouring cells together</td></tr>
+          <tr><td>Plasmodesmata</td><td>Traverse wall and middle lamella; <strong>connect the cytoplasm</strong> of neighbouring cells</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5 ENDOMEMBRANE -->
+<section class="topic" id="endo">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>The endomembrane system</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>ER, Golgi complex, lysosomes and vacuoles</strong> are studied together as the <strong>endomembrane system</strong> because their functions are <strong>coordinated</strong>. <strong>Mitochondria, chloroplasts and peroxisomes</strong> are <strong>not</strong> part of it, since their functions are not coordinated with these.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Follow a protein through the endomembrane system</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="em-prev">← Back</button>
+        <button class="btn primary" id="em-next">Next step →</button>
+        <button class="btn" id="em-all">Show whole system</button>
+      </div>
+      <div class="svg-scroll"><svg id="emsvg" viewBox="0 0 680 300" role="img" aria-label="Nucleus, rough ER, transport vesicle, Golgi apparatus with cis and trans faces, lysosome, secretory vesicle, smooth ER and vacuole; mitochondrion, chloroplast and peroxisome shown apart"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="em-k"></div><div id="em-t"></div></div>
+      <p class="fig-note">Diagrammatic, after NCERT Figs 8.5 and 8.6.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Organelle</th><th>Structure</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td>RER</td><td>ER with ribosomes on the outer surface; continuous with the outer nuclear membrane</td><td>Protein synthesis and secretion</td></tr>
+          <tr><td>SER</td><td>No ribosomes</td><td>Major site of <strong>lipid synthesis</strong>; steroidal hormones in animal cells</td></tr>
+          <tr><td>Golgi apparatus</td><td>Flat, disc-shaped <strong>cisternae</strong>, 0.5–1.0 µm, stacked; convex <strong>cis</strong> (forming) face, concave <strong>trans</strong> (maturing) face</td><td>Packaging; modifying proteins; forming <strong>glycoproteins and glycolipids</strong></td></tr>
+          <tr><td>Lysosomes</td><td>Membrane-bound vesicles packaged by the Golgi</td><td>Hydrolases (lipases, proteases, carbohydrases), active at <strong>acidic pH</strong>; digest carbohydrates, proteins, lipids, nucleic acids</td></tr>
+          <tr><td>Vacuole</td><td>Single membrane, the <strong>tonoplast</strong>; up to <strong>90%</strong> of a plant cell's volume</td><td>Water, sap, excretory products; tonoplast moves ions <strong>against</strong> the gradient. Contractile vacuole in <em>Amoeba</em> (osmoregulation, excretion); food vacuoles in protists</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span>ER divides the intracellular space into two compartments: <strong>luminal</strong> (inside ER) and <strong>extra-luminal</strong> (cytoplasm). Lysosomes and vacuoles are both endomembrane structures, but lysosomes <strong>digest</strong> while vacuoles mainly <strong>store</strong> (exercise 12).</div>
+  </div>
+</section>
+
+<!-- 6 MITO / PLASTIDS / RIBOSOMES -->
+<section class="topic" id="energy">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Mitochondria, plastids and ribosomes</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Mitochondria</strong> and <strong>chloroplasts</strong> are the two <strong>double-membrane-bound</strong> organelles (exercise 7). Both contain their own <strong>circular DNA</strong> and <strong>70S ribosomes</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Inside the double-membrane organelles</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Organelle">
+          <button id="dm-mi" aria-pressed="true">Mitochondrion</button>
+          <button id="dm-ch" aria-pressed="false">Chloroplast</button>
+        </div>
+      </div>
+      <div class="controls" id="dm-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="dmsvg" viewBox="0 0 680 260" role="img" aria-label="Sectional view of the chosen organelle"></svg></div>
+      <div class="readout">
+        <div><b id="dm-a" style="font-size:1.05rem"></b><span>Size</span></div>
+        <div><b id="dm-b" style="font-size:1.05rem"></b><span>Number</span></div>
+        <div><b id="dm-c" style="font-size:1.05rem"></b><span>Function</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="dm-k"></div><div id="dm-t"></div></div>
+      <p class="fig-note">After NCERT Figs 8.7 and 8.8. Diagrammatic.</p>
+    </div>
+
+    <h3 style="margin-bottom:.6rem">Plastids</h3>
+    <div class="prose stack">
+      <p>Plastids are found in <strong>all plant cells and in euglenoids</strong>. They are large and easy to see, and are classified by their <strong>pigments</strong>.</p>
+    </div>
+    <div class="table-scroll" style="margin-top:.8rem">
+      <table>
+        <thead><tr><th>Plastid</th><th>Pigments or store</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td>Chloroplast</td><td>Chlorophyll and carotenoids</td><td>Trap light for photosynthesis; mostly in mesophyll</td></tr>
+          <tr><td>Chromoplast</td><td>Fat-soluble carotenoids: carotene, xanthophylls</td><td>Yellow, orange or red colour</td></tr>
+          <tr><td>Leucoplast: amyloplast</td><td>Carbohydrate (starch)</td><td>e.g. potato; colourless</td></tr>
+          <tr><td>Leucoplast: elaioplast</td><td>Oils and fats</td><td>Colourless</td></tr>
+          <tr><td>Leucoplast: aleuroplast</td><td>Proteins</td><td>Colourless</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>70S and 80S ribosomes</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Ribosome type">
+          <button id="rb-70" aria-pressed="true">70S</button>
+          <button id="rb-80" aria-pressed="false">80S</button>
+        </div>
+      </div>
+      <div class="svg-scroll"><svg id="rbsvg" viewBox="0 0 680 200" role="img" aria-label="Ribosome with large and small subunits"></svg></div>
+      <div class="readout">
+        <div><b id="rb-s" style="font-size:1.05rem"></b><span>Subunits</span></div>
+        <div><b id="rb-w" style="font-size:1.05rem"></b><span>Found in</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="rb-t"></div></div>
+    </div>
+    <div class="callout"><span class="tag">Remember</span>Ribosomes were first observed by <strong>George Palade (1953)</strong>. They are made of <strong>RNA and proteins</strong> and are <strong>not membrane-bound</strong>. 'S' is the <strong>Svedberg unit</strong>, the sedimentation coefficient, indirectly a measure of density and size; that is why 50S + 30S makes 70S, not 80S. Several ribosomes on one mRNA form a <strong>polysome</strong>.</div>
+  </div>
+</section>
+
+<!-- 7 SKELETON -->
+<section class="topic" id="skeleton">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>Cytoskeleton, cilia, flagella and centrioles</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>cytoskeleton</strong> is a network of proteinaceous filaments: <strong>microtubules, microfilaments and intermediate filaments</strong>. It gives mechanical support, motility and maintains cell shape.</p>
+      <p><strong>Cilia</strong> are small and work like <strong>oars</strong>, moving the cell or the fluid around it. <strong>Flagella</strong> are longer and move the cell. Bacterial flagella are structurally different from eukaryotic ones. Both cilia and flagella are covered by plasma membrane and emerge from centriole-like <strong>basal bodies</strong>. The <strong>centrosome</strong> usually has <strong>two centrioles</strong> lying <strong>perpendicular</strong> to each other, surrounded by amorphous <strong>pericentriolar material</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Cross-sections: axoneme and centriole</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Structure">
+          <button id="ax-ax" aria-pressed="true">Cilium / flagellum (axoneme)</button>
+          <button id="ax-ce" aria-pressed="false">Centriole</button>
+        </div>
+      </div>
+      <div class="controls" id="ax-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="axsvg" viewBox="0 0 680 300" role="img" aria-label="Cross-section of the chosen structure"></svg></div>
+      <div class="readout"><div><b id="ax-r" style="font-size:1.05rem"></b><span>Arrangement</span></div></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ax-k"></div><div id="ax-t"></div></div>
+      <p class="fig-note">After NCERT Fig 8.10 and the text of Section 8.5.9. Diagrammatic.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Feature</th><th>Axoneme (cilium, flagellum)</th><th>Centriole</th></tr></thead>
+        <tbody>
+          <tr><td>Peripheral microtubules</td><td><strong>9 doublets</strong></td><td><strong>9 triplets</strong> of tubulin</td></tr>
+          <tr><td>Centre</td><td><strong>2 central microtubules</strong>, bridged, in a central sheath</td><td>Proteinaceous <strong>hub</strong> (proximal region)</td></tr>
+          <tr><td>Radial spokes</td><td>9, from the central sheath to one tubule of each doublet</td><td>From hub to the peripheral triplets</td></tr>
+          <tr><td>Linkers</td><td>Peripheral doublets interconnected</td><td>Adjacent triplets linked</td></tr>
+          <tr><td>Arrangement</td><td><strong>9 + 2</strong></td><td><strong>Cartwheel</strong></td></tr>
+          <tr><td>Role</td><td>Movement</td><td>Basal body of cilia and flagella; spindle fibres in animal cell division</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 8 NUCLEUS -->
+<section class="topic" id="nucleus">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>Nucleus, chromosomes and microbodies</h2>
+    </div>
+    <div class="prose stack">
+      <p>The <strong>interphase nucleus</strong> has extended nucleoprotein fibres, the <strong>chromatin</strong>, a <strong>nuclear matrix</strong> and one or more <strong>nucleoli</strong>. The <strong>nuclear envelope</strong> is <strong>two parallel membranes</strong> with a <strong>perinuclear space (10–50 nm)</strong> between them. The <strong>outer membrane</strong> is continuous with the ER and bears ribosomes. <strong>Nuclear pores</strong>, formed by fusion of the two membranes, let <strong>RNA and protein</strong> move <strong>both ways</strong> (exercise 11).</p>
+      <p>The <strong>nucleolus</strong> is <strong>not membrane-bound</strong> and is the site of active <strong>rRNA synthesis</strong>; cells making a lot of protein have larger, more numerous nucleoli. Chromatin has <strong>DNA, histones</strong> (basic proteins), non-histone proteins and RNA. A human cell has about <strong>2 m of DNA</strong> in <strong>46 chromosomes (23 pairs)</strong>. Some mature cells lack a nucleus: <strong>erythrocytes of many mammals</strong> and <strong>sieve tube cells</strong>.</p>
+      <p>Every chromosome, visible only in dividing cells, has a <strong>primary constriction, the centromere</strong>, which holds the <strong>two chromatids</strong>, with disc-shaped <strong>kinetochores</strong> on its sides.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Classify a chromosome by its centromere</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls" id="cr-pre" role="group" aria-label="Chromosome type">
+        <button class="btn" data-v="50">Metacentric</button>
+        <button class="btn" data-v="35">Sub-metacentric</button>
+        <button class="btn" data-v="12">Acrocentric</button>
+        <button class="btn" data-v="0">Telocentric</button>
+        <button class="btn" id="cr-sat" aria-pressed="false">Show satellite</button>
+      </div>
+      <label class="ctl" for="cr-p">Centromere distance from the nearer end <output id="cr-p-o">50% (middle)</output></label>
+      <input type="range" id="cr-p" min="0" max="50" step="1" value="50">
+      <div class="svg-scroll"><svg id="crsvg" viewBox="0 0 680 270" role="img" aria-label="Chromosome with two chromatids joined at the centromere, kinetochores, and arms whose lengths depend on centromere position"></svg></div>
+      <div class="readout">
+        <div><b id="cr-type" style="font-size:1.1rem"></b><span>Type</span></div>
+        <div><b id="cr-arms" style="font-size:1.1rem"></b><span>Arms</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="cr-t"></div></div>
+      <p class="fig-note">After NCERT Figs 8.12 and 8.13. The slider's boundaries between types are illustrative; NCERT defines the types in words.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span><strong>Microbodies</strong> are many minute, membrane-bound vesicles with various enzymes, in both plant and animal cells. Some chromosomes have a non-staining <strong>secondary constriction</strong> at a constant location, giving a small fragment called the <strong>satellite</strong>.</div>
+  </div>
+</section>
+
+<!-- 9 QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 9</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>1838 · 1839 · 1855</b><span>Schleiden · Schwann · Virchow</span></div>
+      <div><b>0.3 µm · 7 µm</b><span>Mycoplasma (smallest cell) · human RBC</span></div>
+      <div><b>70S · 80S</b><span>50S + 30S (prokaryotes, organelles) · 60S + 40S (eukaryotes)</span></div>
+      <div><b>52% · 40%</b><span>Protein · lipid in the human RBC membrane</span></div>
+      <div><b>Up to 90%</b><span>Plant cell volume taken by the vacuole</span></div>
+      <div><b>0.5–1.0 µm</b><span>Diameter of Golgi cisternae</span></div>
+      <div><b>9 + 2 · 9 triplets</b><span>Axoneme · centriole (cartwheel)</span></div>
+      <div><b>10–50 nm</b><span>Perinuclear space</span></div>
+      <div><b>46 · 2 m</b><span>Chromosomes and length of DNA in a human cell</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XI, "Cell: The Unit of Life". Lecture 9 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const rad = a => a * Math.PI / 180;
+  const lab = (g, ax, ay, ly, s, lx, left) => {
+    el("polyline", { points: `${ax},${ay} ${left ? lx + 8 : lx - 8},${ly - 4}`, class: "f-none s-muted", "stroke-width": 0.9 }, g);
+    el("circle", { cx: ax, cy: ay, r: 2.2, class: "f-ink" }, g);
+    txt(g, lx, ly, s, { "font-weight": 500, "text-anchor": left ? "end" : "start" });
+  };
+  const labs = (list, R, y0, y1) => {
+    list.sort((a, b) => a[2] - b[2]);
+    const st = list.length > 1 ? (y1 - y0) / (list.length - 1) : 0;
+    list.forEach(([g, ax, ay, t], i) => lab(g, ax, ay, y0 + i * st, t, R));
+  };
+  let seed = 11; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Generic clickable-parts figure ---------- */
+  function partsFigure(prefix, modes, draw, opts = {}) {
+    const svg = $("#" + prefix + "svg");
+    let mode = Object.keys(modes)[0], sel = null;
+    const apply = () => {
+      const M = modes[mode], p = M.parts.find(x => x.k === sel);
+      const ids = p ? (p.ids || [p.k]) : [];
+      svg.classList.toggle("dim", !!p);
+      $$("g.zg", svg).forEach(g => g.classList.toggle("on", ids.includes(g.dataset.k)));
+      $$("#" + prefix + "-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === sel)));
+      $("#" + prefix + "-k").textContent = p ? p.b : M.intro[0];
+      $("#" + prefix + "-t").innerHTML = p ? p.d : M.intro[1];
+      if (opts.where) $("#" + opts.where).textContent = p && p.w ? p.w : "—";
+    };
+    const render = () => {
+      svg.innerHTML = "";
+      const G = k => el("g", { class: "zg", "data-k": k, style: "cursor:pointer" }, svg);
+      draw(svg, mode, G);
+      $$("g.zg", svg).forEach(g => g.addEventListener("click", e => { e.stopPropagation(); sel = sel === g.dataset.k ? null : g.dataset.k; apply(); }));
+      const seg = $("#" + prefix + "-seg"); seg.innerHTML = "";
+      modes[mode].parts.forEach(p => {
+        const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.dataset.k = p.k; b.textContent = p.b;
+        b.addEventListener("click", () => { sel = sel === p.k ? null : p.k; apply(); });
+        seg.appendChild(b);
+      });
+      const R = modes[mode].read || {};
+      for (const id in R) $("#" + id).textContent = R[id];
+      apply();
+      if (opts.after) opts.after(svg, mode);
+    };
+    render();
+    return { set: m => { mode = m; sel = null; render(); } };
+  }
+  const modeButtons = (ids, setter) => ids.forEach(([id, m]) => $("#" + id).addEventListener("click", () => { ids.forEach(([j, n]) => $("#" + j).setAttribute("aria-pressed", String(n === m))); setter(m); }));
+
+  /* ---------- Fig 1 Size chart ---------- */
+  const SZ = [
+    ["Prokaryotic ribosome", 0.015, 0.02, "o", "About 15 nm by 20 nm; made of 50S and 30S subunits."],
+    ["Viruses", 0.02, 0.2, "v", "0.02–0.2 µm (Fig 8.2). Viruses are not cells."],
+    ["PPLO", 0.1, 0.1, "c", "About 0.1 µm (Fig 8.2). Pleuro Pneumonia Like Organisms are prokaryotes."],
+    ["Mycoplasma", 0.3, 0.3, "c", "Only 0.3 µm long: the <strong>smallest cells</strong>. They have no cell wall."],
+    ["Golgi cisterna", 0.5, 1.0, "o", "Disc-shaped sacs 0.5–1.0 µm in diameter."],
+    ["Mitochondrion", 1.0, 4.1, "o", "Length 1.0–4.1 µm; diameter 0.2–1.0 µm (average 0.5 µm)."],
+    ["Bacteria", 1, 5, "c", "Fig 8.2 shows typical bacteria as 1–2 µm; the text says bacteria could be 3–5 µm."],
+    ["Chloroplast", 5, 10, "o", "Length 5–10 µm, width 2–4 µm."],
+    ["Human red blood cell", 7, 7, "c", "About 7.0 µm in diameter."],
+    ["Typical eukaryotic cell", 10, 20, "c", "10–20 µm (Fig 8.2)."]
+  ];
+  const sz = $("#szsvg");
+  const L = { l: 190, r: 20, t: 20, w: 680 };
+  const lx = v => L.l + (Math.log10(v) + 2) / 4 * (L.w - L.l - L.r);
+  let szSel = 3;
+  function drawSz() {
+    sz.innerHTML = "";
+    [0.01, 0.1, 1, 10, 100].forEach(v => {
+      el("line", { x1: lx(v), x2: lx(v), y1: L.t, y2: 362, class: "s-line", "stroke-width": 1 }, sz);
+      txt(sz, lx(v), 382, v + " µm", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    });
+    SZ.forEach(([n, a, b, k, d], i) => {
+      const y = L.t + 18 + i * 34, on = i === szSel;
+      if (on) el("rect", { x: 4, y: y - 15, width: 672, height: 30, rx: 6, class: "f-leafsoft" }, sz);
+      txt(sz, L.l - 10, y + 4, n, { "text-anchor": "end", "font-size": 11, "font-weight": on ? 500 : 400 });
+      const cls = k === "c" ? "f-leaf" : k === "o" ? "f-sun" : "f-blue";
+      if (a === b) el("circle", { cx: lx(a), cy: y, r: 7, class: cls }, sz);
+      else el("rect", { x: lx(a), y: y - 7, width: Math.max(6, lx(b) - lx(a)), height: 14, rx: 7, class: cls }, sz);
+    });
+    txt(sz, 676, 398, "green: cells · amber: parts of cells · blue: viruses", { "text-anchor": "end", "font-size": 9.5, class: "t-muted" });
+    const s = SZ[szSel];
+    $("#sz-k").textContent = s[0];
+    $("#sz-t").innerHTML = "<strong>" + (s[1] === s[2] ? s[1] : s[1] + "–" + s[2]) + " µm.</strong> " + s[4];
+  }
+  const szPick = e => {
+    const r = sz.getBoundingClientRect(), y = (e.clientY - r.top) / r.height * 400;
+    const i = Math.round((y - L.t - 18) / 34);
+    if (i >= 0 && i < SZ.length && i !== szSel) { szSel = i; drawSz(); }
+  };
+  sz.addEventListener("pointermove", szPick); sz.addEventListener("pointerdown", szPick);
+  drawSz();
+
+  /* ---------- Fig 2 Bacterial cell ---------- */
+  partsFigure("bc", {
+    b: {
+      parts: [
+        { k: "env", b: "Cell envelope", ids: ["glyco", "wall", "pm"], d: "A chemically complex, <strong>tightly bound three-layered</strong> envelope: <strong>glycocalyx</strong>, <strong>cell wall</strong>, <strong>plasma membrane</strong>. Each has a distinct function, but they act together as a single protective unit." },
+        { k: "glyco", b: "Glycocalyx", d: "Outermost layer; differs in composition and thickness. A loose sheath is the <strong>slime layer</strong>; a thick, tough one is the <strong>capsule</strong>." },
+        { k: "wall", b: "Cell wall", d: "Determines the <strong>shape</strong> of the cell and gives strong structural support to prevent bursting or collapsing. Absent only in mycoplasma." },
+        { k: "pm", b: "Plasma membrane", d: "<strong>Selectively permeable</strong>; interacts with the outside world. Structurally similar to the eukaryotic membrane." },
+        { k: "meso", b: "Mesosome", d: "Extensions of the plasma membrane into the cell, as <strong>vesicles, tubules and lamellae</strong>. They help in <strong>cell wall formation, DNA replication and distribution</strong> to daughter cells, <strong>respiration, secretion</strong>, and increase surface area and enzymatic content." },
+        { k: "dna", b: "Genomic DNA", d: "<strong>Single chromosome / circular DNA</strong>, basically naked, not enveloped by a nuclear membrane." },
+        { k: "plas", b: "Plasmids", d: "<strong>Small circular DNA</strong> outside the genomic DNA. Plasmids give unique characters such as <strong>antibiotic resistance</strong>, and are used to monitor bacterial transformation with foreign DNA." },
+        { k: "ribo", b: "Ribosomes", d: "<strong>70S</strong> ribosomes (50S + 30S), about 15 nm by 20 nm, <strong>associated with the plasma membrane</strong>. Several on one mRNA form a <strong>polysome</strong> (the chain at the bottom), which translates the mRNA into proteins." },
+        { k: "incl", b: "Inclusion bodies", d: "Reserve material lying free in the cytoplasm, <strong>not membrane-bound</strong>: phosphate, cyanophycean and glycogen granules." },
+        { k: "flag", b: "Flagellum", d: "Thin filamentous extension from the cell wall in motile bacteria, with three parts: <strong>filament</strong> (longest, extends outside), <strong>hook</strong> and <strong>basal body</strong>." },
+        { k: "pili", b: "Pili", d: "<strong>Elongated tubular</strong> structures made of a special protein. No role in motility." },
+        { k: "fim", b: "Fimbriae", d: "Small <strong>bristle-like fibres</strong>. In some bacteria they help attach to rocks in streams and to host tissues. No role in motility." }
+      ], intro: ["A typical bacterium", "Click a part or a button. All three envelope layers act as one protective unit."]
+    }
+  }, (svg, mode, G) => {
+    const glyco = G("glyco"); el("rect", { x: 128, y: 88, width: 284, height: 124, rx: 62, class: "f-sunsoft s-sun", "stroke-width": 1.5, "stroke-dasharray": "6 4" }, glyco);
+    const wall = G("wall"); el("rect", { x: 135, y: 95, width: 270, height: 110, rx: 55, class: "f-none s-ink", "stroke-width": 4 }, wall);
+    const pm = G("pm"); el("rect", { x: 141, y: 101, width: 258, height: 98, rx: 49, class: "f-card s-leaf", "stroke-width": 2 }, pm);
+    const meso = G("meso");
+    el("path", { d: "M 190 102 C 193 120, 176 126, 190 136 C 204 146, 184 154, 198 166", class: "f-none s-leaf", "stroke-width": 2.6 }, meso);
+    [[182, 124], [203, 150]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 3.2, class: "f-none s-leaf", "stroke-width": 1.5 }, meso));
+    const dna = G("dna"); let d = "";
+    for (let a = 0; a <= 360; a += 5) { const r = 24 + 8 * Math.sin(rad(a * 5)) + 5 * Math.cos(rad(a * 3)); d += (a ? "L" : "M") + (285 + r * Math.cos(rad(a))).toFixed(1) + " " + (150 + r * 0.8 * Math.sin(rad(a))).toFixed(1); }
+    el("path", { d: d + "Z", class: "f-none s-blue", "stroke-width": 1.8 }, dna);
+    const plas = G("plas"); [[352, 128], [364, 172]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 6, class: "f-none s-blue", "stroke-width": 1.8 }, plas));
+    const ribo = G("ribo");
+    for (let x = 214; x < 380; x += 18) { el("circle", { cx: x, cy: 109, r: 2.6, class: "f-ink" }, ribo); el("circle", { cx: x, cy: 191, r: 2.6, class: "f-ink" }, ribo); }
+    el("line", { x1: 222, y1: 176, x2: 268, y2: 176, class: "s-red", "stroke-width": 1.2 }, ribo);
+    for (let x = 226; x < 268; x += 10) el("circle", { cx: x, cy: 174, r: 3, class: "f-ink" }, ribo);
+    const incl = G("incl"); [[168, 150, 6], [174, 172, 4], [330, 182, 5], [318, 120, 4]].forEach(([x, y, r]) => el("circle", { cx: x, cy: y, r, class: "f-sun" }, incl));
+    const flag = G("flag");
+    el("rect", { x: 401, y: 144, width: 8, height: 12, class: "f-ink" }, flag);
+    el("path", { d: "M 409 150 q 10 0 14 -10", class: "f-none s-ink", "stroke-width": 2.6 }, flag);
+    el("path", { d: "M 423 140 q 8 -14 18 -8 t 18 -8 t 18 -10", class: "f-none s-ink", "stroke-width": 2 }, flag);
+    const pili = G("pili"); [[230, 88, 216, 30], [300, 88, 312, 34]].forEach(([a, b, c, e]) => { el("line", { x1: a, y1: b, x2: c, y2: e, class: "s-muted", "stroke-width": 5 }, pili); el("line", { x1: a, y1: b, x2: c, y2: e, style: "stroke: var(--card)", "stroke-width": 2 }, pili); });
+    const fim = G("fim"); for (let x = 170; x < 382; x += 12) el("line", { x1: x, y1: 212, x2: x + 3, y2: 226, class: "s-ink", "stroke-width": 1.2 }, fim);
+    const R = 500, Lx = 120;
+    lab(glyco, 380, 92, 40, "Glycocalyx", R);
+    lab(wall, 350, 96, 70, "Cell wall", R);
+    lab(pm, 320, 102, 100, "Plasma membrane", R);
+    lab(dna, 305, 142, 138, "Genomic DNA", R);
+    lab(plas, 358, 128, 168, "Plasmid", R);
+    lab(ribo, 340, 109, 198, "Ribosomes, polysome", R);
+    lab(flag, 452, 130, 236, "Flagellum", R);
+    lab(pili, 219, 42, 40, "Pili", Lx, true);
+    lab(meso, 190, 136, 118, "Mesosome", Lx, true);
+    lab(incl, 168, 150, 166, "Inclusion bodies", Lx, true);
+    lab(fim, 200, 222, 236, "Fimbriae", Lx, true);
+  });
+
+  /* ---------- Fig 3 Bacterial shapes ---------- */
+  const SH = [["Bacillus", "rod-like"], ["Coccus", "spherical"], ["Vibrio", "comma-shaped"], ["Spirillum", "spiral"]];
+  function drawSh(k) {
+    const s = $("#shsvg"); s.innerHTML = "";
+    $$("#sh-seg button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.k === k)));
+    SH.forEach(([n, d], i) => {
+      const cx = 85 + i * 170, g = el("g", { opacity: i === k ? 1 : 0.3 }, s);
+      const cls = i === k ? "f-leafsoft s-leaf" : "f-paper s-muted";
+      if (i === 0) [[-30, -20], [10, 0], [-20, 22]].forEach(([dx, dy]) => el("rect", { x: cx + dx - 22, y: 60 + dy - 9, width: 44, height: 18, rx: 9, class: cls, "stroke-width": 1.6 }, g));
+      if (i === 1) [[-24, -14], [-6, -14], [12, -14], [-15, 4], [3, 4], [-6, 22]].forEach(([dx, dy]) => el("circle", { cx: cx + dx, cy: 60 + dy, r: 9, class: cls, "stroke-width": 1.6 }, g));
+      if (i === 2) [[-24, -12], [16, 10]].forEach(([dx, dy]) => el("path", { d: `M ${cx + dx - 14} ${60 + dy + 8} Q ${cx + dx} ${60 + dy - 22} ${cx + dx + 16} ${60 + dy}`, class: "f-none " + (i === k ? "s-leaf" : "s-muted"), "stroke-width": 9, "stroke-linecap": "round" }, g));
+      if (i === 3) el("path", { d: `M ${cx - 45} 60 q 11 -22 22 0 t 22 0 t 22 0 t 22 0`, class: "f-none " + (i === k ? "s-leaf" : "s-muted"), "stroke-width": 6, "stroke-linecap": "round" }, g);
+      txt(g, cx, 122, n, { "text-anchor": "middle", "font-weight": 500, "font-size": 12 });
+      txt(g, cx, 138, d, { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    });
+    $("#sh-t").innerHTML = `<strong>${SH[k][0]}</strong>: ${SH[k][1]}. Bacteria vary greatly in shape and function, but the organisation of the prokaryotic cell is fundamentally similar.`;
+  }
+  $$("#sh-seg button").forEach(b => b.addEventListener("click", () => drawSh(+b.dataset.k)));
+  drawSh(0);
+
+  /* ---------- Fig 4 Cell map ---------- */
+  const common = {
+    pm: { k: "pm", b: "Plasma membrane", w: "All cells", d: "Selectively permeable lipid–protein boundary of the cell. See Topic 4." },
+    nuc: { k: "nuc", b: "Nucleus", w: "Eukaryotic cells", d: "Dense, membrane-bound body containing chromosomes with DNA. Bounded by a double nuclear envelope with pores. See Topic 8." },
+    nuo: { k: "nuo", b: "Nucleolus", w: "Eukaryotic cells", d: "Spherical, <strong>not membrane-bound</strong>; site of active rRNA synthesis." },
+    rer: { k: "rer", b: "Rough ER", w: "Eukaryotic cells", d: "ER with ribosomes; protein synthesis and secretion; continuous with the outer nuclear membrane." },
+    ser: { k: "ser", b: "Smooth ER", w: "Eukaryotic cells", d: "No ribosomes; major site of lipid synthesis; steroidal hormones in animal cells." },
+    gol: { k: "gol", b: "Golgi apparatus", w: "Eukaryotic cells", d: "Stacked cisternae near the nucleus; packages materials and forms glycoproteins and glycolipids." },
+    lys: { k: "lys", b: "Lysosome", w: "Eukaryotic cells", d: "Vesicles from the Golgi with hydrolytic enzymes active at acidic pH." },
+    mit: { k: "mit", b: "Mitochondrion", w: "Eukaryotic cells", d: "Double membrane; site of aerobic respiration; 'power house' making ATP." },
+    rib: { k: "rib", b: "Ribosomes", w: "All cells", d: "Non-membrane-bound; site of protein synthesis. 80S in the eukaryotic cytoplasm." },
+    per: { k: "per", b: "Peroxisome", w: "Plant and animal cells", d: "A microbody: minute, membrane-bound vesicle with enzymes. Not part of the endomembrane system." }
+  };
+  const plantParts = [
+    { k: "wall", b: "Cell wall", w: "Plants and fungi", d: "Non-living, rigid outer covering; cellulose, hemicellulose, pectins and proteins in plants." },
+    { k: "ml", b: "Middle lamella", w: "Plant cells", d: "Layer mainly of <strong>calcium pectate</strong> gluing neighbouring cells together." },
+    { k: "pd", b: "Plasmodesmata", w: "Plant cells", d: "Cross the cell wall and middle lamella, connecting the cytoplasm of neighbouring cells." },
+    common.pm, common.nuc, common.nuo,
+    { k: "vac", b: "Central vacuole", w: "Plant cells (large)", d: "Large central vacuole bounded by the <strong>tonoplast</strong>; can occupy up to <strong>90%</strong> of the cell volume." },
+    { k: "chl", b: "Chloroplast", w: "Plant cells, euglenoids", d: "Plastid with chlorophyll; double membrane; photosynthesis." },
+    common.mit, common.rer, common.ser, common.gol, common.lys, common.rib, common.per
+  ];
+  const animalParts = [
+    common.pm,
+    { k: "mv", b: "Microvilli", w: "Animal cells", d: "Finger-like projections of the plasma membrane, shown in NCERT Fig 8.3b." },
+    common.nuc, common.nuo,
+    { k: "cen", b: "Centrioles", w: "Animal cells", d: "Two cylinders at right angles in the centrosome; form spindle fibres during cell division. Absent in almost all plant cells." },
+    common.mit, common.rer, common.ser, common.gol, common.lys, common.rib, common.per
+  ];
+  const ce = partsFigure("ce", {
+    pl: { parts: plantParts, intro: ["Plant cell", "Click an organelle to see what it is and where it is found."] },
+    an: { parts: animalParts, intro: ["Animal cell", "Click an organelle to see what it is and where it is found."] }
+  }, (svg, mode, G) => {
+    const R = 452;
+    const mito = (g, x, y, rot = 0) => { el("ellipse", { cx: x, cy: y, rx: 18, ry: 9, class: "f-sunsoft s-sun", "stroke-width": 1.4, transform: `rotate(${rot} ${x} ${y})` }, g); el("path", { d: `M ${x - 10} ${y} q 3 -6 6 0 t 6 0 t 6 0`, class: "f-none s-sun", "stroke-width": 1, transform: `rotate(${rot} ${x} ${y})` }, g); };
+    const golgi = (g, x, y) => { for (let i = 0; i < 4; i++) el("path", { d: `M ${x - 28 + i * 2} ${y + i * 6} Q ${x} ${y + i * 6 - 10} ${x + 28 - i * 2} ${y + i * 6}`, class: "f-none s-sun", "stroke-width": 3, "stroke-linecap": "round" }, g); };
+    const rer = (g, x, y, w) => { for (let i = 0; i < 3; i++) { el("path", { d: `M ${x} ${y + i * 10} q ${w / 6} -6 ${w / 3} 0 t ${w / 3} 0 t ${w / 3} 0`, class: "f-none s-blue", "stroke-width": 1.6 }, g); for (let j = 0; j < 6; j++) el("circle", { cx: x + j * w / 6 + 4, cy: y + i * 10 - 3, r: 1.6, class: "f-ink" }, g); } };
+    const ser = (g, x, y) => { el("path", { d: `M ${x} ${y} q 10 -10 20 0 t 20 0 M ${x + 6} ${y + 10} q 10 -10 20 0 t 20 0`, class: "f-none s-blue", "stroke-width": 3, "stroke-linecap": "round", opacity: 0.7 }, g); };
+    const nucleus = (gN, gO, x, y, r) => { el("circle", { cx: x, cy: y, r, class: "f-sunsoft s-ink", "stroke-width": 1.4 }, gN); el("circle", { cx: x, cy: y, r: r - 4, class: "f-none s-ink", "stroke-width": 1, "stroke-dasharray": "10 3" }, gN); el("circle", { cx: x + 6, cy: y - 4, r: r * 0.3, class: "f-ink", opacity: 0.6 }, gO); };
+    if (mode === "pl") {
+      const ml = G("ml"); el("rect", { x: 18, y: 18, width: 404, height: 344, class: "f-none s-ink", "stroke-width": 2.5 }, ml);
+      const wall = G("wall"); el("rect", { x: 21, y: 21, width: 398, height: 338, class: "f-leafsoft s-leaf", "stroke-width": 1 }, wall);
+      const pm = G("pm"); el("rect", { x: 34, y: 34, width: 372, height: 312, rx: 6, class: "f-card s-ink", "stroke-width": 1.4 }, pm);
+      const pd = G("pd"); [110, 190, 270].forEach(y => { el("rect", { x: 405, y: y - 3, width: 22, height: 6, class: "f-card" }, pd); el("line", { x1: 404, y1: y, x2: 430, y2: y, class: "s-ink", "stroke-width": 1.2 }, pd); });
+      const vac = G("vac"); el("rect", { x: 170, y: 72, width: 222, height: 248, rx: 28, class: "f-paper s-blue", "stroke-width": 2 }, vac);
+      const nuc = G("nuc"), nuo = G("nuo"); nucleus(nuc, nuo, 100, 112, 42);
+      const chl = G("chl"); [[78, 238, 0], [136, 276, 20], [300, 334, 0], [236, 52, 0]].forEach(([x, y, r]) => { el("ellipse", { cx: x, cy: y, rx: 24, ry: 10, class: "f-leaf", opacity: 0.8, transform: `rotate(${r} ${x} ${y})` }, chl); for (let j = -12; j <= 12; j += 8) el("line", { x1: x + j, y1: y - 5, x2: x + j, y2: y + 5, style: "stroke: var(--card)", "stroke-width": 1.2, transform: `rotate(${r} ${x} ${y})` }, chl); });
+      const mit = G("mit"); mito(mit, 70, 306); mito(mit, 360, 50, 10);
+      const rerg = G("rer"); rer(rerg, 52, 170, 96);
+      const serg = G("ser"); ser(serg, 140, 328);
+      const gol = G("gol"); golgi(gol, 150, 44);
+      const lys = G("lys"); el("circle", { cx: 300, cy: 52, r: 8, class: "f-red", opacity: 0.6 }, lys);
+      const per = G("per"); el("circle", { cx: 54, cy: 60, r: 7, class: "f-card s-red", "stroke-width": 1.5 }, per);
+      const rib = G("rib"); for (let i = 0; i < 14; i++) el("circle", { cx: 44 + rnd() * 116, cy: 200 + rnd() * 20 + (i % 2) * 70, r: 1.8, class: "f-ink" }, rib);
+      labs([[wall, 408, 30, "Cell wall"], [ml, 420, 46, "Middle lamella"], [pd, 428, 110, "Plasmodesmata"], [pm, 400, 140, "Plasma membrane"], [vac, 385, 200, "Vacuole (tonoplast)"], [nuc, 138, 100, "Nucleus"], [nuo, 106, 108, "Nucleolus"], [chl, 322, 334, "Chloroplast"], [mit, 376, 52, "Mitochondrion"], [rerg, 148, 180, "Rough ER"], [serg, 186, 330, "Smooth ER"], [gol, 176, 46, "Golgi apparatus"], [lys, 307, 52, "Lysosome"], [per, 60, 60, "Peroxisome"], [rib, 118, 214, "Ribosomes"]].map(x => [x[0], x[1], x[2], x[3]]), R, 24, 368);
+    } else {
+      const pm = G("pm"); el("ellipse", { cx: 215, cy: 195, rx: 190, ry: 160, class: "f-card s-ink", "stroke-width": 1.8 }, pm);
+      const mv = G("mv"); for (let a = -70; a <= -20; a += 10) { const x = 215 + 190 * Math.cos(rad(a)), y = 195 + 160 * Math.sin(rad(a)); el("line", { x1: x, y1: y, x2: x + 14 * Math.cos(rad(a)), y2: y + 14 * Math.sin(rad(a)), class: "s-ink", "stroke-width": 5, "stroke-linecap": "round" }, mv); }
+      const nuc = G("nuc"), nuo = G("nuo"); nucleus(nuc, nuo, 215, 195, 50);
+      const cen = G("cen"); el("rect", { x: 300, y: 104, width: 22, height: 9, class: "f-blue", opacity: 0.8 }, cen); el("rect", { x: 326, y: 96, width: 9, height: 22, class: "f-blue", opacity: 0.8 }, cen);
+      const gol = G("gol"); golgi(gol, 120, 110);
+      const rerg = G("rer"); rer(rerg, 236, 262, 96);
+      const serg = G("ser"); ser(serg, 80, 250);
+      const mit = G("mit"); mito(mit, 330, 220, 30); mito(mit, 150, 310, -20); mito(mit, 110, 180, 80);
+      const lys = G("lys"); [[300, 160], [90, 290]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 9, class: "f-red", opacity: 0.6 }, lys));
+      const per = G("per"); el("circle", { cx: 270, cy: 320, r: 8, class: "f-card s-red", "stroke-width": 1.5 }, per);
+      const rib = G("rib"); for (let i = 0; i < 16; i++) el("circle", { cx: 120 + rnd() * 200, cy: 70 + rnd() * 30 + (i % 2) * 230, r: 1.8, class: "f-ink" }, rib);
+      labs([[pm, 380, 110, "Plasma membrane"], [mv, 330, 60, "Microvilli"], [cen, 330, 100, "Centrioles"], [nuc, 262, 180, "Nucleus"], [nuo, 225, 190, "Nucleolus"], [mit, 345, 228, "Mitochondrion"], [lys, 309, 160, "Lysosome"], [rerg, 332, 270, "Rough ER"], [gol, 146, 112, "Golgi apparatus"], [serg, 126, 252, "Smooth ER"], [per, 278, 320, "Peroxisome"], [rib, 200, 82, "Ribosomes"]], R, 30, 368);
+    }
+  }, { where: "ce-w" });
+  modeButtons([["ce-pl", "pl"], ["ce-an", "an"]], ce.set);
+
+  /* ---------- Fig 5 Fluid mosaic ---------- */
+  partsFigure("fm", {
+    f: {
+      parts: [
+        { k: "lip", b: "Phospholipid bilayer", d: "Two layers of phospholipids: <strong>polar heads</strong> face the outer sides and <strong>hydrophobic tails</strong> face inwards, protecting the nonpolar tails from water. The lipid is <strong>quasi-fluid</strong>." },
+        { k: "int", b: "Integral protein", d: "<strong>Partially or totally buried</strong> in the membrane. Proteins can <strong>move laterally</strong> within the bilayer: try the slider." },
+        { k: "per", b: "Peripheral protein", d: "Lies on the <strong>surface</strong> of the membrane; easier to extract." },
+        { k: "cho", b: "Cholesterol", d: "Besides phospholipids, the membrane contains <strong>cholesterol</strong>." },
+        { k: "sug", b: "Sugar", d: "Membranes also have <strong>carbohydrates</strong>, attached to proteins and lipids on the outer surface." }
+      ], intro: ["Fluid mosaic model (Singer and Nicolson, 1972)", "Proteins float in a quasi-fluid lipid bilayer. Click a component or drag the slider."]
+    }
+  }, (svg, mode, G) => {
+    const lip = G("lip"), cho = G("cho"), per = G("per"), sug = G("sug"), int = G("int");
+    for (let x = 18; x < 670; x += 16) {
+      [[88, 1], [176, -1]].forEach(([y, s]) => {
+        el("line", { x1: x - 3, y1: y + s * 7, x2: x - 3, y2: y + s * 40, class: "s-muted", "stroke-width": 1.4 }, lip);
+        el("line", { x1: x + 3, y1: y + s * 7, x2: x + 3, y2: y + s * 40, class: "s-muted", "stroke-width": 1.4 }, lip);
+        el("circle", { cx: x, cy: y, r: 7, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, lip);
+      });
+    }
+    [150, 430, 610].forEach(x => el("rect", { x: x - 4, y: 104, width: 8, height: 30, rx: 3, class: "f-blue", opacity: 0.85 }, cho));
+    el("ellipse", { cx: 520, cy: 72, rx: 34, ry: 15, class: "f-leafsoft s-leaf", "stroke-width": 1.6 }, per);
+    el("ellipse", { cx: 90, cy: 192, rx: 30, ry: 13, class: "f-leafsoft s-leaf", "stroke-width": 1.6 }, per);
+    const ig = el("g", { id: "fm-ig" }, int);
+    el("path", { d: "M 300 64 C 270 64, 262 110, 268 132 C 274 160, 262 196, 300 198 C 338 196, 330 160, 336 132 C 342 108, 332 64, 300 64 Z", class: "f-leaf", opacity: 0.85 }, ig);
+    el("path", { d: "M 300 64 L 296 46 L 306 34 L 300 20", class: "f-none s-sun", "stroke-width": 2 }, ig);
+    [[296, 46], [306, 34], [300, 20]].forEach(([x, y]) => el("polygon", { points: [0, 1, 2, 3, 4, 5].map(k => `${x + 5 * Math.cos(rad(60 * k))},${y + 5 * Math.sin(rad(60 * k))}`).join(" "), class: "f-sunsoft s-sun", "stroke-width": 1.2 }, sug));
+    el("path", { d: "M 210 81 L 206 62 L 214 50", class: "f-none s-sun", "stroke-width": 2 }, sug);
+    [[206, 62], [214, 50]].forEach(([x, y]) => el("polygon", { points: [0, 1, 2, 3, 4, 5].map(k => `${x + 5 * Math.cos(rad(60 * k))},${y + 5 * Math.sin(rad(60 * k))}`).join(" "), class: "f-sunsoft s-sun", "stroke-width": 1.2 }, sug));
+    txt(lip, 16, 248, "Polar heads outward; hydrophobic tails inward", { "font-size": 10, class: "t-muted" });
+    txt(int, 380, 248, "Integral protein (green)", { "font-size": 10, class: "t-leaf" });
+    txt(per, 520, 46, "Peripheral protein", { "font-size": 10, "text-anchor": "middle", class: "t-leaf" });
+    txt(sug, 228, 30, "Sugar", { "font-size": 10, class: "t-sun" });
+    txt(cho, 610, 204, "Cholesterol (blue)", { "font-size": 10, "text-anchor": "middle", class: "t-blue" });
+  }, { after: () => moveFm() });
+  function moveFm() {
+    const v = +$("#fm-x").value, g = $("#fm-ig"), sg = $$("#fmsvg g.zg[data-k='sug'] polygon").slice(0, 3);
+    if (g) g.setAttribute("transform", `translate(${v} 0)`);
+    sg.forEach(q => q.setAttribute("transform", `translate(${v} 0)`));
+    $("#fm-x-o").textContent = v === 0 ? "centre" : (v < 0 ? "left " : "right ") + Math.abs(v);
+  }
+  $("#fm-x").addEventListener("input", moveFm);
+
+  /* ---------- Fig 6 Transport ---------- */
+  const TP = {
+    dif: ["None", "High → low", "Not needed", "Neutral solutes", "<strong>Simple diffusion</strong>: neutral solutes cross the lipid bilayer <strong>along the concentration gradient</strong>, from higher to lower concentration, without energy. This is <strong>passive transport</strong>."],
+    osm: ["None", "High → low", "Not needed", "Water", "<strong>Osmosis</strong>: movement of <strong>water</strong> by diffusion across the membrane, from higher to lower (water) concentration. Passive."],
+    car: ["None", "High → low", "Carrier protein", "Polar molecules", "<strong>Polar molecules</strong> cannot pass through the nonpolar lipid bilayer, so they need a <strong>carrier protein</strong> of the membrane to facilitate their transport (exercise 6)."],
+    act: ["ATP used", "Low → high (against gradient)", "Pump protein", "Ions, e.g. Na⁺, K⁺", "<strong>Active transport</strong>: a few ions or molecules move <strong>against</strong> their concentration gradient, from lower to higher concentration. It is <strong>energy dependent</strong> and uses <strong>ATP</strong>, e.g. the <strong>Na⁺/K⁺ pump</strong>."]
+  };
+  function drawTp(k) {
+    const s = $("#tpsvg"); s.innerHTML = ""; marker(s, "m6", "--ink"); seed = 5;
+    $$("#tp-seg button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.k === k)));
+    for (let x = 10; x < 670; x += 14) { [100, 140].forEach(y => el("circle", { cx: x, cy: y, r: 5, class: "f-sunsoft s-sun", "stroke-width": 1 }, s)); el("line", { x1: x, y1: 106, x2: x, y2: 134, class: "s-muted", "stroke-width": 1 }, s); }
+    txt(s, 14, 22, "Outside", { "font-size": 11, class: "t-muted" }); txt(s, 14, 232, "Inside", { "font-size": 11, class: "t-muted" });
+    const dots = (n, y0, y1, cls, r = 4) => { for (let i = 0; i < n; i++) el("circle", { cx: 40 + rnd() * 600, cy: y0 + rnd() * (y1 - y0), r, class: cls }, s); };
+    const arrow = (x, y1, y2, cls = "s-ink", m = "m6") => el("line", { x1: x, y1, x2: x, y2, class: cls, "stroke-width": 2.4, "marker-end": `url(#${m})` }, s);
+    if (k === "dif") { dots(30, 26, 86, "f-leaf"); dots(6, 154, 214, "f-leaf"); [220, 340, 460].forEach(x => arrow(x, 66, 176)); }
+    if (k === "osm") { dots(34, 26, 86, "f-blue", 3); dots(8, 154, 214, "f-blue", 3); [260, 420].forEach(x => arrow(x, 66, 176)); txt(s, 640, 22, "water", { "text-anchor": "end", "font-size": 10, class: "t-blue" }); }
+    if (k === "car") {
+      dots(26, 26, 80, "f-red"); dots(5, 160, 214, "f-red");
+      el("rect", { x: 316, y: 88, width: 48, height: 64, rx: 12, class: "f-leaf", opacity: 0.85 }, s);
+      el("rect", { x: 334, y: 88, width: 12, height: 64, class: "f-card" }, s);
+      arrow(340, 60, 180); txt(s, 380, 124, "carrier protein", { "font-size": 10, class: "t-leaf" });
+    }
+    if (k === "act") {
+      for (let i = 0; i < 22; i++) { el("circle", { cx: 40 + rnd() * 600, cy: 26 + rnd() * 56, r: 4, class: "f-red" }, s); }
+      for (let i = 0; i < 6; i++) { el("circle", { cx: 40 + rnd() * 600, cy: 160 + rnd() * 54, r: 4, class: "f-red" }, s); }
+      for (let i = 0; i < 5; i++) { el("rect", { x: 40 + rnd() * 600, y: 26 + rnd() * 56, width: 7, height: 7, class: "f-blue" }, s); }
+      for (let i = 0; i < 20; i++) { el("rect", { x: 40 + rnd() * 600, y: 160 + rnd() * 54, width: 7, height: 7, class: "f-blue" }, s); }
+      el("rect", { x: 300, y: 84, width: 80, height: 72, rx: 14, class: "f-sun", opacity: 0.85 }, s);
+      el("line", { x1: 320, y1: 180, x2: 320, y2: 52, class: "s-red", "stroke-width": 2.4, "marker-end": "url(#m6)" }, s);
+      el("line", { x1: 360, y1: 52, x2: 360, y2: 180, class: "s-blue", "stroke-width": 2.4, "marker-end": "url(#m6)" }, s);
+      txt(s, 392, 196, "ATP → ADP", { "font-size": 11, "font-weight": 500 });
+      txt(s, 300, 46, "Na⁺ out", { "text-anchor": "end", "font-size": 10, class: "t-red" });
+      txt(s, 368, 46, "K⁺ in", { "font-size": 10, class: "t-blue" });
+      txt(s, 640, 22, "circles: Na⁺ · squares: K⁺", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    }
+    const d = TP[k];
+    ["e", "d", "p", "x"].forEach((id, i) => $("#tp-" + id).textContent = d[i]);
+    $("#tp-t").innerHTML = d[4];
+  }
+  $$("#tp-seg button").forEach(b => b.addEventListener("click", () => drawTp(b.dataset.k)));
+  drawTp("dif");
+
+  /* ---------- Fig 7 Endomembrane ---------- */
+  const em = $("#emsvg");
+  (function () {
+    marker(em, "m7", "--muted");
+    const G = k => el("g", { class: "zg", id: "em-" + k }, em);
+    const nuc = G("nuc");
+    el("circle", { cx: 80, cy: 140, r: 58, class: "f-sunsoft s-ink", "stroke-width": 1.4 }, nuc);
+    el("circle", { cx: 80, cy: 140, r: 52, class: "f-none s-ink", "stroke-width": 1 }, nuc);
+    txt(nuc, 80, 144, "Nucleus", { "text-anchor": "middle", "font-weight": 500 });
+    const rer = G("rer");
+    for (let i = 0; i < 3; i++) {
+      const y = 100 + i * 34;
+      el("path", { d: `M 136 ${y + 10} C 170 ${y - 4}, 200 ${y + 22}, 236 ${y + 8} S 270 ${y + 12}, 282 ${y + 6}`, class: "f-none s-blue", "stroke-width": 6, "stroke-linecap": "round", opacity: 0.55 }, rer);
+      for (let x = 146; x < 282; x += 12) el("circle", { cx: x, cy: y + 2 + Math.sin(x / 18) * 4, r: 2, class: "f-ink" }, rer);
+    }
+    txt(rer, 210, 84, "Rough ER", { "text-anchor": "middle", "font-weight": 500 });
+    const ves = G("ves"); el("circle", { cx: 312, cy: 140, r: 9, class: "f-card s-blue", "stroke-width": 2 }, ves);
+    el("line", { x1: 286, y1: 140, x2: 300, y2: 140, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, ves);
+    el("line", { x1: 322, y1: 140, x2: 340, y2: 140, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, ves);
+    txt(ves, 312, 120, "vesicle", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    const gol = G("gol");
+    for (let i = 0; i < 5; i++) el("path", { d: `M ${352 + i * 9} ${96 + i * 2} Q ${340 + i * 9} 140 ${352 + i * 9} ${184 - i * 2}`, class: "f-none s-sun", "stroke-width": 5, "stroke-linecap": "round" }, gol);
+    txt(gol, 336, 208, "cis", { "text-anchor": "middle", "font-size": 10, class: "t-sun" });
+    txt(gol, 396, 208, "trans", { "text-anchor": "middle", "font-size": 10, class: "t-sun" });
+    txt(gol, 366, 84, "Golgi", { "text-anchor": "middle", "font-weight": 500 });
+    const lyso = G("lyso"); el("circle", { cx: 462, cy: 104, r: 15, class: "f-red", opacity: 0.55 }, lyso);
+    el("line", { x1: 404, y1: 124, x2: 444, y2: 110, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, lyso);
+    txt(lyso, 462, 80, "Lysosome", { "text-anchor": "middle", "font-weight": 500 });
+    const sec = G("sec"); el("circle", { cx: 520, cy: 170, r: 11, class: "f-card s-sun", "stroke-width": 2 }, sec);
+    el("line", { x1: 404, y1: 156, x2: 506, y2: 168, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, sec);
+    el("path", { d: "M 652 20 V 150 Q 640 170 652 190 V 290", class: "f-none s-ink", "stroke-width": 3 }, sec);
+    el("line", { x1: 534, y1: 172, x2: 636, y2: 172, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m7)" }, sec);
+    txt(sec, 600, 160, "secretion", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(sec, 646, 14, "plasma membrane", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    const ser = G("ser");
+    el("path", { d: "M 150 250 q 20 -20 40 0 t 40 0 t 40 0 M 160 270 q 20 -20 40 0 t 40 0", class: "f-none s-blue", "stroke-width": 7, "stroke-linecap": "round", opacity: 0.5 }, ser);
+    txt(ser, 210, 296, "Smooth ER", { "text-anchor": "middle", "font-weight": 500 });
+    const vac = G("vac"); el("ellipse", { cx: 560, cy: 70, rx: 52, ry: 30, class: "f-paper s-blue", "stroke-width": 2 }, vac);
+    txt(vac, 560, 74, "Vacuole", { "text-anchor": "middle", "font-weight": 500 });
+    txt(vac, 560, 116, "tonoplast", { "text-anchor": "middle", "font-size": 10, class: "t-blue" });
+    const not = G("not");
+    el("rect", { x: 380, y: 226, width: 254, height: 66, rx: 10, class: "f-none s-muted", "stroke-width": 1.2, "stroke-dasharray": "5 4" }, not);
+    txt(not, 390, 242, "Not part of the system", { "font-size": 10, class: "t-muted" });
+    el("ellipse", { cx: 425, cy: 268, rx: 26, ry: 12, class: "f-sunsoft s-sun", "stroke-width": 1.2 }, not); txt(not, 425, 288, "mitochondrion", { "text-anchor": "middle", "font-size": 9 });
+    el("ellipse", { cx: 512, cy: 268, rx: 26, ry: 11, class: "f-leaf", opacity: 0.7 }, not); txt(not, 512, 288, "chloroplast", { "text-anchor": "middle", "font-size": 9 });
+    el("circle", { cx: 594, cy: 268, r: 9, class: "f-card s-red", "stroke-width": 1.4 }, not); txt(not, 594, 288, "peroxisome", { "text-anchor": "middle", "font-size": 9 });
+  })();
+  const EM = [
+    [["nuc", "rer"], "Rough ER", "The <strong>RER</strong> bears ribosomes and is <strong>continuous with the outer nuclear membrane</strong>. It is extensive in cells active in <strong>protein synthesis and secretion</strong>."],
+    [["ves"], "Transport vesicle", "Materials to be packaged leave the ER in <strong>vesicles</strong>."],
+    [["gol"], "Golgi apparatus", "Vesicles fuse with the convex <strong>cis (forming) face</strong> and move towards the concave <strong>trans (maturing) face</strong>. Proteins are <strong>modified</strong> in the cisternae. The Golgi is the main site of <strong>glycoprotein and glycolipid</strong> formation, and stays close to the ER."],
+    [["lyso"], "Lysosome", "<strong>Lysosomes</strong> are formed by packaging in the Golgi. They are rich in <strong>hydrolases</strong> (lipases, proteases, carbohydrases), optimally active at <strong>acidic pH</strong>, digesting carbohydrates, proteins, lipids and nucleic acids."],
+    [["sec"], "Secretion", "Other packaged materials are released from the trans face and <strong>secreted outside</strong> the cell."],
+    [["ser"], "Smooth ER", "The <strong>SER</strong> has no ribosomes and is the major site of <strong>lipid synthesis</strong>; steroidal hormones are made here in animal cells."],
+    [["vac"], "Vacuole", "A membrane-bound space with water, sap and excretory products, bound by the <strong>tonoplast</strong>, which moves ions <strong>against</strong> the gradient into the vacuole."],
+    [["not"], "Not part of the system", "<strong>Mitochondria, chloroplasts and peroxisomes</strong> are not part of the endomembrane system: their functions are not coordinated with the ER, Golgi, lysosomes and vacuoles."]
+  ];
+  let emS = 0, emAll = false;
+  function renderEm() {
+    em.classList.toggle("dim", !emAll);
+    $$(".zg", em).forEach(g => g.classList.toggle("on", !emAll && EM[emS][0].includes(g.id.slice(3))));
+    $("#em-k").textContent = emAll ? "Whole system" : `Step ${emS + 1} of ${EM.length} · ${EM[emS][1]}`;
+    $("#em-t").innerHTML = emAll ? "ER → vesicles → Golgi (cis → trans) → lysosomes, secretion or other targets; SER makes lipids; vacuoles store. Their functions are coordinated, so they form one <strong>endomembrane system</strong>." : EM[emS][2];
+    $("#em-prev").disabled = emAll || emS === 0; $("#em-next").disabled = !emAll && emS === EM.length - 1;
+  }
+  $("#em-next").addEventListener("click", () => { emS = emAll ? 0 : Math.min(emS + 1, EM.length - 1); emAll = false; renderEm(); });
+  $("#em-prev").addEventListener("click", () => { emS = Math.max(emS - 1, 0); emAll = false; renderEm(); });
+  $("#em-all").addEventListener("click", () => { emAll = true; renderEm(); });
+  renderEm();
+
+  /* ---------- Fig 8 Mitochondrion / chloroplast ---------- */
+  const dm = partsFigure("dm", {
+    mi: {
+      parts: [
+        { k: "out", b: "Outer membrane", d: "Forms the continuous limiting boundary of the organelle." },
+        { k: "inn", b: "Inner membrane", d: "Divides the lumen into two aqueous compartments; folds inward as cristae. Each membrane has its own specific enzymes." },
+        { k: "ims", b: "Intermembrane space", d: "The <strong>outer compartment</strong>, between the two membranes." },
+        { k: "cri", b: "Cristae", d: "<strong>Infoldings of the inner membrane</strong> towards the matrix; they <strong>increase the surface area</strong>." },
+        { k: "mat", b: "Matrix", d: "The <strong>inner compartment</strong>, filled with a dense homogeneous substance." },
+        { k: "dna", b: "DNA", d: "The matrix has a <strong>single circular DNA</strong> molecule, a few RNA molecules and the components for protein synthesis." },
+        { k: "rib", b: "70S ribosomes", d: "Mitochondrial ribosomes are <strong>70S</strong>." }
+      ], intro: ["Mitochondrion (longitudinal section)", "Click a part. Mitochondria are not easily visible unless specifically stained."],
+      read: { "dm-a": "0.2–1.0 µm wide, 1.0–4.1 µm long", "dm-b": "Varies with activity", "dm-c": "Aerobic respiration, ATP" }
+    },
+    ch: {
+      parts: [
+        { k: "out", b: "Outer membrane", d: "Outer of the two chloroplast membranes." },
+        { k: "inn", b: "Inner membrane", d: "The inner membrane is <strong>relatively less permeable</strong>." },
+        { k: "str", b: "Stroma", d: "The space limited by the inner membrane. It has <strong>enzymes for synthesis of carbohydrates and proteins</strong>, small double-stranded circular DNA and ribosomes. Site of dark reactions." },
+        { k: "thy", b: "Thylakoid", d: "<strong>Flattened membranous sacs</strong> in the stroma. <strong>Chlorophyll pigments</strong> are in the thylakoids." },
+        { k: "gra", b: "Granum", d: "Thylakoids stacked like <strong>piles of coins</strong>: <strong>grana</strong> (intergranal thylakoids). Site of light reactions." },
+        { k: "sl", b: "Stroma lamellae", d: "<strong>Flat membranous tubules</strong> connecting thylakoids of different grana." },
+        { k: "lum", b: "Lumen", d: "The space enclosed by the <strong>thylakoid membrane</strong>." },
+        { k: "dna", b: "DNA", d: "Small, <strong>double-stranded circular DNA</strong> in the stroma." },
+        { k: "rib", b: "70S ribosomes", d: "Chloroplast ribosomes are <strong>70S</strong>, smaller than cytoplasmic 80S ribosomes." }
+      ], intro: ["Chloroplast (sectional view)", "Click a part. Most chloroplasts of green plants are in the mesophyll cells of leaves."],
+      read: { "dm-a": "5–10 µm long, 2–4 µm wide", "dm-b": "1 (Chlamydomonas) to 20–40 per mesophyll cell", "dm-c": "Photosynthesis" }
+    }
+  }, (svg, mode, G) => {
+    const R = 556;
+    if (mode === "mi") {
+      const out = G("out"); el("rect", { x: 40, y: 40, width: 480, height: 180, rx: 90, class: "f-card s-ink", "stroke-width": 2 }, out);
+      const ims = G("ims"); el("rect", { x: 44, y: 44, width: 472, height: 172, rx: 86, class: "f-paper" }, ims);
+      const mat = G("mat"); el("rect", { x: 54, y: 54, width: 452, height: 152, rx: 76, class: "f-sunsoft" }, mat);
+      const cri = G("cri");
+      for (let i = 0, x = 120; x < 460; x += 48, i++) {
+        const top = i % 2 === 0;
+        el("path", { d: top ? `M ${x - 7} 54 L ${x - 7} 118 Q ${x} 130 ${x + 7} 118 L ${x + 7} 54` : `M ${x - 7} 206 L ${x - 7} 142 Q ${x} 130 ${x + 7} 142 L ${x + 7} 206`, class: "f-paper s-sun", "stroke-width": 2 }, cri);
+      }
+      const inn = G("inn"); el("rect", { x: 54, y: 54, width: 452, height: 152, rx: 76, class: "f-none s-sun", "stroke-width": 2 }, inn);
+      const dna = G("dna"); el("circle", { cx: 150, cy: 130, r: 14, class: "f-none s-blue", "stroke-width": 1.8 }, dna);
+      const rib = G("rib"); [[220, 100], [236, 166], [330, 96], [370, 170], [420, 120], [100, 170], [270, 130]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 2.6, class: "f-ink" }, rib));
+      lab(out, 470, 50, 40, "Outer membrane", R); lab(ims, 500, 80, 72, "Intermembrane space", R);
+      lab(inn, 490, 100, 104, "Inner membrane", R); lab(cri, 415, 118, 136, "Crista", R);
+      lab(mat, 460, 160, 168, "Matrix", R); lab(dna, 164, 130, 200, "Circular DNA", R); lab(rib, 370, 170, 232, "70S ribosomes", R);
+    } else {
+      const out = G("out"); el("ellipse", { cx: 280, cy: 130, rx: 240, ry: 100, class: "f-card s-ink", "stroke-width": 2 }, out);
+      const inn = G("inn"); el("ellipse", { cx: 280, cy: 130, rx: 232, ry: 92, class: "f-none s-ink", "stroke-width": 1.4 }, inn);
+      const str = G("str"); el("ellipse", { cx: 280, cy: 130, rx: 230, ry: 90, class: "f-leafsoft" }, str);
+      const sl = G("sl"), gra = G("gra"), thy = G("thy"), lum = G("lum");
+      const gx = [130, 230, 330, 430];
+      for (let i = 0; i < gx.length - 1; i++) el("path", { d: `M ${gx[i] + 20} ${i % 2 ? 150 : 110} L ${gx[i + 1] - 20} ${i % 2 ? 110 : 150}`, class: "f-none s-leaf", "stroke-width": 4, "stroke-linecap": "round" }, sl);
+      gx.forEach((x, gi) => {
+        for (let k = 0; k < 7; k++) el("rect", { x: x - 22, y: 98 + k * 9, width: 44, height: 7, rx: 3.5, class: "f-leaf", "stroke-width": 0 }, gi === 1 && k === 0 ? thy : gra);
+        el("rect", { x: x - 24, y: 96, width: 48, height: 65, rx: 6, class: "f-none", style: "stroke: transparent" }, gra);
+      });
+      el("rect", { x: 210, y: 100, width: 40, height: 3, class: "f-card" }, lum);
+      const dna = G("dna"); el("circle", { cx: 180, cy: 190, r: 10, class: "f-none s-blue", "stroke-width": 1.8 }, dna);
+      const rib = G("rib"); [[90, 120], [280, 190], [380, 90], [470, 140], [180, 80], [290, 70]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 2.6, class: "f-ink" }, rib));
+      labs([[out, 480, 70, "Outer membrane"], [inn, 500, 120, "Inner membrane"], [thy, 250, 101, "Thylakoid"], [lum, 230, 102, "Thylakoid lumen"], [gra, 452, 130, "Granum"], [sl, 380, 130, "Stroma lamella"], [str, 470, 190, "Stroma"], [dna, 190, 190, "Circular DNA"], [rib, 280, 190, "70S ribosomes"]], R, 30, 250);
+    }
+  });
+  modeButtons([["dm-mi", "mi"], ["dm-ch", "ch"]], dm.set);
+
+  /* ---------- Fig 9 Ribosomes ---------- */
+  function drawRb(k) {
+    const s = $("#rbsvg"); s.innerHTML = "";
+    $("#rb-70").setAttribute("aria-pressed", String(k === 70)); $("#rb-80").setAttribute("aria-pressed", String(k === 80));
+    const big = k === 70 ? "50S" : "60S", small = k === 70 ? "30S" : "40S", sc = k === 70 ? 0.85 : 1;
+    el("ellipse", { cx: 170, cy: 82, rx: 80 * sc, ry: 46 * sc, class: "f-sunsoft s-sun", "stroke-width": 2 }, s);
+    el("ellipse", { cx: 170, cy: 146, rx: 62 * sc, ry: 26 * sc, class: "f-leafsoft s-leaf", "stroke-width": 2 }, s);
+    txt(s, 170, 87, big + " (larger)", { "text-anchor": "middle", "font-weight": 500, "font-size": 13 });
+    txt(s, 170, 151, small + " (smaller)", { "text-anchor": "middle", "font-weight": 500, "font-size": 12 });
+    txt(s, 330, 100, `${big} + ${small}  →  ${k}S`, { "font-size": 22, "font-weight": 500 });
+    txt(s, 330, 128, "S = Svedberg unit (sedimentation coefficient)", { "font-size": 11, class: "t-muted" });
+    $("#rb-s").textContent = big + " + " + small;
+    $("#rb-w").textContent = k === 70 ? "Prokaryotes; mitochondria; chloroplasts" : "Eukaryotic cytoplasm and RER";
+    $("#rb-t").innerHTML = k === 70 ? "<strong>70S</strong> ribosomes: prokaryotes (about 15 nm × 20 nm, associated with the plasma membrane), and inside <strong>mitochondria and chloroplasts</strong>." : "<strong>80S</strong> ribosomes: the eukaryotic cytoplasm, and on the rough ER and the outer nuclear membrane.";
+  }
+  $("#rb-70").addEventListener("click", () => drawRb(70)); $("#rb-80").addEventListener("click", () => drawRb(80));
+  drawRb(70);
+
+  /* ---------- Fig 10 Axoneme / centriole ---------- */
+  const ax = partsFigure("ax", {
+    ax: {
+      parts: [
+        { k: "pm", b: "Plasma membrane", d: "Cilia and flagella are <strong>covered with plasma membrane</strong>." },
+        { k: "doub", b: "Peripheral doublets", d: "<strong>Nine doublets</strong> of radially arranged peripheral microtubules." },
+        { k: "cent", b: "Central microtubules", d: "A <strong>pair of centrally located microtubules</strong>, connected by bridges." },
+        { k: "sh", b: "Central sheath", d: "Encloses the central tubules." },
+        { k: "sp", b: "Radial spokes", d: "<strong>Nine radial spokes</strong> connect the central sheath to <strong>one tubule of each peripheral doublet</strong>." },
+        { k: "lk", b: "Interdoublet linkers", d: "The peripheral doublets are <strong>interconnected by linkers</strong>." }
+      ], intro: ["Axoneme: the 9 + 2 array", "The core of a cilium or flagellum. Click a part."],
+      read: { "ax-r": "9 + 2 (9 doublets + central pair)" }
+    },
+    ce: {
+      parts: [
+        { k: "trip", b: "Peripheral triplets", d: "<strong>Nine evenly spaced peripheral fibrils</strong> of <strong>tubulin</strong>; each is a <strong>triplet</strong>." },
+        { k: "hub", b: "Hub", d: "The central part of the proximal region is <strong>proteinaceous</strong>: the <strong>hub</strong>." },
+        { k: "sp", b: "Radial spokes", d: "<strong>Radial spokes made of protein</strong> connect the hub with the peripheral triplets." },
+        { k: "lk", b: "Linkers", d: "<strong>Adjacent triplets are also linked</strong>." }
+      ], intro: ["Centriole: cartwheel organisation", "Each centrosome usually has two such centrioles at right angles. Click a part."],
+      read: { "ax-r": "9 triplets + central hub (cartwheel)" }
+    }
+  }, (svg, mode, G) => {
+    const cx = 190, cy = 150, R = 392;
+    const P = (r, a) => [cx + r * Math.cos(rad(a)), cy + r * Math.sin(rad(a))];
+    if (mode === "ax") {
+      const pm = G("pm"); el("circle", { cx, cy, r: 128, class: "f-paper s-ink", "stroke-width": 2 }, pm);
+      const lk = G("lk"), sp = G("sp"), doub = G("doub"), sh = G("sh"), cent = G("cent");
+      for (let i = 0; i < 9; i++) {
+        const a = -90 + i * 40, [x, y] = P(94, a), [xn, yn] = P(94, a + 40);
+        el("path", { d: `M ${x} ${y} Q ${(x + xn) / 2 + (cx - (x + xn) / 2) * -0.08} ${(y + yn) / 2 + (cy - (y + yn) / 2) * -0.08} ${xn} ${yn}`, class: "f-none s-muted", "stroke-width": 1.5, "stroke-dasharray": "3 2" }, lk);
+        const [ix, iy] = P(84, a); const [sx, sy] = P(36, a);
+        el("line", { x1: sx, y1: sy, x2: ix, y2: iy, class: "s-red", "stroke-width": 1.6 }, sp);
+        const t = a + 90, [ax1, ay1] = [x - 6 * Math.cos(rad(t)), y - 6 * Math.sin(rad(t))], [bx1, by1] = [x + 6 * Math.cos(rad(t)), y + 6 * Math.sin(rad(t))];
+        el("circle", { cx: ax1, cy: ay1, r: 9, class: "f-blue", opacity: 0.85 }, doub);
+        el("circle", { cx: bx1, cy: by1, r: 9, class: "f-card s-blue", "stroke-width": 2 }, doub);
+      }
+      el("circle", { cx, cy, r: 32, class: "f-none s-sun", "stroke-width": 3 }, sh);
+      [-12, 12].forEach(d => el("circle", { cx: cx + d, cy, r: 9, class: "f-leaf", opacity: 0.9 }, cent));
+      el("line", { x1: cx - 3, y1: cy, x2: cx + 3, y2: cy, class: "s-ink", "stroke-width": 3 }, cent);
+      lab(pm, cx + 120, cy - 44, 40, "Plasma membrane", R); lab(doub, ...P(98, -50), 80, "Peripheral doublet", R);
+      lab(lk, ...P(100, -30), 120, "Interdoublet linker", R); lab(sp, ...P(60, 30), 160, "Radial spoke", R);
+      lab(sh, cx + 32, cy + 6, 200, "Central sheath", R); lab(cent, cx + 14, cy, 240, "Central microtubules", R);
+    } else {
+      const lk = G("lk"), sp = G("sp"), trip = G("trip"), hub = G("hub");
+      for (let i = 0; i < 9; i++) {
+        const a = -90 + i * 40, t = a + 90 + 30, pts = [-12, 0, 12].map(d => { const [x, y] = P(96, a); return [x + d * Math.cos(rad(t)), y + d * Math.sin(rad(t))]; });
+        const [hx, hy] = P(24, a), [mx, my] = P(80, a);
+        el("line", { x1: hx, y1: hy, x2: mx, y2: my, class: "s-red", "stroke-width": 1.6 }, sp);
+        const nxt = (() => { const b = a + 40, tt = b + 120; const [x, y] = P(96, b); return [x - 12 * Math.cos(rad(tt)), y - 12 * Math.sin(rad(tt))]; })();
+        el("line", { x1: pts[2][0], y1: pts[2][1], x2: nxt[0], y2: nxt[1], class: "s-muted", "stroke-width": 1.5, "stroke-dasharray": "3 2" }, lk);
+        pts.forEach(([x, y], j) => el("circle", { cx: x, cy: y, r: 7.5, class: j === 1 ? "f-blue" : "f-card s-blue", "stroke-width": 2, opacity: j === 1 ? 0.85 : 1 }, trip));
+      }
+      el("circle", { cx, cy, r: 22, class: "f-sunsoft s-sun", "stroke-width": 2 }, hub);
+      lab(trip, ...P(104, -50), 60, "Peripheral triplet (tubulin)", R); lab(lk, ...P(104, -20), 110, "Linker", R);
+      lab(sp, ...P(52, 20), 170, "Radial spoke (protein)", R); lab(hub, cx + 20, cy + 8, 230, "Hub (proteinaceous)", R);
+    }
+  });
+  modeButtons([["ax-ax", "ax"], ["ax-ce", "ce"]], ax.set);
+
+  /* ---------- Fig 11 Chromosome ---------- */
+  const crP = $("#cr-p"); let crSat = false;
+  function drawCr() {
+    const p = +crP.value, s = $("#crsvg"); s.innerHTML = "";
+    const top = 24, len = 220, cy = top + len * p / 100, x0 = 200;
+    const type = p >= 45 ? "Metacentric" : p >= 25 ? "Sub-metacentric" : p >= 3 ? "Acrocentric" : "Telocentric";
+    [-1, 1].forEach(sd => {
+      const cx = x0 + sd * 15;
+      if (p > 0) el("rect", { x: cx - 11, y: top, width: 22, height: Math.max(cy - top - 6, 0), rx: 11, class: "f-leafsoft s-leaf", "stroke-width": 1.8 }, s);
+      el("rect", { x: cx - 11, y: cy + 6, width: 22, height: top + len - cy - 6, rx: 11, class: "f-leafsoft s-leaf", "stroke-width": 1.8 }, s);
+      el("ellipse", { cx: x0 + sd * 30, cy, rx: 5, ry: 8, class: "f-sun" }, s);
+    });
+    el("rect", { x: x0 - 10, y: cy - 6, width: 20, height: 12, rx: 6, class: "f-ink", opacity: 0.6 }, s);
+    if (crSat && p > 14) {
+      const sy = top + 14;
+      [-1, 1].forEach(sd => el("rect", { x: x0 + sd * 15 - 11, y: sy - 3, width: 22, height: 6, class: "f-card" }, s));
+      txt(s, x0 - 50, sy + 4, "satellite", { "text-anchor": "end", "font-size": 10, class: "t-leaf" });
+      el("line", { x1: x0 - 46, y1: sy, x2: x0 - 28, y2: sy - 4, class: "s-muted", "stroke-width": 0.9 }, s);
+    }
+    txt(s, 280, cy + 4, "centromere + kinetochores", { "font-size": 11, "font-weight": 500 });
+    el("line", { x1: 238, y1: cy, x2: 276, y2: cy, class: "s-muted", "stroke-width": 0.9 }, s);
+    const shortL = Math.min(p, 100 - p), longL = 100 - shortL;
+    if (p > 0) txt(s, 130, (top + cy) / 2 + 4, (p < 50 ? "short arm" : "arm"), { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(s, 130, (cy + top + len) / 2 + 4, (p < 50 ? "long arm" : "arm"), { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(s, 200, 262, "two chromatids", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    $("#cr-p-o").textContent = p + "%" + (p === 50 ? " (middle)" : p === 0 ? " (at the end)" : "");
+    $("#cr-type").textContent = type;
+    $("#cr-arms").textContent = p === 0 ? "One arm only" : p >= 45 ? "Two (nearly) equal arms" : `Short : long = ${shortL} : ${longL}`;
+    $("#cr-t").innerHTML = {
+      "Metacentric": "<strong>Metacentric</strong>: <strong>middle</strong> centromere, forming two <strong>equal arms</strong>.",
+      "Sub-metacentric": "<strong>Sub-metacentric</strong>: centromere <strong>slightly away from the middle</strong>, giving one shorter and one longer arm.",
+      "Acrocentric": "<strong>Acrocentric</strong>: centromere <strong>close to its end</strong>, forming one <strong>extremely short</strong> and one <strong>very long</strong> arm.",
+      "Telocentric": "<strong>Telocentric</strong>: <strong>terminal</strong> centromere."
+    }[type] + " The centromere (primary constriction) holds the two chromatids; disc-shaped <strong>kinetochores</strong> (amber) sit on its sides.";
+    $$("#cr-pre button[data-v]").forEach(b => b.setAttribute("aria-pressed", String(b.textContent === type)));
+  }
+  crP.addEventListener("input", drawCr);
+  $$("#cr-pre button[data-v]").forEach(b => b.addEventListener("click", () => { crP.value = b.dataset.v; drawCr(); }));
+  $("#cr-sat").addEventListener("click", () => { crSat = !crSat; $("#cr-sat").setAttribute("aria-pressed", String(crSat)); drawCr(); });
+  drawCr();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Which of the following is NOT correct?", o: ["Robert Brown discovered the cell", "Schleiden and Schwann formulated the cell theory", "Virchow explained that cells are formed from pre-existing cells", "A unicellular organism carries out its life activities within a single cell"], a: 0, e: "NCERT exercise 1: Robert Brown discovered the nucleus. Leeuwenhoek first saw and described a live cell." },
+    { q: "'Omnis cellula-e cellula' was given by:", o: ["Matthias Schleiden", "Theodore Schwann", "Rudolf Virchow", "Robert Brown"], a: 2, e: "Rudolf Virchow (1855) explained that new cells form from pre-existing cells, giving the cell theory its final shape." },
+    { q: "Which pair is correctly matched?", o: ["Cristae: flat membranous sacs in stroma", "Cisternae: infoldings in mitochondria", "Thylakoids: disc-shaped sacs in Golgi apparatus", "Cristae: infoldings in mitochondria"], a: 3, e: "NCERT exercise 3: cristae are mitochondrial infoldings, cisternae are Golgi sacs, thylakoids are flat sacs in the stroma." },
+    { q: "Which of these is NOT a function of the mesosome?", o: ["Cell wall formation", "DNA replication and distribution to daughter cells", "Formation of lysosomes", "Respiration and secretion"], a: 2, e: "Mesosomes help in cell wall formation, DNA replication and distribution, respiration, secretion, and increase surface area and enzymatic content. Prokaryotes have no lysosomes." },
+    { q: "The membrane of the human erythrocyte has approximately:", o: ["40% protein and 52% lipid", "52% protein and 40% lipid", "70% protein and 30% lipid", "Equal protein and lipid"], a: 1, e: "NCERT: about 52 per cent protein and 40 per cent lipids." },
+    { q: "The Na⁺/K⁺ pump is an example of:", o: ["Simple diffusion", "Osmosis", "Active transport", "Passive transport by a carrier"], a: 2, e: "It moves ions against their concentration gradient using ATP: active transport." },
+    { q: "Assertion (A): Mitochondria and peroxisomes are not considered part of the endomembrane system. Reason (R): Their functions are not coordinated with those of the ER, Golgi complex, lysosomes and vacuoles.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "NCERT gives exactly this reason for leaving mitochondria, chloroplasts and peroxisomes out of the endomembrane system." },
+    { q: "The Golgi apparatus is an important site of formation of:", o: ["Lipids and steroid hormones", "Glycoproteins and glycolipids", "rRNA", "ATP"], a: 1, e: "Proteins from the ER are modified in the Golgi cisternae; it is the important site of glycoprotein and glycolipid formation. Lipids are made in the SER." },
+    { q: "The ribosomes of chloroplasts and mitochondria are:", o: ["80S", "70S", "60S", "40S"], a: 1, e: "Both organelles have 70S ribosomes, smaller than the 80S cytoplasmic ribosomes." },
+    { q: "Which statement about the centriole is correct?", o: ["It has a 9 + 2 arrangement of microtubules", "It has nine peripheral triplets of tubulin and a central proteinaceous hub", "It is bounded by a double membrane", "It is found in almost all plant cells"], a: 1, e: "Centrioles have a cartwheel organisation: nine peripheral triplets and a central hub linked by radial spokes. The 9 + 2 array is the axoneme of cilia and flagella." },
+    { q: "A chromosome with its centromere close to one end, giving one extremely short and one very long arm, is:", o: ["Metacentric", "Sub-metacentric", "Acrocentric", "Telocentric"], a: 2, e: "Acrocentric: centromere close to the end. Telocentric has a terminal centromere." },
+    { q: "Which statement is NOT true?", o: ["The nucleolus is not membrane-bound", "Nuclear pores allow RNA and protein to move in both directions", "The inner chloroplast membrane is relatively less permeable", "Inclusion bodies in prokaryotes are bounded by a single membrane"], a: 3, e: "Prokaryotic inclusion bodies are not bound by any membrane; they lie free in the cytoplasm." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

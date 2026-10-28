@@ -1184,5 +1184,301 @@ window.CHAPTERS = {
     "e": "Systematics comes from the Latin systema, systematic arrangement; Linnaeus titled his publication Systema Naturae."
    }
   ]
+ },
+ "cellunit": {
+  "title": "Cell: The Unit of Life",
+  "file": "class-11/Cell The Unit of Life.html",
+  "lede": "Cell theory, prokaryotic and eukaryotic cells, and every organelle from the plasma membrane to the nucleus. Click through each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "What is a cell, and cell theory",
+   "Prokaryotic cells",
+   "Eukaryotic cells: plant vs animal",
+   "Cell membrane and cell wall",
+   "The endomembrane system",
+   "Mitochondria, plastids and ribosomes",
+   "Cytoskeleton, cilia, flagella and centrioles",
+   "Nucleus, chromosomes and microbodies"
+  ],
+  "questions": [
+   {
+    "q": "Which of the following is NOT correct?",
+    "o": [
+     "Robert Brown discovered the cell",
+     "Schleiden and Schwann formulated the cell theory",
+     "Virchow explained that cells are formed from pre-existing cells",
+     "A unicellular organism carries out its life activities within a single cell"
+    ],
+    "a": 0,
+    "e": "NCERT exercise 1: Robert Brown discovered the nucleus. Leeuwenhoek first saw and described a live cell."
+   },
+   {
+    "q": "'Omnis cellula-e cellula' was given by:",
+    "o": [
+     "Matthias Schleiden",
+     "Theodore Schwann",
+     "Rudolf Virchow",
+     "Robert Brown"
+    ],
+    "a": 2,
+    "e": "Rudolf Virchow (1855) explained that new cells form from pre-existing cells, giving the cell theory its final shape."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Cristae: flat membranous sacs in stroma",
+     "Cisternae: infoldings in mitochondria",
+     "Thylakoids: disc-shaped sacs in Golgi apparatus",
+     "Cristae: infoldings in mitochondria"
+    ],
+    "a": 3,
+    "e": "NCERT exercise 3: cristae are mitochondrial infoldings, cisternae are Golgi sacs, thylakoids are flat sacs in the stroma."
+   },
+   {
+    "q": "Which of these is NOT a function of the mesosome?",
+    "o": [
+     "Cell wall formation",
+     "DNA replication and distribution to daughter cells",
+     "Formation of lysosomes",
+     "Respiration and secretion"
+    ],
+    "a": 2,
+    "e": "Mesosomes help in cell wall formation, DNA replication and distribution, respiration, secretion, and increase surface area and enzymatic content. Prokaryotes have no lysosomes."
+   },
+   {
+    "q": "The membrane of the human erythrocyte has approximately:",
+    "o": [
+     "40% protein and 52% lipid",
+     "52% protein and 40% lipid",
+     "70% protein and 30% lipid",
+     "Equal protein and lipid"
+    ],
+    "a": 1,
+    "e": "NCERT: about 52 per cent protein and 40 per cent lipids."
+   },
+   {
+    "q": "The Na⁺/K⁺ pump is an example of:",
+    "o": [
+     "Simple diffusion",
+     "Osmosis",
+     "Active transport",
+     "Passive transport by a carrier"
+    ],
+    "a": 2,
+    "e": "It moves ions against their concentration gradient using ATP: active transport."
+   },
+   {
+    "q": "Assertion (A): Mitochondria and peroxisomes are not considered part of the endomembrane system. Reason (R): Their functions are not coordinated with those of the ER, Golgi complex, lysosomes and vacuoles.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT gives exactly this reason for leaving mitochondria, chloroplasts and peroxisomes out of the endomembrane system."
+   },
+   {
+    "q": "The Golgi apparatus is an important site of formation of:",
+    "o": [
+     "Lipids and steroid hormones",
+     "Glycoproteins and glycolipids",
+     "rRNA",
+     "ATP"
+    ],
+    "a": 1,
+    "e": "Proteins from the ER are modified in the Golgi cisternae; it is the important site of glycoprotein and glycolipid formation. Lipids are made in the SER."
+   },
+   {
+    "q": "The ribosomes of chloroplasts and mitochondria are:",
+    "o": [
+     "80S",
+     "70S",
+     "60S",
+     "40S"
+    ],
+    "a": 1,
+    "e": "Both organelles have 70S ribosomes, smaller than the 80S cytoplasmic ribosomes."
+   },
+   {
+    "q": "Which statement about the centriole is correct?",
+    "o": [
+     "It has a 9 + 2 arrangement of microtubules",
+     "It has nine peripheral triplets of tubulin and a central proteinaceous hub",
+     "It is bounded by a double membrane",
+     "It is found in almost all plant cells"
+    ],
+    "a": 1,
+    "e": "Centrioles have a cartwheel organisation: nine peripheral triplets and a central hub linked by radial spokes. The 9 + 2 array is the axoneme of cilia and flagella."
+   },
+   {
+    "q": "A chromosome with its centromere close to one end, giving one extremely short and one very long arm, is:",
+    "o": [
+     "Metacentric",
+     "Sub-metacentric",
+     "Acrocentric",
+     "Telocentric"
+    ],
+    "a": 2,
+    "e": "Acrocentric: centromere close to the end. Telocentric has a terminal centromere."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "The nucleolus is not membrane-bound",
+     "Nuclear pores allow RNA and protein to move in both directions",
+     "The inner chloroplast membrane is relatively less permeable",
+     "Inclusion bodies in prokaryotes are bounded by a single membrane"
+    ],
+    "a": 3,
+    "e": "Prokaryotic inclusion bodies are not bound by any membrane; they lie free in the cytoplasm."
+   }
+  ]
+ },
+ "cellcycle": {
+  "title": "Cell Cycle and Cell Division",
+  "file": "class-11/Cell Cycle and Cell Division.html",
+  "lede": "How one cell copies its DNA and splits in two, and how meiosis halves the chromosome number to make gametes. Step through each stage, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "The cell cycle",
+   "M phase: mitosis",
+   "Cytokinesis and the significance of mitosis",
+   "Meiosis and the long prophase I",
+   "Meiosis I and meiosis II",
+   "Comparing the divisions and tracking N and C"
+  ],
+  "questions": [
+   {
+    "q": "Human cells in culture divide approximately once every:",
+    "o": [
+     "90 minutes",
+     "1 hour",
+     "24 hours",
+     "12 hours"
+    ],
+    "a": 2,
+    "e": "NCERT: human cells in culture divide about once every 24 hours; yeast can complete the cycle in about 90 minutes."
+   },
+   {
+    "q": "In the 24-hour cell cycle of a human cell, the M phase lasts about:",
+    "o": [
+     "1 hour",
+     "6 hours",
+     "12 hours",
+     "More than 95% of the cycle"
+    ],
+    "a": 0,
+    "e": "Cell division proper lasts only about an hour; interphase takes more than 95% of the cycle."
+   },
+   {
+    "q": "Onion root tip cells have 16 chromosomes. The number of chromosomes at G1, after S phase and after M phase is:",
+    "o": [
+     "16, 32, 16",
+     "16, 16, 16",
+     "8, 16, 8",
+     "16, 32, 32"
+    ],
+    "a": 1,
+    "e": "S phase doubles the DNA, not the chromosome number. Mitosis keeps the number the same, so it stays 16 throughout."
+   },
+   {
+    "q": "If the DNA content after M phase is 2C, the DNA content at G1, after S and at G2 is:",
+    "o": [
+     "2C, 4C, 4C",
+     "2C, 2C, 4C",
+     "1C, 2C, 2C",
+     "4C, 4C, 2C"
+    ],
+    "a": 0,
+    "e": "G1 has 2C; S doubles it to 4C; it stays 4C through G2 until the cell divides."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Leptotene: synapsis",
+     "Zygotene: crossing over",
+     "Pachytene: dissolution of synaptonemal complex",
+     "Diakinesis: terminalisation of chiasmata"
+    ],
+    "a": 3,
+    "e": "Synapsis is in zygotene, crossing over in pachytene, dissolution of the synaptonemal complex in diplotene, terminalisation in diakinesis."
+   },
+   {
+    "q": "Assertion (A): Mitosis is called equational division. Reason (R): The number of chromosomes in the parent and progeny cells is the same.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT: since the number of chromosomes in the parent and progeny cells is the same, mitosis is called equational division."
+   },
+   {
+    "q": "Chromosome morphology is most easily studied at:",
+    "o": [
+     "Prophase",
+     "Metaphase",
+     "Anaphase",
+     "Telophase"
+    ],
+    "a": 1,
+    "e": "Condensation is complete at metaphase, so chromosomes are seen most clearly then."
+   },
+   {
+    "q": "The enzyme involved in crossing over is:",
+    "o": [
+     "Ligase",
+     "Recombinase",
+     "Helicase",
+     "Polymerase"
+    ],
+    "a": 1,
+    "e": "Crossing over is enzyme-mediated; NCERT names the enzyme recombinase."
+   },
+   {
+    "q": "In plant cells, cytokinesis takes place by:",
+    "o": [
+     "A furrow that deepens from the periphery to the centre",
+     "A cell plate that starts in the centre and grows outward",
+     "A cell plate that starts at the walls and grows inward",
+     "Pinching of the nuclear envelope"
+    ],
+    "a": 1,
+    "e": "The inextensible wall prevents a furrow; wall formation starts with the cell plate in the centre and grows outward to meet the lateral walls."
+   },
+   {
+    "q": "The liquid endosperm of coconut is an example of:",
+    "o": [
+     "Cytokinesis without karyokinesis",
+     "Karyokinesis without cytokinesis",
+     "Meiosis without DNA replication",
+     "Arrest in G0"
+    ],
+    "a": 1,
+    "e": "Karyokinesis not followed by cytokinesis gives a multinucleate syncytium, e.g. the liquid endosperm in coconut."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "Diplotene can last for months or years in oocytes of some vertebrates",
+     "There is no DNA replication during interkinesis",
+     "In anaphase I, centromeres split and sister chromatids separate",
+     "Meiosis II resembles a normal mitosis"
+    ],
+    "a": 2,
+    "e": "In anaphase I the homologous chromosomes separate while sister chromatids stay together at their centromeres. Centromeres split in anaphase II."
+   },
+   {
+    "q": "Cells in the quiescent stage (G0) are:",
+    "o": [
+     "Metabolically inactive and dead",
+     "Metabolically active but do not proliferate unless called on",
+     "Replicating DNA continuously",
+     "Always haploid"
+    ],
+    "a": 1,
+    "e": "G0 cells remain metabolically active but no longer proliferate unless called on to do so, depending on the requirement of the organism."
+   }
+  ]
  }
 };

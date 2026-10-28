@@ -3,6 +3,8 @@ window.REGISTRY = [
   { id: "livingworld",     cls: 11, ch: 1,  unit: "Diversity in the Living World" },
   { id: "plantkingdom",    cls: 11, ch: 3,  unit: "Diversity in the Living World" },
   { id: "anatomy",         cls: 11, ch: 6,  unit: "Structural Organisation in Plants" },
+  { id: "cellunit",        cls: 11, ch: 8,  unit: "Cell: Structure and Functions" },
+  { id: "cellcycle",       cls: 11, ch: 10, unit: "Cell: Structure and Functions" },
   { id: "photosynthesis", cls: 11, ch: 11, unit: "Plant Physiology" },
   { id: "respiration",    cls: 11, ch: 12, unit: "Plant Physiology" },
   { id: "growth",         cls: 11, ch: 13, unit: "Plant Physiology" },
