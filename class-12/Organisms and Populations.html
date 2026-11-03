@@ -1,0 +1,968 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Organisms and Populations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 11</span>
+      <h1>Organisms and Populations</h1>
+      <p class="lede">What a population has that an individual does not, how populations grow (J-shaped or S-shaped), and the six ways two species can affect each other, from predation and competition to the fig wasp and the deceitful orchid. Work through each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">5 topics</span>
+        <span class="pill">11 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Growth equations">
+      <span class="fig-label">Three equations</span>
+      <span class="eq">Nₜ₊₁ = Nₜ + [(B + I) − (D + E)]</span>
+      <span class="eq">Exponential: dN/dt = rN · Nₜ = N₀eʳᵗ</span>
+      <span class="eq">Logistic: dN/dt = rN (K − N)/K</span>
+      <span class="over">r = b − d, the intrinsic rate of natural increase; K = carrying capacity</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#attributes"><span class="n">1</span>Population attributes</a>
+      <a href="#growth"><span class="n">2</span>Population growth</a>
+      <a href="#history"><span class="n">3</span>Life history</a>
+      <a href="#interactions"><span class="n">4</span>Interactions</a>
+      <a href="#mutual"><span class="n">5</span>Parasitism to mutualism</a>
+      <a href="#quiz"><span class="n">6</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 ATTRIBUTES -->
+<section class="topic" id="attributes">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>Population attributes</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Ecology</strong> studies interactions among organisms and between organisms and their physical (abiotic) environment, at four levels: <strong>organisms, populations, communities and biomes</strong>. Questions can be "how-type" (the mechanism: how does the bulbul sing?) or "why-type" (the significance: why does it sing?).</p>
+      <p>A <strong>population</strong> is a group of individuals of a species in a well-defined geographical area that share or compete for similar resources and potentially interbreed (asexually produced groups also count). Examples: cormorants in a wetland, rats in an abandoned dwelling, teakwood trees in a forest tract, bacteria in a culture plate, lotus plants in a pond. <strong>Natural selection operates at the population level</strong>, so population ecology links ecology to population genetics and evolution.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Birth rate and death rate are per capita</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls" id="rt-pre" role="group" aria-label="Examples"></div>
+      <label class="ctl" for="rt-n">Population at the start <output id="rt-n-o"></output></label>
+      <input type="range" id="rt-n" min="5" max="100" step="1" value="20">
+      <label class="ctl" for="rt-b">Births in the period <output id="rt-b-o"></output></label>
+      <input type="range" id="rt-b" min="0" max="50" step="1" value="8">
+      <label class="ctl" for="rt-d">Deaths in the period <output id="rt-d-o"></output></label>
+      <input type="range" id="rt-d" min="0" max="50" step="1" value="0">
+      <div class="svg-scroll"><svg id="rtsvg" viewBox="0 0 680 150" role="img" aria-label="Icons for the starting population, births and deaths"></svg></div>
+      <div class="readout">
+        <div><b id="rt-br" style="font-size:1.05rem"></b><span>Birth rate</span></div>
+        <div><b id="rt-dr" style="font-size:1.05rem"></b><span>Death rate</span></div>
+        <div><b id="rt-nn" style="font-size:1.05rem"></b><span>Population now</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="rt-t"></div></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Age pyramids</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Pyramid">
+        <button class="btn" id="ap-g" aria-pressed="true">Expanding</button>
+        <button class="btn" id="ap-s" aria-pressed="false">Stable</button>
+        <button class="btn" id="ap-d" aria-pressed="false">Declining</button>
+      </div>
+      <div class="svg-scroll"><svg id="apsvg" viewBox="0 0 680 250" role="img" aria-label="Age pyramid with males on the left and females on the right for the chosen growth status"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ap-k"></div><div id="ap-t"></div></div>
+      <p class="fig-note">After NCERT Fig 11.1. Bar lengths are illustrative.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>How would you measure this population?</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="dn-k"></div><div id="dn-q" style="font-size:1.05rem;font-weight:500"></div></div>
+      <div class="controls" id="dn-opts" role="group" aria-label="Methods"></div>
+      <div class="step-box" aria-live="polite"><div id="dn-t">Choose a method.</div></div>
+      <div class="controls"><button class="btn primary" id="dn-next">Next case →</button></div>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span>Attributes a <strong>population</strong> has but an <strong>individual</strong> does not: <strong>birth rate, death rate, sex ratio, age distribution</strong> (and density). Population size is technically <strong>population density (N)</strong>, measured as numbers, <strong>per cent cover, biomass</strong>, or <strong>relative density</strong>, often <strong>indirectly</strong>.</div>
+  </div>
+</section>
+
+<!-- 2 GROWTH -->
+<section class="topic" id="growth">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Population growth</h2>
+    </div>
+    <div class="prose stack">
+      <p>Population density changes through four processes: <strong>natality (B)</strong> and <strong>immigration (I)</strong> add individuals; <strong>mortality (D)</strong> and <strong>emigration (E)</strong> remove them. Normally births and deaths matter most; immigration matters more when a <strong>new habitat is being colonised</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Nₜ₊₁ = Nₜ + [(B + I) − (D + E)]</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="two-col" style="gap:1rem">
+        <div><label class="ctl" for="ps-b">Natality B <output id="ps-b-o"></output></label><input type="range" id="ps-b" min="0" max="60" value="30"></div>
+        <div><label class="ctl" for="ps-i">Immigration I <output id="ps-i-o"></output></label><input type="range" id="ps-i" min="0" max="60" value="5"></div>
+        <div><label class="ctl" for="ps-d">Mortality D <output id="ps-d-o"></output></label><input type="range" id="ps-d" min="0" max="60" value="20"></div>
+        <div><label class="ctl" for="ps-e">Emigration E <output id="ps-e-o"></output></label><input type="range" id="ps-e" min="0" max="60" value="5"></div>
+      </div>
+      <div class="svg-scroll"><svg id="pssvg" viewBox="0 0 680 200" role="img" aria-label="A balance of additions against losses and the resulting population at the next time"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="ps-t"></div></div>
+      <p class="fig-note">Nₜ = 200 in this example.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>J-shaped vs S-shaped growth</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls" id="gr-pre" role="group" aria-label="r presets"></div>
+      <label class="ctl" for="gr-r">Intrinsic rate of natural increase, r <output id="gr-r-o"></output></label>
+      <input type="range" id="gr-r" min="0.005" max="0.3" step="0.005" value="0.12">
+      <label class="ctl" for="gr-k">Carrying capacity, K <output id="gr-k-o"></output></label>
+      <input type="range" id="gr-k" min="200" max="1000" step="10" value="600">
+      <div class="svg-scroll"><svg id="grsvg" viewBox="0 0 680 300" role="img" aria-label="Graph of population N against time for exponential (J-shaped) and logistic (S-shaped) growth"></svg></div>
+      <div class="readout">
+        <div><b id="gr-d" style="font-size:1.05rem"></b><span>Doubling time (exponential)</span></div>
+        <div><b id="gr-n" style="font-size:1.05rem"></b><span>N at t = 60, exponential</span></div>
+        <div><b id="gr-l" style="font-size:1.05rem"></b><span>N at t = 60, logistic</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="gr-t"></div></div>
+      <p class="fig-note">N₀ = 10; time in arbitrary units. Hover or tap the graph to read the phase of logistic growth.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The king, the minister and the chessboard</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <label class="ctl" for="cb-n">Squares filled <output id="cb-n-o"></output></label>
+      <input type="range" id="cb-n" min="1" max="64" step="1" value="10">
+      <div class="svg-scroll"><svg id="cbsvg" viewBox="0 0 680 260" role="img" aria-label="Chessboard with filled squares and counts of grains"></svg></div>
+      <div class="readout">
+        <div><b id="cb-s" style="font-size:1.05rem"></b><span>Grains on the last square</span></div>
+        <div><b id="cb-t2" style="font-size:1.05rem"></b><span>Total grains so far</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="cb-t"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Exponential (geometric)</strong>: unlimited resources, <strong>J-shaped</strong> curve, dN/dt = rN, Nₜ = N₀eʳᵗ (e = 2.71828). <strong>Logistic (Verhulst-Pearl)</strong>: limited resources, <strong>sigmoid</strong> curve with <strong>lag, acceleration, deceleration and asymptote</strong> at K. Logistic is considered <strong>more realistic</strong>. r values: <strong>Norway rat 0.015</strong>, <strong>flour beetle 0.12</strong>, <strong>India 1981: 0.0205</strong>.</div>
+      <div class="callout"><span class="tag">NEET trap</span><strong>Exercise 2</strong>: a population doubling in 3 years has r = ln 2 / 3 ≈ <strong>0.693 / 3 ≈ 0.231 per year</strong> (from 2N₀ = N₀e³ʳ). Darwin showed that even a slow-breeding <strong>elephant</strong> could reach enormous numbers without checks.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 LIFE HISTORY -->
+<section class="topic" id="history">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Life history variation</h2>
+    </div>
+    <div class="prose stack">
+      <p>Populations evolve to maximise <strong>reproductive (Darwinian) fitness</strong>, a <strong>high r value</strong>, in their habitat, moving towards the most efficient reproductive strategy under their particular selection pressures. Life history traits evolve in relation to the <strong>abiotic and biotic constraints</strong> of the habitat; this is an active area of research.</p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Strategy</th><th>Examples (NCERT)</th></tr></thead>
+        <tbody>
+          <tr><td>Breed <strong>only once</strong> in a lifetime</td><td>Pacific salmon fish, bamboo</td></tr>
+          <tr><td>Breed <strong>many times</strong></td><td>Most birds and mammals</td></tr>
+          <tr><td><strong>Many small</strong> offspring</td><td>Oysters, pelagic fishes</td></tr>
+          <tr><td><strong>Few large</strong> offspring</td><td>Birds, mammals</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 INTERACTIONS -->
+<section class="topic" id="interactions">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Population interactions: predation and competition</h2>
+    </div>
+    <div class="prose stack">
+      <p>No habitat holds just one species: even a plant needs soil microbes to recycle nutrients and animals to pollinate it. <strong>Interspecific interactions</strong> are scored + (beneficial), − (detrimental) or 0 (neutral) for each species. <strong>Predation, parasitism and commensalism</strong> share one feature: the species <strong>live closely together</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Name the interaction from its signs</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="two-col" style="gap:1rem">
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Effect on species A</p><div class="controls" id="ix-a" role="group" aria-label="Species A"></div></div>
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Effect on species B</p><div class="controls" id="ix-b" role="group" aria-label="Species B"></div></div>
+      </div>
+      <div class="svg-scroll"><svg id="ixsvg" viewBox="0 0 680 190" role="img" aria-label="Two species with arrows showing the chosen effects and the name of the interaction"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ix-k"></div><div id="ix-t"></div></div>
+      <p class="fig-note">Table 11.1. NCERT lists six interactions; the 0 / 0 combination is not among them.</p>
+    </div>
+
+    <div class="prose stack">
+      <p><strong>Predation</strong> transfers the energy fixed by plants to higher trophic levels (a sparrow eating seeds is as much a predator as a tiger; herbivores are not very different). Predators <strong>keep prey populations under control</strong>; without natural predators, introduced species become <strong>invasive</strong>: the <strong>prickly pear cactus</strong> in Australia (1920s) was controlled only by introducing a <strong>cactus-feeding moth</strong>. Biological pest control rests on this. Predators are <strong>'prudent'</strong>: overexploiting prey would lead to their own extinction.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Remove the starfish</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls"><button class="btn" id="ps2-rm" aria-pressed="false">Remove all Pisaster</button></div>
+      <label class="ctl" for="ps2-m">Months after the experiment began <output id="ps2-m-o"></output></label>
+      <input type="range" id="ps2-m" min="0" max="12" step="1" value="0">
+      <div class="svg-scroll"><svg id="ps2svg" viewBox="0 0 680 230" role="img" aria-label="Rocky intertidal plot with invertebrate species, with or without the predatory starfish Pisaster"></svg></div>
+      <div class="readout"><div><b id="ps2-n" style="font-size:1.05rem"></b><span>Invertebrate species present</span></div></div>
+      <div class="step-box" aria-live="polite"><div id="ps2-t"></div></div>
+      <p class="fig-note">NCERT: more than 10 invertebrate species became extinct within a year. The starting count of 15 species and the month-by-month order are illustrative.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Defence against predators</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>Camouflage (cryptic colouring)</td><td>Some insects and frogs</td></tr>
+          <tr><td>Being poisonous / distasteful</td><td><strong>Monarch butterfly</strong>: distasteful to birds from a chemical it gets as a caterpillar by eating a poisonous weed</td></tr>
+          <tr><td>Thorns (morphological)</td><td><em>Acacia</em>, cactus</td></tr>
+          <tr><td>Chemicals (plant)</td><td><strong><em>Calotropis</em></strong>: highly poisonous <strong>cardiac glycosides</strong>, so cattle and goats avoid it; also nicotine, caffeine, quinine, strychnine, opium</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted" style="margin-top:.6rem">Nearly <strong>25%</strong> of all insects are <strong>phytophagous</strong>, and plants cannot run away, hence their elaborate defences.</p>
+
+    <div class="prose stack" style="margin-top:1.6rem">
+      <p><strong>Competition</strong> is best defined as a process in which the fitness (<strong>r</strong>) of one species is significantly lower in the presence of another. It can occur between <strong>unrelated species</strong> (flamingoes and resident fishes compete for zooplankton in shallow South American lakes) and even when resources are <strong>not limiting</strong> (<strong>interference competition</strong>). Herbivores and plants seem more affected by competition than carnivores. The <strong>Abingdon tortoise</strong> of the Galapagos became extinct within a decade of goats being introduced.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Competitive release on a Scottish shore</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls"><button class="btn" id="br-rm" aria-pressed="false">Remove Balanus</button></div>
+      <div class="svg-scroll"><svg id="brsvg" viewBox="0 0 680 250" role="img" aria-label="Rocky shore zones with the two barnacle species, before or after the larger barnacle is removed"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="br-t"></div></div>
+      <p class="fig-note">After Connell's experiments as described by NCERT, which spells the smaller barnacle "Chathamalus". Zone heights are illustrative.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Resource partitioning in MacArthur's warblers</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="controls" id="wb-seg" role="group" aria-label="Warbler"></div>
+      <div class="svg-scroll"><svg id="wbsvg" viewBox="0 0 680 280" role="img" aria-label="A conifer tree divided into foraging zones used by five warbler species"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="wb-t"></div></div>
+      <p class="fig-note">NCERT says only that five closely related warblers on the same tree coexist through behavioural differences in foraging. The zones drawn are illustrative.</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span><strong>Gause's Competitive Exclusion Principle</strong>: two closely related species competing for the same resources cannot coexist indefinitely; the inferior one is eliminated. This may hold if resources are <strong>limiting</strong>, but not otherwise. Species may instead evolve <strong>coexistence</strong> mechanisms such as <strong>resource partitioning</strong> (different feeding times or foraging patterns).</div>
+  </div>
+</section>
+
+<!-- 5 PARASITISM / COMMENSALISM / MUTUALISM -->
+<section class="topic" id="mutual">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Parasitism, commensalism and mutualism</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Parasitism</strong> (free lodging and meals) has evolved in groups from plants to higher vertebrates. Many parasites are <strong>host-specific</strong>, so host and parasite <strong>co-evolve</strong>. Adaptations: <strong>loss of unnecessary sense organs</strong>, <strong>adhesive organs or suckers</strong>, <strong>loss of digestive system</strong>, <strong>high reproductive capacity</strong>. Life cycles are often complex: the <strong>human liver fluke</strong> needs two intermediate hosts (a <strong>snail and a fish</strong>); the <strong>malarial parasite</strong> needs a vector (<strong>mosquito</strong>). Most parasites harm the host, reducing its survival, growth, reproduction and population density.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Type</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Ectoparasites</strong> (on the surface)</td><td>Lice on humans, ticks on dogs, copepods on marine fish; <strong><em>Cuscuta</em></strong> on hedge plants (has lost chlorophyll and leaves)</td></tr>
+          <tr><td><strong>Endoparasites</strong> (inside: liver, kidney, lungs, RBCs)</td><td>More complex life cycles; simplified morphology and anatomy; high reproductive potential</td></tr>
+          <tr><td><strong>Brood parasitism</strong></td><td><strong>Cuckoo (koel)</strong> lays eggs in the <strong>crow's</strong> nest; its eggs mimic the host's in size and colour</td></tr>
+          <tr><td><strong>Commensalism</strong> (+ / 0)</td><td>Orchid epiphyte on a mango branch; barnacles on a whale; <strong>cattle egret and grazing cattle</strong>; <strong>clown fish</strong> among stinging <strong>sea anemone</strong> tentacles</td></tr>
+          <tr><td><strong>Mutualism</strong> (+ / +)</td><td><strong>Lichens</strong> (fungus + alga or cyanobacterium); <strong>mycorrhizae</strong> (fungus helps absorb nutrients, plant gives carbohydrates); <strong>fig and wasp</strong>; orchids and bees</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Ophrys: sexual deceit and co-evolution</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <label class="ctl" for="op-b">Change in the female bee's colour pattern over generations <output id="op-b-o"></output></label>
+      <input type="range" id="op-b" min="0" max="100" step="1" value="0">
+      <div class="controls"><button class="btn" id="op-co">Let the orchid co-evolve</button></div>
+      <div class="svg-scroll"><svg id="opsvg" viewBox="0 0 680 240" role="img" aria-label="Female bee next to the Ophrys petal that mimics it, with a bar for pollination success"></svg></div>
+      <div class="readout">
+        <div><b id="op-r" style="font-size:1.05rem"></b><span>Petal resemblance</span></div>
+        <div><b id="op-p" style="font-size:1.05rem"></b><span>Pollination success</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="op-t"></div></div>
+      <p class="fig-note">How success falls with mismatch is illustrative; NCERT states only the direction of the effect.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Fig and wasp</strong>: a tight <strong>one-to-one</strong> relationship. A fig species is pollinated only by its partner wasp. The female wasp pollinates the inflorescence while searching for egg-laying sites, lays eggs in the fruit, and her larvae eat some developing seeds: the fig's "fee". Mutualisms must guard against <strong>cheaters</strong> (nectar thieves), which drives <strong>co-evolution</strong>.</div>
+      <div class="callout"><span class="tag">NEET trap</span>The <strong>female mosquito</strong> is <strong>not</strong> considered a parasite, though it needs our blood for reproduction: it does not live on or in us. An orchid on a mango branch is <strong>commensalism</strong> (exercise 4). Biological control rests on <strong>predation</strong> regulating prey (exercise 5).</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>8/20 = 0.4 · 4/40 = 0.1</b><span>Lotus birth rate · fruit fly death rate</span></div>
+      <div><b>B + I − D − E</b><span>Change in population density</span></div>
+      <div><b>0.015 · 0.12 · 0.0205</b><span>r of Norway rat · flour beetle · India (1981)</span></div>
+      <div><b>J · S</b><span>Exponential · logistic (Verhulst-Pearl) growth</span></div>
+      <div><b>+/+ · −/− · +/− · +/0 · −/0</b><span>Mutualism · competition · predation, parasitism · commensalism · amensalism</span></div>
+      <div><b>Pisaster · prickly pear moth</b><span>Predator keeping diversity · biocontrol of invasive cactus</span></div>
+      <div><b>Balanus · Chthamalus</b><span>Connell: competitive release</span></div>
+      <div><b>Gause · MacArthur</b><span>Competitive exclusion · warbler resource partitioning</span></div>
+      <div><b>Ophrys · fig wasp</b><span>Sexual deceit (pseudocopulation) · one-to-one mutualism</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Organisms and Populations". Lecture 16 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const press = (ids, on) => ids.forEach(id => $("#" + id).setAttribute("aria-pressed", String(id === on)));
+  const modes = (pairs, cb) => { const ids = pairs.map(p => p[0]); pairs.forEach(([id, m]) => $("#" + id).addEventListener("click", () => { press(ids, id); cb(m); })); };
+  const btnRow = (box, items, onClick, cur) => { box.innerHTML = ""; items.forEach((it, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = it; b.setAttribute("aria-pressed", String(i === cur)); b.addEventListener("click", () => onClick(i)); box.appendChild(b); }); };
+  let seed = 3; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Fig 1 Rates ---------- */
+  const rtN = $("#rt-n"), rtB = $("#rt-b"), rtD = $("#rt-d");
+  const PRE = [["Lotus in a pond (NCERT)", 20, 8, 0, "year", "lotus"], ["Fruit flies in a lab (NCERT)", 40, 0, 4, "week", "fruit fly"]];
+  let rtU = PRE[0];
+  btnRow($("#rt-pre"), PRE.map(p => p[0]), i => { rtU = PRE[i]; rtN.value = PRE[i][1]; rtB.value = PRE[i][2]; rtD.value = PRE[i][3]; drawRt(); }, 0);
+  function drawRt() {
+    const N = +rtN.value, B = +rtB.value, D = Math.min(+rtD.value, N), s = $("#rtsvg"); s.innerHTML = "";
+    $$("#rt-pre button").forEach(b => b.setAttribute("aria-pressed", "false"));
+    PRE.forEach((p, i) => { if (N === p[1] && B === p[2] && D === p[3]) $$("#rt-pre button")[i].setAttribute("aria-pressed", "true"); });
+    const per = 25, dot = (i, cls) => { const x = 20 + (i % per) * 13, y = 20 + Math.floor(i / per) * 13; el("circle", { cx: x, cy: y, r: 5, class: cls }, s); };
+    for (let i = 0; i < N; i++) dot(i, i < D ? "f-red" : "f-leaf");
+    const off = Math.ceil(N / per) * 13 + 16;
+    for (let i = 0; i < B; i++) { const x = 20 + (i % per) * 13, y = 20 + off + Math.floor(i / per) * 13; el("circle", { cx: x, cy: y, r: 5, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, s); }
+    txt(s, 360, 30, "green: starting individuals", { "font-size": 10, class: "t-leaf" }); txt(s, 360, 46, "red: died", { "font-size": 10, class: "t-red" }); txt(s, 360, 62, "amber ring: newborn", { "font-size": 10, class: "t-sun" });
+    const u = rtU[4];
+    $("#rt-n-o").textContent = N; $("#rt-b-o").textContent = B; $("#rt-d-o").textContent = D;
+    $("#rt-br").textContent = (B / N).toFixed(2) + ` per individual per ${u}`; $("#rt-dr").textContent = (D / N).toFixed(2) + ` per individual per ${u}`; $("#rt-nn").textContent = N + B - D;
+    $("#rt-t").innerHTML = `Birth rate = births ÷ starting population = ${B}/${N} = <strong>${(B / N).toFixed(2)}</strong>; death rate = ${D}/${N} = <strong>${(D / N).toFixed(2)}</strong>. An individual has a birth or a death; only a <strong>population</strong> has <strong>per capita rates</strong>.`;
+  }
+  [rtN, rtB, rtD].forEach(x => x.addEventListener("input", drawRt));
+  drawRt();
+
+  /* ---------- Fig 2 Age pyramid ---------- */
+  const AP = { g: [100, 86, 72, 60, 48, 36, 24, 12], s: [62, 62, 61, 60, 58, 52, 40, 22], d: [36, 46, 56, 62, 62, 58, 46, 26] };
+  function drawAp(k) {
+    const s = $("#apsvg"); s.innerHTML = ""; const cx = 340, base = 220, h = 24, sc = 2.2;
+    AP[k].forEach((w, i) => { const y = base - (i + 1) * h, cls = i < 2 ? "f-leaf" : i < 5 ? "f-sun" : "f-blue"; el("rect", { x: cx - 4 - w * sc, y, width: w * sc, height: h - 3, rx: 3, class: cls, opacity: 0.75 }, s); el("rect", { x: cx + 4, y, width: w * sc * (i > 5 ? 1.1 : 1), height: h - 3, rx: 3, class: cls, opacity: 0.55 }, s); });
+    txt(s, cx - 120, 236, "Males", { "text-anchor": "middle", "font-weight": 500 }); txt(s, cx + 120, 236, "Females", { "text-anchor": "middle", "font-weight": 500 });
+    [["pre-reproductive", "t-leaf", 186], ["reproductive", "t-sun", 120], ["post-reproductive", "t-blue", 44]].forEach(([n, c, y]) => txt(s, 20, y, n, { "font-size": 10, class: c }));
+    txt(s, 340, 16, "age increases upward", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    const D = { g: ["Expanding (growing)", "A <strong>broad base</strong>: many young, pre-reproductive individuals who will soon reproduce. The population is <strong>growing</strong>."], s: ["Stable", "Pre-reproductive and reproductive groups are about <strong>equal</strong>, giving a bell shape: the population is <strong>stable</strong>."], d: ["Declining", "A <strong>narrow base</strong>: fewer young than reproductive adults, an urn shape. The population is <strong>declining</strong>."] }[k];
+    $("#ap-k").textContent = D[0]; $("#ap-t").innerHTML = D[1] + " Human pyramids usually show males and females separately.";
+  }
+  modes([["ap-g", "g"], ["ap-s", "s"], ["ap-d", "d"]], drawAp);
+  drawAp("g");
+
+  /* ---------- Fig 3 Density drill ---------- */
+  const MET = ["Count every individual", "Per cent cover or biomass", "Relative density (catch per trap)", "Indirect signs (pug marks, faecal pellets)"];
+  const DN = [
+    ["Siberian cranes at Bharatpur wetlands, fewer than 10 in a year", 0, "With so few birds, the <strong>total number</strong> is easy to count and most appropriate."],
+    ["One huge banyan tree and 200 carrot grass (Parthenium) plants in the same area", 1, "Counting would make the banyan look unimportant. <strong>Per cent cover or biomass</strong> shows its enormous role in the community."],
+    ["Fish in a large lake", 2, "No need for absolute numbers: <strong>fish caught per trap</strong> is a good enough measure of relative density."],
+    ["Tigers in a tiger reserve", 3, "Tigers are rarely seen. The tiger census is often based on <strong>pug marks and faecal pellets</strong>, an indirect estimate."],
+    ["A dense laboratory culture of bacteria in a petri dish", 1, "Millions of cells cannot be counted. A mass-based measure such as <strong>biomass</strong> (or how much of the plate the growth covers) is practical. NCERT leaves this as a question to think about."],
+    ["Lotus plants in a small pond", 0, "Few, large and easy to see: <strong>count</strong> them, as in NCERT's birth-rate example."]
+  ];
+  let dnI = 0, dnA = false;
+  function dnShow() {
+    dnA = false; const [q, a, e] = DN[dnI];
+    $("#dn-k").textContent = `Case ${dnI + 1} of ${DN.length}`; $("#dn-q").textContent = q;
+    btnRow($("#dn-opts"), MET, j => { if (dnA) return; dnA = true; $$("#dn-opts button").forEach((b, k) => { b.disabled = true; b.setAttribute("aria-pressed", String(k === a)); }); $("#dn-t").innerHTML = (j === a ? "<b class='ok'>Correct.</b> " : "<b class='no'>Not quite.</b> ") + e; }, -1);
+    $("#dn-t").textContent = "Choose a method.";
+  }
+  $("#dn-next").addEventListener("click", () => { dnI = (dnI + 1) % DN.length; dnShow(); });
+  dnShow();
+
+  /* ---------- Fig 4 Population balance ---------- */
+  const PS = ["b", "i", "d", "e"].map(k => $("#ps-" + k));
+  function drawPs() {
+    const [B, I, D, E] = PS.map(x => +x.value), Nt = 200, Nn = Nt + (B + I) - (D + E), s = $("#pssvg"); s.innerHTML = "";
+    PS.forEach((x, i) => $("#ps-" + "bide"[i] + "-o").textContent = x.value);
+    const sc = 2.4, add = B + I, los = D + E;
+    txt(s, 60, 24, "Additions", { "font-weight": 500, class: "t-leaf" }); txt(s, 380, 24, "Losses", { "font-weight": 500, class: "t-red" });
+    el("rect", { x: 60, y: 36, width: B * sc, height: 26, class: "f-leaf", opacity: 0.8 }, s); el("rect", { x: 60 + B * sc, y: 36, width: I * sc, height: 26, class: "f-leaf", opacity: 0.4 }, s);
+    txt(s, 64, 54, `B ${B}`, { "font-size": 10, style: "fill: var(--paper)" }); if (I) txt(s, 64 + B * sc, 80, `I ${I}`, { "font-size": 10, class: "t-leaf" });
+    el("rect", { x: 380, y: 36, width: D * sc, height: 26, class: "f-red", opacity: 0.8 }, s); el("rect", { x: 380 + D * sc, y: 36, width: E * sc, height: 26, class: "f-red", opacity: 0.4 }, s);
+    txt(s, 384, 54, `D ${D}`, { "font-size": 10, style: "fill: var(--paper)" }); if (E) txt(s, 384 + D * sc, 80, `E ${E}`, { "font-size": 10, class: "t-red" });
+    const tilt = Math.max(-12, Math.min(12, (los - add) / 4));
+    const g = el("g", { transform: `rotate(${tilt} 340 140)` }, s);
+    el("line", { x1: 140, y1: 140, x2: 540, y2: 140, class: "s-ink", "stroke-width": 4 }, g);
+    el("rect", { x: 120, y: 112, width: 60, height: 26, rx: 4, class: "f-leaf", opacity: 0.7 }, g); txt(g, 150, 130, "B + I", { "text-anchor": "middle", "font-size": 10, style: "fill: var(--paper)" });
+    el("rect", { x: 500, y: 112, width: 60, height: 26, rx: 4, class: "f-red", opacity: 0.7 }, g); txt(g, 530, 130, "D + E", { "text-anchor": "middle", "font-size": 10, style: "fill: var(--paper)" });
+    el("polygon", { points: "340,142 326,176 354,176", class: "f-ink" }, s);
+    txt(s, 340, 196, `Nₜ₊₁ = 200 + (${B} + ${I}) − (${D} + ${E}) = ${Nn}`, { "text-anchor": "middle", "font-weight": 500, "font-size": 13 });
+    $("#ps-t").innerHTML = Nn > Nt ? `(B + I) exceeds (D + E): the population <strong>increases</strong> by ${Nn - Nt}.` : Nn < Nt ? `(D + E) exceeds (B + I): the population <strong>decreases</strong> by ${Nt - Nn}.` : "Additions equal losses: the population is <strong>unchanged</strong>.";
+  }
+  PS.forEach(x => x.addEventListener("input", drawPs));
+  drawPs();
+
+  /* ---------- Fig 5 Growth ---------- */
+  const grR = $("#gr-r"), grK = $("#gr-k"), gr = $("#grsvg"); let grHover = null;
+  const GP = [["Norway rat 0.015", 0.015], ["India 1981: 0.0205", 0.0205], ["Flour beetle 0.12", 0.12], ["Doubles in 3 years: 0.23", 0.23]];
+  btnRow($("#gr-pre"), GP.map(p => p[0]), i => { grR.value = GP[i][1]; drawGr(); }, 2);
+  const L0 = 60, R0 = 640, T0 = 20, B0 = 260, TM = 60, NM = 1100, X = t => L0 + t / TM * (R0 - L0), Y = n => B0 - Math.min(n, NM) / NM * (B0 - T0);
+  function drawGr() {
+    const r = +grR.value, K = +grK.value, N0 = 10; gr.innerHTML = "";
+    $$("#gr-pre button").forEach((b, i) => b.setAttribute("aria-pressed", String(Math.abs(r - GP[i][1]) < 0.003)));
+    el("line", { x1: L0, y1: B0, x2: R0, y2: B0, class: "s-ink", "stroke-width": 1.2 }, gr); el("line", { x1: L0, y1: T0, x2: L0, y2: B0, class: "s-ink", "stroke-width": 1.2 }, gr);
+    txt(gr, R0, B0 + 20, "time (t)", { "text-anchor": "end", "font-size": 10, class: "t-muted" }); txt(gr, 14, T0 + 6, "N", { "font-weight": 500 });
+    el("line", { x1: L0, y1: Y(K), x2: R0, y2: Y(K), class: "s-sun", "stroke-width": 1.2, "stroke-dasharray": "6 4" }, gr); txt(gr, R0 - 4, Y(K) - 6, `K = ${K}`, { "text-anchor": "end", "font-size": 10, class: "t-sun" });
+    let pe = "", pl = "", off = null;
+    for (let t = 0; t <= TM; t += 0.5) { const ne = N0 * Math.exp(r * t), nl = K / (1 + ((K - N0) / N0) * Math.exp(-r * t)); if (ne <= NM) pe += `${X(t)},${Y(ne)} `; else if (off === null) off = t; pl += `${X(t)},${Y(nl)} `; }
+    el("polyline", { points: pe, class: "f-none s-red", "stroke-width": 2.6 }, gr); el("polyline", { points: pl, class: "f-none s-leaf", "stroke-width": 2.6 }, gr);
+    txt(gr, 70, 40, "a: exponential (J-shaped)", { "font-size": 11, class: "t-red", "font-weight": 500 }); txt(gr, 70, 58, "b: logistic (S-shaped)", { "font-size": 11, class: "t-leaf", "font-weight": 500 });
+    if (off !== null) txt(gr, X(off), T0 + 12, "↑ off the chart", { "font-size": 10, class: "t-red" });
+    if (grHover !== null) { const t = grHover, nl = K / (1 + ((K - N0) / N0) * Math.exp(-r * t)), f = nl / K, ph = f < 0.1 ? "lag phase" : f < 0.5 ? "acceleration" : f < 0.95 ? "deceleration" : "asymptote (N ≈ K)"; el("line", { x1: X(t), y1: T0, x2: X(t), y2: B0, class: "s-muted", "stroke-dasharray": "3 3" }, gr); el("circle", { cx: X(t), cy: Y(nl), r: 5, class: "f-leaf" }, gr); txt(gr, X(t) + (t > 40 ? -8 : 8), Y(nl) - 10, `${ph}, N ≈ ${Math.round(nl)}`, { "font-size": 10, "font-weight": 500, "text-anchor": t > 40 ? "end" : "start" }); }
+    const ne60 = N0 * Math.exp(r * 60), nl60 = K / (1 + ((K - N0) / N0) * Math.exp(-r * 60));
+    $("#gr-r-o").textContent = r.toFixed(r < 0.1 ? 4 : 3); $("#gr-k-o").textContent = K;
+    $("#gr-d").textContent = (Math.LN2 / r).toFixed(1) + " time units"; $("#gr-n").textContent = ne60 > 1e6 ? ne60.toExponential(2) : Math.round(ne60).toLocaleString(); $("#gr-l").textContent = Math.round(nl60);
+    $("#gr-t").innerHTML = `With unlimited resources N grows as <strong>N₀eʳᵗ</strong> without limit. With limited resources growth slows as N nears <strong>K</strong>: dN/dt = rN(K − N)/K. ${Math.abs(r - 0.23) < 0.003 ? "<strong>Exercise 2</strong>: doubling in 3 years gives r = ln 2 / 3 ≈ <strong>0.231</strong>." : ""} Doubling time = ln 2 / r.`;
+  }
+  const grPick = e => { const b = gr.getBoundingClientRect(), x = (e.clientX - b.left) / b.width * 680; grHover = Math.max(0, Math.min(TM, (x - L0) / (R0 - L0) * TM)); drawGr(); };
+  gr.addEventListener("pointermove", grPick); gr.addEventListener("pointerdown", grPick);
+  [grR, grK].forEach(x => x.addEventListener("input", drawGr));
+  drawGr();
+
+  /* ---------- Fig 6 Chessboard ---------- */
+  const cbN = $("#cb-n");
+  const fmt = b => b.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  function drawCb() {
+    const n = +cbN.value, s = $("#cbsvg"); s.innerHTML = ""; const sz = 28, x0 = 20, y0 = 14;
+    for (let i = 0; i < 64; i++) { const r = Math.floor(i / 8), c = r % 2 ? 7 - i % 8 : i % 8, x = x0 + c * sz, y = y0 + (7 - r) * sz; el("rect", { x, y, width: sz, height: sz, class: (r + c) % 2 ? "f-paper s-line" : "f-card s-line" }, s); if (i < n) { const f = Math.min(1, 0.15 + i / 64); el("rect", { x: x + 3, y: y + 3, width: sz - 6, height: sz - 6, rx: 3, class: "f-sun", opacity: f }, s); } }
+    const last = 1n << BigInt(n - 1), tot = (1n << BigInt(n)) - 1n;
+    txt(s, 270, 40, `Square ${n}: 2^${n - 1} grains`, { "font-weight": 500, "font-size": 13 });
+    txt(s, 270, 64, fmt(last), { "font-size": 12 });
+    txt(s, 270, 100, `Total on ${n} square${n > 1 ? "s" : ""}: 2^${n} − 1`, { "font-weight": 500, "font-size": 13 });
+    txt(s, 270, 124, fmt(tot), { "font-size": n > 50 ? 10 : 12 });
+    txt(s, 270, 170, `A Paramecium doubling daily for ${n} days:`, { "font-size": 11, class: "t-muted" });
+    txt(s, 270, 188, `${fmt(1n << BigInt(n))} cells (if food and space never ran out)`, { "font-size": n > 50 ? 9 : 11, class: "t-muted" });
+    $("#cb-n-o").textContent = n; $("#cb-s").textContent = fmt(last); $("#cb-t2").textContent = fmt(tot);
+    $("#cb-t").innerHTML = n >= 32 ? "By about <strong>half the board</strong> the king realised that all the wheat in his kingdom would not cover the 64 squares: the power of <strong>exponential growth</strong>." : "Doubling at every square looks harmless at first. Keep going.";
+  }
+  cbN.addEventListener("input", drawCb);
+  drawCb();
+
+  /* ---------- Fig 7 Interactions ---------- */
+  const SG = ["+", "−", "0"]; let ixA = 0, ixB = 1;
+  const IX = { "++": ["Mutualism", "Both benefit: lichens, mycorrhizae, fig and wasp, orchid and bee."], "−−": ["Competition", "Both lose: flamingoes and fishes competing for zooplankton; Balanus and Chthamalus; goats and the Abingdon tortoise."], "+−": ["Predation or parasitism", "One benefits (predator, parasite), the other is harmed (prey, host): tiger and deer, sparrow and seed; lice, ticks, Cuscuta, liver fluke."], "+0": ["Commensalism", "One benefits, the other is unaffected: orchid on a mango branch, barnacles on a whale, cattle egret and cattle, clown fish and sea anemone."], "−0": ["Amensalism", "One is harmed, the other is unaffected."], "00": ["Not in Table 11.1", "Neither species is affected. NCERT's table of six interactions does not include this combination."] };
+  function drawIx() {
+    btnRow($("#ix-a"), SG, i => { ixA = i; drawIx(); }, ixA); btnRow($("#ix-b"), SG, i => { ixB = i; drawIx(); }, ixB);
+    const a = SG[ixA], b = SG[ixB], key = [a, b].sort((p, q) => SG.indexOf(p) - SG.indexOf(q)).join(""), D = IX[key], s = $("#ixsvg"); s.innerHTML = ""; marker(s, "mi", "--muted");
+    const cls = x => x === "+" ? "f-leafsoft s-leaf" : x === "−" ? "f-red s-red" : "f-paper s-line";
+    [[150, a, "Species A"], [530, b, "Species B"]].forEach(([x, sg, n]) => { el("circle", { cx: x, cy: 80, r: 50, class: cls(sg), "stroke-width": 2, opacity: sg === "−" ? 0.35 : 1 }, s); txt(s, x, 74, sg, { "text-anchor": "middle", "font-size": 30, "font-weight": 500 }); txt(s, x, 102, n, { "text-anchor": "middle", "font-size": 11 }); });
+    el("line", { x1: 206, y1: 70, x2: 470, y2: 70, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#mi)" }, s); el("line", { x1: 474, y1: 92, x2: 210, y2: 92, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#mi)" }, s);
+    txt(s, 340, 150, D[0], { "text-anchor": "middle", "font-size": 18, "font-weight": 500 });
+    $("#ix-k").textContent = `${a} / ${b}`; $("#ix-t").innerHTML = D[1];
+  }
+  drawIx();
+
+  /* ---------- Fig 8 Pisaster ---------- */
+  let psRm = false; const psM = $("#ps2-m");
+  function drawPs2() {
+    const m = +psM.value, s = $("#ps2svg"); s.innerHTML = "";
+    el("rect", { x: 0, y: 0, width: 680, height: 230, class: "f-blue", opacity: 0.08 }, s);
+    el("path", { d: "M 0 200 Q 120 150 240 180 T 480 170 T 680 190 L 680 230 L 0 230 Z", class: "f-sunsoft s-sun", opacity: 0.7 }, s);
+    const lost = psRm ? Math.min(15, Math.round(11 * m / 12)) : 0, alive = 15 - lost;
+    seed = 4; const shapes = ["circle", "rect", "ellipse"];
+    for (let i = 0; i < 15; i++) { const x = 40 + (i % 8) * 80 + rnd() * 20, y = 40 + Math.floor(i / 8) * 70 + rnd() * 20, gone = i >= alive && i > 0; const g = el("g", { opacity: gone ? 0.15 : 1 }, s); const c = ["f-leaf", "f-sun", "f-red", "f-blue"][i % 4]; if (i % 3 === 0) el("circle", { cx: x, cy: y, r: 12, class: c }, g); else if (i % 3 === 1) el("rect", { x: x - 12, y: y - 9, width: 24, height: 18, rx: 4, class: c }, g); else el("polygon", { points: `${x},${y - 13} ${x + 12},${y + 9} ${x - 12},${y + 9}`, class: c }, g); if (gone) el("line", { x1: x - 14, y1: y - 14, x2: x + 14, y2: y + 14, class: "s-ink", "stroke-width": 1.6 }, g); }
+    if (psRm && m > 0) { for (let i = 0; i < Math.round(m * 2.5); i++) el("circle", { cx: 30 + (i * 23) % 620, cy: 160 + (i % 3) * 10, r: 6, class: "f-leaf", opacity: 0.55 }, s); txt(s, 340, 222, "the winning competitor spreads", { "text-anchor": "middle", "font-size": 10 }); }
+    if (!psRm) { const star = (x, y) => { let d = ""; for (let k = 0; k < 10; k++) { const r = k % 2 ? 7 : 18, a = (k * 36 - 90) * Math.PI / 180; d += (k ? "L" : "M") + (x + r * Math.cos(a)).toFixed(1) + " " + (y + r * Math.sin(a)).toFixed(1); } el("path", { d: d + "Z", class: "f-red", opacity: 0.8 }, s); }; star(160, 190); star(520, 185); txt(s, 340, 222, "Pisaster (starfish) present", { "text-anchor": "middle", "font-size": 10 }); }
+    $("#ps2-m-o").textContent = m + (m === 1 ? " month" : " months"); $("#ps2-n").textContent = alive;
+    $("#ps2-rm").setAttribute("aria-pressed", String(psRm)); $("#ps2-rm").textContent = psRm ? "Put Pisaster back" : "Remove all Pisaster";
+    $("#ps2-t").innerHTML = !psRm ? "In rocky intertidal communities of the American Pacific coast the starfish <strong><em>Pisaster</em></strong> is an important predator. By eating the prey species, it keeps <strong>competition among them low</strong>, maintaining species diversity." : m < 12 ? "With the predator gone, <strong>interspecific competition</strong> among the prey intensifies and species start to disappear." : "Within a year <strong>more than 10 species of invertebrates became extinct</strong> because of interspecific competition: predators <strong>maintain diversity</strong>.";
+  }
+  psM.addEventListener("input", drawPs2);
+  $("#ps2-rm").addEventListener("click", () => { psRm = !psRm; drawPs2(); });
+  drawPs2();
+
+  /* ---------- Fig 9 Barnacles ---------- */
+  let brRm = false;
+  function drawBr() {
+    const s = $("#brsvg"); s.innerHTML = "";
+    el("path", { d: "M 80 20 L 120 240 L 0 240 L 0 20 Z", class: "f-ink", opacity: 0.25 }, s);
+    el("path", { d: "M 80 20 C 140 60, 160 120, 200 240 L 120 240 Z", class: "f-sunsoft s-sun", opacity: 0.8 }, s);
+    [[70, "high tide"], [190, "low tide"]].forEach(([y, l]) => { el("line", { x1: 120, y1: y, x2: 680, y2: y, class: "s-blue", "stroke-width": 1, "stroke-dasharray": "5 4" }, s); txt(s, 126, y - 4, l, { "font-size": 10, class: "t-blue" }); });
+    const zone = (y1, y2, cls, n, lbl) => { el("rect", { x: 240, y: y1, width: 300, height: y2 - y1, rx: 8, class: cls, opacity: 0.25 }, s); seed = Math.round(y1); for (let i = 0; i < n; i++) el("circle", { cx: 250 + rnd() * 280, cy: y1 + 8 + rnd() * (y2 - y1 - 16), r: cls === "f-sun" ? 4 : 7, class: cls, opacity: 0.85 }, s); txt(s, 548, (y1 + y2) / 2 + 4, lbl, { "font-size": 11, "font-weight": 500 }); };
+    if (!brRm) { zone(40, 100, "f-sun", 26, "Chthamalus (small)"); zone(100, 200, "f-leaf", 22, "Balanus (large)"); }
+    else zone(40, 200, "f-sun", 60, "Chthamalus");
+    $("#br-rm").setAttribute("aria-pressed", String(brRm)); $("#br-rm").textContent = brRm ? "Put Balanus back" : "Remove Balanus";
+    $("#br-t").innerHTML = !brRm ? "On the rocky coasts of <strong>Scotland</strong>, the larger, competitively superior barnacle <strong><em>Balanus</em></strong> dominates the intertidal zone and <strong>excludes</strong> the smaller <strong><em>Chthamalus</em></strong>, which survives only higher up." : "<strong>Competitive release</strong>: with the superior competitor removed, the restricted species <strong>expands its range dramatically</strong>. This is strong evidence that competition occurs in nature (<strong>Connell</strong>).";
+  }
+  $("#br-rm").addEventListener("click", () => { brRm = !brRm; drawBr(); });
+  drawBr();
+
+  /* ---------- Fig 10 Warblers ---------- */
+  const WB = [["Cape May", "f-red", [[0.0, 0.3, 0.5, 1]]], ["Blackburnian", "f-sun", [[0.0, 0.3, 0, 0.5]]], ["Black-throated green", "f-leaf", [[0.3, 0.6, 0.5, 1]]], ["Bay-breasted", "f-blue", [[0.3, 0.7, 0, 0.5]]], ["Yellow-rumped", "f-ink", [[0.7, 1.0, 0, 1]]]];
+  let wb = -1;
+  function drawWb() {
+    btnRow($("#wb-seg"), WB.map(w => w[0]), i => { wb = wb === i ? -1 : i; drawWb(); }, wb);
+    const s = $("#wbsvg"); s.innerHTML = ""; const cx = 230, top = 20, bot = 250;
+    el("rect", { x: cx - 8, y: bot, width: 16, height: 26, class: "f-sun", opacity: 0.7 }, s);
+    const wAt = f => 10 + f * 170;
+    WB.forEach(([n, c, zs], i) => zs.forEach(([a, b, inn, out]) => { const y1 = top + a * (bot - top), y2 = top + b * (bot - top); [-1, 1].forEach(sd => { const pts = [[cx + sd * wAt(a) * inn, y1], [cx + sd * wAt(a) * out, y1], [cx + sd * wAt(b) * out, y2], [cx + sd * wAt(b) * inn, y2]]; el("polygon", { points: pts.map(p => p.join(",")).join(" "), class: c, opacity: wb === -1 ? 0.35 : wb === i ? 0.8 : 0.06 }, s); }); }));
+    el("polygon", { points: `${cx},${top} ${cx + wAt(1)},${bot} ${cx - wAt(1)},${bot}`, class: "f-none s-leaf", "stroke-width": 2 }, s);
+    WB.forEach(([n, c], i) => { const y = 40 + i * 40; el("circle", { cx: 470, cy: y, r: 8, class: c, opacity: wb === -1 || wb === i ? 0.85 : 0.2 }, s); txt(s, 486, y + 4, n + " warbler", { "font-size": 11, "font-weight": wb === i ? 500 : 400 }); });
+    $("#wb-t").innerHTML = wb === -1 ? "<strong>MacArthur</strong> showed that <strong>five closely related warbler species</strong> living on the <strong>same tree</strong> avoid competition and coexist through <strong>behavioural differences in foraging</strong>. Click a warbler to see its zone." : `The <strong>${WB[wb][0]} warbler</strong> feeds mostly in its own part of the tree, so its overlap with the others stays small: <strong>resource partitioning</strong>. (Species names are from MacArthur's study; NCERT does not name them.)`;
+  }
+  drawWb();
+
+  /* ---------- Fig 11 Ophrys ---------- */
+  const opB = $("#op-b"); let opO = 0;
+  function drawOp() {
+    const d = +opB.value, s = $("#opsvg"); s.innerHTML = "";
+    const mis = Math.abs(d - opO), res = Math.max(0, 100 - mis), suc = Math.round(res * res / 100);
+    const hue = v => `hsl(${40 - v * 0.35}, 70%, ${45 + v * 0.1}%)`;
+    const bee = (x, y, v, petal) => { if (petal) el("path", { d: `M ${x - 70} ${y} C ${x - 70} ${y - 60}, ${x + 70} ${y - 60}, ${x + 70} ${y} C ${x + 70} ${y + 60}, ${x - 70} ${y + 60}, ${x - 70} ${y} Z`, class: "f-red", opacity: 0.25 }, s); el("ellipse", { cx: x, cy: y, rx: 40, ry: 22, style: `fill:${hue(v)}` }, s); for (let i = -1; i <= 1; i++) el("rect", { x: x + i * 18 - 4, y: y - 21, width: 8, height: 42, class: "f-ink", opacity: 0.6 }, s); el("circle", { cx: x - 46, cy: y, r: 12, class: "f-ink", opacity: 0.8 }, s); if (!petal) [-1, 1].forEach(sd => el("ellipse", { cx: x - 4, cy: y + sd * 30, rx: 22, ry: 10, class: "f-blue", opacity: 0.25 }, s)); };
+    bee(160, 110, d, false); txt(s, 160, 186, "female bee", { "text-anchor": "middle", "font-weight": 500 });
+    bee(440, 110, opO, true); txt(s, 440, 186, "Ophrys petal (mimic)", { "text-anchor": "middle", "font-weight": 500 });
+    txt(s, 300, 214, "pollination success", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    el("rect", { x: 310, y: 202, width: 300, height: 16, rx: 8, class: "f-paper s-line" }, s); el("rect", { x: 310, y: 202, width: 3 * suc, height: 16, rx: 8, class: "f-leaf", opacity: 0.8 }, s);
+    $("#op-b-o").textContent = d === 0 ? "none" : d + "%"; $("#op-r").textContent = res + "%"; $("#op-p").textContent = suc + "%";
+    $("#op-t").innerHTML = res >= 95 ? "One petal of <em>Ophrys</em> has an <strong>uncanny resemblance to the female bee</strong> in size, colour and markings. The male bee <strong>'pseudocopulates'</strong> with the flower, gets dusted with pollen and carries it to the next flower: <strong>sexual deceit</strong>. The orchid offers no reward." : `The female bee's pattern has drifted, so males are less fooled and <strong>pollination success falls</strong>. Unless the orchid <strong>co-evolves</strong> to keep its petal matching, it loses its pollinator. Click "Let the orchid co-evolve".`;
+  }
+  opB.addEventListener("input", drawOp);
+  $("#op-co").addEventListener("click", () => { opO = +opB.value; drawOp(); });
+  drawOp();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "In a pond, 20 lotus plants increased to 28 through reproduction in a year. The birth rate is:", o: ["8 per year", "0.4 offspring per lotus per year", "1.4 per lotus per year", "0.28 per lotus per year"], a: 1, e: "Birth rate is per capita: 8/20 = 0.4." },
+    { q: "Which of these is an attribute of a population but not of an individual?", o: ["Being male or female", "Birth or death", "Sex ratio", "Body size"], a: 2, e: "Populations have birth rates, death rates, sex ratio and age distribution; individuals do not." },
+    { q: "The tiger census in national parks is often based on:", o: ["Direct counting from vehicles", "Pug marks and faecal pellets", "Per cent cover", "Fish per trap"], a: 1, e: "Population size is often estimated indirectly; for tigers, pug marks and faecal pellets." },
+    { q: "Population density will increase if:", o: ["(B + I) < (D + E)", "(B + I) > (D + E)", "B = D", "I = E"], a: 1, e: "Nₜ₊₁ = Nₜ + [(B + I) − (D + E)]." },
+    { q: "A population growing exponentially doubles in 3 years. Its intrinsic rate of increase r is about:", o: ["0.693 per year", "0.231 per year", "0.333 per year", "2 per year"], a: 1, e: "2N₀ = N₀e^(3r), so r = ln 2 / 3 ≈ 0.231 (exercise 2)." },
+    { q: "In the logistic growth equation dN/dt = rN(K − N)/K, growth becomes zero when:", o: ["N = 0.5K", "N = K", "r = K", "N = N₀"], a: 1, e: "When N reaches the carrying capacity K, (K − N)/K = 0: the asymptote." },
+    { q: "Which pair is correctly matched?", o: ["Pacific salmon: breeds many times", "Oysters: few large offspring", "Bamboo: breeds only once", "Mammals: many small offspring"], a: 2, e: "Pacific salmon and bamboo breed once; oysters and pelagic fishes make many small offspring; birds and mammals few large ones." },
+    { q: "The prickly pear cactus in Australia was finally controlled by:", o: ["A herbicide", "A cactus-feeding moth", "Goats", "The starfish Pisaster"], a: 1, e: "A cactus-feeding predator (moth) from its natural habitat was introduced: biological control." },
+    { q: "Assertion (A): Calotropis is not browsed by cattle or goats. Reason (R): It produces highly poisonous cardiac glycosides.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "NCERT gives exactly this chemical defence." },
+    { q: "Connell's experiments with Balanus and Chthamalus provide evidence for:", o: ["Mutualism", "Competitive release", "Brood parasitism", "Commensalism"], a: 1, e: "Removing the superior Balanus let Chthamalus expand its range: competitive release." },
+    { q: "An orchid growing as an epiphyte on a mango branch is an example of:", o: ["Mutualism", "Parasitism", "Commensalism", "Amensalism"], a: 2, e: "The orchid benefits; the mango tree is neither benefited nor harmed (exercise 4)." },
+    { q: "Which statement is NOT true?", o: ["The female mosquito is considered a parasite", "Cuscuta has lost its chlorophyll and leaves", "The human liver fluke needs a snail and a fish as intermediate hosts", "In brood parasitism the cuckoo's eggs resemble the host's"], a: 0, e: "The female mosquito is not considered a parasite, although it needs our blood for reproduction." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

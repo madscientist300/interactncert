@@ -13,7 +13,8 @@ window.REGISTRY = [
   { id: "sexualrepro",    cls: 12, ch: 1,  unit: "Reproduction" },
   { id: "inheritance",     cls: 12, ch: 4,  unit: "Genetics and Evolution" },
   { id: "molecular",      cls: 12, ch: 5,  unit: "Genetics and Evolution" },
-  { id: "microbes",       cls: 12, ch: 8,  unit: "Biology in Human Welfare" }
+  { id: "microbes",       cls: 12, ch: 8,  unit: "Biology in Human Welfare" },
+  { id: "organisms",      cls: 12, ch: 11, unit: "Ecology" }
 ];
 (function () {
   const root = document.documentElement;

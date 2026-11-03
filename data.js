@@ -2070,5 +2070,151 @@ window.CHAPTERS = {
     "e": "The fungal symbiont absorbs phosphorus from soil and passes it to the plant."
    }
   ]
+ },
+ "organisms": {
+  "title": "Organisms and Populations",
+  "file": "class-12/Organisms and Populations.html",
+  "lede": "What a population has that an individual does not, how populations grow (J-shaped or S-shaped), and the six ways two species can affect each other, from predation and competition to the fig wasp and the deceitful orchid.",
+  "topics": [
+   "Population attributes",
+   "Population growth",
+   "Life history variation",
+   "Population interactions: predation and competition",
+   "Parasitism, commensalism and mutualism"
+  ],
+  "questions": [
+   {
+    "q": "In a pond, 20 lotus plants increased to 28 through reproduction in a year. The birth rate is:",
+    "o": [
+     "8 per year",
+     "0.4 offspring per lotus per year",
+     "1.4 per lotus per year",
+     "0.28 per lotus per year"
+    ],
+    "a": 1,
+    "e": "Birth rate is per capita: 8/20 = 0.4."
+   },
+   {
+    "q": "Which of these is an attribute of a population but not of an individual?",
+    "o": [
+     "Being male or female",
+     "Birth or death",
+     "Sex ratio",
+     "Body size"
+    ],
+    "a": 2,
+    "e": "Populations have birth rates, death rates, sex ratio and age distribution; individuals do not."
+   },
+   {
+    "q": "The tiger census in national parks is often based on:",
+    "o": [
+     "Direct counting from vehicles",
+     "Pug marks and faecal pellets",
+     "Per cent cover",
+     "Fish per trap"
+    ],
+    "a": 1,
+    "e": "Population size is often estimated indirectly; for tigers, pug marks and faecal pellets."
+   },
+   {
+    "q": "Population density will increase if:",
+    "o": [
+     "(B + I) < (D + E)",
+     "(B + I) > (D + E)",
+     "B = D",
+     "I = E"
+    ],
+    "a": 1,
+    "e": "Nₜ₊₁ = Nₜ + [(B + I) − (D + E)]."
+   },
+   {
+    "q": "A population growing exponentially doubles in 3 years. Its intrinsic rate of increase r is about:",
+    "o": [
+     "0.693 per year",
+     "0.231 per year",
+     "0.333 per year",
+     "2 per year"
+    ],
+    "a": 1,
+    "e": "2N₀ = N₀e^(3r), so r = ln 2 / 3 ≈ 0.231 (exercise 2)."
+   },
+   {
+    "q": "In the logistic growth equation dN/dt = rN(K − N)/K, growth becomes zero when:",
+    "o": [
+     "N = 0.5K",
+     "N = K",
+     "r = K",
+     "N = N₀"
+    ],
+    "a": 1,
+    "e": "When N reaches the carrying capacity K, (K − N)/K = 0: the asymptote."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Pacific salmon: breeds many times",
+     "Oysters: few large offspring",
+     "Bamboo: breeds only once",
+     "Mammals: many small offspring"
+    ],
+    "a": 2,
+    "e": "Pacific salmon and bamboo breed once; oysters and pelagic fishes make many small offspring; birds and mammals few large ones."
+   },
+   {
+    "q": "The prickly pear cactus in Australia was finally controlled by:",
+    "o": [
+     "A herbicide",
+     "A cactus-feeding moth",
+     "Goats",
+     "The starfish Pisaster"
+    ],
+    "a": 1,
+    "e": "A cactus-feeding predator (moth) from its natural habitat was introduced: biological control."
+   },
+   {
+    "q": "Assertion (A): Calotropis is not browsed by cattle or goats. Reason (R): It produces highly poisonous cardiac glycosides.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT gives exactly this chemical defence."
+   },
+   {
+    "q": "Connell's experiments with Balanus and Chthamalus provide evidence for:",
+    "o": [
+     "Mutualism",
+     "Competitive release",
+     "Brood parasitism",
+     "Commensalism"
+    ],
+    "a": 1,
+    "e": "Removing the superior Balanus let Chthamalus expand its range: competitive release."
+   },
+   {
+    "q": "An orchid growing as an epiphyte on a mango branch is an example of:",
+    "o": [
+     "Mutualism",
+     "Parasitism",
+     "Commensalism",
+     "Amensalism"
+    ],
+    "a": 2,
+    "e": "The orchid benefits; the mango tree is neither benefited nor harmed (exercise 4)."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "The female mosquito is considered a parasite",
+     "Cuscuta has lost its chlorophyll and leaves",
+     "The human liver fluke needs a snail and a fish as intermediate hosts",
+     "In brood parasitism the cuckoo's eggs resemble the host's"
+    ],
+    "a": 0,
+    "e": "The female mosquito is not considered a parasite, although it needs our blood for reproduction."
+   }
+  ]
  }
 };
