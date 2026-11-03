@@ -1,0 +1,1024 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Microbes in Human Welfare</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 8</span>
+      <h1>Microbes in Human Welfare</h1>
+      <p class="lede">Not all microbes make us ill. Follow them from curd and cheese to antibiotics and enzymes, through a sewage plant and a biogas tank, and out into the field as biocontrol agents and biofertilisers. Explore each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">6 topics</span>
+        <span class="pill">11 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Where microbes help">
+      <span class="fig-label">Six ways microbes help</span>
+      <span class="eq">Household · Industry · Sewage · Biogas · Biocontrol · Biofertilisers</span>
+      <span class="over">protozoa, bacteria, fungi, viruses, viroids and prions; even in thermal vents at up to 100 °C</span>
+      <span class="muted" style="font-size:.82rem">Bacteria and many fungi grow on nutritive media as colonies visible to the naked eye.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#house"><span class="n">1</span>Household</a>
+      <a href="#industry"><span class="n">2</span>Industry</a>
+      <a href="#sewage"><span class="n">3</span>Sewage</a>
+      <a href="#biogas"><span class="n">4</span>Biogas</a>
+      <a href="#biocontrol"><span class="n">5</span>Biocontrol</a>
+      <a href="#biofert"><span class="n">6</span>Biofertilisers</a>
+      <a href="#quiz"><span class="n">7</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 HOUSEHOLD -->
+<section class="topic" id="house">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>Microbes in household products</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong><em>Lactobacillus</em></strong> and other <strong>lactic acid bacteria (LAB)</strong> turn milk into curd. As they grow they make <strong>acids</strong> that <strong>coagulate and partially digest milk proteins</strong>. A little curd added to fresh milk as an <strong>inoculum (starter)</strong> carries millions of LAB, which multiply at a suitable temperature. Curd is nutritionally better, with more <strong>vitamin B₁₂</strong>; in our stomach LAB also <strong>check disease-causing microbes</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Set your own curd</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="cd-st" aria-pressed="true">Starter added</button>
+        <div class="controls" role="group" aria-label="Temperature">
+          <button class="btn" id="cd-c" aria-pressed="false">Fridge</button>
+          <button class="btn" id="cd-w" aria-pressed="true">Warm room</button>
+        </div>
+      </div>
+      <label class="ctl" for="cd-h">Hours after mixing <output id="cd-h-o"></output></label>
+      <input type="range" id="cd-h" min="0" max="12" step="1" value="0">
+      <div class="svg-scroll"><svg id="cdsvg" viewBox="0 0 680 250" role="img" aria-label="Bowl of milk turning into curd as lactic acid bacteria multiply, with a graph of bacterial numbers and acidity over time"></svg></div>
+      <div class="readout">
+        <div><b id="cd-l" style="font-size:1.05rem"></b><span>LAB</span></div>
+        <div><b id="cd-p" style="font-size:1.05rem"></b><span>Acidity</span></div>
+        <div><b id="cd-s" style="font-size:1.05rem"></b><span>Milk state</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="cd-t"></div></div>
+      <p class="fig-note">Curves and times are illustrative; NCERT says only that LAB multiply "at suitable temperatures".</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The microbe behind the food</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls" id="fd-seg" role="group" aria-label="Food"></div>
+      <div class="svg-scroll"><svg id="fdsvg" viewBox="0 0 680 200" role="img" aria-label="The chosen food, the microbe that ferments it and the gas or product it releases"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="fd-k"></div><div id="fd-t"></div></div>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span><strong>Swiss cheese</strong>: large holes from lots of <strong>CO₂</strong> made by the bacterium <strong><em>Propionibacterium sharmanii</em></strong>. <strong>Roquefort cheese</strong> is ripened by a <strong>fungus</strong>. Bread dough uses <strong>baker's yeast</strong>, <em>Saccharomyces cerevisiae</em>; <strong>idli and dosa</strong> dough is fermented by <strong>bacteria</strong>. Both puff up from CO₂. <strong>Toddy</strong> is fermented palm sap from parts of south India.</div>
+  </div>
+</section>
+
+<!-- 2 INDUSTRY -->
+<section class="topic" id="industry">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Microbes in industrial products</h2>
+    </div>
+    <div class="prose stack">
+      <p>Industrial production needs microbes grown in very large vessels called <strong>fermentors</strong>. <strong>Brewer's yeast</strong>, the same <em>Saccharomyces cerevisiae</em> used for bread, ferments malted cereals and fruit juices to <strong>ethanol</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>From fermentor to bottle</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Raw material">
+        <button class="btn" id="bv-ce" aria-pressed="true">Malted cereals</button>
+        <button class="btn" id="bv-fr" aria-pressed="false">Fruit juice</button>
+      </div>
+      <div class="controls" role="group" aria-label="Processing">
+        <button class="btn" id="bv-nd" aria-pressed="true">No distillation</button>
+        <button class="btn" id="bv-di" aria-pressed="false">Distillation</button>
+      </div>
+      <div class="svg-scroll"><svg id="bvsvg" viewBox="0 0 680 220" role="img" aria-label="Flow from raw material through yeast fermentation and optional distillation to the drink obtained"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bv-k"></div><div id="bv-t"></div></div>
+      <p class="fig-note">NCERT groups wine and beer as undistilled, and whisky, brandy and rum as distilled. Which raw material gives which drink is general knowledge, not stated in the chapter.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Fleming's unwashed plate</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <label class="ctl" for="pn-d">Days after the mould landed <output id="pn-d-o"></output></label>
+      <input type="range" id="pn-d" min="0" max="6" step="1" value="0">
+      <div class="svg-scroll"><svg id="pnsvg" viewBox="0 0 680 260" role="img" aria-label="Petri dish of Staphylococci with a mould colony growing and a clear zone forming around it"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="pn-t"></div></div>
+      <p class="fig-note">A reconstruction for teaching; timings are illustrative.</p>
+    </div>
+
+    <div class="timeline">
+      <div><span class="yr">Chance</span><b>Alexander Fleming</b><p>Saw no <em>Staphylococci</em> around a mould on an unwashed plate; named the chemical penicillin, after <em>Penicillium notatum</em>.</p></div>
+      <div><span class="yr">Later</span><b>Ernest Chain and Howard Florey</b><p>Established its full potential as an effective antibiotic.</p></div>
+      <div><span class="yr">WW II</span><b>Wounded soldiers</b><p>Penicillin used extensively on American soldiers.</p></div>
+      <div><span class="yr">1945</span><b>Nobel Prize</b><p>Fleming, Chain and Florey.</p></div>
+    </div>
+    <div class="prose stack" style="margin-top:1rem">
+      <p><strong>Antibiotics</strong> ("against life" for pathogens, "pro life" for us) are chemicals made by some microbes that <strong>kill or retard the growth</strong> of other, disease-causing microbes. Penicillin was the <strong>first</strong>. Antibiotics transformed treatment of <strong>plague, whooping cough (kali khansi), diphtheria (gal ghotu) and leprosy (kusht rog)</strong>.</p>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Who makes what? Industrial products drill</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="ip-k"></div><div id="ip-q" style="font-size:1.08rem;font-weight:500"></div></div>
+      <div class="controls" id="ip-opts" role="group" aria-label="Microbe options"></div>
+      <div class="step-box" aria-live="polite"><div id="ip-t">Pick the microbe.</div></div>
+      <div class="readout"><div><b id="ip-s" style="font-size:1.05rem"></b><span>Score</span></div></div>
+      <div class="controls"><button class="btn primary" id="ip-next">Next product →</button><button class="btn" id="ip-reset">Start again</button></div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Product</th><th>Microbe</th><th>Type</th><th>Use</th></tr></thead>
+        <tbody>
+          <tr><td>Citric acid</td><td><em>Aspergillus niger</em></td><td>Fungus</td><td>Organic acid</td></tr>
+          <tr><td>Acetic acid</td><td><em>Acetobacter aceti</em></td><td>Bacterium</td><td>Organic acid</td></tr>
+          <tr><td>Butyric acid</td><td><em>Clostridium butylicum</em></td><td>Bacterium</td><td>Organic acid</td></tr>
+          <tr><td>Lactic acid</td><td><em>Lactobacillus</em></td><td>Bacterium</td><td>Organic acid</td></tr>
+          <tr><td>Ethanol</td><td><em>Saccharomyces cerevisiae</em></td><td>Yeast</td><td>Commercial alcohol</td></tr>
+          <tr><td>Lipases</td><td>(microbial)</td><td>Enzyme</td><td>Detergents: remove oily stains</td></tr>
+          <tr><td>Pectinases, proteases</td><td>(microbial)</td><td>Enzymes</td><td>Clarify bottled fruit juices</td></tr>
+          <tr><td>Streptokinase</td><td><em>Streptococcus</em> (modified by genetic engineering)</td><td>Bacterium</td><td>"Clot buster" after myocardial infarction</td></tr>
+          <tr><td>Cyclosporin A</td><td><em>Trichoderma polysporum</em></td><td>Fungus</td><td>Immunosuppressant in organ transplants</td></tr>
+          <tr><td>Statins</td><td><em>Monascus purpureus</em></td><td>Yeast</td><td>Lower blood cholesterol by competitively inhibiting the enzyme for cholesterol synthesis</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3 SEWAGE -->
+<section class="topic" id="sewage">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Microbes in sewage treatment</h2>
+    </div>
+    <div class="prose stack">
+      <p>Municipal waste water, <strong>sewage</strong>, is mostly human excreta, rich in organic matter and microbes, many of them pathogenic. It cannot go straight into rivers, so <strong>sewage treatment plants (STPs)</strong> treat it using the <strong>heterotrophic microbes naturally present</strong> in it, in two stages.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Walk through a sewage treatment plant</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls" id="st-seg" role="group" aria-label="Stage"></div>
+      <div class="svg-scroll"><svg id="stsvg" viewBox="0 0 680 280" role="img" aria-label="Sewage treatment plant from screens to settling tank, aeration tank, final settling tank and anaerobic sludge digester, with the current stage highlighted"></svg></div>
+      <div class="readout">
+        <div><b id="st-b" style="font-size:1.05rem"></b><span>BOD of the water</span></div>
+        <div><b id="st-x" style="font-size:1.05rem"></b><span>Process</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="st-k"></div><div id="st-t"></div></div>
+      <div class="controls"><button class="btn" id="st-prev">← Back</button><button class="btn primary" id="st-next">Next stage →</button></div>
+      <p class="fig-note">BOD values in mg/L are illustrative, chosen to match the scale of NCERT exercise 11.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Label the samples by BOD (exercise 11)</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <p class="muted mono" style="font-size:.78rem">Three unlabelled samples. For each, choose its source.</p>
+      <div id="bo-rows" class="stack" style="gap:.6rem"></div>
+      <div class="svg-scroll"><svg id="bosvg" viewBox="0 0 680 140" role="img" aria-label="Bar chart of the BOD of samples A, B and C"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="bo-t">Assign each sample, then check.</div></div>
+      <div class="controls"><button class="btn primary" id="bo-check">Check my labels</button></div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>BOD</strong> (biochemical oxygen demand): the amount of oxygen that would be consumed if all the organic matter in <strong>one litre</strong> of water were oxidised by bacteria. It measures the <strong>rate of oxygen uptake</strong> by microbes, so it is an <strong>indirect measure of organic matter</strong>. <strong>Higher BOD = more polluting.</strong></div>
+      <div class="callout"><span class="tag">NEET trap</span><strong>Primary</strong> treatment is <strong>physical</strong> (filtration, sedimentation). <strong>Secondary</strong> treatment is <strong>biological</strong>: aerobic flocs in aeration tanks, then <strong>anaerobic</strong> bacteria in sludge digesters. The Ministry of Environment and Forests started the <strong>Ganga Action Plan</strong> and <strong>Yamuna Action Plan</strong> to build more STPs. No man-made technology yet rivals microbial treatment.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 BIOGAS -->
+<section class="topic" id="biogas">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Microbes in production of biogas</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Biogas</strong> is a mixture of gases, <strong>predominantly methane</strong>, produced by microbes and usable as fuel. Bacteria that grow <strong>anaerobically on cellulosic material</strong> produce much methane with CO₂ and H₂: the <strong>methanogens</strong>, e.g. <strong><em>Methanobacterium</em></strong>. They live in the <strong>anaerobic sludge</strong> of sewage plants and in the <strong>rumen</strong> of cattle, where they help break down cellulose. So cattle dung (<strong>gobar</strong>) is rich in them: <strong>gobar gas</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Inside a gobar gas plant</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="bg-tap" aria-pressed="false">Open the gas outlet</button>
+      </div>
+      <label class="ctl" for="bg-d">Days since the slurry was fed <output id="bg-d-o"></output></label>
+      <input type="range" id="bg-d" min="0" max="20" step="1" value="6">
+      <div class="controls" id="bg-seg" role="group" aria-label="Part"></div>
+      <div class="svg-scroll"><svg id="bgsvg" viewBox="0 0 680 290" role="img" aria-label="Biogas plant with inlet, concrete digester tank, floating gas cover, gas outlet pipe and spent slurry outlet"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bg-k"></div><div id="bg-t"></div></div>
+      <p class="fig-note">After NCERT Fig 8.8. Gas build-up over days is illustrative.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span>The plant: a <strong>concrete tank 10–15 feet deep</strong> fed with dung slurry and bio-wastes; a <strong>floating cover</strong> rises as gas forms; one outlet pipes gas to houses for <strong>cooking and lighting</strong>; another removes <strong>spent slurry</strong>, usable as <strong>fertiliser</strong>. Built mostly in <strong>rural areas</strong>. Developed in India mainly by <strong>IARI</strong> (Indian Agricultural Research Institute) and <strong>KVIC</strong> (Khadi and Village Industries Commission).</div>
+  </div>
+</section>
+
+<!-- 5 BIOCONTROL -->
+<section class="topic" id="biocontrol">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Microbes as biocontrol agents</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Biocontrol</strong>: biological methods to control plant diseases and pests, instead of toxic insecticides, pesticides and weedicides that pollute soil, ground water and food. The <strong>organic farmer</strong> believes that <strong>biodiversity furthers health</strong>: pests are kept at <strong>manageable levels</strong> by checks and balances, not eradicated, because beneficial predators and parasites depend on them. Knowing the field's life forms, their life cycles, feeding and habitats helps design biocontrol.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Match the agent to its target</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls" id="bc-seg" role="group" aria-label="Agent"></div>
+      <div class="svg-scroll"><svg id="bcsvg" viewBox="0 0 680 220" role="img" aria-label="The chosen biocontrol agent, its target and which other organisms are spared"></svg></div>
+      <div class="readout">
+        <div><b id="bc-tg" style="font-size:1.05rem"></b><span>Controls</span></div>
+        <div><b id="bc-ty" style="font-size:1.05rem"></b><span>Agent type</span></div>
+        <div><b id="bc-sp" style="font-size:1.05rem"></b><span>Spectrum</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="bc-t"></div></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>How Bt kills a caterpillar</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="controls" id="bt-seg" role="group" aria-label="Step"></div>
+      <div class="svg-scroll"><svg id="btsvg" viewBox="0 0 680 230" role="img" aria-label="Steps of Bacillus thuringiensis biocontrol from sachet to sprayed leaf to caterpillar gut"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bt-k"></div><div id="bt-t"></div></div>
+      <div class="controls"><button class="btn" id="bt-prev">← Back</button><button class="btn primary" id="bt-next">Next step →</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 BIOFERTILISERS -->
+<section class="topic" id="biofert">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Microbes as biofertilisers</h2>
+    </div>
+    <div class="prose stack">
+      <p>Overuse of chemical fertilisers pollutes, so there is pressure to switch to <strong>organic farming</strong>. <strong>Biofertilisers</strong> are <strong>organisms that enrich the nutrient quality of the soil</strong>. Their main sources are <strong>bacteria, fungi and cyanobacteria</strong>, and many are sold commercially to farmers.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Biofertilisers around a crop</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls" id="bf-seg" role="group" aria-label="Biofertiliser"></div>
+      <div class="svg-scroll"><svg id="bfsvg" viewBox="0 0 680 290" role="img" aria-label="Field cross-section with a legume root nodule, free-living soil bacteria, mycorrhizal fungal hyphae and cyanobacteria in paddy water"></svg></div>
+      <div class="readout">
+        <div><b id="bf-n" style="font-size:1.05rem"></b><span>Supplies</span></div>
+        <div><b id="bf-l" style="font-size:1.05rem"></b><span>Lives</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="bf-k"></div><div id="bf-t"></div></div>
+      <p class="fig-note">Diagrammatic; not to scale. Click a part or a button.</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span><strong>Mycorrhiza</strong> (many <em>Glomus</em> species) supplies <strong>phosphorus</strong>, not nitrogen, and also gives <strong>resistance to root-borne pathogens</strong>, tolerance to <strong>salinity and drought</strong>, and better overall growth. <strong>Symbiotic</strong> N-fixer: <em>Rhizobium</em> (legume nodules). <strong>Free-living</strong> N-fixers: <em>Azospirillum, Azotobacter</em>. Cyanobacteria (<em>Anabaena, Nostoc, Oscillatoria</em>) fix N and add organic matter in <strong>paddy fields</strong>.</div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>LAB · vitamin B₁₂</b><span>Curd: acids coagulate milk proteins</span></div>
+      <div><b>Propionibacterium sharmanii</b><span>CO₂ holes in Swiss cheese</span></div>
+      <div><b>Penicillium notatum · 1945</b><span>Penicillin; Nobel to Fleming, Chain, Florey</span></div>
+      <div><b>A. niger · A. aceti · C. butylicum</b><span>Citric · acetic · butyric acid</span></div>
+      <div><b>Streptococcus · Trichoderma polysporum · Monascus purpureus</b><span>Streptokinase · cyclosporin A · statins</span></div>
+      <div><b>Primary sludge · activated sludge</b><span>Physical stage · biological stage (flocs)</span></div>
+      <div><b>Methanobacterium</b><span>Methanogen: sludge, rumen, gobar gas (IARI, KVIC)</span></div>
+      <div><b>Bt · Trichoderma · Nucleopolyhedrovirus</b><span>Caterpillars · plant pathogens · species-specific insects</span></div>
+      <div><b>Rhizobium · Azotobacter · Glomus · Anabaena</b><span>Symbiotic N · free-living N · phosphorus · paddy N</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Microbes in Human Welfare". Lecture 15 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const press = (ids, on) => ids.forEach(id => $("#" + id).setAttribute("aria-pressed", String(id === on)));
+  const btnRow = (box, items, onClick, cur) => { box.innerHTML = ""; items.forEach((it, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = it; b.setAttribute("aria-pressed", String(i === cur)); b.addEventListener("click", () => onClick(i)); box.appendChild(b); }); };
+  const box = (s, x, y, w, h, t1, t2, cls = "f-paper s-line", it = false) => { el("rect", { x, y, width: w, height: h, rx: 10, class: cls, "stroke-width": 1.4 }, s); txt(s, x + w / 2, y + h / 2 + (t2 ? -3 : 4), t1, { "text-anchor": "middle", "font-weight": 500, "font-style": it ? "italic" : "normal" }); if (t2) txt(s, x + w / 2, y + h / 2 + 14, t2, { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); };
+  const arrow = (s, x1, y1, x2, y2, id = "ma") => el("line", { x1, y1, x2, y2, class: "s-muted", "stroke-width": 1.6, "marker-end": `url(#${id})` }, s);
+  let seed = 3; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Fig 1 Curd ---------- */
+  let cdSt = true, cdWarm = true; const cdH = $("#cd-h");
+  const lab = h => { const L0 = cdSt ? 6 : 2, r = cdWarm ? 0.55 : 0.08, lag = cdSt ? 0 : 3; return Math.min(9, L0 + r * Math.max(0, h - lag)); };
+  const acid = L => Math.max(0, Math.min(1, (L - 6) / 3));
+  function drawCd() {
+    const h = +cdH.value, L = lab(h), a = acid(L), s = $("#cdsvg"); s.innerHTML = "";
+    const cx = 140, cy = 140;
+    el("path", { d: `M ${cx - 100} ${cy - 40} Q ${cx - 96} ${cy + 80} ${cx} ${cy + 80} Q ${cx + 96} ${cy + 80} ${cx + 100} ${cy - 40} Z`, class: "f-paper s-ink", "stroke-width": 2 }, s);
+    el("ellipse", { cx, cy: cy - 30, rx: 94, ry: 14, class: a > 0.6 ? "f-sunsoft s-sun" : "f-card s-line", "stroke-width": 1.4 }, s);
+    if (a > 0.6) for (let i = 0; i < 9; i++) el("path", { d: `M ${cx - 70 + i * 17} ${cy - 30} q 6 -6 12 0`, class: "f-none s-sun", "stroke-width": 1.2 }, s);
+    seed = 7; const n = Math.round(4 + (L - 2) * 9); for (let i = 0; i < n; i++) { const x = cx - 80 + rnd() * 160, y = cy - 10 + rnd() * 70; el("rect", { x, y, width: 6, height: 2.6, rx: 1.3, class: "f-leaf", opacity: 0.8, transform: `rotate(${rnd() * 180} ${x + 3} ${y + 1})` }, s); }
+    txt(s, cx, 30, a > 0.6 ? "curd" : a > 0.2 ? "thickening" : "milk", { "text-anchor": "middle", "font-weight": 500, "font-size": 13 });
+    txt(s, cx, 238, "green rods: LAB", { "text-anchor": "middle", "font-size": 10, class: "t-leaf" });
+    const gx = 320, gw = 330, gy = 30, gh = 170, X = t => gx + t / 12 * gw;
+    el("rect", { x: gx, y: gy, width: gw, height: gh, class: "f-none s-line" }, s);
+    let p1 = "", p2 = "";
+    for (let t = 0; t <= 12; t += 0.25) { const l = lab(t); p1 += `${X(t)},${gy + gh - (l - 2) / 7 * gh} `; p2 += `${X(t)},${gy + 10 + acid(l) * (gh - 20) * -1 + (gh - 20)} `; }
+    el("polyline", { points: p1, class: "f-none s-leaf", "stroke-width": 2.6 }, s);
+    el("polyline", { points: p2, class: "f-none s-red", "stroke-width": 2, "stroke-dasharray": "5 3" }, s);
+    el("line", { x1: X(h), y1: gy, x2: X(h), y2: gy + gh, class: "s-ink", "stroke-width": 1.4 }, s);
+    txt(s, gx, gy + gh + 16, "0 h", { "font-size": 10, class: "t-muted" }); txt(s, gx + gw, gy + gh + 16, "12 h", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(s, gx + 6, gy + 14, "LAB number (solid)", { "font-size": 10, class: "t-leaf" }); txt(s, gx + 6, gy + 28, "acidity (dashed)", { "font-size": 10, class: "t-red" });
+    $("#cd-h-o").textContent = h + " h";
+    $("#cd-l").textContent = L >= 8.5 ? "Huge numbers" : L >= 6 ? "Millions" : "Very few";
+    $("#cd-p").textContent = a > 0.6 ? "High (sour)" : a > 0.2 ? "Rising" : "Low";
+    $("#cd-s").textContent = a > 0.6 ? "Curd set" : a > 0.2 ? "Thickening" : "Liquid milk";
+    $("#cd-t").innerHTML = !cdSt ? "Without a starter only a few LAB are present, so curdling is slow and unreliable. A spoonful of curd as <strong>inoculum</strong> adds millions of LAB." : !cdWarm ? "In the fridge LAB barely multiply: they need a <strong>suitable temperature</strong>." : a > 0.6 ? "LAB have multiplied and their <strong>acids coagulate and partially digest milk proteins</strong>: curd, with more <strong>vitamin B₁₂</strong> than milk." : "The starter's LAB are multiplying and making acid.";
+    press(["cd-c", "cd-w"], cdWarm ? "cd-w" : "cd-c"); $("#cd-st").setAttribute("aria-pressed", String(cdSt)); $("#cd-st").textContent = cdSt ? "Starter added" : "No starter";
+  }
+  cdH.addEventListener("input", drawCd);
+  $("#cd-st").addEventListener("click", () => { cdSt = !cdSt; drawCd(); });
+  $("#cd-c").addEventListener("click", () => { cdWarm = false; drawCd(); }); $("#cd-w").addEventListener("click", () => { cdWarm = true; drawCd(); });
+  drawCd();
+
+  /* ---------- Fig 2 Foods ---------- */
+  const FD = [
+    ["Curd", "Lactobacillus (LAB)", "Bacteria", "Lactic acid", "LAB acids coagulate and partially digest milk proteins; vitamin B₁₂ increases."],
+    ["Idli and dosa", "Bacteria", "Bacteria", "CO₂ (puffed dough)", "The dough is <strong>fermented by bacteria</strong>; the puffed-up look is from <strong>CO₂</strong>. Rice and black gram (urad) batter is the classic example (exercise 4)."],
+    ["Bread", "Saccharomyces cerevisiae", "Yeast (baker's yeast)", "CO₂ (rising dough)", "Bread dough is fermented by <strong>baker's yeast</strong>; CO₂ makes it rise."],
+    ["Toddy", "Microbes (yeast and bacteria)", "Mixed", "Alcohol", "A traditional drink of parts of <strong>southern India</strong>, made by fermenting <strong>palm sap</strong>. NCERT does not name the microbes."],
+    ["Swiss cheese", "Propionibacterium sharmanii", "Bacterium", "Large amount of CO₂", "The <strong>large holes</strong> come from CO₂ released by this bacterium."],
+    ["Roquefort cheese", "A specific fungus", "Fungus", "Flavour", "Ripened by growing a specific <strong>fungus</strong> on it, giving a particular flavour. Cheese is one of the oldest microbe-made foods."],
+    ["Fish, soyabean, bamboo shoots", "Microbes", "Mixed", "Fermented foods", "Microbes are also used to ferment fish, soyabean and bamboo shoots into foods."]
+  ];
+  let fd = 0;
+  function drawFd() {
+    btnRow($("#fd-seg"), FD.map(f => f[0]), i => { fd = i; drawFd(); }, fd);
+    const s = $("#fdsvg"); s.innerHTML = ""; marker(s, "ma", "--muted"); const F = FD[fd];
+    box(s, 20, 70, 170, 60, F[0], "food", "f-sunsoft s-sun");
+    arrow(s, 194, 100, 236, 100);
+    box(s, 240, 60, 200, 80, F[1], F[2], "f-leafsoft s-leaf", /^[A-Z][a-z]+ [a-z]/.test(F[1]) || F[1].startsWith("Lacto"));
+    arrow(s, 444, 100, 486, 100);
+    box(s, 490, 70, 170, 60, F[3], "released / made", "f-paper s-line");
+    $("#fd-k").textContent = F[0]; $("#fd-t").innerHTML = F[4];
+  }
+  drawFd();
+
+  /* ---------- Fig 3 Beverages ---------- */
+  let bvR = "ce", bvD = false;
+  function drawBv() {
+    press(["bv-ce", "bv-fr"], "bv-" + bvR); press(["bv-nd", "bv-di"], bvD ? "bv-di" : "bv-nd");
+    const s = $("#bvsvg"); s.innerHTML = ""; marker(s, "ma", "--muted");
+    const drink = bvR === "ce" ? (bvD ? "Whisky" : "Beer") : (bvD ? "Brandy" : "Wine");
+    box(s, 10, 80, 130, 56, bvR === "ce" ? "Malted cereals" : "Fruit juice", "raw material", "f-sunsoft s-sun");
+    arrow(s, 142, 108, 176, 108);
+    el("rect", { x: 180, y: 50, width: 120, height: 120, rx: 14, class: "f-paper s-ink", "stroke-width": 1.6 }, s);
+    seed = 4; for (let i = 0; i < 18; i++) el("circle", { cx: 196 + rnd() * 88, cy: 80 + rnd() * 80, r: 4, class: "f-leaf", opacity: 0.7 }, s);
+    for (let i = 0; i < 6; i++) el("circle", { cx: 200 + i * 15, cy: 64 - (i % 2) * 6, r: 3, class: "f-none s-muted" }, s);
+    txt(s, 240, 190, "fermentor", { "text-anchor": "middle", "font-weight": 500 }); txt(s, 240, 205, "Saccharomyces cerevisiae → ethanol", { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+    arrow(s, 302, 108, 336, 108);
+    box(s, 340, 80, 140, 56, bvD ? "Distillation" : "No distillation", bvD ? "broth is distilled" : "broth used directly", bvD ? "f-blue s-blue" : "f-paper s-line");
+    if (bvD) $$("rect", s).slice(-1)[0].setAttribute("opacity", 0.35);
+    arrow(s, 482, 108, 516, 108);
+    box(s, 520, 76, 150, 64, drink, bvD ? "distilled drink" : "undistilled drink", "f-leafsoft s-leaf");
+    $("#bv-k").textContent = drink;
+    $("#bv-t").innerHTML = `Yeast (<strong>brewer's yeast</strong>, <em>S. cerevisiae</em>) ferments the sugars to <strong>ethanol</strong>. ${bvD ? "<strong>Whisky, brandy and rum</strong> are made by <strong>distillation</strong> of the fermented broth." : "<strong>Wine and beer</strong> are produced <strong>without distillation</strong>."} The type of raw material and of processing decide the drink.`;
+  }
+  [["bv-ce", () => bvR = "ce"], ["bv-fr", () => bvR = "fr"], ["bv-nd", () => bvD = false], ["bv-di", () => bvD = true]].forEach(([id, f]) => $("#" + id).addEventListener("click", () => { f(); drawBv(); }));
+  drawBv();
+
+  /* ---------- Fig 4 Penicillin ---------- */
+  const pnD = $("#pn-d");
+  function drawPn() {
+    const d = +pnD.value, s = $("#pnsvg"); s.innerHTML = ""; const cx = 200, cy = 130, R = 115;
+    el("circle", { cx, cy, r: R + 6, class: "f-paper s-ink", "stroke-width": 2 }, s);
+    el("circle", { cx, cy, r: R, class: "f-sunsoft", opacity: 0.4 }, s);
+    const mx = cx + 40, my = cy - 30, mr = d === 0 ? 0 : 6 + d * 5, zone = d < 2 ? 0 : mr + (d - 1) * 9;
+    if (zone) el("circle", { cx: mx, cy: my, r: zone, class: "f-card s-line", "stroke-dasharray": "4 3" }, s);
+    seed = 11; let killed = 0;
+    for (let i = 0; i < 70; i++) { const a = rnd() * 6.283, r = Math.sqrt(rnd()) * (R - 8), x = cx + r * Math.cos(a), y = cy + r * Math.sin(a), dd = Math.hypot(x - mx, y - my); if (dd < zone) { killed++; continue; } if (dd < mr + 4) continue; el("circle", { cx: x, cy: y, r: 3.2 + rnd() * 2, class: "f-sun", opacity: 0.85 }, s); }
+    if (mr) { el("circle", { cx: mx, cy: my, r: mr, class: "f-leaf", opacity: 0.7 }, s); for (let a = 0; a < 360; a += 30) { const r2 = mr + 3, x = mx + r2 * Math.cos(a * Math.PI / 180), y = my + r2 * Math.sin(a * Math.PI / 180); el("line", { x1: mx + (mr - 2) * Math.cos(a * Math.PI / 180), y1: my + (mr - 2) * Math.sin(a * Math.PI / 180), x2: x, y2: y, class: "s-leaf", "stroke-width": 1.4 }, s); } }
+    txt(s, 360, 60, "Amber dots: Staphylococci colonies", { "font-size": 11, class: "t-sun" });
+    txt(s, 360, 80, "Green: Penicillium notatum mould", { "font-size": 11, class: "t-leaf" });
+    txt(s, 360, 100, "Dashed ring: clear zone", { "font-size": 11, class: "t-muted" });
+    if (zone) txt(s, 360, 140, `Colonies missing near the mould: ${killed}`, { "font-weight": 500 });
+    $("#pn-d-o").textContent = d === 0 ? "plate as set up" : d + (d === 1 ? " day" : " days");
+    $("#pn-t").innerHTML = d === 0 ? "Fleming was working on <strong><em>Staphylococci</em></strong> bacteria. One culture plate was left unwashed." : d < 2 ? "A <strong>mould</strong> has started growing on the unwashed plate." : "<em>Staphylococci</em> cannot grow around the mould. Fleming found the cause was a <strong>chemical produced by the mould</strong> and named it <strong>penicillin</strong> after <em>Penicillium notatum</em>: a <strong>chance discovery</strong> and the <strong>first antibiotic</strong>.";
+  }
+  pnD.addEventListener("input", drawPn);
+  drawPn();
+
+  /* ---------- Fig 5 Drill ---------- */
+  const IP = [["Citric acid", "Aspergillus niger"], ["Acetic acid", "Acetobacter aceti"], ["Butyric acid", "Clostridium butylicum"], ["Lactic acid", "Lactobacillus"], ["Commercial ethanol", "Saccharomyces cerevisiae"], ["Streptokinase (clot buster)", "Streptococcus"], ["Cyclosporin A (immunosuppressant)", "Trichoderma polysporum"], ["Statins (cholesterol lowering)", "Monascus purpureus"], ["Penicillin", "Penicillium notatum"], ["Holes in Swiss cheese", "Propionibacterium sharmanii"]];
+  const MIC = [...new Set(IP.map(x => x[1]))];
+  const sh = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  let ipO = [], ipI = 0, ipR = 0, ipD = 0, ipA = false;
+  function ipShow() {
+    ipA = false; const [p, m] = IP[ipO[ipI]];
+    $("#ip-k").textContent = `Product ${ipI + 1} of ${IP.length}`; $("#ip-q").textContent = p;
+    const opts = sh([m, ...sh(MIC.filter(x => x !== m)).slice(0, 3)]), bx = $("#ip-opts"); bx.innerHTML = "";
+    opts.forEach(o => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.style.fontStyle = "italic"; b.textContent = o; b.addEventListener("click", () => { if (ipA) return; ipA = true; ipD++; const ok = o === m; if (ok) ipR++; $$("button", bx).forEach(x => { x.disabled = true; if (x.textContent === m) x.setAttribute("aria-pressed", "true"); }); $("#ip-t").innerHTML = ok ? `<b class="ok">Correct.</b> <em>${m}</em>.` : `<b class="no">Not quite.</b> It is <em>${m}</em>.`; $("#ip-s").textContent = `${ipR} / ${ipD}`; $("#ip-next").disabled = ipI === IP.length - 1; }); bx.appendChild(b); });
+    $("#ip-t").textContent = "Pick the microbe."; $("#ip-s").textContent = `${ipR} / ${ipD}`; $("#ip-next").disabled = true;
+  }
+  const ipReset = () => { ipO = sh(IP.map((_, i) => i)); ipI = 0; ipR = 0; ipD = 0; ipShow(); };
+  $("#ip-next").addEventListener("click", () => { if (ipI < IP.length - 1) { ipI++; ipShow(); } });
+  $("#ip-reset").addEventListener("click", ipReset);
+  ipReset();
+
+  /* ---------- Fig 6 STP ---------- */
+  const ST = [
+    ["Raw sewage", "≈ 400 mg/L", "—", "Municipal waste water arrives: mostly <strong>human excreta</strong>, with large amounts of organic matter and microbes, many <strong>pathogenic</strong>. It must not go straight into rivers.", ["in"]],
+    ["Screening", "≈ 400 mg/L", "Physical", "<strong>Primary treatment</strong> begins: <strong>floating debris</strong> is removed by <strong>sequential filtration</strong>.", ["scr"]],
+    ["Primary settling", "≈ 250 mg/L", "Physical", "<strong>Grit</strong> (soil and small pebbles) is removed by <strong>sedimentation</strong>. All settled solids form the <strong>primary sludge</strong>; the supernatant is the <strong>effluent</strong>, sent on for secondary treatment.", ["pri"]],
+    ["Aeration tank", "falls to ≈ 20 mg/L", "Biological, aerobic", "<strong>Secondary (biological) treatment</strong>: the effluent is <strong>agitated</strong> and <strong>air is pumped</strong> in. Useful aerobic microbes grow vigorously as <strong>flocs</strong> (bacteria with fungal filaments in mesh-like masses) and consume most organic matter, <strong>significantly reducing the BOD</strong>.", ["aer"]],
+    ["Settling tank", "≈ 20 mg/L", "Physical", "Flocs sediment as <strong>activated sludge</strong>. A <strong>small part is pumped back</strong> into the aeration tank as <strong>inoculum</strong>.", ["set", "ret"]],
+    ["Sludge digester", "—", "Biological, anaerobic", "The major part of the sludge goes to <strong>anaerobic sludge digesters</strong>, where anaerobic bacteria digest the bacteria and fungi of the sludge, producing <strong>methane, hydrogen sulphide and CO₂</strong>: <strong>biogas</strong>, an inflammable energy source.", ["dig"]],
+    ["Release", "≈ 20 mg/L", "—", "The effluent from secondary treatment is generally <strong>released into rivers and streams</strong>. Practised for <strong>more than a century</strong>; no man-made technology yet rivals it.", ["riv"]]
+  ];
+  let st = 0;
+  btnRow($("#st-seg"), ST.map(x => x[0]), i => { st = i; drawSt(); }, 0);
+  function drawSt() {
+    const s = $("#stsvg"); s.innerHTML = ""; marker(s, "ma", "--muted"); const on = ST[st][4];
+    $$("#st-seg button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === st)));
+    const U = [["in", 10, 40, 80, 60, "Sewage", "in"], ["scr", 110, 40, 90, 60, "Screens", "filtration"], ["pri", 220, 40, 110, 60, "Primary", "settling tank"], ["aer", 350, 40, 120, 60, "Aeration", "tank (flocs)"], ["set", 490, 40, 100, 60, "Settling", "tank"], ["riv", 610, 40, 62, 60, "River", ""], ["dig", 440, 190, 150, 60, "Anaerobic", "sludge digester"]];
+    U.forEach(([k, x, y, w, h, a, b]) => { const g = el("g", { opacity: on.includes(k) ? 1 : 0.4 }, s); el("rect", { x, y, width: w, height: h, rx: 10, class: on.includes(k) ? "f-leafsoft s-leaf" : "f-paper s-line", "stroke-width": on.includes(k) ? 2.2 : 1.2 }, g); txt(g, x + w / 2, y + 27, a, { "text-anchor": "middle", "font-weight": 500 }); txt(g, x + w / 2, y + 42, b, { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); });
+    [[90, 110], [200, 220], [330, 350], [470, 490], [590, 610]].forEach(([a, b]) => arrow(s, a + 2, 70, b - 4, 70));
+    arrow(s, 275, 102, 275, 140); txt(s, 275, 156, "primary sludge", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    if (st >= 3) { seed = 2; for (let i = 0; i < 6; i++) { const x = 368 + rnd() * 84, y = 50 + rnd() * 10; el("circle", { cx: x, cy: y + 34, r: 3 + rnd() * 3, class: "f-leaf", opacity: 0.6 }, s); } for (let i = 0; i < 4; i++) el("circle", { cx: 380 + i * 22, cy: 112 - (i % 2) * 4, r: 3, class: "f-none s-blue" }, s); txt(s, 410, 128, "air pumped in", { "text-anchor": "middle", "font-size": 9, class: "t-blue" }); }
+    const g = el("g", { opacity: on.includes("ret") ? 1 : 0.4 }, s); el("path", { d: "M 520 102 Q 520 150 440 150 L 410 150 L 410 108", class: "f-none s-leaf", "stroke-width": 1.6, "stroke-dasharray": "5 3", "marker-end": "url(#ma)" }, g); txt(g, 470, 145, "part returned (inoculum)", { "text-anchor": "middle", "font-size": 9, class: "t-leaf" });
+    arrow(s, 560, 102, 545, 186); txt(s, 672, 150, "activated sludge", { "font-size": 9, "text-anchor": "end", class: "t-muted" });
+    arrow(s, 515, 250, 515, 272); txt(s, 525, 270, "biogas: CH₄, H₂S, CO₂", { "font-size": 10, class: st === 5 ? "t-leaf" : "t-muted", "font-weight": 500 });
+    txt(s, 120, 210, "Primary: physical", { "font-size": 11, "font-weight": 500 }); txt(s, 120, 228, "Secondary: biological", { "font-size": 11, "font-weight": 500 });
+    $("#st-b").textContent = ST[st][1]; $("#st-x").textContent = ST[st][2];
+    $("#st-k").textContent = `Stage ${st + 1} of ${ST.length} · ${ST[st][0]}`; $("#st-t").innerHTML = ST[st][3];
+    $("#st-prev").disabled = st === 0; $("#st-next").disabled = st === ST.length - 1;
+  }
+  $("#st-prev").addEventListener("click", () => { st = Math.max(0, st - 1); drawSt(); });
+  $("#st-next").addEventListener("click", () => { st = Math.min(ST.length - 1, st + 1); drawSt(); });
+  drawSt();
+
+  /* ---------- Fig 7 BOD ---------- */
+  const BO = [["A", 20], ["B", 8], ["C", 400]], SRC = ["River water", "Untreated sewage", "Secondary effluent"], ANS = { A: 2, B: 0, C: 1 };
+  const boSel = { A: null, B: null, C: null };
+  const rows = $("#bo-rows");
+  BO.forEach(([k, v]) => { const r = document.createElement("div"); r.className = "controls"; const l = document.createElement("span"); l.className = "mono"; l.style.cssText = "min-width:7.5rem;font-weight:500"; l.textContent = `Sample ${k}: ${v} mg/L`; r.appendChild(l); SRC.forEach((sname, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = sname; b.dataset.k = k; b.dataset.i = i; b.addEventListener("click", () => { boSel[k] = i; $$("button", r).forEach(x => x.setAttribute("aria-pressed", String(+x.dataset.i === i))); }); r.appendChild(b); }); rows.appendChild(r); });
+  (function () { const s = $("#bosvg"); BO.forEach(([k, v], i) => { const y = 14 + i * 40, w = Math.max(4, Math.log10(v + 1) / Math.log10(401) * 520); txt(s, 20, y + 20, k, { "font-weight": 500 }); el("rect", { x: 50, y, width: w, height: 28, rx: 5, class: v > 100 ? "f-red" : v > 10 ? "f-sun" : "f-leaf", opacity: 0.75 }, s); txt(s, 58 + w, y + 19, v + " mg/L", { "font-size": 11 }); }); txt(s, 670, 134, "log scale", { "text-anchor": "end", "font-size": 9, class: "t-muted" }); })();
+  $("#bo-check").addEventListener("click", () => {
+    if (Object.values(boSel).some(v => v === null)) { $("#bo-t").innerHTML = "Assign all three samples first."; return; }
+    const ok = Object.keys(ANS).filter(k => boSel[k] === ANS[k]).length;
+    $("#bo-t").innerHTML = `${ok === 3 ? "<b class='ok'>All correct.</b>" : `<b class='no'>${ok} of 3 correct.</b>`} <strong>C (400 mg/L)</strong> is the most polluted: <strong>untreated sewage</strong>. <strong>B (8 mg/L)</strong>, the lowest, is the relatively clean <strong>river water</strong>. <strong>A (20 mg/L)</strong> is the <strong>secondary effluent</strong>: much cleaner than sewage, but still above the river. Higher BOD means more organic matter and more polluting potential.`;
+  });
+
+  /* ---------- Fig 8 Biogas ---------- */
+  const BG = {
+    inl: ["Inlet (dung slurry)", "<strong>Cattle dung</strong> mixed with water as a slurry, plus bio-wastes, is fed in. Dung (<strong>gobar</strong>) is rich in methanogens from the cattle <strong>rumen</strong>."],
+    tank: ["Digester tank", "A <strong>concrete tank 10–15 feet deep</strong>. With no oxygen, <strong>methanogens</strong> such as <em>Methanobacterium</em> grow <strong>anaerobically on cellulosic material</strong>, producing mostly <strong>methane</strong>, with CO₂ and H₂."],
+    cov: ["Floating cover", "A <strong>floating cover</strong> over the slurry <strong>keeps rising</strong> as gas is produced by microbial activity, storing the gas beneath it."],
+    gas: ["Gas outlet", "An outlet connected to a <strong>pipe supplies biogas</strong> to nearby houses for <strong>cooking and lighting</strong>."],
+    sp: ["Spent slurry outlet", "<strong>Spent slurry</strong> is removed through another outlet and may be used as <strong>fertiliser</strong>."]
+  };
+  let bgSel = null, bgTap = false; const bgD = $("#bg-d");
+  btnRow($("#bg-seg"), Object.values(BG).map(v => v[0]), i => { const k = Object.keys(BG)[i]; bgSel = bgSel === k ? null : k; drawBg(); }, -1);
+  function drawBg() {
+    const d = +bgD.value, s = $("#bgsvg"); s.innerHTML = ""; marker(s, "ma", "--muted");
+    let gas = Math.min(1, d / 14); if (bgTap) gas = Math.max(0, gas - 0.5);
+    s.classList.toggle("dim", !!bgSel);
+    const G = k => { const g = el("g", { class: "zg" + (k === bgSel ? " on" : ""), style: "cursor:pointer" }, s); g.addEventListener("click", () => { bgSel = bgSel === k ? null : k; drawBg(); }); return g; };
+    el("rect", { x: 0, y: 120, width: 680, height: 170, class: "f-sunsoft", opacity: 0.35 }, s); el("line", { x1: 0, y1: 120, x2: 680, y2: 120, class: "s-sun", "stroke-width": 2 }, s);
+    const tank = G("tank"); el("rect", { x: 230, y: 110, width: 220, height: 170, class: "f-paper s-ink", "stroke-width": 4 }, tank);
+    const top = 150 - gas * 60; el("rect", { x: 236, y: top + 30, width: 208, height: 280 - top - 34, class: "f-sun", opacity: 0.45 }, tank);
+    seed = 5; for (let i = 0; i < 26; i++) el("rect", { x: 244 + rnd() * 190, y: top + 44 + rnd() * (230 - top - 30), width: 7, height: 3, rx: 1.5, class: "f-leaf", opacity: 0.8 }, tank);
+    txt(tank, 340, 270, "methanogens (green)", { "text-anchor": "middle", "font-size": 9 });
+    const cov = G("cov"); el("rect", { x: 240, y: top, width: 200, height: 30, rx: 4, class: "f-blue", opacity: 0.25 + 0.5 * gas }, cov); el("rect", { x: 236, y: top - 6, width: 208, height: 8, class: "f-ink" }, cov);
+    txt(cov, 340, top + 20, gas > 0.1 ? "biogas (mostly CH₄)" : "", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    const inl = G("inl"); el("path", { d: "M 120 60 L 170 60 L 230 230", class: "f-none s-sun", "stroke-width": 14, "stroke-linejoin": "round" }, inl); el("rect", { x: 70, y: 40, width: 70, height: 40, rx: 6, class: "f-sunsoft s-sun", "stroke-width": 2 }, inl); txt(inl, 105, 34, "dung + water", { "text-anchor": "middle", "font-size": 10 });
+    const gasG = G("gas"); el("path", { d: `M 340 ${top - 6} L 340 30 L 600 30`, class: "f-none s-ink", "stroke-width": 4 }, gasG); if (bgTap && gas > 0) for (let i = 0; i < 4; i++) el("circle", { cx: 420 + i * 40, cy: 30, r: 4, class: "f-blue", opacity: 0.7 }, gasG); txt(gasG, 610, 34, "to houses", { "font-size": 10 });
+    const sp = G("sp"); el("path", { d: "M 450 250 L 520 160 L 600 160", class: "f-none s-sun", "stroke-width": 14, "stroke-linejoin": "round" }, sp); el("rect", { x: 580, y: 140, width: 80, height: 40, rx: 6, class: "f-sunsoft s-sun" }, sp); txt(sp, 620, 196, "spent slurry", { "text-anchor": "middle", "font-size": 10 });
+    $("#bg-d-o").textContent = d + (d === 1 ? " day" : " days");
+    $("#bg-tap").setAttribute("aria-pressed", String(bgTap)); $("#bg-tap").textContent = bgTap ? "Close the gas outlet" : "Open the gas outlet";
+    $$("#bg-seg button").forEach((b, i) => b.setAttribute("aria-pressed", String(Object.keys(BG)[i] === bgSel)));
+    if (bgSel) { $("#bg-k").textContent = BG[bgSel][0]; $("#bg-t").innerHTML = BG[bgSel][1]; }
+    else { $("#bg-k").textContent = "Gobar gas plant"; $("#bg-t").innerHTML = gas < 0.1 ? "Fresh slurry: the methanogens have only just started." : bgTap ? "Gas flows out to the houses and the <strong>floating cover sinks</strong>." : "Gas collects under the <strong>floating cover</strong>, which rises. Click a part to learn more."; }
+  }
+  bgD.addEventListener("input", drawBg);
+  $("#bg-tap").addEventListener("click", () => { bgTap = !bgTap; drawBg(); });
+  drawBg();
+
+  /* ---------- Fig 9 Biocontrol ---------- */
+  const BC = [
+    ["Ladybird", "Aphids", "Beetle (predator)", "Narrow", "The very familiar <strong>beetle with red and black markings</strong> gets rid of <strong>aphids</strong>.", []],
+    ["Dragonfly", "Mosquitoes", "Insect (predator)", "Narrow", "<strong>Dragonflies</strong> are useful to get rid of <strong>mosquitoes</strong>.", []],
+    ["Bacillus thuringiensis (Bt)", "Butterfly caterpillars", "Bacterium", "Narrow", "Dried <strong>spores</strong> are sprayed on plants; the <strong>toxin</strong> is released in the caterpillar's gut. The bacterial disease <strong>kills the caterpillars but leaves other insects unharmed</strong>.", ["Other insects"]],
+    ["Trichoderma", "Plant pathogens", "Fungus (free-living)", "Several pathogens", "<em>Trichoderma</em> species are <strong>free-living fungi</strong>, very common in <strong>root ecosystems</strong>, and effective biocontrol agents of <strong>several plant pathogens</strong>.", []],
+    ["Baculovirus (Nucleopolyhedrovirus)", "Insects and other arthropods", "Virus", "Species-specific", "Pathogens of insects and other arthropods. Most used for biocontrol are in the genus <strong><em>Nucleopolyhedrovirus</em></strong>: <strong>species-specific, narrow-spectrum</strong> insecticides with <strong>no negative impact on plants, mammals, birds, fish or non-target insects</strong>. Ideal for <strong>integrated pest management (IPM)</strong> and ecologically sensitive areas.", ["Plants", "Mammals", "Birds", "Fish", "Non-target insects"]]
+  ];
+  let bc = 0;
+  function drawBc() {
+    btnRow($("#bc-seg"), BC.map(b => b[0].split(" (")[0]), i => { bc = i; drawBc(); }, bc);
+    const s = $("#bcsvg"); s.innerHTML = ""; marker(s, "ma", "--muted"); const B = BC[bc];
+    box(s, 20, 40, 220, 70, B[0].split(" (")[0], B[2], "f-leafsoft s-leaf", bc >= 2);
+    arrow(s, 244, 75, 296, 75); txt(s, 270, 66, "controls", { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+    box(s, 300, 40, 220, 70, B[1], "target", "f-red s-red"); $$("rect", s).slice(-1)[0].setAttribute("opacity", 0.3);
+    if (B[5].length) { txt(s, 20, 150, "Spared:", { "font-weight": 500 }); B[5].forEach((n, i) => { const x = 84 + i * 118; el("rect", { x, y: 134, width: 114, height: 28, rx: 14, class: "f-paper s-leaf" }, s); txt(s, x + 57, 152, "✓ " + n, { "text-anchor": "middle", "font-size": 9 }); }); }
+    txt(s, 20, 200, "Biocontrol cuts reliance on toxic chemical pesticides.", { "font-size": 10, class: "t-muted" });
+    $("#bc-tg").textContent = B[1]; $("#bc-ty").textContent = B[2]; $("#bc-sp").textContent = B[3]; $("#bc-t").innerHTML = B[4];
+  }
+  drawBc();
+
+  /* ---------- Fig 10 Bt steps ---------- */
+  const BT = [
+    ["Sachet", "Bt is sold in <strong>sachets as dried spores</strong>."],
+    ["Mix and spray", "Spores are <strong>mixed with water</strong> and <strong>sprayed</strong> onto vulnerable plants such as <strong>brassicas and fruit trees</strong>."],
+    ["Eaten", "Insect larvae (butterfly <strong>caterpillars</strong>) eat the sprayed leaves."],
+    ["Toxin in gut", "In the <strong>gut of the larvae</strong> the <strong>toxin is released</strong> and the larvae are killed."],
+    ["Others safe", "The bacterial disease kills the caterpillars but <strong>leaves other insects unharmed</strong>."],
+    ["Bt crops", "By genetic engineering, <strong>Bt toxin genes</strong> have been put into plants, making them resistant to insect pests: <strong>Bt cotton</strong>, grown in some Indian states (Chapter 10)."]
+  ];
+  let bt = 0;
+  btnRow($("#bt-seg"), BT.map(b => b[0]), i => { bt = i; drawBt(); }, 0);
+  function drawBt() {
+    const s = $("#btsvg"); s.innerHTML = ""; marker(s, "ma", "--muted");
+    $$("#bt-seg button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === bt)));
+    const leaf = (x, y, sp) => { el("path", { d: `M ${x} ${y} C ${x + 60} ${y - 70}, ${x + 160} ${y - 50}, ${x + 200} ${y} C ${x + 160} ${y + 50}, ${x + 60} ${y + 60}, ${x} ${y} Z`, class: "f-leafsoft s-leaf", "stroke-width": 1.6 }, s); if (sp) { seed = 9; for (let i = 0; i < 20; i++) el("circle", { cx: x + 30 + rnd() * 150, cy: y - 25 + rnd() * 50, r: 2.4, class: "f-sun" }, s); } };
+    const cat = (x, y, dead, gut) => { for (let i = 0; i < 6; i++) el("circle", { cx: x + i * 16, cy: y, r: 10, class: dead ? "f-paper s-muted" : "f-leaf", opacity: dead ? 1 : 0.8 }, s); el("circle", { cx: x + 96, cy: y - 2, r: 11, class: dead ? "f-paper s-muted" : "f-leaf" }, s); if (gut) { el("rect", { x: x - 4, y: y - 3, width: 96, height: 6, rx: 3, class: "f-red", opacity: 0.6 }, s); txt(s, x + 44, y + 28, "toxin released in gut", { "text-anchor": "middle", "font-size": 10, class: "t-red" }); } if (dead) txt(s, x + 50, y - 18, "killed", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); };
+    if (bt === 0) { el("rect", { x: 260, y: 50, width: 120, height: 140, rx: 10, class: "f-paper s-ink", "stroke-width": 2 }, s); txt(s, 320, 110, "Bt", { "text-anchor": "middle", "font-size": 26, "font-weight": 500 }); txt(s, 320, 136, "dried spores", { "text-anchor": "middle", "font-size": 11, class: "t-muted" }); }
+    if (bt === 1) { leaf(320, 130, true); el("path", { d: "M 100 120 L 160 100 L 160 140 Z", class: "f-blue", opacity: 0.5 }, s); for (let i = 0; i < 8; i++) el("circle", { cx: 180 + i * 18, cy: 120 + (i % 3 - 1) * 10, r: 2.4, class: "f-sun" }, s); txt(s, 120, 170, "spray", { "font-size": 11, class: "t-muted" }); txt(s, 420, 210, "brassica / fruit tree leaf", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); }
+    if (bt === 2) { leaf(320, 130, true); cat(150, 130, false, false); txt(s, 200, 170, "caterpillar eats spores", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); }
+    if (bt === 3) { cat(220, 110, false, true); }
+    if (bt === 4) { cat(80, 110, true, false); [["bee", 360], ["ladybird", 470], ["dragonfly", 580]].forEach(([n, x]) => { el("circle", { cx: x, cy: 110, r: 22, class: "f-leafsoft s-leaf" }, s); txt(s, x, 115, "✓", { "text-anchor": "middle", "font-size": 16 }); txt(s, x, 152, n, { "text-anchor": "middle", "font-size": 10 }); }); txt(s, 470, 186, "other insects unharmed", { "text-anchor": "middle", "font-size": 11, "font-weight": 500 }); }
+    if (bt === 5) { box(s, 40, 80, 170, 60, "Bt toxin gene", "from B. thuringiensis", "f-sunsoft s-sun"); arrow(s, 214, 110, 270, 110); box(s, 274, 70, 170, 80, "Bt cotton", "makes its own toxin", "f-leafsoft s-leaf"); arrow(s, 448, 110, 500, 110); box(s, 504, 80, 150, 60, "Pest resistant", "fewer pesticides", "f-paper s-line"); }
+    $("#bt-k").textContent = `Step ${bt + 1} of ${BT.length} · ${BT[bt][0]}`; $("#bt-t").innerHTML = BT[bt][1];
+    $("#bt-prev").disabled = bt === 0; $("#bt-next").disabled = bt === BT.length - 1;
+  }
+  $("#bt-prev").addEventListener("click", () => { bt = Math.max(0, bt - 1); drawBt(); });
+  $("#bt-next").addEventListener("click", () => { bt = Math.min(BT.length - 1, bt + 1); drawBt(); });
+  drawBt();
+
+  /* ---------- Fig 11 Biofertilisers ---------- */
+  const BF = {
+    rhi: ["Rhizobium", "Nitrogen", "Symbiotic, in legume root nodules", "Forms <strong>nodules on the roots of leguminous plants</strong> by symbiosis, and <strong>fixes atmospheric nitrogen into organic forms</strong> that the plant uses as a nutrient."],
+    fre: ["Azotobacter, Azospirillum", "Nitrogen", "Free-living in soil", "These bacteria fix atmospheric nitrogen <strong>while free-living in the soil</strong>, enriching its nitrogen content."],
+    myc: ["Glomus (mycorrhiza)", "Phosphorus", "Symbiotic, around roots", "Many <em>Glomus</em> species form <strong>mycorrhiza</strong>. The fungus <strong>absorbs phosphorus</strong> from soil and passes it to the plant. The plant also gains <strong>resistance to root-borne pathogens</strong>, <strong>tolerance to salinity and drought</strong>, and better overall growth. (The fungus, in turn, gets food from the plant.)"],
+    cya: ["Cyanobacteria (Anabaena, Nostoc, Oscillatoria)", "Nitrogen + organic matter", "Free-living, paddy water", "Autotrophic microbes of water and land; many <strong>fix atmospheric nitrogen</strong>. In <strong>paddy fields</strong> they are an important biofertiliser and also <strong>add organic matter</strong>, increasing fertility."]
+  };
+  let bf = null;
+  btnRow($("#bf-seg"), Object.values(BF).map(v => v[0].split(" (")[0]), i => { const k = Object.keys(BF)[i]; bf = bf === k ? null : k; drawBf(); }, -1);
+  function drawBf() {
+    const s = $("#bfsvg"); s.innerHTML = ""; s.classList.toggle("dim", !!bf);
+    $$("#bf-seg button").forEach((b, i) => b.setAttribute("aria-pressed", String(Object.keys(BF)[i] === bf)));
+    const G = k => { const g = el("g", { class: "zg" + (k === bf ? " on" : ""), style: "cursor:pointer" }, s); g.addEventListener("click", () => { bf = bf === k ? null : k; drawBf(); }); return g; };
+    el("rect", { x: 0, y: 110, width: 430, height: 180, class: "f-sunsoft", opacity: 0.45 }, s); el("line", { x1: 0, y1: 110, x2: 430, y2: 110, class: "s-sun", "stroke-width": 2 }, s);
+    el("rect", { x: 450, y: 70, width: 230, height: 220, class: "f-sunsoft", opacity: 0.45 }, s); el("rect", { x: 450, y: 70, width: 230, height: 50, class: "f-blue", opacity: 0.2 }, s); txt(s, 565, 64, "paddy field (flooded)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    txt(s, 110, 20, "legume (pea)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); txt(s, 320, 20, "any crop", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    [[110, true], [320, false]].forEach(([x, leg]) => { el("line", { x1: x, y1: 110, x2: x, y2: 30, class: "s-leaf", "stroke-width": 4 }, s); [[-1, 50], [1, 70], [-1, 90]].forEach(([d, y]) => el("ellipse", { cx: x + d * 16, cy: y, rx: 16, ry: 6, class: "f-leaf" }, s)); el("path", { d: `M ${x} 110 L ${x} 230 M ${x} 140 l -40 40 M ${x} 160 l 40 50 M ${x} 190 l -30 50`, class: "f-none s-ink", "stroke-width": 2 }, s); });
+    const rhi = G("rhi"); [[75, 176], [146, 206], [84, 232], [110, 220]].forEach(([x, y]) => el("circle", { cx: x, cy: y, r: 8, class: "f-red", opacity: 0.6 }, rhi)); txt(rhi, 110, 270, "root nodules", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    const fre = G("fre"); seed = 8; for (let i = 0; i < 18; i++) el("ellipse", { cx: 190 + rnd() * 80, cy: 140 + rnd() * 120, rx: 5, ry: 3, class: "f-blue", opacity: 0.8 }, fre); txt(fre, 230, 128, "free-living N-fixers", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    const myc = G("myc"); for (let i = 0; i < 14; i++) { const a = rnd() * 6.283, r = 30 + rnd() * 60; el("path", { d: `M 320 ${170 + rnd() * 40} q ${Math.cos(a) * r / 2} ${Math.sin(a) * r / 2 - 10} ${Math.cos(a) * r} ${Math.sin(a) * r}`, class: "f-none s-sun", "stroke-width": 1.6 }, myc); } txt(myc, 330, 280, "mycorrhizal hyphae", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    const cya = G("cya"); for (let f = 0; f < 5; f++) { const y = 82 + (f % 3) * 12, x0 = 470 + f * 40; for (let i = 0; i < 6; i++) el("circle", { cx: x0 + i * 6, cy: y + Math.sin(i) * 2, r: 3, class: i === 3 ? "f-sun" : "f-leaf" }, cya); } txt(cya, 565, 140, "cyanobacteria filaments", { "text-anchor": "middle", "font-size": 10, "font-weight": 500 });
+    for (let x = 480; x < 670; x += 30) el("path", { d: `M ${x} 120 l -6 -30 M ${x} 120 l 6 -34 M ${x} 120 l 0 -38`, class: "f-none s-leaf", "stroke-width": 1.6 }, s);
+    if (bf) { const B = BF[bf]; $("#bf-k").textContent = B[0]; $("#bf-t").innerHTML = B[3]; $("#bf-n").textContent = B[1]; $("#bf-l").textContent = B[2]; }
+    else { $("#bf-k").textContent = "Biofertilisers"; $("#bf-t").innerHTML = "Organisms that enrich the nutrient quality of soil, reducing dependence on chemical fertilisers. Click a part or a button."; $("#bf-n").textContent = "—"; $("#bf-l").textContent = "—"; }
+  }
+  drawBf();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Lactic acid bacteria convert milk to curd by:", o: ["Producing CO₂ that coagulates fat", "Producing acids that coagulate and partially digest milk proteins", "Producing ethanol", "Producing pectinases"], a: 1, e: "LAB produce acids that coagulate and partially digest milk proteins; curd also has more vitamin B₁₂." },
+    { q: "The large holes in Swiss cheese are due to CO₂ produced by:", o: ["Saccharomyces cerevisiae", "Propionibacterium sharmanii", "Penicillium roqueforti", "Lactobacillus"], a: 1, e: "NCERT names Propionibacterium sharmanii." },
+    { q: "Which drinks are produced by distillation of the fermented broth?", o: ["Wine and beer", "Whisky, brandy and rum", "Wine and whisky", "Beer and rum"], a: 1, e: "Wine and beer are made without distillation." },
+    { q: "Penicillin was named after:", o: ["Penicillium notatum", "Staphylococcus", "Streptococcus", "Trichoderma polysporum"], a: 0, e: "Fleming named it after the mould Penicillium notatum." },
+    { q: "Which pair is correctly matched?", o: ["Citric acid: Acetobacter aceti", "Butyric acid: Clostridium butylicum", "Acetic acid: Aspergillus niger", "Lactic acid: Monascus purpureus"], a: 1, e: "Citric acid: Aspergillus niger; acetic acid: Acetobacter aceti; lactic acid: Lactobacillus." },
+    { q: "Cyclosporin A, used in organ-transplant patients, is produced by:", o: ["Monascus purpureus", "Trichoderma polysporum", "Streptococcus", "Aspergillus niger"], a: 1, e: "Cyclosporin A, an immunosuppressant, comes from the fungus Trichoderma polysporum." },
+    { q: "Statins lower blood cholesterol by:", o: ["Dissolving clots", "Competitively inhibiting the enzyme for cholesterol synthesis", "Suppressing immunity", "Digesting fats in the gut"], a: 1, e: "Statins from Monascus purpureus competitively inhibit the enzyme that synthesises cholesterol." },
+    { q: "Assertion (A): The BOD of sewage falls in the aeration tank. Reason (R): Aerobic microbes growing as flocs consume most of the organic matter.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "That is NCERT's description of secondary treatment." },
+    { q: "In NCERT exercise 11, samples with BOD 20, 8 and 400 mg/L are, respectively:", o: ["River water, secondary effluent, untreated sewage", "Secondary effluent, river water, untreated sewage", "Untreated sewage, river water, secondary effluent", "River water, untreated sewage, secondary effluent"], a: 1, e: "Highest BOD is untreated sewage; lowest is relatively clean river water; the secondary effluent is in between." },
+    { q: "Biogas is predominantly:", o: ["Carbon dioxide", "Methane", "Hydrogen sulphide", "Hydrogen"], a: 1, e: "Methanogens such as Methanobacterium produce mostly methane, with CO₂ and H₂." },
+    { q: "Which statement about Nucleopolyhedrovirus is NOT true?", o: ["It is a baculovirus", "It is species-specific and narrow-spectrum", "It harms birds and fish", "It suits integrated pest management"], a: 2, e: "Baculoviruses show no negative impact on plants, mammals, birds, fish or non-target insects." },
+    { q: "Mycorrhizal fungi such as Glomus mainly supply the plant with:", o: ["Nitrogen", "Phosphorus", "Carbon dioxide", "Vitamin B₁₂"], a: 1, e: "The fungal symbiont absorbs phosphorus from soil and passes it to the plant." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

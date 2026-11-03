@@ -11,7 +11,9 @@ window.REGISTRY = [
   { id: "respiration",    cls: 11, ch: 12, unit: "Plant Physiology" },
   { id: "growth",         cls: 11, ch: 13, unit: "Plant Physiology" },
   { id: "sexualrepro",    cls: 12, ch: 1,  unit: "Reproduction" },
-  { id: "molecular",      cls: 12, ch: 5,  unit: "Genetics and Evolution" }
+  { id: "inheritance",     cls: 12, ch: 4,  unit: "Genetics and Evolution" },
+  { id: "molecular",      cls: 12, ch: 5,  unit: "Genetics and Evolution" },
+  { id: "microbes",       cls: 12, ch: 8,  unit: "Biology in Human Welfare" }
 ];
 (function () {
   const root = document.documentElement;

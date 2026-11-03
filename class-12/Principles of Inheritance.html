@@ -1,0 +1,1175 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Principles of Inheritance</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+<style>.step-box .k { text-transform: none; letter-spacing: .02em; }</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 4</span>
+      <h1>Principles of Inheritance and Variation</h1>
+      <p class="lede">Mendel's peas and his three laws, the exceptions (incomplete dominance, co-dominance, multiple alleles, linkage, polygenes, pleiotropy), how sex is decided, and the mutations behind genetic disorders. Run every cross yourself, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">8 topics</span>
+        <span class="pill">12 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Key ratios">
+      <span class="fig-label">The ratios to know</span>
+      <span class="eq">Monohybrid F2: 3 : 1 (phenotype) · 1 : 2 : 1 (genotype)</span>
+      <span class="eq">Dihybrid F2: 9 : 3 : 3 : 1 · Test cross Tt × tt: 1 : 1</span>
+      <span class="over">(½T + ½t)² = ¼TT + ½Tt + ¼tt</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#mendel"><span class="n">1</span>Mendel &amp; one gene</a>
+      <a href="#dominance"><span class="n">2</span>Beyond dominance</a>
+      <a href="#twogenes"><span class="n">3</span>Two genes</a>
+      <a href="#linkage"><span class="n">4</span>Chromosomes &amp; linkage</a>
+      <a href="#poly"><span class="n">5</span>Polygenes &amp; pleiotropy</a>
+      <a href="#sex"><span class="n">6</span>Sex determination</a>
+      <a href="#disorders"><span class="n">7</span>Mutation &amp; disorders</a>
+      <a href="#chromo"><span class="n">8</span>Chromosomal disorders</a>
+      <a href="#quiz"><span class="n">9</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 MENDEL -->
+<section class="topic" id="mendel">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>Mendel and the inheritance of one gene</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Genetics</strong> deals with <strong>inheritance</strong> (passing characters from parent to progeny, the basis of heredity) and <strong>variation</strong> (how far progeny differ from parents). People exploited natural variation by artificial selection long ago: Indian breeds such as <strong>Sahiwal cows</strong> of Punjab come from wild ancestral cows.</p>
+      <p><strong>Gregor Mendel</strong> made hybridisation experiments on garden peas for <strong>seven years (1856–1863)</strong>. For the first time, <strong>statistical analysis and mathematical logic</strong> were applied to biology; his <strong>large sample sizes</strong> made the data credible. He used <strong>14 true-breeding</strong> varieties (lines that self-pollinate and breed true for generations) as <strong>7 pairs</strong> differing in one character.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>#</th><th>Character</th><th>Dominant</th><th>Recessive</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Stem height</td><td>Tall</td><td>Dwarf</td></tr>
+          <tr><td>2</td><td>Flower colour</td><td>Violet</td><td>White</td></tr>
+          <tr><td>3</td><td>Flower position</td><td>Axial</td><td>Terminal</td></tr>
+          <tr><td>4</td><td>Pod shape</td><td>Inflated</td><td>Constricted</td></tr>
+          <tr><td>5</td><td>Pod colour</td><td>Green</td><td>Yellow</td></tr>
+          <tr><td>6</td><td>Seed shape</td><td>Round</td><td>Wrinkled</td></tr>
+          <tr><td>7</td><td>Seed colour</td><td>Yellow</td><td>Green</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Run a monohybrid cross</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls" id="mh-tr" role="group" aria-label="Character"></div>
+      <label class="ctl" for="mh-n">F2 plants raised <output id="mh-n-o"></output></label>
+      <input type="range" id="mh-n" min="1" max="4" step="1" value="2">
+      <div class="svg-scroll"><svg id="mhsvg" viewBox="0 0 680 320" role="img" aria-label="Parents, F1 and an F2 Punnett square for the chosen character, with counts of a simulated F2 harvest"></svg></div>
+      <div class="readout">
+        <div><b id="mh-o" style="font-size:1.05rem"></b><span>Observed F2</span></div>
+        <div><b id="mh-r" style="font-size:1.05rem"></b><span>Observed ratio</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="mh-t"></div></div>
+      <div class="controls"><button class="btn primary" id="mh-go">Raise a new F2</button></div>
+      <p class="fig-note">Each F2 plant is drawn at random from the Punnett square. Raise more plants and the ratio settles near 3 : 1: why Mendel's large samples mattered.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Factor → gene</strong></td><td>Unit of inheritance, passed unchanged through gametes</td></tr>
+          <tr><td><strong>Alleles</strong></td><td>Slightly different forms of the same gene coding a pair of contrasting traits (T, t). Use one letter: never T and d</td></tr>
+          <tr><td><strong>Homozygous / heterozygous</strong></td><td>TT or tt (identical alleles) / Tt (dissimilar)</td></tr>
+          <tr><td><strong>Genotype / phenotype</strong></td><td>TT, Tt, tt / tall, dwarf</td></tr>
+          <tr><td><strong>Monohybrid</strong></td><td>Heterozygous for one character; TT × tt is a monohybrid cross</td></tr>
+          <tr><td><strong>Punnett square</strong></td><td>Graphical calculation of offspring genotypes, by <strong>Reginald C. Punnett</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Test cross: what is this violet plant?</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls">
+        <button class="btn" id="tc-new">New mystery violet plant</button>
+        <button class="btn primary" id="tc-cross">Cross it with ww</button>
+        <button class="btn" id="tc-g1">I think it is WW</button>
+        <button class="btn" id="tc-g2">I think it is Ww</button>
+      </div>
+      <div class="svg-scroll"><svg id="tcsvg" viewBox="0 0 680 230" role="img" aria-label="Mystery violet plant crossed with a white plant and the offspring produced"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="tc-k"></div><div id="tc-t"></div></div>
+      <p class="fig-note">After NCERT Fig 4.5. Violet (W) is dominant over white (w).</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Law of Dominance</strong> (first law): (i) characters are controlled by discrete units, factors; (ii) factors occur in pairs; (iii) in a dissimilar pair one member dominates. It explains the F1 and the 3 : 1 F2. <strong>Law of Segregation</strong> (second law): alleles do not blend; the two factors of a pair <strong>segregate at gamete formation</strong> so each gamete gets one. A homozygote makes one kind of gamete; a heterozygote, two kinds in equal proportion.</div>
+      <div class="callout"><span class="tag">NEET trap</span>A <strong>test cross</strong> crosses the dominant-phenotype organism with the <strong>recessive parent</strong>, not with itself. 1 : 1 means the test plant was heterozygous; all dominant means homozygous. Dwarf F2 plants self-pollinated gave only dwarfs in F3 and F4: they were tt.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 DOMINANCE -->
+<section class="topic" id="dominance">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>Beyond simple dominance</h2>
+    </div>
+    <div class="prose stack">
+      <p>Why is an allele dominant? Take a gene for an enzyme that transforms substrate S. A modified allele may make (i) a normal or less efficient enzyme, (ii) a non-functional enzyme, or (iii) no enzyme. In case (i) the alleles are equivalent. In (ii) and (iii) the phenotype depends only on the unmodified allele, which is therefore <strong>dominant</strong>; the modified allele is usually <strong>recessive</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Three kinds of dominance, one F2</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Type">
+        <button class="btn" id="dm-c" aria-pressed="true">Complete: pea height</button>
+        <button class="btn" id="dm-i" aria-pressed="false">Incomplete: snapdragon</button>
+        <button class="btn" id="dm-o" aria-pressed="false">Co-dominance: ABO</button>
+        <button class="btn" id="dm-s" aria-pressed="false">Starch grains (Bb)</button>
+      </div>
+      <div class="svg-scroll"><svg id="dmsvg" viewBox="0 0 680 260" role="img" aria-label="Parents, F1 and F2 for the chosen type of dominance"></svg></div>
+      <div class="readout">
+        <div><b id="dm-f1" style="font-size:1.05rem"></b><span>F1 phenotype</span></div>
+        <div><b id="dm-ph" style="font-size:1.05rem"></b><span>F2 phenotype ratio</span></div>
+        <div><b id="dm-ge" style="font-size:1.05rem"></b><span>F2 genotype ratio</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="dm-t"></div></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>ABO blood group calculator</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <div class="two-col" style="gap:1rem">
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Parent 1 genotype</p><div class="controls" id="ab-p1" role="group" aria-label="Parent 1"></div></div>
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Parent 2 genotype</p><div class="controls" id="ab-p2" role="group" aria-label="Parent 2"></div></div>
+      </div>
+      <div class="svg-scroll"><svg id="absvg" viewBox="0 0 680 230" role="img" aria-label="Punnett square of the two parents' I alleles with offspring blood groups"></svg></div>
+      <div class="readout">
+        <div><b id="ab-r" style="font-size:1.05rem"></b><span>Children's blood groups</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="ab-t"></div></div>
+      <div class="controls"><button class="btn" id="ab-ex">Load NCERT exercise 12 (A × B, child O)</button></div>
+      <p class="fig-note">Gene I, alleles Iᴬ, Iᴮ and i: 6 genotypes, 4 phenotypes.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Co-dominance</strong>: the F1 resembles <strong>both</strong> parents (IᴬIᴮ makes both A and B sugars on RBCs). <strong>Incomplete dominance</strong>: F1 is <strong>in between</strong> (Rr pink); the genotype ratio stays 1 : 2 : 1 and the phenotype ratio becomes 1 : 2 : 1 too. ABO is also <strong>multiple alleles</strong>: more than two alleles for one character, visible only in <strong>population studies</strong> because a person carries just two.</div>
+      <div class="callout"><span class="tag">NEET trap</span>Pea starch gene (B, b): BB round seeds, large starch grains; bb wrinkled, small grains; Bb <strong>round</strong> but <strong>intermediate</strong> grains. Seed shape shows dominance; grain size shows incomplete dominance. So dominance is <strong>not an autonomous feature of a gene</strong>: it depends on which phenotype you examine.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 TWO GENES -->
+<section class="topic" id="twogenes">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Inheritance of two genes</h2>
+    </div>
+    <div class="prose stack">
+      <p>Crossing yellow-round (RRYY) with green-wrinkled (rryy) gave all yellow-round F1 (RrYy). Selfing the F1 gave <strong>9 round yellow : 3 wrinkled yellow : 3 round green : 1 wrinkled green</strong>, which is (3 round : 1 wrinkled) × (3 yellow : 1 green). <strong>Law of Independent Assortment</strong>: "when two pairs of traits are combined in a hybrid, segregation of one pair of characters is independent of the other pair". The F1 makes four gametes, <strong>RY, Ry, rY, ry</strong>, each ¼.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Two-gene cross calculator</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="two-col" style="gap:1rem">
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Parent 1</p><div class="controls" id="dh-p1" role="group" aria-label="Parent 1"></div></div>
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Parent 2</p><div class="controls" id="dh-p2" role="group" aria-label="Parent 2"></div></div>
+      </div>
+      <div class="controls" id="dh-pre" role="group" aria-label="Presets"></div>
+      <div class="svg-scroll"><svg id="dhsvg" viewBox="0 0 680 330" role="img" aria-label="Four by four Punnett square of the chosen two-gene cross, coloured by phenotype"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="dh-k"></div><div id="dh-t"></div></div>
+      <p class="fig-note">Gene 1: T tall / t dwarf. Gene 2: Y yellow / y green seeds. Click a phenotype in the key to highlight its squares.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span>A dihybrid F2 has <strong>16 squares, 9 genotypes and 4 phenotypes</strong>; the genotype ratio is 1 : 2 : 1 : 2 : 4 : 2 : 1 : 2 : 1, not 9 : 3 : 3 : 1. An organism heterozygous for <em>n</em> loci makes <strong>2ⁿ</strong> kinds of gametes: 4 loci → 16 (exercise 3).</div>
+  </div>
+</section>
+
+<!-- 4 LINKAGE -->
+<section class="topic" id="linkage">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Chromosomal theory, linkage and recombination</h2>
+    </div>
+    <div class="prose stack">
+      <p>Mendel published in <strong>1865</strong>, but his work stayed unrecognised until <strong>1900</strong>: communication was poor; discrete non-blending factors seemed to clash with apparently continuous variation; mathematics in biology was unacceptable to many; and he had no physical proof of factors. In 1900 <strong>de Vries, Correns and von Tschermak</strong> independently rediscovered his results. By 1902 chromosome movement in meiosis was worked out, and <strong>Walter Sutton and Theodore Boveri</strong> saw that chromosomes behave like genes. <strong>Sutton</strong> united the two as the <strong>chromosomal theory of inheritance</strong>, verified experimentally by <strong>Thomas Hunt Morgan</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Independent assortment at metaphase I</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Possibility">
+        <button class="btn" id="ia-1" aria-pressed="true">Possibility I</button>
+        <button class="btn" id="ia-2" aria-pressed="false">Possibility II</button>
+      </div>
+      <div class="svg-scroll"><svg id="iasvg" viewBox="0 0 680 250" role="img" aria-label="Two homologous chromosome pairs aligned at metaphase I in the chosen orientation and the gametes they produce"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="ia-t"></div></div>
+      <p class="fig-note">After NCERT Figs 4.8 and 4.9. R/r on the long pair, Y/y on the short pair.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Chromosomes</th><th>Genes</th></tr></thead>
+        <tbody>
+          <tr><td>Occur in pairs</td><td>Occur in pairs</td></tr>
+          <tr><td>Segregate at gamete formation; one of each pair goes to a gamete</td><td>Segregate at gamete formation; one of each pair is transmitted</td></tr>
+          <tr><td>Independent pairs segregate independently</td><td>One pair segregates independently of another</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Linkage: how far apart are the genes?</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <div class="controls" id="lk-pre" role="group" aria-label="Presets"></div>
+      <label class="ctl" for="lk-d">Recombination frequency <output id="lk-d-o"></output></label>
+      <input type="range" id="lk-d" min="0" max="50" step="0.1" value="1.3">
+      <div class="svg-scroll"><svg id="lksvg" viewBox="0 0 680 250" role="img" aria-label="Two genes on an X chromosome at a distance set by the slider, with bars for parental and recombinant gametes"></svg></div>
+      <div class="readout">
+        <div><b id="lk-p" style="font-size:1.05rem"></b><span>Parental gametes</span></div>
+        <div><b id="lk-r" style="font-size:1.05rem"></b><span>Recombinant gametes</span></div>
+        <div><b id="lk-s" style="font-size:1.05rem"></b><span>Linkage</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="lk-t"></div></div>
+      <p class="fig-note">After NCERT Fig 4.11. Distance on the drawing is proportional to recombination frequency, the basis of Sturtevant's maps; 50% behaves like independent assortment.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>Why <em>Drosophila</em></strong>: grows on simple synthetic medium, completes its life cycle in about <strong>two weeks</strong>, one mating gives many progeny, sexes are easily told apart, and many hereditary variations are visible under low-power microscopes.</div>
+      <div class="callout"><span class="tag">NEET trap</span>Morgan crossed yellow-bodied, white-eyed females with brown-bodied, red-eyed males: the F2 deviated far from 9 : 3 : 3 : 1. <strong>Linkage</strong> = physical association of genes on a chromosome; <strong>recombination</strong> = generation of non-parental combinations. <strong>y–w: 1.3%</strong> (tightly linked); <strong>w–m: 37.2%</strong> (loosely linked). <strong>Alfred Sturtevant</strong> made the first genetic map.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 POLYGENIC & PLEIOTROPY -->
+<section class="topic" id="poly">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Polygenic inheritance and pleiotropy</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Polygenic</strong> traits spread across a gradient (human height, skin colour). They are generally controlled by <strong>three or more genes</strong>, are influenced by the <strong>environment</strong>, and the effect of each allele is <strong>additive</strong>. <strong>Pleiotropy</strong> is the reverse: <strong>one gene, several phenotypic effects</strong>, usually through metabolic pathways.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Skin colour from three genes</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <label class="ctl" for="pg-k">Dominant alleles (A, B, C) in the genotype <output id="pg-k-o"></output></label>
+      <input type="range" id="pg-k" min="0" max="6" step="1" value="3">
+      <div class="svg-scroll"><svg id="pgsvg" viewBox="0 0 680 260" role="img" aria-label="Bar chart of the 64 possible offspring of AaBbCc parents, grouped by number of dominant alleles, with skin tone swatches"></svg></div>
+      <div class="readout">
+        <div><b id="pg-g" style="font-size:1.05rem"></b><span>Example genotype</span></div>
+        <div><b id="pg-f" style="font-size:1.05rem"></b><span>Share of AaBbCc × AaBbCc children</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="pg-t"></div></div>
+      <p class="fig-note">The 1 : 6 : 15 : 20 : 15 : 6 : 1 distribution assumes three unlinked genes with equal, additive effects and ignores the environment, which NCERT says also matters.</p>
+    </div>
+
+    <div class="callout"><span class="tag">Remember</span><strong>Pleiotropy example: phenylketonuria (PKU)</strong>. One mutation in the gene for <strong>phenylalanine hydroxylase</strong> causes <strong>mental retardation</strong> and <strong>reduced hair and skin pigmentation</strong>.</div>
+  </div>
+</section>
+
+<!-- 6 SEX -->
+<section class="topic" id="sex">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Sex determination</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Henking (1891)</strong> traced a nuclear structure through spermatogenesis in some insects: <strong>50%</strong> of sperm received it. He called it the <strong>X body</strong>; it was later shown to be a chromosome, the <strong>X chromosome</strong>. Chromosomes involved in sex determination are <strong>sex chromosomes</strong>; the rest are <strong>autosomes</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Four ways to decide sex</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="System">
+        <button class="btn" id="sx-xo" aria-pressed="true">XO: grasshopper</button>
+        <button class="btn" id="sx-xy" aria-pressed="false">XY: humans, Drosophila</button>
+        <button class="btn" id="sx-zw" aria-pressed="false">ZW: birds</button>
+        <button class="btn" id="sx-hb" aria-pressed="false">Haplodiploid: honey bee</button>
+      </div>
+      <div class="svg-scroll"><svg id="sxsvg" viewBox="0 0 680 270" role="img" aria-label="Parents, gametes and offspring sexes for the chosen sex determination system"></svg></div>
+      <div class="readout">
+        <div><b id="sx-h" style="font-size:1.05rem"></b><span>Heterogametic sex</span></div>
+        <div><b id="sx-d" style="font-size:1.05rem"></b><span>Sex decided by</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="sx-t"></div></div>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span>Humans: 23 pairs, <strong>22 pairs of autosomes</strong> + XX or XY. Sperm are 50% X, 50% Y; every ovum carries X. So <strong>the sperm decides the child's sex</strong>, with a 50% chance either way in every pregnancy; blaming women for daughters is scientifically false. In birds it is the <strong>egg</strong>. Drones have <strong>no father and no sons</strong>, but have a grandfather and can have grandsons.</div>
+  </div>
+</section>
+
+<!-- 7 DISORDERS -->
+<section class="topic" id="disorders">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>Mutation and Mendelian disorders</h2>
+    </div>
+    <div class="prose stack">
+      <p><strong>Mutation</strong> alters DNA sequence and so genotype and phenotype; with <strong>recombination</strong> it is a source of variation. Loss (<strong>deletion</strong>) or gain (<strong>insertion, duplication</strong>) of a DNA segment alters chromosomes; such <strong>aberrations</strong> are common in cancer cells. A change in a <strong>single base pair</strong> is a <strong>point mutation</strong> (sickle-cell anaemia). Deletions and insertions of base pairs cause <strong>frame-shift</strong> mutations. Agents that induce mutation are <strong>mutagens</strong>, e.g. <strong>UV radiation</strong>.</p>
+      <p>Controlled crosses are impossible in humans, so traits are traced through family trees: <strong>pedigree analysis</strong>. <strong>Mendelian disorders</strong> come from a mutation in a <strong>single gene</strong> and may be dominant or recessive, autosomal or sex-linked: haemophilia, cystic fibrosis, sickle-cell anaemia, colour blindness, phenylketonuria, thalassemia. Pedigree example of an autosomal dominant trait: <strong>myotonic dystrophy</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>X-linked recessive inheritance</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Disorder">
+        <button class="btn" id="xl-cb" aria-pressed="true">Colour blindness</button>
+        <button class="btn" id="xl-hm" aria-pressed="false">Haemophilia</button>
+      </div>
+      <div class="two-col" style="gap:1rem">
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Mother</p><div class="controls" id="xl-m" role="group" aria-label="Mother"></div></div>
+        <div><p class="mono muted" style="font-size:.78rem;margin-bottom:.4rem">Father</p><div class="controls" id="xl-f" role="group" aria-label="Father"></div></div>
+      </div>
+      <div class="svg-scroll"><svg id="xlsvg" viewBox="0 0 680 250" role="img" aria-label="Pedigree-style cross showing the parents and the four equally likely children with their X and Y chromosomes"></svg></div>
+      <div class="readout">
+        <div><b id="xl-s" style="font-size:1.05rem"></b><span>Sons affected</span></div>
+        <div><b id="xl-d" style="font-size:1.05rem"></b><span>Daughters affected</span></div>
+        <div><b id="xl-c" style="font-size:1.05rem"></b><span>Daughters carriers</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="xl-t"></div></div>
+      <p class="fig-note">Pedigree symbols: square male, circle female, filled affected, half-filled carrier (NCERT Fig 4.13).</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Sickle-cell anaemia: one base, one amino acid</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Genotype">
+        <button class="btn" id="sc-aa" aria-pressed="true">HbᴬHbᴬ</button>
+        <button class="btn" id="sc-as" aria-pressed="false">HbᴬHbˢ (carrier)</button>
+        <button class="btn" id="sc-ss" aria-pressed="false">HbˢHbˢ</button>
+      </div>
+      <label class="ctl" for="sc-o">Oxygen tension <output id="sc-o-o"></output></label>
+      <input type="range" id="sc-o" min="0" max="100" step="1" value="80">
+      <div class="svg-scroll"><svg id="scsvg" viewBox="0 0 680 260" role="img" aria-label="The sixth codon and amino acid of the beta globin chain and red blood cell shape for the chosen genotype and oxygen level"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="sc-t"></div></div>
+      <p class="fig-note">After NCERT Fig 4.15. Positions 1–7 of the β chain: Val-His-Leu-Thr-Pro-Glu-Glu. The oxygen level at which cells sickle is illustrative.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Disorder</th><th>Inheritance</th><th>Defect</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Colour blindness</strong></td><td>X-linked recessive</td><td>Defective red or green cone; ~<strong>8% of males, 0.4% of females</strong></td></tr>
+          <tr><td><strong>Haemophilia</strong></td><td>X-linked recessive</td><td>One protein of the clotting cascade; non-stop bleeding from a cut. <strong>Queen Victoria</strong> was a carrier</td></tr>
+          <tr><td><strong>Sickle-cell anaemia</strong></td><td>Autosomal recessive</td><td>Glu → Val at position <strong>6</strong> of β-globin; GAG → GUG; RBCs sickle at low O₂</td></tr>
+          <tr><td><strong>Phenylketonuria</strong></td><td>Autosomal recessive</td><td>No enzyme to convert phenylalanine → tyrosine; phenylpyruvic acid accumulates in brain (mental retardation), excreted in urine</td></tr>
+          <tr><td><strong>α-Thalassemia</strong></td><td>Autosomal recessive</td><td>Genes <strong>HBA1, HBA2</strong> on <strong>chromosome 16</strong>; mutation or deletion of 1–4 genes</td></tr>
+          <tr><td><strong>β-Thalassemia</strong></td><td>Autosomal recessive</td><td>Gene <strong>HBB</strong> on <strong>chromosome 11</strong>; one or both genes mutated</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout" style="margin-top:1.2rem"><span class="tag">NEET trap</span><strong>Thalassemia</strong> is a <strong>quantitative</strong> problem (too few globin molecules); <strong>sickle-cell anaemia</strong> is <strong>qualitative</strong> (a wrongly functioning globin). A haemophilic female is extremely rare: her mother must be at least a carrier and her father haemophilic.</div>
+  </div>
+</section>
+
+<!-- 8 CHROMOSOMAL -->
+<section class="topic" id="chromo">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 8</span>
+      <h2>Chromosomal disorders</h2>
+    </div>
+    <div class="prose stack">
+      <p>Caused by absence, excess or abnormal arrangement of chromosomes. Failure of chromatids to segregate gives gain or loss of chromosomes: <strong>aneuploidy</strong> (trisomy, monosomy). Failure of <strong>cytokinesis after telophase</strong> adds a whole set: <strong>polyploidy</strong>, often seen in plants.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Read the karyotype</h3>
+        <span class="fig-label">Fig 12 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Karyotype">
+        <button class="btn" id="ky-f" aria-pressed="true">Normal female</button>
+        <button class="btn" id="ky-m" aria-pressed="false">Normal male</button>
+        <button class="btn" id="ky-d" aria-pressed="false">Down's</button>
+        <button class="btn" id="ky-k" aria-pressed="false">Klinefelter's</button>
+        <button class="btn" id="ky-t" aria-pressed="false">Turner's</button>
+      </div>
+      <div class="svg-scroll"><svg id="kysvg" viewBox="0 0 680 250" role="img" aria-label="Karyotype of 22 autosome pairs and sex chromosomes for the chosen condition"></svg></div>
+      <div class="readout">
+        <div><b id="ky-n" style="font-size:1.05rem"></b><span>Karyotype</span></div>
+        <div><b id="ky-c" style="font-size:1.05rem"></b><span>Change</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="ky-t2"></div></div>
+      <p class="fig-note">Schematic karyotype; chromosome sizes are not to scale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 9</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>1856–1863 · 1865 · 1900</b><span>Mendel's experiments · published · rediscovered (de Vries, Correns, von Tschermak)</span></div>
+      <div><b>7 pairs · 14 lines</b><span>Contrasting traits · true-breeding pea varieties</span></div>
+      <div><b>3:1 · 1:2:1 · 9:3:3:1 · 1:1</b><span>Mono F2 phenotype · genotype · dihybrid F2 · test cross</span></div>
+      <div><b>6 genotypes · 4 phenotypes</b><span>ABO blood groups (Iᴬ, Iᴮ, i)</span></div>
+      <div><b>1.3% · 37.2%</b><span>Recombination y–w · w–m (Morgan)</span></div>
+      <div><b>1891 · 1902</b><span>Henking's X body · Sutton &amp; Boveri</span></div>
+      <div><b>32 · 16</b><span>Chromosomes in female · male honey bee</span></div>
+      <div><b>GAG → GUG · 6th</b><span>Sickle-cell codon change · β-globin position</span></div>
+      <div><b>47+21 · 47,XXY · 45,X0</b><span>Down's · Klinefelter's · Turner's</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Principles of Inheritance and Variation". Lecture 14 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const marker = (svg, id, token) => {
+    const defs = svg.querySelector("defs") || el("defs", {}, svg);
+    const m = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0,0 L10,5 L0,10 z", style: `fill: var(${token})` }, m);
+  };
+  const press = (ids, on) => ids.forEach(id => $("#" + id).setAttribute("aria-pressed", String(id === on)));
+  const modes = (pairs, cb) => { const ids = pairs.map(p => p[0]); pairs.forEach(([id, m]) => $("#" + id).addEventListener("click", () => { press(ids, id); cb(m); })); };
+  const btnRow = (box, items, onClick, cur) => { box.innerHTML = ""; items.forEach((it, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = it; b.setAttribute("aria-pressed", String(i === cur)); b.addEventListener("click", () => onClick(i)); box.appendChild(b); }); };
+  const gcd = (a, b) => b ? gcd(b, a % b) : a;
+  const ratio = arr => { const nz = arr.filter(x => x > 0); const g = nz.reduce((a, b) => gcd(a, b)); return nz.map(x => x / g).join(" : "); };
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Fig 1 Monohybrid ---------- */
+  const TR = [["Stem height", "T", "Tall", "Dwarf"], ["Flower colour", "W", "Violet", "White"], ["Flower position", "A", "Axial", "Terminal"], ["Pod shape", "I", "Inflated", "Constricted"], ["Pod colour", "G", "Green", "Yellow"], ["Seed shape", "R", "Round", "Wrinkled"], ["Seed colour", "Y", "Yellow", "Green"]];
+  const NS_ = [20, 100, 1000, 10000];
+  let mhT = 0, mhObs = null;
+  btnRow($("#mh-tr"), TR.map(t => t[0]), i => { mhT = i; mhObs = null; buildMh(); }, 0);
+  const mhN = $("#mh-n");
+  function raise() { const n = NS_[+mhN.value - 1]; let d = 0; for (let i = 0; i < n; i++) if (Math.random() < 0.75) d++; mhObs = [d, n - d]; }
+  function buildMh() {
+    $$("#mh-tr button").forEach((b, i) => b.setAttribute("aria-pressed", String(i === mhT)));
+    if (!mhObs) raise();
+    const [ch, L, D, R] = TR[mhT], l = L.toLowerCase(), s = $("#mhsvg"); s.innerHTML = ""; marker(s, "m1", "--muted");
+    const box = (x, y, w, g, ph, dom) => { el("rect", { x, y, width: w, height: 40, rx: 8, class: dom ? "f-leafsoft s-leaf" : "f-paper s-line", "stroke-width": 1.4 }, s); txt(s, x + w / 2, y + 17, g, { "text-anchor": "middle", "font-weight": 500, "font-size": 13 }); txt(s, x + w / 2, y + 32, ph, { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); };
+    txt(s, 10, 32, "P", { "font-weight": 500, "font-size": 13 }); box(40, 10, 100, L + L, D, true); txt(s, 160, 34, "×", { "text-anchor": "middle", "font-size": 16 }); box(180, 10, 100, l + l, R, false);
+    el("line", { x1: 160, y1: 52, x2: 160, y2: 74, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m1)" }, s);
+    txt(s, 10, 102, "F1", { "font-weight": 500, "font-size": 13 }); box(110, 80, 100, L + l, "all " + D, true);
+    txt(s, 220, 104, "selfed ⊗", { "font-size": 10, class: "t-muted" });
+    txt(s, 10, 172, "F2", { "font-weight": 500, "font-size": 13 });
+    const gx = 90, gy = 160, cs = 70;
+    [L, l].forEach((g, i) => { txt(s, gx + 35 + i * cs + cs / 2, gy - 6, g, { "text-anchor": "middle", "font-weight": 500, class: "t-blue" }); txt(s, gx + 20, gy + 14 + i * cs + cs / 2, g, { "text-anchor": "middle", "font-weight": 500, class: "t-red" }); });
+    txt(s, gx + 35 + cs, gy - 22, "pollen ♂", { "text-anchor": "middle", "font-size": 9, class: "t-muted" }); txt(s, gx - 4, gy + 10 + cs, "eggs ♀", { "text-anchor": "end", "font-size": 9, class: "t-muted" });
+    [[L, L], [L, l], [l, L], [l, l]].forEach(([a, b], k) => { const i = Math.floor(k / 2), j = k % 2, g = (a === l && b === L) ? L + l : a + b, dom = g !== l + l; el("rect", { x: gx + 35 + j * cs, y: gy + i * cs, width: cs - 4, height: cs - 4, rx: 6, class: dom ? "f-leafsoft s-leaf" : "f-paper s-line", "stroke-width": 1.2 }, s); txt(s, gx + 33 + j * cs + cs / 2, gy + i * cs + 30, g, { "text-anchor": "middle", "font-weight": 500, "font-size": 13 }); txt(s, gx + 33 + j * cs + cs / 2, gy + i * cs + 47, dom ? D : R, { "text-anchor": "middle", "font-size": 9, class: "t-muted" }); });
+    const n = mhObs[0] + mhObs[1], bx = 380, bw = 270, by = 150;
+    txt(s, bx, 30, `Simulated F2 harvest: ${n.toLocaleString()} plants`, { "font-weight": 500 });
+    [[mhObs[0], D, "f-leaf"], [mhObs[1], R, "f-sun"]].forEach(([c, nm, cl], i) => { const y = 54 + i * 50, w = bw * c / n; el("rect", { x: bx, y, width: Math.max(w, 2), height: 32, rx: 5, class: cl, opacity: 0.8 }, s); const inside = w > 120; txt(s, inside ? bx + 6 : bx + Math.max(w, 2) + 6, y + 21, `${nm}: ${c.toLocaleString()}`, { "font-weight": 500, style: inside ? "fill: var(--paper)" : "" }); });
+    el("line", { x1: bx + bw * 0.75, y1: 48, x2: bx + bw * 0.75, y2: 142, class: "s-red", "stroke-width": 1.4, "stroke-dasharray": "4 3" }, s);
+    txt(s, bx + bw * 0.75, 156, "expected ¾", { "text-anchor": "middle", "font-size": 10, class: "t-red" });
+    txt(s, bx, 200, "Genotypes (expected): " + L + L + " ¼ · " + L + l + " ½ · " + l + l + " ¼", { "font-size": 11 });
+    txt(s, bx, 220, `(½${L} + ½${l})² = ¼${L}${L} + ½${L}${l} + ¼${l}${l}`, { "font-size": 11, class: "t-muted" });
+    txt(s, bx, 250, "Phenotype 3 : 1 · Genotype 1 : 2 : 1", { "font-size": 12, "font-weight": 500 });
+    $("#mh-n-o").textContent = n.toLocaleString();
+    $("#mh-o").textContent = `${mhObs[0].toLocaleString()} ${D.toLowerCase()} · ${mhObs[1].toLocaleString()} ${R.toLowerCase()}`;
+    $("#mh-r").textContent = mhObs[1] ? (mhObs[0] / mhObs[1]).toFixed(2) + " : 1" : "all dominant";
+    $("#mh-t").innerHTML = `${ch}: <strong>${D}</strong> is dominant. F1 ${L}${l} is all ${D.toLowerCase()}; the hidden ${R.toLowerCase()} trait reappears in F2 <strong>without blending</strong>. ${n <= 20 ? "With only 20 plants the ratio can wander far from 3 : 1." : n >= 1000 ? "With a large sample the ratio sits close to 3 : 1." : ""}`;
+  }
+  mhN.addEventListener("input", () => { raise(); buildMh(); });
+  $("#mh-go").addEventListener("click", () => { raise(); buildMh(); });
+  buildMh();
+
+  /* ---------- Fig 2 Test cross ---------- */
+  let tcG = "Ww", tcKids = null, tcRev = false;
+  const tcNew = () => { tcG = Math.random() < 0.5 ? "WW" : "Ww"; tcKids = null; tcRev = false; drawTc(); };
+  function drawTc() {
+    const s = $("#tcsvg"); s.innerHTML = "";
+    const fl = (x, y, v, lbl) => { for (let a = 0; a < 5; a++) { const ang = (a * 72 - 90) * Math.PI / 180; el("circle", { cx: x + 11 * Math.cos(ang), cy: y + 11 * Math.sin(ang), r: 8, class: v ? "f-blue" : "f-card s-line", opacity: v ? 0.75 : 1 }, s); } el("circle", { cx: x, cy: y, r: 5, class: "f-sun" }, s); if (lbl) txt(s, x, y + 34, lbl, { "text-anchor": "middle", "font-weight": 500 }); };
+    fl(70, 50, true, tcRev ? tcG : "W ?"); txt(s, 130, 56, "×", { "font-size": 16 }); fl(190, 50, false, "ww");
+    txt(s, 300, 30, "Mystery plant (violet)", { "font-size": 11, class: "t-muted" }); txt(s, 300, 46, "× recessive parent (white)", { "font-size": 11, class: "t-muted" });
+    if (tcKids) {
+      txt(s, 20, 130, "Offspring:", { "font-weight": 500 });
+      tcKids.forEach((v, i) => fl(110 + i * 70, 150, v));
+      const nv = tcKids.filter(Boolean).length;
+      txt(s, 110, 214, `${nv} violet : ${tcKids.length - nv} white`, { "font-size": 12, "font-weight": 500 });
+    }
+    $("#tc-k").textContent = tcRev ? `It was ${tcG}` : tcKids ? "Look at the offspring, then guess" : "A violet plant: WW or Ww?";
+    const exp = tcG === "WW" ? "WW × ww gives only Ww: <strong>all violet</strong>." : "Ww × ww gives Ww and ww in <strong>1 : 1</strong>: half violet, half white.";
+    $("#tc-t").innerHTML = tcRev ? exp + " A single white offspring proves the plant was heterozygous; all violet in a large brood strongly suggests homozygous." : tcKids ? "Any white flower means the mystery plant carried w." : "Its phenotype cannot reveal its genotype. Cross it with the recessive parent.";
+  }
+  $("#tc-new").addEventListener("click", tcNew);
+  $("#tc-cross").addEventListener("click", () => { tcKids = Array.from({ length: 8 }, () => tcG === "WW" ? true : Math.random() < 0.5); drawTc(); });
+  const guess = g => { if (!tcKids) { $("#tc-t").innerHTML = "Make the test cross first."; return; } tcRev = true; drawTc(); $("#tc-k").textContent = (g === tcG ? "Correct: " : "Not this time: ") + "it was " + tcG; };
+  $("#tc-g1").addEventListener("click", () => guess("WW")); $("#tc-g2").addEventListener("click", () => guess("Ww"));
+  tcNew();
+
+  /* ---------- Fig 3 Dominance types ---------- */
+  const DM = {
+    c: { P: ["TT", "tt"], F1: "Tt", g: ["TT", "Tt", "Tt", "tt"], ph: g => g === "tt" ? "Dwarf" : "Tall", f1: "Tall", pr: "3 Tall : 1 Dwarf", gr: "1 TT : 2 Tt : 1 tt", t: "<strong>Complete dominance</strong>: T masks t, so Tt looks exactly like TT." },
+    i: { P: ["RR", "rr"], F1: "Rr", g: ["RR", "Rr", "Rr", "rr"], ph: g => g === "RR" ? "Red" : g === "rr" ? "White" : "Pink", f1: "Pink", pr: "1 Red : 2 Pink : 1 White", gr: "1 RR : 2 Rr : 1 rr", t: "<strong>Incomplete dominance</strong> in snapdragon (dog flower, <em>Antirrhinum</em>): R is not completely dominant, so Rr is <strong>pink</strong>, in between. Genotype ratio is the usual 1 : 2 : 1, but the phenotype ratio is no longer 3 : 1." },
+    o: { P: ["IᴬIᴬ", "IᴮIᴮ"], F1: "IᴬIᴮ", g: ["IᴬIᴬ", "IᴬIᴮ", "IᴬIᴮ", "IᴮIᴮ"], ph: g => g === "IᴬIᴬ" ? "A" : g === "IᴮIᴮ" ? "B" : "AB", f1: "AB", pr: "1 A : 2 AB : 1 B", gr: "1 : 2 : 1", t: "<strong>Co-dominance</strong>: the F1 resembles <strong>both</strong> parents. Iᴬ and Iᴮ each make their own sugar on the RBC membrane, so IᴬIᴮ cells carry both A and B sugars." },
+    s: { P: ["BB", "bb"], F1: "Bb", g: ["BB", "Bb", "Bb", "bb"], ph: g => g === "bb" ? "Wrinkled, small grains" : g === "BB" ? "Round, large grains" : "Round, medium grains", f1: "Round seed, medium grains", pr: "Shape 3 : 1 · grains 1 : 2 : 1", gr: "1 BB : 2 Bb : 1 bb", t: "One gene, two views. For <strong>seed shape</strong>, B is dominant (Bb round). For <strong>starch grain size</strong>, Bb is intermediate: incomplete dominance. Dominance depends on the phenotype you choose to examine." }
+  };
+  function drawInd(s, k, g, x, y) {
+    const ph = DM[k].ph(g);
+    el("rect", { x: x - 42, y: y - 44, width: 84, height: 100, rx: 10, class: "f-paper s-line" }, s);
+    if (k === "c") { const h = ph === "Tall" ? 60 : 24; el("line", { x1: x, y1: y + 30, x2: x, y2: y + 30 - h, class: "s-leaf", "stroke-width": 3 }, s); for (let i = 1; i < h / 12; i++) el("ellipse", { cx: x + (i % 2 ? 8 : -8), cy: y + 30 - i * 12, rx: 8, ry: 3.5, class: "f-leaf" }, s); }
+    if (k === "i") { const c = ph === "Red" ? ["f-red", 0.85] : ph === "Pink" ? ["f-red", 0.35] : ["f-card", 1]; for (let a = 0; a < 5; a++) { const an = (a * 72 - 90) * Math.PI / 180; el("circle", { cx: x + 12 * Math.cos(an), cy: y + 12 * Math.sin(an), r: 9, class: c[0] + " s-line", opacity: c[1] }, s); } el("circle", { cx: x, cy: y, r: 5, class: "f-sun" }, s); }
+    if (k === "o") { el("ellipse", { cx: x, cy: y, rx: 26, ry: 22, class: "f-red", opacity: 0.25 }, s); for (let a = 0; a < 8; a++) { const an = a * 45 * Math.PI / 180, px = x + 26 * Math.cos(an), py = y + 22 * Math.sin(an); const isA = ph === "A" || (ph === "AB" && a % 2 === 0); if (isA) el("polygon", { points: `${px},${py - 5} ${px + 5},${py + 4} ${px - 5},${py + 4}`, class: "f-blue" }, s); else el("rect", { x: px - 4, y: py - 4, width: 8, height: 8, class: "f-sun" }, s); } }
+    if (k === "s") { const w = ph.startsWith("Wrinkled"); el("path", { d: w ? `M ${x - 22} ${y} q 6 -10 0 -18 q 14 -8 22 0 q 10 -8 20 2 q 6 10 2 18 q 4 14 -10 18 q -12 6 -22 -2 q -14 -2 -12 -18 Z` : `M ${x} ${y - 24} a 24 24 0 1 1 -0.1 0 Z`, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, s); const r = ph.includes("large") ? 4.5 : ph.includes("medium") ? 3 : 1.8; [[-8, -6], [6, -8], [-4, 6], [8, 6], [0, -2]].forEach(([dx, dy]) => el("circle", { cx: x + dx, cy: y + dy, r, class: "f-ink", opacity: 0.55 }, s)); }
+    txt(s, x, y + 48, g, { "text-anchor": "middle", "font-weight": 500, "font-size": 12 });
+  }
+  let dmK = "c";
+  function drawDm() {
+    const s = $("#dmsvg"); s.innerHTML = ""; const D = DM[dmK];
+    txt(s, 14, 24, "P", { "font-weight": 500 }); drawInd(s, dmK, D.P[0], 60, 90); drawInd(s, dmK, D.P[1], 152, 90);
+    txt(s, 206, 24, "F1", { "font-weight": 500 }); drawInd(s, dmK, D.F1, 254, 90);
+    txt(s, 306, 24, "F2", { "font-weight": 500 }); D.g.forEach((g, i) => drawInd(s, dmK, g, 360 + i * 90, 90));
+    txt(s, 316, 200, "F2 phenotypes: " + D.g.map(D.ph).join(" · "), { "font-size": 10, class: "t-muted" });
+    $("#dm-f1").textContent = D.f1; $("#dm-ph").textContent = D.pr; $("#dm-ge").textContent = D.gr; $("#dm-t").innerHTML = D.t;
+  }
+  modes([["dm-c", "c"], ["dm-i", "i"], ["dm-o", "o"], ["dm-s", "s"]], m => { dmK = m; drawDm(); });
+  drawDm();
+
+  /* ---------- Fig 4 ABO ---------- */
+  const AG = [["Iᴬ", "Iᴬ"], ["Iᴬ", "Iᴮ"], ["Iᴬ", "i"], ["Iᴮ", "Iᴮ"], ["Iᴮ", "i"], ["i", "i"]];
+  const grp = (a, b) => { const s = new Set([a, b]); if (s.has("Iᴬ") && s.has("Iᴮ")) return "AB"; if (s.has("Iᴬ")) return "A"; if (s.has("Iᴮ")) return "B"; return "O"; };
+  let ab1 = 2, ab2 = 4;
+  function drawAb() {
+    btnRow($("#ab-p1"), AG.map(g => g.join("") + " (" + grp(...g) + ")"), i => { ab1 = i; drawAb(); }, ab1);
+    btnRow($("#ab-p2"), AG.map(g => g.join("") + " (" + grp(...g) + ")"), i => { ab2 = i; drawAb(); }, ab2);
+    const s = $("#absvg"); s.innerHTML = ""; const A = AG[ab1], B = AG[ab2], cnt = { A: 0, B: 0, AB: 0, O: 0 }, x0 = 120, y0 = 40, cs = 90;
+    B.forEach((g, j) => txt(s, x0 + j * cs + cs / 2, y0 - 10, g, { "text-anchor": "middle", "font-weight": 500, class: "t-blue" }));
+    A.forEach((g, i) => txt(s, x0 - 16, y0 + i * cs + cs / 2 + 4, g, { "text-anchor": "middle", "font-weight": 500, class: "t-red" }));
+    txt(s, x0 - 16, y0 - 10, "1 \\ 2", { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+    const cls = { A: "f-blue", B: "f-sun", AB: "f-leaf", O: "f-paper" };
+    A.forEach((a, i) => B.forEach((b, j) => { const gr = grp(a, b); cnt[gr]++; const geno = [a, b].sort((p, q) => (p === "i") - (q === "i") || p.localeCompare(q)).join(""); el("rect", { x: x0 + j * cs, y: y0 + i * cs, width: cs - 6, height: cs - 6, rx: 8, class: cls[gr] + " s-line", opacity: gr === "O" ? 1 : 0.45 }, s); txt(s, x0 + j * cs + cs / 2 - 3, y0 + i * cs + 38, geno, { "text-anchor": "middle", "font-weight": 500, "font-size": 13 }); txt(s, x0 + j * cs + cs / 2 - 3, y0 + i * cs + 58, "group " + gr, { "text-anchor": "middle", "font-size": 10 }); }));
+    let y = 60; txt(s, 360, 40, "Each square = 25%", { "font-size": 10, class: "t-muted" });
+    ["A", "B", "AB", "O"].forEach(g => { if (!cnt[g]) return; el("rect", { x: 360, y: y - 12, width: 16, height: 16, rx: 3, class: cls[g] + " s-line", opacity: g === "O" ? 1 : 0.6 }, s); txt(s, 384, y + 1, `Group ${g}: ${cnt[g] * 25}%`, { "font-weight": 500 }); y += 28; });
+    $("#ab-r").textContent = ["A", "B", "AB", "O"].filter(g => cnt[g]).map(g => `${g} ${cnt[g] * 25}%`).join(" · ");
+    const pa = grp(...A), pb = grp(...B);
+    $("#ab-t").innerHTML = `${A.join("")} (group ${pa}) × ${B.join("")} (group ${pb}). Iᴬ and Iᴮ are each completely dominant over i, but co-dominant with each other.` + (ab1 === 2 && ab2 === 4 ? " <strong>Exercise 12</strong>: an O child (ii) must get i from each parent, so the A father is <strong>Iᴬi</strong> and the B mother <strong>Iᴮi</strong>; other children can be AB, A, B or O, each ¼." : "");
+  }
+  $("#ab-ex").addEventListener("click", () => { ab1 = 2; ab2 = 4; drawAb(); });
+  drawAb();
+
+  /* ---------- Fig 5 Dihybrid ---------- */
+  const G1 = ["TT", "Tt", "tt"], G2 = ["YY", "Yy", "yy"];
+  let dh = { p1: [1, 1], p2: [1, 1] }, dhSel = null;
+  const PH4 = [["Tall, yellow", "f-leaf", 0.75], ["Tall, green", "f-leaf", 0.35], ["Dwarf, yellow", "f-sun", 0.75], ["Dwarf, green", "f-sun", 0.3]];
+  function parentRows(id, key) {
+    const box = $("#" + id); box.innerHTML = "";
+    [G1, G2].forEach((G, gi) => G.forEach((g, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = g; b.setAttribute("aria-pressed", String(dh[key][gi] === i)); b.addEventListener("click", () => { dh[key][gi] = i; dhSel = null; drawDh(); }); box.appendChild(b); }));
+  }
+  const PRE = [["F1 selfed: TtYy × TtYy", [1, 1], [1, 1]], ["Test cross: TtYy × ttyy", [1, 1], [2, 2]], ["Exercise 7: TtYy × Ttyy", [1, 1], [1, 2]], ["P: TTYY × ttyy", [0, 0], [2, 2]]];
+  btnRow($("#dh-pre"), PRE.map(p => p[0]), i => { dh.p1 = PRE[i][1].slice(); dh.p2 = PRE[i][2].slice(); dhSel = null; drawDh(); }, -1);
+  const gam = ([a, b]) => { const x = G1[a], y = G2[b]; return [x[0] + y[0], x[0] + y[1], x[1] + y[0], x[1] + y[1]]; };
+  const phen = g => (g.includes("T") ? 0 : 2) + (g.includes("Y") ? 0 : 1);
+  const order = g => { const t = [g[0], g[2]].sort().join(""), y = [g[1], g[3]].sort().join(""); return t + y; };
+  function drawDh() {
+    parentRows("dh-p1", "p1"); parentRows("dh-p2", "p2");
+    const s = $("#dhsvg"); s.innerHTML = ""; const ga = gam(dh.p1), gb = gam(dh.p2), cnt = [0, 0, 0, 0], genos = {};
+    const x0 = 60, y0 = 34, cs = 64;
+    gb.forEach((g, j) => txt(s, x0 + j * cs + cs / 2, y0 - 8, g, { "text-anchor": "middle", "font-weight": 500, class: "t-blue" }));
+    ga.forEach((g, i) => txt(s, x0 - 22, y0 + i * cs + cs / 2 + 4, g, { "text-anchor": "middle", "font-weight": 500, class: "t-red" }));
+    ga.forEach((a, i) => gb.forEach((b, j) => {
+      const z = order(a[0] + a[1] + b[0] + b[1]), p = phen(z); cnt[p]++; genos[z] = (genos[z] || 0) + 1;
+      const r = el("rect", { x: x0 + j * cs, y: y0 + i * cs, width: cs - 4, height: cs - 4, rx: 6, class: PH4[p][1] + " s-line", opacity: dhSel === null || dhSel === p ? PH4[p][2] : 0.08 }, s);
+      txt(s, x0 + j * cs + cs / 2 - 2, y0 + i * cs + cs / 2 + 4, z, { "text-anchor": "middle", "font-weight": 500, "font-size": 12, opacity: dhSel === null || dhSel === p ? 1 : 0.3 });
+    }));
+    let y = 50; txt(s, 340, 30, "Phenotypes (click to highlight)", { "font-weight": 500 });
+    PH4.forEach(([n, c, o], k) => { if (!cnt[k]) return; const g = el("g", { style: "cursor:pointer" }, s); el("rect", { x: 340, y: y - 13, width: 300, height: 26, rx: 6, class: dhSel === k ? "f-leafsoft s-leaf" : "f-paper s-line" }, g); el("rect", { x: 348, y: y - 7, width: 14, height: 14, rx: 3, class: c, opacity: o }, g); txt(g, 372, y + 4, `${n}: ${cnt[k]}/16`, { "font-weight": 500 }); g.addEventListener("click", () => { dhSel = dhSel === k ? null : k; drawDh(); }); y += 32; });
+    const ng = Object.keys(genos).length;
+    txt(s, 340, y + 14, `${ng} genotype${ng > 1 ? "s" : ""}, ${cnt.filter(Boolean).length} phenotype${cnt.filter(Boolean).length > 1 ? "s" : ""}`, { "font-size": 11, class: "t-muted" });
+    txt(s, 340, y + 32, "Gametes: " + [...new Set(ga)].join(", ") + "  ×  " + [...new Set(gb)].join(", "), { "font-size": 11, class: "t-muted" });
+    const p1 = G1[dh.p1[0]] + G2[dh.p1[1]], p2 = G1[dh.p2[0]] + G2[dh.p2[1]];
+    $("#dh-k").textContent = `${p1} × ${p2} → phenotype ratio ${ratio(cnt)}`;
+    $("#dh-t").innerHTML = (p1 === "TtYy" && p2 === "Ttyy" ? "<strong>Exercise 7</strong>: tall and green = <strong>6/16 = 3/8</strong>; dwarf and green = <strong>2/16 = 1/8</strong>. " : p1 === "TtYy" && p2 === "TtYy" ? "The classic <strong>9 : 3 : 3 : 1</strong>, from (3 : 1) × (3 : 1). " : p2 === "ttyy" && p1 === "TtYy" ? "A dihybrid test cross gives <strong>1 : 1 : 1 : 1</strong>: the four gametes of the hybrid show up directly. " : "") + "Each gamete carries one allele of each gene, and the genes assort independently.";
+  }
+  drawDh();
+
+  /* ---------- Fig 6 Independent assortment ---------- */
+  let iaK = 1;
+  function drawIa() {
+    const s = $("#iasvg"); s.innerHTML = "";
+    el("ellipse", { cx: 200, cy: 110, rx: 170, ry: 96, class: "f-card s-ink", "stroke-width": 1.4 }, s);
+    el("line", { x1: 200, y1: 20, x2: 200, y2: 200, class: "s-sun", "stroke-width": 1, "stroke-dasharray": "4 4" }, s);
+    const chr = (x, y, len, cls, lbl) => { [-5, 5].forEach(d => el("rect", { x: x - 4 + d, y: y - len / 2, width: 8, height: len, rx: 4, class: cls, opacity: 0.85 }, s)); el("ellipse", { cx: x, cy: y, rx: 10, ry: 3.5, class: "f-ink" }, s); el("rect", { x: x - 11, y: y - len / 2 + 8, width: 22, height: 6, class: "f-card" }, s); txt(s, x, y - len / 2 + 14, lbl, { "text-anchor": "middle", "font-size": 9, "font-weight": 500 }); };
+    const L = iaK === 1 ? [["R", "f-sun"], ["Y", "f-red"]] : [["R", "f-sun"], ["y", "f-leaf"]], Rt = iaK === 1 ? [["r", "f-blue"], ["y", "f-leaf"]] : [["r", "f-blue"], ["Y", "f-red"]];
+    chr(186, 70, 60, L[0][1], L[0][0]); chr(214, 70, 60, Rt[0][1], Rt[0][0]);
+    chr(186, 150, 36, L[1][1], L[1][0]); chr(214, 150, 36, Rt[1][1], Rt[1][0]);
+    txt(s, 60, 24, "← pole 1", { "font-size": 10, class: "t-muted" }); txt(s, 300, 24, "pole 2 →", { "font-size": 10, class: "t-muted" });
+    const g1 = L[0][0] + L[1][0], g2 = Rt[0][0] + Rt[1][0];
+    txt(s, 420, 60, "Gametes from this alignment:", { "font-weight": 500 });
+    [g1, g2].forEach((g, i) => { el("circle", { cx: 450 + i * 90, cy: 110, r: 30, class: "f-leafsoft s-leaf", "stroke-width": 1.4 }, s); txt(s, 450 + i * 90, 115, g, { "text-anchor": "middle", "font-size": 15, "font-weight": 500 }); });
+    txt(s, 420, 180, "Both alignments are equally likely,", { "font-size": 11, class: "t-muted" }); txt(s, 420, 196, "so RY, ry, Ry, rY each = ¼.", { "font-size": 11, class: "t-muted" });
+    $("#ia-t").innerHTML = `Possibility ${iaK === 1 ? "I" : "II"}: the long pair and the short pair line up <strong>independently</strong> at the metaphase plate, so ${iaK === 1 ? "R travels with Y, giving <strong>RY</strong> and <strong>ry</strong>" : "R travels with y, giving <strong>Ry</strong> and <strong>rY</strong>"}. This chromosome behaviour is the physical basis of Mendel's law of independent assortment.`;
+  }
+  modes([["ia-1", 1], ["ia-2", 2]], k => { iaK = k; drawIa(); });
+  drawIa();
+
+  /* ---------- Fig 7 Linkage ---------- */
+  const lkD = $("#lk-d");
+  btnRow($("#lk-pre"), ["y and w (1.3%)", "w and m (37.2%)", "Unlinked (50%)"], i => { lkD.value = [1.3, 37.2, 50][i]; drawLk(); }, 0);
+  function drawLk() {
+    const rf = +lkD.value, s = $("#lksvg"); s.innerHTML = "";
+    $$("#lk-pre button").forEach((b, i) => b.setAttribute("aria-pressed", String(Math.abs(rf - [1.3, 37.2, 50][i]) < 0.05)));
+    el("rect", { x: 40, y: 40, width: 600, height: 24, rx: 12, class: "f-sunsoft s-sun", "stroke-width": 1.4 }, s);
+    txt(s, 640, 30, "X chromosome", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    const x1 = 100, x2 = 100 + rf * 10.4;
+    [[x1, "gene 1"], [x2, "gene 2"]].forEach(([x, l], i) => { el("rect", { x: x - 4, y: 40, width: 8, height: 24, class: i ? "f-blue" : "f-red" }, s); txt(s, x + (i ? 6 : -6), i ? 84 : 30, l, { "text-anchor": i ? "start" : "end", "font-size": 10, "font-weight": 500 }); });
+    el("line", { x1, y1: 96, x2, y2: 96, class: "s-ink", "stroke-width": 1.2 }, s); txt(s, (x1 + x2) / 2, 112, rf.toFixed(1) + " map units", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    const bw = 520;
+    [[100 - rf, "Parental combinations", "f-leaf"], [rf, "Recombinants", "f-sun"]].forEach(([p, n, c], i) => { const y = 140 + i * 46; txt(s, 40, y + 20, n, { "font-size": 11, "font-weight": 500 }); el("rect", { x: 200, y, width: 440, height: 30, rx: 5, class: "f-paper s-line" }, s); el("rect", { x: 200, y, width: Math.max(440 * p / 100, 1), height: 30, rx: 5, class: c, opacity: 0.8 }, s); txt(s, 208, y + 20, p.toFixed(1) + "%", { "font-weight": 500 }); });
+    $("#lk-d-o").textContent = rf.toFixed(1) + "%";
+    $("#lk-p").textContent = (100 - rf).toFixed(1) + "% (each " + ((100 - rf) / 2).toFixed(1) + "%)";
+    $("#lk-r").textContent = rf.toFixed(1) + "% (each " + (rf / 2).toFixed(1) + "%)";
+    $("#lk-s").textContent = rf >= 49.95 ? "None: assorts independently" : rf < 10 ? "Tight" : rf < 30 ? "Moderate" : "Loose";
+    $("#lk-t").innerHTML = rf >= 49.95 ? "At 50% recombination, parental and recombinant gametes are equal: the result matches independent assortment (9 : 3 : 3 : 1 in a dihybrid F2)." : `Genes close together are rarely separated by crossing over, so parental combinations far outnumber recombinants. ${rf <= 2 ? "<strong>white and yellow</strong>: very tightly linked." : Math.abs(rf - 37.2) < 0.1 ? "<strong>white and miniature wing</strong>: loosely linked." : ""} Sturtevant used these frequencies as distances to <strong>map</strong> genes; such maps were a starting point for the Human Genome Project.`;
+  }
+  lkD.addEventListener("input", drawLk);
+  drawLk();
+
+  /* ---------- Fig 8 Polygenic ---------- */
+  const PB = [1, 6, 15, 20, 15, 6, 1], pgK = $("#pg-k");
+  const tone = k => `hsl(28, ${35 + k * 4}%, ${86 - k * 10}%)`;
+  function drawPg() {
+    const k = +pgK.value, s = $("#pgsvg"); s.innerHTML = "";
+    const x0 = 60, bw = 70, base = 200, sc = 7.5;
+    PB.forEach((c, i) => {
+      const h = c * sc, x = x0 + i * (bw + 10);
+      el("rect", { x, y: base - h, width: bw, height: h, rx: 4, style: `fill:${tone(i)}`, class: i === k ? "s-ink" : "s-line", "stroke-width": i === k ? 3 : 1 }, s);
+      txt(s, x + bw / 2, base - h - 6, c + "/64", { "text-anchor": "middle", "font-size": 10, "font-weight": i === k ? 500 : 400 });
+      txt(s, x + bw / 2, base + 18, String(i), { "text-anchor": "middle", "font-weight": 500 });
+    });
+    txt(s, x0, base + 38, "number of dominant alleles (0 = aabbcc, lightest · 6 = AABBCC, darkest)", { "font-size": 10, class: "t-muted" });
+    const g = ["A", "A", "B", "B", "C", "C"].map((l, i) => i < k ? l : l.toLowerCase()).join("");
+    $("#pg-k-o").textContent = k; $("#pg-g").textContent = g + (k === 3 ? " (or AaBbCc, …)" : "");
+    $("#pg-f").textContent = `${PB[k]}/64 ≈ ${(100 * PB[k] / 64).toFixed(1)}%`;
+    $("#pg-t").innerHTML = `Each dominant allele adds a fixed amount of colour: the effect is <strong>additive</strong>. ${k === 0 ? "aabbcc: <strong>lightest</strong>." : k === 6 ? "AABBCC: <strong>darkest</strong>." : k === 3 ? "Three dominant and three recessive alleles: <strong>intermediate</strong>, the most common class." : ""} With three genes the children of two AaBbCc parents form <strong>seven classes</strong> that grade smoothly into one another, unlike Mendel's either-or traits.`;
+  }
+  pgK.addEventListener("input", drawPg);
+  drawPg();
+
+  /* ---------- Fig 9 Sex determination ---------- */
+  const SX = {
+    xo: { f: ["Female", "XX"], m: ["Male", "XO"], fg: ["X", "X"], mg: ["X", "O"], kids: [["XX", "Female"], ["XO", "Male"]], h: "Male", d: "Sperm (with or without X)", t: "<strong>XO type</strong> (grasshopper and many insects): all eggs carry an X; only half the sperm do. Males have <strong>one X</strong> besides the autosomes, so they have <strong>one chromosome fewer</strong> than females. Male heterogamety." },
+    xy: { f: ["Female", "XX"], m: ["Male", "XY"], fg: ["X", "X"], mg: ["X", "Y"], kids: [["XX", "Female"], ["XY", "Male"]], h: "Male", d: "Sperm (X or Y)", t: "<strong>XY type</strong> (humans, <em>Drosophila</em>): both sexes have the same number of chromosomes; the Y is distinctly smaller. Female homogametic (XX), male heterogametic (XY). Humans: 22 pairs of autosomes + XX or XY." },
+    zw: { f: ["Female", "ZW"], m: ["Male", "ZZ"], fg: ["Z", "W"], mg: ["Z", "Z"], kids: [["ZW", "Female"], ["ZZ", "Male"]], h: "Female", d: "Egg (Z or W)", t: "<strong>ZW type</strong> (birds): the <strong>female</strong> makes two kinds of gametes: <strong>female heterogamety</strong>. Females ZW, males ZZ; the total number of chromosomes is the same in both. The egg decides the chick's sex." },
+    hb: { f: ["Queen", "2n = 32"], m: ["Drone", "n = 16"], fg: ["n (egg)", "n (egg)"], mg: ["n (sperm, by mitosis)", ""], kids: [["Fertilised egg: 2n = 32", "Female (queen/worker)"], ["Unfertilised egg: n = 16", "Male (drone)"]], h: "—", d: "Fertilisation or not", t: "<strong>Haplodiploid</strong> system: a <strong>fertilised</strong> egg becomes a <strong>female</strong> (queen or worker, 32 chromosomes); an <strong>unfertilised</strong> egg develops by <strong>parthenogenesis</strong> into a <strong>male drone</strong> (16). Drones make sperm by <strong>mitosis</strong>, have no father and cannot have sons, but have a grandfather and can have grandsons." }
+  };
+  function drawSx(k) {
+    const s = $("#sxsvg"); s.innerHTML = ""; marker(s, "m9", "--muted"); const D = SX[k];
+    const card = (x, y, w, t1, t2, cls) => { el("rect", { x, y, width: w, height: 46, rx: 10, class: cls, "stroke-width": 1.4 }, s); txt(s, x + w / 2, y + 19, t1, { "text-anchor": "middle", "font-weight": 500 }); txt(s, x + w / 2, y + 36, t2, { "text-anchor": "middle", "font-size": 11 }); };
+    card(60, 14, 200, D.f[0], D.f[1], "f-red s-red"); s.lastChild.previousSibling; card(420, 14, 200, D.m[0], D.m[1], "f-paper s-blue");
+    $$("rect", s)[0].setAttribute("opacity", 0.35);
+    const gm = (x, l, c) => { el("circle", { cx: x, cy: 120, r: l.length > 3 ? 40 : 22, class: "f-card " + c, "stroke-width": 1.6 }, s); l.split(" (").forEach((p, i) => txt(s, x, 120 + (i ? 12 : (l.includes("(") ? -2 : 4)), i ? "(" + p : p, { "text-anchor": "middle", "font-size": i ? 9 : 12, "font-weight": 500 })); };
+    if (k !== "hb") { D.fg.forEach((g, i) => { gm(110 + i * 100, g, "s-red"); }); D.mg.forEach((g, i) => gm(470 + i * 100, g, "s-blue")); }
+    else { gm(160, "n (egg)", "s-red"); gm(520, "n (sperm)", "s-blue"); txt(s, 520, 176, "made by mitosis", { "text-anchor": "middle", "font-size": 9, class: "t-muted" }); }
+    txt(s, 340, 124, "gametes", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    D.kids.forEach(([g, sx], i) => card(130 + i * 230, 200, 200, g, sx, (sx.startsWith("Female") ? "f-red s-red" : "f-paper s-blue")));
+    $$("rect", s).slice(-2).forEach((r, i) => { if (D.kids[i][1].startsWith("Female")) r.setAttribute("opacity", 0.35); });
+    el("line", { x1: 340, y1: 150, x2: 340, y2: 190, class: "s-muted", "stroke-width": 1.4, "marker-end": "url(#m9)" }, s);
+    txt(s, 330, 176, k === "hb" ? "with or without fertilisation" : "50% : 50%", { "font-size": 10, "text-anchor": "end", class: "t-muted" });
+    $("#sx-h").textContent = D.h; $("#sx-d").textContent = D.d; $("#sx-t").innerHTML = D.t;
+  }
+  modes([["sx-xo", "xo"], ["sx-xy", "xy"], ["sx-zw", "zw"], ["sx-hb", "hb"]], drawSx);
+  drawSx("xo");
+
+  /* ---------- Fig 10 X-linked ---------- */
+  let xlD = "cb", xlM = 1, xlF = 0;
+  function drawXl() {
+    const sup = xlD === "cb" ? "ᶜ" : "ʰ", Xa = "X" + sup;
+    const MO = [["Normal", ["X", "X"]], ["Carrier", ["X", Xa]], ["Affected", [Xa, Xa]]], FA = [["Normal", ["X", "Y"]], ["Affected", [Xa, "Y"]]];
+    btnRow($("#xl-m"), MO.map(m => `${m[0]} (${m[1].join("")})`), i => { xlM = i; drawXl(); }, xlM);
+    btnRow($("#xl-f"), FA.map(m => `${m[0]} (${m[1].join("")})`), i => { xlF = i; drawXl(); }, xlF);
+    const s = $("#xlsvg"); s.innerHTML = "";
+    const sym = (x, y, male, st, lbl) => { const a = { class: st === "aff" ? "f-ink s-ink" : "f-card s-ink", "stroke-width": 2 }; if (male) el("rect", Object.assign({ x: x - 20, y: y - 20, width: 40, height: 40 }, a), s); else el("circle", Object.assign({ cx: x, cy: y, r: 21 }, a), s); if (st === "car") { if (male) el("rect", { x, y: y - 20, width: 20, height: 40, class: "f-ink" }, s); else el("path", { d: `M ${x} ${y - 21} A 21 21 0 0 1 ${x} ${y + 21} Z`, class: "f-ink" }, s); } txt(s, x, y + 38, lbl, { "text-anchor": "middle", "font-weight": 500 }); };
+    const st = g => { const n = g.filter(c => c === Xa).length; const male = g.includes("Y"); return male ? (n ? "aff" : "nor") : n === 2 ? "aff" : n ? "car" : "nor"; };
+    const m = MO[xlM][1], f = FA[xlF][1];
+    sym(250, 40, false, st(m), m.join("")); sym(430, 40, true, st(f), f.join(""));
+    el("line", { x1: 271, y1: 40, x2: 410, y2: 40, class: "s-ink", "stroke-width": 1.4 }, s); el("line", { x1: 340, y1: 40, x2: 340, y2: 110, class: "s-ink", "stroke-width": 1.4 }, s); el("line", { x1: 130, y1: 110, x2: 550, y2: 110, class: "s-ink", "stroke-width": 1.4 }, s);
+    const kids = [[m[0], f[0]], [m[1], f[0]], [m[0], f[1]], [m[1], f[1]]];
+    let sa = 0, da = 0, dc = 0;
+    kids.forEach((g, i) => { const x = 130 + i * 140, male = g.includes("Y"), t = st(g); el("line", { x1: x, y1: 110, x2: x, y2: 140, class: "s-ink", "stroke-width": 1.4 }, s); sym(x, 162, male, t, g.join("")); txt(s, x, 216, male ? (t === "aff" ? "affected son" : "normal son") : (t === "aff" ? "affected daughter" : t === "car" ? "carrier daughter" : "normal daughter"), { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); if (male && t === "aff") sa++; if (!male && t === "aff") da++; if (!male && t === "car") dc++; });
+    $("#xl-s").textContent = sa * 50 + "%"; $("#xl-d").textContent = da * 50 + "%"; $("#xl-c").textContent = dc * 50 + "%";
+    const name = xlD === "cb" ? "colour blindness" : "haemophilia";
+    $("#xl-t").innerHTML = `The gene for ${name} sits on the <strong>X chromosome</strong>, and the trait is <strong>recessive</strong>. Sons get their X from the mother, so ${xlM === 1 ? "a <strong>carrier mother</strong> gives each son a <strong>50% chance</strong> of being affected" : xlM === 2 ? "an affected mother gives the trait to <strong>every son</strong>" : "a normal mother never passes it to sons"}. ${xlF === 1 ? "An affected father passes his X to every daughter, so all daughters at least carry it." : ""} ${xlD === "hm" && da ? "An affected haemophilic female is <strong>extremely rare</strong>: it needs a carrier (or affected) mother and a haemophilic father." : ""} ${xlD === "cb" ? "Colour blindness affects about <strong>8% of males</strong> but only <strong>0.4% of females</strong>." : "A single clotting-cascade protein is affected; a simple cut can bleed non-stop."}`;
+  }
+  modes([["xl-cb", "cb"], ["xl-hm", "hm"]], d => { xlD = d; drawXl(); });
+  drawXl();
+
+  /* ---------- Fig 11 Sickle cell ---------- */
+  let scG = "aa"; const scO = $("#sc-o");
+  function drawSc() {
+    const s = $("#scsvg"); s.innerHTML = ""; const o = +scO.value;
+    const AA = ["Val", "His", "Leu", "Thr", "Pro", "Glu", "Glu"];
+    const rows = scG === "aa" ? [["HbA", "GAG", "Glu"]] : scG === "ss" ? [["HbS", "GUG", "Val"]] : [["HbA", "GAG", "Glu"], ["HbS", "GUG", "Val"]];
+    rows.forEach(([n, cod, aa], r) => { const y = 24 + r * 54; txt(s, 10, y + 22, n, { "font-weight": 500 }); AA.forEach((a, i) => { const isM = i === 5, val = isM ? aa : a; el("rect", { x: 60 + i * 60, y, width: 54, height: 34, rx: 6, class: isM ? (aa === "Val" ? "f-red s-red" : "f-leafsoft s-leaf") : "f-paper s-line", opacity: isM && aa === "Val" ? 0.5 : 1 }, s); txt(s, 87 + i * 60, y + 22, val, { "text-anchor": "middle", "font-weight": isM ? 500 : 400 }); }); txt(s, 490, y + 14, "codon 6:", { "font-size": 10, class: "t-muted" }); txt(s, 490, y + 30, cod, { "font-size": 14, "font-weight": 500, class: cod === "GUG" ? "t-red" : "t-leaf" }); });
+    AA.forEach((a, i) => txt(s, 87 + i * 60, 18, String(i + 1), { "text-anchor": "middle", "font-size": 9, class: "t-muted" }));
+    const sick = scG === "ss" && o < 60, y0 = 160;
+    for (let i = 0; i < 7; i++) { const x = 80 + i * 80, sk = sick && i % 4 !== 3; if (sk) el("path", { d: `M ${x - 30} ${y0 + 10} Q ${x} ${y0 - 34} ${x + 30} ${y0 + 10} Q ${x} ${y0 - 10} ${x - 30} ${y0 + 10} Z`, class: "f-red", opacity: 0.7 }, s); else { el("ellipse", { cx: x, cy: y0, rx: 28, ry: 22, class: "f-red", opacity: 0.6 }, s); el("ellipse", { cx: x, cy: y0, rx: 12, ry: 9, class: "f-red", opacity: 0.35 }, s); } }
+    txt(s, 340, 220, sick ? "sickle-shaped RBCs" : "biconcave disc RBCs", { "text-anchor": "middle", "font-size": 11, "font-weight": 500 });
+    $("#sc-o-o").textContent = o >= 60 ? "normal" : "low";
+    $("#sc-t").innerHTML = scG === "aa" ? "Normal β-globin: <strong>Glu</strong> at position 6, codon <strong>GAG</strong>." : scG === "as" ? "<strong>Carrier</strong> (sickle-cell trait): apparently unaffected, but a <strong>50% chance</strong> of passing Hbˢ to each child. Two carriers have a ¼ chance of an HbˢHbˢ child (autosomal recessive)." : `A <strong>point mutation</strong>, GAG → GUG, puts <strong>Val</strong> in place of <strong>Glu</strong> at the 6th position. ${sick ? "Under <strong>low oxygen tension</strong> the mutant haemoglobin <strong>polymerises</strong> and RBCs turn from biconcave discs to <strong>sickles</strong>." : "Lower the oxygen to see the cells sickle."} Only HbˢHbˢ shows the disease.`;
+  }
+  modes([["sc-aa", "aa"], ["sc-as", "as"], ["sc-ss", "ss"]], g => { scG = g; drawSc(); });
+  scO.addEventListener("input", drawSc);
+  drawSc();
+
+  /* ---------- Fig 12 Karyotype ---------- */
+  const KY = {
+    f: ["46, XX", "None", "", "Normal female: 22 pairs of autosomes + XX."],
+    m: ["46, XY", "None", "", "Normal male: 22 pairs of autosomes + XY."],
+    d: ["47, +21", "Trisomy 21", "21", "<strong>Down's syndrome</strong> (Langdon Down, 1866): an extra chromosome 21. Short stature, small round head, furrowed tongue, partially open mouth, broad palm with a characteristic palm crease; retarded physical, psychomotor and mental development. NCERT figure also shows congenital heart disease and a broad flat face."],
+    k: ["47, XXY", "Extra X", "X", "<strong>Klinefelter's syndrome</strong>: overall masculine development, but feminine development such as breasts (<strong>gynaecomastia</strong>) is also expressed. Tall stature. <strong>Sterile</strong>."],
+    t: ["45, X0", "Missing X", "-X", "<strong>Turner's syndrome</strong>: one X absent in a female. <strong>Sterile</strong>, with rudimentary ovaries and a lack of other secondary sexual characters; short stature."]
+  };
+  function drawKy(k) {
+    const s = $("#kysvg"); s.innerHTML = ""; const D = KY[k];
+    for (let c = 1; c <= 22; c++) {
+      const i = c - 1, x = 30 + (i % 12) * 52, y = i < 12 ? 20 : 120, h = 70 - c * 2;
+      const n = c === 21 && k === "d" ? 3 : 2;
+      for (let j = 0; j < n; j++) { el("rect", { x: x + j * 11, y: y + 70 - h, width: 9, height: h, rx: 4, class: n === 3 ? "f-red" : "f-leaf", opacity: 0.75 }, s); el("rect", { x: x + j * 11, y: y + 70 - h + h * 0.35, width: 9, height: 3, class: "f-ink", opacity: 0.6 }, s); }
+      txt(s, x + 10, y + 86, String(c), { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+    }
+    const sx = k === "f" ? ["X", "X"] : k === "m" ? ["X", "Y"] : k === "k" ? ["X", "X", "Y"] : k === "t" ? ["X"] : ["X", "X"];
+    const x = 30 + 10 * 52;
+    sx.forEach((c, j) => { const h = c === "Y" ? 26 : 50; el("rect", { x: x + j * 13, y: 190 - h, width: 10, height: h, rx: 4, class: (k === "k" && j === 1) ? "f-red" : "f-blue", opacity: 0.75 }, s); });
+    if (k === "t") el("rect", { x: x + 13, y: 140, width: 10, height: 50, rx: 4, class: "f-none s-red", "stroke-dasharray": "3 2", "stroke-width": 1.4 }, s);
+    txt(s, x + 18, 210, "sex", { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+    txt(s, 30, 240, `Total: ${44 + sx.length + (k === "d" ? 1 : 0)} chromosomes`, { "font-weight": 500 });
+    $("#ky-n").textContent = D[0]; $("#ky-c").textContent = D[1]; $("#ky-t2").innerHTML = D[3] + (k === "d" || k === "k" ? " An extra copy is a <strong>trisomy</strong>." : k === "t" ? " A missing chromosome is a <strong>monosomy</strong>." : "");
+  }
+  modes([["ky-f", "f"], ["ky-m", "m"], ["ky-d", "d"], ["ky-k", "k"], ["ky-t", "t"]], drawKy);
+  drawKy("f");
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "Mendel conducted his hybridisation experiments on garden pea for:", o: ["Three years (1856–1859)", "Seven years (1856–1863)", "Ten years (1856–1866)", "Seven years (1865–1872)"], a: 1, e: "NCERT: seven years, 1856–1863. He published in 1865." },
+    { q: "Which of these was a recessive trait in Mendel's peas?", o: ["Axial flower", "Green pod", "Constricted pod", "Round seed"], a: 2, e: "Constricted pod is recessive to inflated. Green pod colour is dominant over yellow." },
+    { q: "The F2 genotypic ratio of a monohybrid cross is:", o: ["3 : 1", "1 : 2 : 1", "9 : 3 : 3 : 1", "1 : 1"], a: 1, e: "¼ TT : ½ Tt : ¼ tt, i.e. 1 : 2 : 1. The phenotypic ratio is 3 : 1." },
+    { q: "In snapdragon, a cross between red (RR) and white (rr) gives a pink F1. The F2 phenotypic ratio is:", o: ["3 red : 1 white", "1 red : 2 pink : 1 white", "All pink", "9 : 3 : 3 : 1"], a: 1, e: "Incomplete dominance: phenotype ratio equals genotype ratio, 1 : 2 : 1." },
+    { q: "A child has blood group O, the father group A and the mother group B. The parents' genotypes are:", o: ["IᴬIᴬ and IᴮIᴮ", "Iᴬi and Iᴮi", "IᴬIᴬ and Iᴮi", "Iᴬi and IᴮIᴮ"], a: 1, e: "An ii child needs an i from each parent, so the parents must be Iᴬi and Iᴮi." },
+    { q: "How many kinds of gametes can a diploid heterozygous for 4 loci produce (unlinked genes)?", o: ["4", "8", "16", "32"], a: 2, e: "2ⁿ = 2⁴ = 16 (NCERT exercise 3)." },
+    { q: "In a cross TtYy × Ttyy, the proportion of dwarf, green offspring is:", o: ["1/16", "1/8", "3/8", "1/4"], a: 1, e: "Dwarf (tt) = ¼ and green (yy) = ½, so ¼ × ½ = 1/8 (exercise 7)." },
+    { q: "Assertion (A): White and yellow genes in Drosophila showed only 1.3% recombination. Reason (R): Genes located very close together on a chromosome are tightly linked.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "Morgan found 1.3% for y–w (tight) and 37.2% for w–m (loose)." },
+    { q: "Phenylketonuria causes both mental retardation and reduced hair and skin pigmentation. This is an example of:", o: ["Polygenic inheritance", "Pleiotropy", "Co-dominance", "Multiple alleles"], a: 1, e: "One gene (phenylalanine hydroxylase) with several phenotypic effects: pleiotropy." },
+    { q: "Which pair is correctly matched?", o: ["Grasshopper: ZW", "Birds: XO", "Honey bee: haplodiploid", "Drosophila: ZZ male"], a: 2, e: "Grasshopper XO, birds ZW (female heterogametic), Drosophila XY; honey bee is haplodiploid." },
+    { q: "Sickle-cell anaemia results from:", o: ["Substitution of Val by Glu at position 6 of α-globin", "Substitution of Glu by Val at position 6 of β-globin", "Deletion of HBA1 and HBA2", "Trisomy of chromosome 11"], a: 1, e: "GAG → GUG at the sixth codon of the β-globin gene: Glu → Val." },
+    { q: "Which statement is NOT true?", o: ["Klinefelter's syndrome has the karyotype 47, XXY", "Turner's syndrome is 45, X0", "Thalassemia is a qualitative defect of globin", "Down's syndrome is trisomy 21"], a: 2, e: "Thalassemia is quantitative (too few globin chains); sickle-cell anaemia is the qualitative defect." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>

@@ -1774,5 +1774,301 @@ window.CHAPTERS = {
     "e": "NCERT: bicarpellary, obliquely placed, syncarpous; ovary superior, bilocular, swollen placenta with many ovules, axile."
    }
   ]
+ },
+ "inheritance": {
+  "title": "Principles of Inheritance",
+  "file": "class-12/Principles of Inheritance.html",
+  "lede": "Mendel's peas and his three laws, the exceptions (incomplete dominance, co-dominance, multiple alleles, linkage, polygenes, pleiotropy), how sex is decided, and the mutations behind genetic disorders. Run every cross yourself, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "Mendel and the inheritance of one gene",
+   "Beyond simple dominance",
+   "Inheritance of two genes",
+   "Chromosomal theory, linkage and recombination",
+   "Polygenic inheritance and pleiotropy",
+   "Sex determination",
+   "Mutation and Mendelian disorders",
+   "Chromosomal disorders"
+  ],
+  "questions": [
+   {
+    "q": "Mendel conducted his hybridisation experiments on garden pea for:",
+    "o": [
+     "Three years (1856–1859)",
+     "Seven years (1856–1863)",
+     "Ten years (1856–1866)",
+     "Seven years (1865–1872)"
+    ],
+    "a": 1,
+    "e": "NCERT: seven years, 1856–1863. He published in 1865."
+   },
+   {
+    "q": "Which of these was a recessive trait in Mendel's peas?",
+    "o": [
+     "Axial flower",
+     "Green pod",
+     "Constricted pod",
+     "Round seed"
+    ],
+    "a": 2,
+    "e": "Constricted pod is recessive to inflated. Green pod colour is dominant over yellow."
+   },
+   {
+    "q": "The F2 genotypic ratio of a monohybrid cross is:",
+    "o": [
+     "3 : 1",
+     "1 : 2 : 1",
+     "9 : 3 : 3 : 1",
+     "1 : 1"
+    ],
+    "a": 1,
+    "e": "¼ TT : ½ Tt : ¼ tt, i.e. 1 : 2 : 1. The phenotypic ratio is 3 : 1."
+   },
+   {
+    "q": "In snapdragon, a cross between red (RR) and white (rr) gives a pink F1. The F2 phenotypic ratio is:",
+    "o": [
+     "3 red : 1 white",
+     "1 red : 2 pink : 1 white",
+     "All pink",
+     "9 : 3 : 3 : 1"
+    ],
+    "a": 1,
+    "e": "Incomplete dominance: phenotype ratio equals genotype ratio, 1 : 2 : 1."
+   },
+   {
+    "q": "A child has blood group O, the father group A and the mother group B. The parents' genotypes are:",
+    "o": [
+     "IᴬIᴬ and IᴮIᴮ",
+     "Iᴬi and Iᴮi",
+     "IᴬIᴬ and Iᴮi",
+     "Iᴬi and IᴮIᴮ"
+    ],
+    "a": 1,
+    "e": "An ii child needs an i from each parent, so the parents must be Iᴬi and Iᴮi."
+   },
+   {
+    "q": "How many kinds of gametes can a diploid heterozygous for 4 loci produce (unlinked genes)?",
+    "o": [
+     "4",
+     "8",
+     "16",
+     "32"
+    ],
+    "a": 2,
+    "e": "2ⁿ = 2⁴ = 16 (NCERT exercise 3)."
+   },
+   {
+    "q": "In a cross TtYy × Ttyy, the proportion of dwarf, green offspring is:",
+    "o": [
+     "1/16",
+     "1/8",
+     "3/8",
+     "1/4"
+    ],
+    "a": 1,
+    "e": "Dwarf (tt) = ¼ and green (yy) = ½, so ¼ × ½ = 1/8 (exercise 7)."
+   },
+   {
+    "q": "Assertion (A): White and yellow genes in Drosophila showed only 1.3% recombination. Reason (R): Genes located very close together on a chromosome are tightly linked.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "Morgan found 1.3% for y–w (tight) and 37.2% for w–m (loose)."
+   },
+   {
+    "q": "Phenylketonuria causes both mental retardation and reduced hair and skin pigmentation. This is an example of:",
+    "o": [
+     "Polygenic inheritance",
+     "Pleiotropy",
+     "Co-dominance",
+     "Multiple alleles"
+    ],
+    "a": 1,
+    "e": "One gene (phenylalanine hydroxylase) with several phenotypic effects: pleiotropy."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Grasshopper: ZW",
+     "Birds: XO",
+     "Honey bee: haplodiploid",
+     "Drosophila: ZZ male"
+    ],
+    "a": 2,
+    "e": "Grasshopper XO, birds ZW (female heterogametic), Drosophila XY; honey bee is haplodiploid."
+   },
+   {
+    "q": "Sickle-cell anaemia results from:",
+    "o": [
+     "Substitution of Val by Glu at position 6 of α-globin",
+     "Substitution of Glu by Val at position 6 of β-globin",
+     "Deletion of HBA1 and HBA2",
+     "Trisomy of chromosome 11"
+    ],
+    "a": 1,
+    "e": "GAG → GUG at the sixth codon of the β-globin gene: Glu → Val."
+   },
+   {
+    "q": "Which statement is NOT true?",
+    "o": [
+     "Klinefelter's syndrome has the karyotype 47, XXY",
+     "Turner's syndrome is 45, X0",
+     "Thalassemia is a qualitative defect of globin",
+     "Down's syndrome is trisomy 21"
+    ],
+    "a": 2,
+    "e": "Thalassemia is quantitative (too few globin chains); sickle-cell anaemia is the qualitative defect."
+   }
+  ]
+ },
+ "microbes": {
+  "title": "Microbes in Human Welfare",
+  "file": "class-12/Microbes in Human Welfare.html",
+  "lede": "Not all microbes make us ill. Follow them from curd and cheese to antibiotics and enzymes, through a sewage plant and a biogas tank, and out into the field as biocontrol agents and biofertilisers. Explore each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "Microbes in household products",
+   "Microbes in industrial products",
+   "Microbes in sewage treatment",
+   "Microbes in production of biogas",
+   "Microbes as biocontrol agents",
+   "Microbes as biofertilisers"
+  ],
+  "questions": [
+   {
+    "q": "Lactic acid bacteria convert milk to curd by:",
+    "o": [
+     "Producing CO₂ that coagulates fat",
+     "Producing acids that coagulate and partially digest milk proteins",
+     "Producing ethanol",
+     "Producing pectinases"
+    ],
+    "a": 1,
+    "e": "LAB produce acids that coagulate and partially digest milk proteins; curd also has more vitamin B₁₂."
+   },
+   {
+    "q": "The large holes in Swiss cheese are due to CO₂ produced by:",
+    "o": [
+     "Saccharomyces cerevisiae",
+     "Propionibacterium sharmanii",
+     "Penicillium roqueforti",
+     "Lactobacillus"
+    ],
+    "a": 1,
+    "e": "NCERT names Propionibacterium sharmanii."
+   },
+   {
+    "q": "Which drinks are produced by distillation of the fermented broth?",
+    "o": [
+     "Wine and beer",
+     "Whisky, brandy and rum",
+     "Wine and whisky",
+     "Beer and rum"
+    ],
+    "a": 1,
+    "e": "Wine and beer are made without distillation."
+   },
+   {
+    "q": "Penicillin was named after:",
+    "o": [
+     "Penicillium notatum",
+     "Staphylococcus",
+     "Streptococcus",
+     "Trichoderma polysporum"
+    ],
+    "a": 0,
+    "e": "Fleming named it after the mould Penicillium notatum."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Citric acid: Acetobacter aceti",
+     "Butyric acid: Clostridium butylicum",
+     "Acetic acid: Aspergillus niger",
+     "Lactic acid: Monascus purpureus"
+    ],
+    "a": 1,
+    "e": "Citric acid: Aspergillus niger; acetic acid: Acetobacter aceti; lactic acid: Lactobacillus."
+   },
+   {
+    "q": "Cyclosporin A, used in organ-transplant patients, is produced by:",
+    "o": [
+     "Monascus purpureus",
+     "Trichoderma polysporum",
+     "Streptococcus",
+     "Aspergillus niger"
+    ],
+    "a": 1,
+    "e": "Cyclosporin A, an immunosuppressant, comes from the fungus Trichoderma polysporum."
+   },
+   {
+    "q": "Statins lower blood cholesterol by:",
+    "o": [
+     "Dissolving clots",
+     "Competitively inhibiting the enzyme for cholesterol synthesis",
+     "Suppressing immunity",
+     "Digesting fats in the gut"
+    ],
+    "a": 1,
+    "e": "Statins from Monascus purpureus competitively inhibit the enzyme that synthesises cholesterol."
+   },
+   {
+    "q": "Assertion (A): The BOD of sewage falls in the aeration tank. Reason (R): Aerobic microbes growing as flocs consume most of the organic matter.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "That is NCERT's description of secondary treatment."
+   },
+   {
+    "q": "In NCERT exercise 11, samples with BOD 20, 8 and 400 mg/L are, respectively:",
+    "o": [
+     "River water, secondary effluent, untreated sewage",
+     "Secondary effluent, river water, untreated sewage",
+     "Untreated sewage, river water, secondary effluent",
+     "River water, untreated sewage, secondary effluent"
+    ],
+    "a": 1,
+    "e": "Highest BOD is untreated sewage; lowest is relatively clean river water; the secondary effluent is in between."
+   },
+   {
+    "q": "Biogas is predominantly:",
+    "o": [
+     "Carbon dioxide",
+     "Methane",
+     "Hydrogen sulphide",
+     "Hydrogen"
+    ],
+    "a": 1,
+    "e": "Methanogens such as Methanobacterium produce mostly methane, with CO₂ and H₂."
+   },
+   {
+    "q": "Which statement about Nucleopolyhedrovirus is NOT true?",
+    "o": [
+     "It is a baculovirus",
+     "It is species-specific and narrow-spectrum",
+     "It harms birds and fish",
+     "It suits integrated pest management"
+    ],
+    "a": 2,
+    "e": "Baculoviruses show no negative impact on plants, mammals, birds, fish or non-target insects."
+   },
+   {
+    "q": "Mycorrhizal fungi such as Glomus mainly supply the plant with:",
+    "o": [
+     "Nitrogen",
+     "Phosphorus",
+     "Carbon dioxide",
+     "Vitamin B₁₂"
+    ],
+    "a": 1,
+    "e": "The fungal symbiont absorbs phosphorus from soil and passes it to the plant."
+   }
+  ]
  }
 };
