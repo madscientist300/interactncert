@@ -2216,5 +2216,298 @@ window.CHAPTERS = {
     "e": "The female mosquito is not considered a parasite, although it needs our blood for reproduction."
    }
   ]
+ },
+ "ecosystem": {
+  "title": "Ecosystem",
+  "file": "class-12/Ecosystem.html",
+  "lede": "An ecosystem as a working unit of nature: how a pond is built, how much plants produce, how dead matter is broken down, how energy runs one way up the food chain, and how ecological pyramids picture it all. Explore each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "Ecosystem: structure and function",
+   "Productivity",
+   "Decomposition",
+   "Energy flow",
+   "Ecological pyramids"
+  ],
+  "questions": [
+   {
+    "q": "Vertical distribution of different species occupying different levels in an ecosystem is called:",
+    "o": [
+     "Species composition",
+     "Stratification",
+     "Standing crop",
+     "Trophic level"
+    ],
+    "a": 1,
+    "e": "In a forest, trees occupy the top stratum, shrubs the second and herbs and grasses the bottom."
+   },
+   {
+    "q": "Net primary productivity is:",
+    "o": [
+     "GPP + R",
+     "GPP − R",
+     "Rate of formation of organic matter by consumers",
+     "Total solar energy received"
+    ],
+    "a": 1,
+    "e": "GPP minus respiration losses (R) = NPP, available to herbivores and decomposers."
+   },
+   {
+    "q": "Secondary productivity is the rate of formation of new organic matter by:",
+    "o": [
+     "Producers",
+     "Consumers",
+     "Decomposers only",
+     "Phytoplankton"
+    ],
+    "a": 1,
+    "e": "NCERT defines secondary productivity as the rate of formation of new organic matter by consumers."
+   },
+   {
+    "q": "The annual net primary productivity of the oceans is approximately:",
+    "o": [
+     "170 billion tons",
+     "115 billion tons",
+     "55 billion tons",
+     "70 billion tons"
+    ],
+    "a": 2,
+    "e": "Of about 170 billion tons for the whole biosphere, oceans contribute only 55 billion tons despite covering about 70% of the surface."
+   },
+   {
+    "q": "In decomposition, water-soluble inorganic nutrients going down into the soil horizon and precipitating as unavailable salts is:",
+    "o": [
+     "Fragmentation",
+     "Leaching",
+     "Catabolism",
+     "Mineralisation"
+    ],
+    "a": 1,
+    "e": "That is leaching."
+   },
+   {
+    "q": "Decomposition is slower when detritus is rich in:",
+    "o": [
+     "Nitrogen",
+     "Sugars",
+     "Lignin and chitin",
+     "Water-soluble substances"
+    ],
+    "a": 2,
+    "e": "Lignin- and chitin-rich detritus decomposes slowly; nitrogen- and sugar-rich detritus decomposes quickly."
+   },
+   {
+    "q": "What percentage of incident solar radiation is photosynthetically active radiation (PAR)?",
+    "o": [
+     "100%",
+     "Less than 50%",
+     "1–5%",
+     "2–10%"
+    ],
+    "a": 1,
+    "e": "Less than 50% is PAR; plants capture only 2–10% of the PAR (exercise 5)."
+   },
+   {
+    "q": "In a terrestrial ecosystem, the major part of energy flows through:",
+    "o": [
+     "The grazing food chain",
+     "The detritus food chain",
+     "Tertiary consumers",
+     "Phytoplankton"
+    ],
+    "a": 1,
+    "e": "In terrestrial ecosystems a much larger fraction flows through the DFC; in aquatic ones the GFC is the major conduit."
+   },
+   {
+    "q": "The second trophic level in a lake is:",
+    "o": [
+     "Phytoplankton",
+     "Zooplankton",
+     "Benthos",
+     "Fishes"
+    ],
+    "a": 1,
+    "e": "Zooplankton feed on the phytoplankton producers (exercise 3)."
+   },
+   {
+    "q": "Assertion (A): The pyramid of energy is always upright. Reason (R): Some energy is always lost as heat at each step of energy transfer.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "NCERT gives exactly this reason."
+   },
+   {
+    "q": "Which pyramid is generally inverted in the sea?",
+    "o": [
+     "Pyramid of energy",
+     "Pyramid of biomass",
+     "Pyramid of numbers in grassland",
+     "None"
+    ],
+    "a": 1,
+    "e": "Biomass of fishes (and zooplankton) far exceeds that of phytoplankton."
+   },
+   {
+    "q": "Which is NOT a limitation of ecological pyramids?",
+    "o": [
+     "They ignore a species occupying more than one trophic level",
+     "They do not accommodate a food web",
+     "They give no place to saprophytes",
+     "They cannot show energy at each trophic level"
+    ],
+    "a": 3,
+    "e": "The energy pyramid does show energy at each trophic level; the other three are NCERT's limitations."
+   }
+  ]
+ },
+ "biodiversity": {
+  "title": "Biodiversity and Conservation",
+  "file": "class-12/Biodiversity and Conservation.html",
+  "lede": "How much life there is and where it is richest, why species richness matters, why species are vanishing 100 to 1,000 times faster than before humans, and how we try to save them: in situ and ex situ. Explore each figure, then test yourself with the NEET-style quiz at the end..",
+  "topics": [
+   "What is biodiversity?",
+   "How many species on Earth, and in India?",
+   "Patterns of biodiversity",
+   "Why species diversity matters to the ecosystem",
+   "Loss of biodiversity",
+   "Biodiversity conservation"
+  ],
+  "questions": [
+   {
+    "q": "The term biodiversity was popularised by:",
+    "o": [
+     "Robert May",
+     "Edward Wilson",
+     "Paul Ehrlich",
+     "David Tilman"
+    ],
+    "a": 1,
+    "e": "The sociobiologist Edward Wilson popularised the term."
+   },
+   {
+    "q": "Variation in reserpine potency in Rauwolfia vomitoria across Himalayan ranges is an example of:",
+    "o": [
+     "Species diversity",
+     "Genetic diversity",
+     "Ecological diversity",
+     "Latitudinal gradient"
+    ],
+    "a": 1,
+    "e": "Diversity within a single species over its range is genetic diversity."
+   },
+   {
+    "q": "Robert May's conservative estimate of global species diversity is about:",
+    "o": [
+     "1.5 million",
+     "7 million",
+     "20 million",
+     "50 million"
+    ],
+    "a": 1,
+    "e": "About 7 million; extreme estimates run to 20–50 million, and slightly more than 1.5 million are described."
+   },
+   {
+    "q": "India has 2.4% of the world's land area and what share of global species diversity?",
+    "o": [
+     "2.4%",
+     "8.1%",
+     "12%",
+     "22%"
+    ],
+    "a": 1,
+    "e": "8.1%, making it one of the 12 mega diversity countries."
+   },
+   {
+    "q": "Which is NOT one of NCERT's hypotheses for greater tropical species richness?",
+    "o": [
+     "More evolutionary time",
+     "Less seasonal, more constant environment",
+     "More solar energy and productivity",
+     "More frequent glaciations"
+    ],
+    "a": 3,
+    "e": "Temperate regions had frequent glaciations; the tropics stayed relatively undisturbed."
+   },
+   {
+    "q": "In the species–area relationship log S = log C + Z log A, Z for whole continents lies in the range:",
+    "o": [
+     "0.1–0.2",
+     "0.6–1.2",
+     "1.5–2.0",
+     "0.01–0.05"
+    ],
+    "a": 1,
+    "e": "Within regions Z is 0.1–0.2; across continents it is much steeper, 0.6–1.2 (frugivores 1.15)."
+   },
+   {
+    "q": "Plots with more species showed less year-to-year variation in total biomass in the experiments of:",
+    "o": [
+     "Alexander von Humboldt",
+     "Paul Ehrlich",
+     "David Tilman",
+     "Robert May"
+    ],
+    "a": 2,
+    "e": "David Tilman's long-term outdoor plot experiments."
+   },
+   {
+    "q": "In the rivet popper hypothesis, rivets on the wings represent:",
+    "o": [
+     "Alien species",
+     "Key species that drive major ecosystem functions",
+     "Extinct species",
+     "Endemic species"
+    ],
+    "a": 1,
+    "e": "Losing wing rivets (key species) is a more serious threat than losing rivets on seats or windows."
+   },
+   {
+    "q": "The most important cause of animal and plant extinction is:",
+    "o": [
+     "Over-exploitation",
+     "Habitat loss and fragmentation",
+     "Alien species invasion",
+     "Co-extinction"
+    ],
+    "a": 1,
+    "e": "Habitat loss and fragmentation, e.g. tropical rain forests shrinking from over 14% to no more than 6% of land."
+   },
+   {
+    "q": "Which pair is correctly matched?",
+    "o": [
+     "Nile perch: over-exploitation",
+     "Steller's sea cow: alien species invasion",
+     "Lake Victoria cichlids: alien species invasion",
+     "Passenger pigeon: co-extinction"
+    ],
+    "a": 2,
+    "e": "The introduced Nile perch led to the extinction of over 200 cichlid species in Lake Victoria."
+   },
+   {
+    "q": "Assertion (A): Sacred groves help conserve biodiversity. Reason (R): In them all trees and wildlife are venerated and given total protection.",
+    "o": [
+     "Both A and R are true and R explains A",
+     "Both A and R are true but R does not explain A",
+     "A is true, R is false",
+     "A is false, R is true"
+    ],
+    "a": 0,
+    "e": "In Meghalaya, sacred groves are the last refuges for many rare and threatened plants."
+   },
+   {
+    "q": "Which of these is an ex situ conservation method?",
+    "o": [
+     "National park",
+     "Biosphere reserve",
+     "Cryopreservation of gametes",
+     "Sacred grove"
+    ],
+    "a": 2,
+    "e": "Cryopreservation, IVF, tissue culture, seed banks, zoos and botanical gardens are ex situ."
+   }
+  ]
  }
 };

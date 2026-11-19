@@ -14,7 +14,9 @@ window.REGISTRY = [
   { id: "inheritance",     cls: 12, ch: 4,  unit: "Genetics and Evolution" },
   { id: "molecular",      cls: 12, ch: 5,  unit: "Genetics and Evolution" },
   { id: "microbes",       cls: 12, ch: 8,  unit: "Biology in Human Welfare" },
-  { id: "organisms",      cls: 12, ch: 11, unit: "Ecology" }
+  { id: "organisms",      cls: 12, ch: 11, unit: "Ecology" },
+  { id: "ecosystem",      cls: 12, ch: 12, unit: "Ecology" },
+  { id: "biodiversity",   cls: 12, ch: 13, unit: "Ecology" }
 ];
 (function () {
   const root = document.documentElement;

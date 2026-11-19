@@ -1,0 +1,975 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Biodiversity and Conservation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column (lecture notes) with wide figure panels that break out, a sticky chapter rail, and lab-bench interactive figures. */
+:root {
+  --paper: #f2f6f1;
+  --card: #ffffff;
+  --ink: #142319;
+  --muted: #4d6053;
+  --line: #c8d6cb;
+  --leaf: #1d7440;
+  --leaf-soft: #dcebdf;
+  --sun: #c27a00;
+  --sun-soft: #fbedd2;
+  --red: #b3303a;
+  --blue: #2c5cb0;
+  --good: #1d7440;
+  --bad: #b3303a;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+    --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+    --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0d1510; --card: #142019; --ink: #e2eee5; --muted: #9bb0a1; --line: #2b3d31;
+  --leaf: #5cc27f; --leaf-soft: #183223; --sun: #f0b13c; --sun-soft: #3a2c10;
+  --red: #f07a80; --blue: #85aaf0; --good: #5cc27f; --bad: #f07a80;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.prose { max-width: 68ch; }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6vw, 4rem); font-weight: 800; letter-spacing: -0.02em; }
+h2 { font-size: clamp(1.6rem, 3.6vw, 2.25rem); font-weight: 700; letter-spacing: -0.01em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+p { margin: 0; }
+.stack { display: flex; flex-direction: column; gap: 1rem; }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--leaf); }
+.muted { color: var(--muted); }
+.mono { font-family: var(--mono); }
+sub, sup { line-height: 0; }
+a { color: var(--leaf); }
+strong { font-weight: 700; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 2px; }
+
+/* Hero */
+.hero { padding-block: 3.2rem 2rem; border-bottom: 1px solid var(--line); }
+.hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 2.5rem; align-items: end; }
+.hero-grid > * { min-width: 0; }
+.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 52ch; }
+.equation {
+  font-family: var(--mono); font-size: 0.95rem; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.equation .eq { font-size: clamp(0.95rem, 2.4vw, 1.1rem); color: var(--ink); overflow-wrap: anywhere; }
+.equation .over { color: var(--sun); font-size: 0.82rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+.pill { font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); background: var(--card); }
+
+/* Chapter rail */
+.rail { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+.rail nav { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.6rem; scrollbar-width: thin; }
+.rail a {
+  flex: none; font-family: var(--mono); font-size: 0.78rem; text-decoration: none; color: var(--muted);
+  padding: 0.3rem 0.7rem; border-radius: 6px; white-space: nowrap;
+}
+.rail a:hover { color: var(--ink); background: var(--leaf-soft); }
+.rail a.active { color: var(--paper); background: var(--leaf); }
+.rail a .n { opacity: 0.7; margin-right: 0.3rem; }
+
+/* Sections */
+section.topic { padding-block: 3.2rem; border-bottom: 1px solid var(--line); scroll-margin-top: 3.2rem; }
+.topic-head { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.4rem; }
+ul.clean { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* NEET callouts */
+.callout { border-left: 4px solid var(--sun); background: var(--sun-soft); padding: 0.85rem 1rem; border-radius: 0 8px 8px 0; font-size: 0.98rem; }
+.callout .tag { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--sun); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+/* Figures */
+.figure { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.2rem; margin-block: 1.6rem; display: flex; flex-direction: column; gap: 1rem; }
+.figure .fig-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.figure .fig-label { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.svg-scroll { overflow-x: auto; }
+.svg-scroll svg { display: block; width: 100%; min-width: 560px; height: auto; }
+.fig-note { font-size: 0.85rem; color: var(--muted); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.two-col > * { min-width: 0; }
+
+/* SVG text tokens */
+svg text { font-family: var(--mono); fill: var(--ink); }
+svg .t-muted { fill: var(--muted); }
+svg .t-leaf { fill: var(--leaf); }
+svg .t-sun { fill: var(--sun); }
+svg .t-red { fill: var(--red); }
+svg .t-blue { fill: var(--blue); }
+svg .s-line { stroke: var(--line); }
+svg .s-ink { stroke: var(--ink); }
+svg .s-muted { stroke: var(--muted); }
+svg .s-leaf { stroke: var(--leaf); }
+svg .s-sun { stroke: var(--sun); }
+svg .f-card { fill: var(--card); }
+svg .f-paper { fill: var(--paper); }
+svg .f-leafsoft { fill: var(--leaf-soft); }
+svg .f-sunsoft { fill: var(--sun-soft); }
+svg .f-leaf { fill: var(--leaf); }
+svg .f-sun { fill: var(--sun); }
+svg .f-none { fill: none; }
+svg .zg { transition: opacity 0.25s; }
+svg.dim .zg { opacity: 0.22; }
+svg.dim .zg.on { opacity: 1; }
+
+/* Controls */
+.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+button.btn, .seg button {
+  font-family: var(--mono); font-size: 0.8rem; border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+  padding: 0.45rem 0.8rem; border-radius: 7px; cursor: pointer;
+}
+button.btn:hover, .seg button:hover { border-color: var(--leaf); }
+button.btn.primary { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; border-right: 1px solid var(--line); }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--leaf); color: var(--paper); }
+label.ctl { display: flex; flex-direction: column; gap: 0.2rem; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); min-width: 0; }
+label.ctl output { color: var(--ink); font-weight: 500; }
+input[type="range"] { accent-color: var(--leaf); width: 100%; }
+.ctl-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+
+.step-box { border: 1px solid var(--line); border-radius: 8px; padding: 0.9rem 1rem; background: var(--paper); min-height: 6.5rem; }
+.step-box .k { font-family: var(--mono); font-size: 0.75rem; color: var(--leaf); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.6rem; }
+.readout div { border: 1px solid var(--line); border-radius: 8px; padding: 0.6rem 0.8rem; background: var(--paper); }
+.readout b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.readout span { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.split-bar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); font-family: var(--mono); font-size: 0.78rem; }
+.split-bar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; }
+.split-bar .carb { background: var(--leaf); color: var(--paper); }
+.split-bar .oxy { background: var(--red); color: var(--paper); }
+
+/* Tables */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.95rem; }
+th, td { text-align: left; padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; }
+tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 700; }
+
+/* Pigment cards */
+.pigments { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; }
+.pig { border: 1px solid var(--line); border-radius: 10px; padding: 0.8rem; background: var(--card); display: flex; flex-direction: column; gap: 0.4rem; }
+.pig .sw { height: 10px; border-radius: 4px; }
+.pig b { font-family: var(--display); font-size: 1.05rem; }
+.pig span { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+/* Timeline */
+.timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.8rem; }
+.timeline div { border-top: 3px solid var(--leaf); padding-top: 0.6rem; }
+.timeline .yr { font-family: var(--mono); font-size: 0.8rem; color: var(--leaf); }
+.timeline b { display: block; font-family: var(--display); }
+.timeline p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+
+/* Quiz */
+.quiz { display: flex; flex-direction: column; gap: 1.1rem; }
+.q { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.q .qn { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.q .qt { font-weight: 700; }
+.q .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.q .opts button {
+  text-align: left; font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.75rem; cursor: pointer; display: flex; gap: 0.5rem;
+}
+.q .opts button .l { font-family: var(--mono); color: var(--muted); }
+.q .opts button:hover:not(:disabled) { border-color: var(--leaf); }
+.q .opts button:disabled { cursor: default; }
+.q .opts button.right { border-color: var(--good); background: var(--leaf-soft); }
+.q .opts button.wrong { border-color: var(--bad); text-decoration: line-through; text-decoration-color: var(--bad); }
+.q .exp { font-size: 0.92rem; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 0.6rem; }
+.q .exp b.ok { color: var(--good); }
+.q .exp b.no { color: var(--bad); }
+.scorebar { position: sticky; bottom: 0; background: var(--paper); border-top: 1px solid var(--line); padding-block: 0.7rem calc(0.7rem + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; font-family: var(--mono); font-size: 0.85rem; }
+
+/* Revision */
+.rev { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8rem; }
+.rev div { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem; }
+.rev b { font-family: var(--display); font-size: 1.35rem; display: block; color: var(--leaf); }
+.rev span { font-size: 0.9rem; color: var(--muted); }
+footer { padding-block: 2rem 3rem; font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 820px) {
+  .hero-grid, .two-col { grid-template-columns: 1fr; }
+  .pigments { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rev { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .ctl-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .q .opts { grid-template-columns: 1fr; }
+  .rev { grid-template-columns: 1fr; }
+}
+/* Lecture 2 additions: balance-sheet ledger, gas bars, energy legend */
+.ledger { display: flex; flex-direction: column; gap: 0.4rem; }
+.ledger button {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr) auto; gap: 0.6rem; align-items: center; text-align: left;
+  font: inherit; font-size: 0.95rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: 8px; padding: 0.5rem 0.75rem; cursor: pointer;
+}
+.ledger button:hover:not(:disabled) { border-color: var(--leaf); }
+.ledger button:disabled { cursor: default; opacity: 0.45; }
+.ledger .box { width: 1rem; height: 1rem; border-radius: 4px; border: 2px solid var(--muted); }
+.ledger button[aria-pressed="true"] .box { background: var(--leaf); border-color: var(--leaf); }
+.ledger .amt { font-family: var(--mono); font-size: 0.85rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ledger .src { min-width: 0; }
+.ledger .src small { display: block; color: var(--muted); font-size: 0.82rem; }
+.stackbar { display: flex; height: 38px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: 0.75rem; }
+.stackbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; transition: width 0.3s; color: var(--paper); border-right: 1px solid var(--card); }
+.stackbar .c-atp { background: var(--sun); }
+.stackbar .c-nadh { background: var(--leaf); }
+.stackbar .c-fad { background: var(--blue); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.9rem; font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 0.7rem; height: 0.7rem; border-radius: 3px; margin-right: 0.35rem; vertical-align: -1px; background: var(--c); }
+.gas { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr) 3.5rem; gap: 0.6rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.gas .track { height: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.gas .fill { height: 100%; transition: width 0.3s; }
+.gas .fill.co2 { background: var(--muted); }
+.gas .fill.o2 { background: var(--blue); }
+.eqline { font-family: var(--mono); font-size: 0.92rem; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; padding: 0.7rem 0.9rem; overflow-wrap: anywhere; }
+svg .f-bluesoft { fill: var(--paper); }
+svg .s-blue { stroke: var(--blue); }
+svg .s-red { stroke: var(--red); }
+svg .f-blue { fill: var(--blue); }
+svg .f-red { fill: var(--red); }
+svg .f-ink { fill: var(--ink); }
+svg .node rect { stroke-width: 1.4; }
+button.btn[aria-pressed="true"] { background: var(--leaf); color: var(--paper); border-color: var(--leaf); }
+.bt { display: inline-flex; width: 24px; height: 26px; align-items: center; justify-content: center; border-radius: 5px; font-weight: 500; color: var(--paper); font-size: .85rem; }
+.bt.A { background: var(--leaf); } .bt.T, .bt.U { background: var(--sun); } .bt.G { background: var(--blue); } .bt.C { background: var(--red); }
+.bt.x { background: var(--line); color: var(--muted); }
+.brow { display: flex; align-items: center; gap: 2px; }
+.brow .lab { width: 7.5rem; flex: none; font-size: .75rem; color: var(--muted); }
+.brow .end { width: 1.4rem; flex: none; text-align: center; font-size: .75rem; color: var(--muted); }
+.hb { display: inline-flex; width: 24px; justify-content: center; color: var(--muted); font-size: .7rem; letter-spacing: -1px; }
+.cdn { display: inline-flex; gap: 2px; padding-right: 8px; }
+.aa { display: inline-flex; width: 76px; flex: none; justify-content: center; font-size: .78rem; border: 1px solid var(--line); border-radius: 5px; padding: 2px 0; margin-right: 8px; background: var(--card); }
+.aa.stop { border-color: var(--red); color: var(--red); }
+.aa.dead { opacity: .4; }
+.grp { display: grid; grid-template-columns: repeat(auto-fit, minmax(112px, 1fr)); gap: .5rem; }
+.grp div { border: 1px solid var(--line); border-radius: 8px; padding: .6rem .5rem; background: var(--paper); text-align: center; font-family: var(--mono); font-size: .75rem; color: var(--muted); opacity: .5; transition: opacity .2s; }
+.grp div b { display: block; font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+.grp div.yes { opacity: 1; border-color: var(--leaf); background: var(--leaf-soft); color: var(--leaf); }
+.genbar { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--paper); font-family: var(--mono); font-size: .75rem; }
+.genbar div { display: flex; align-items: center; justify-content: center; white-space: nowrap; overflow: hidden; color: var(--paper); transition: width .3s; }
+.genbar .g { background: var(--leaf); } .genbar .s { background: var(--sun); } .genbar .na { background: var(--paper); color: var(--muted); width: 100%; }
+b[id^="tr-"] { font-size: 1.05rem; }
+.ncrow { display: grid; grid-template-columns: 4.2rem minmax(0, 1fr); gap: .6rem; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: .45rem .75rem; background: var(--paper); font-size: .95rem; }
+.ncrow .st { font-family: var(--mono); font-size: .75rem; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+.ncrow.ok .st { color: var(--good); } .ncrow.bad { border-color: var(--bad); } .ncrow.bad .st { color: var(--bad); } .ncrow.na .st { color: var(--muted); }
+#rl-table tr.same td { background: var(--leaf-soft); }
+#rl-table tr.low td { font-weight: 700; }
+@media (max-width: 820px) { .two-col[style] { grid-template-columns: 1fr !important; } }
+</style>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="stack">
+      <span class="eyebrow">NEET Botany · NCERT Class 12 · Chapter 13</span>
+      <h1>Biodiversity and Conservation</h1>
+      <p class="lede">How much life there is and where it is richest, why species richness matters, why species are vanishing 100 to 1,000 times faster than before humans, and how we try to save them: in situ and ex situ. Explore each figure, then test yourself with the NEET-style quiz at the end.</p>
+      <div class="meta-row">
+        <span class="pill">6 topics</span>
+        <span class="pill">11 interactive figures</span>
+        <span class="pill">12 practice questions</span>
+      </div>
+    </div>
+    <div class="equation" aria-label="Key numbers">
+      <span class="fig-label">Numbers to start with</span>
+      <span class="eq">log S = log C + Z log A</span>
+      <span class="eq">&gt; 1.5 million described · ≈ 7 million estimated (Robert May)</span>
+      <span class="over">India: 2.4% of world land, 8.1% of global species diversity; one of 12 mega diversity countries</span>
+      <span class="muted" style="font-size:.82rem">More than 20,000 species of ants, 3,00,000 of beetles, 28,000 of fishes and nearly 20,000 of orchids.</span>
+    </div>
+  </div>
+</header>
+
+<div class="rail">
+  <div class="wrap">
+    <nav aria-label="Chapter sections">
+      <a href="#levels"><span class="n">1</span>What is biodiversity</a>
+      <a href="#count"><span class="n">2</span>How many species</a>
+      <a href="#patterns"><span class="n">3</span>Patterns</a>
+      <a href="#importance"><span class="n">4</span>Why diversity matters</a>
+      <a href="#loss"><span class="n">5</span>Loss of biodiversity</a>
+      <a href="#conserve"><span class="n">6</span>Conservation</a>
+      <a href="#quiz"><span class="n">7</span>Quiz</a>
+      <a href="#revise">Revise</a>
+    </nav>
+  </div>
+</div>
+
+<main>
+
+<!-- 1 LEVELS -->
+<section class="topic" id="levels">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 1</span>
+      <h2>What is biodiversity?</h2>
+    </div>
+    <div class="prose stack">
+      <p>Diversity (heterogeneity) exists at <strong>every level of biological organisation</strong>, from macromolecules within cells to biomes. <strong>Biodiversity</strong>, the term popularised by the sociobiologist <strong>Edward Wilson</strong>, describes the combined diversity at all these levels. It took <strong>millions of years</strong> of evolution to accumulate, and could be lost in <strong>less than two centuries</strong> at present rates of species loss.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Three levels of biodiversity</h3>
+        <span class="fig-label">Fig 1 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="Level">
+        <button class="btn" id="lv-g" aria-pressed="true">Genetic</button>
+        <button class="btn" id="lv-s" aria-pressed="false">Species</button>
+        <button class="btn" id="lv-e" aria-pressed="false">Ecological</button>
+      </div>
+      <div class="svg-scroll"><svg id="lvsvg" viewBox="0 0 680 250" role="img" aria-label="Illustration of the chosen level of biodiversity with India's examples"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="lv-k"></div><div id="lv-t"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 COUNT -->
+<section class="topic" id="count">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 2</span>
+      <h2>How many species on Earth, and in India?</h2>
+    </div>
+    <div class="prose stack">
+      <p>According to the <strong>IUCN (2004)</strong>, slightly more than <strong>1.5 million</strong> plant and animal species have been described. How many remain undescribed is unclear; species inventories are more complete in <strong>temperate</strong> than in <strong>tropical</strong> countries, and most undiscovered species are in the tropics. So biologists compare <strong>temperate–tropical species richness</strong> of an exhaustively studied insect group and <strong>extrapolate the ratio</strong> to other groups (exercise 2). Extreme estimates reach <strong>20 to 50 million</strong>; <strong>Robert May</strong>'s conservative, scientifically sound estimate is about <strong>7 million</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Who are the recorded species?</h3>
+        <span class="fig-label">Fig 2 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="View">
+        <button class="btn" id="wf-a" aria-pressed="true">All recorded species</button>
+        <button class="btn" id="wf-i" aria-pressed="false">10 animals</button>
+      </div>
+      <div class="svg-scroll"><svg id="wfsvg" viewBox="0 0 680 260" role="img" aria-label="Waffle chart of 100 squares showing the proportions of animals, insects and plants among recorded species"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="wf-t"></div></div>
+      <p class="fig-note">Proportions from the chapter text (animals about 72%, plants 22%, insects over 70% of animals). The remaining squares are groups the text does not break down. Prokaryotes are not included.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>How many species is India still to discover?</h3>
+        <span class="fig-label">Fig 3 · interactive</span>
+      </div>
+      <label class="ctl" for="ix-f">Share of all species recorded so far <output id="ix-f-o"></output></label>
+      <input type="range" id="ix-f" min="10" max="60" step="1" value="22">
+      <div class="svg-scroll"><svg id="ixsvg" viewBox="0 0 680 220" role="img" aria-label="Bars of recorded and estimated undiscovered plant and animal species in India"></svg></div>
+      <div class="readout">
+        <div><b id="ix-p" style="font-size:1.05rem"></b><span>Plants yet to be found</span></div>
+        <div><b id="ix-a" style="font-size:1.05rem"></b><span>Animals yet to be found</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="ix-t"></div></div>
+      <p class="fig-note">India: about 45,000 recorded plant species and twice as many animals. 22% = 1.5 million recorded ÷ May's 7 million.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>More than 70%</strong> of recorded species are <strong>animals</strong>; <strong>plants</strong> (algae, fungi, bryophytes, gymnosperms, angiosperms) are <strong>no more than 22%</strong>. <strong>Insects</strong> are more than 70% of animals: <strong>7 of every 10</strong> animals. <strong>Fungi</strong> outnumber fishes, amphibians, reptiles and mammals <strong>combined</strong>.</div>
+      <div class="callout"><span class="tag">NEET trap</span>Prokaryotes are left out: conventional taxonomic methods do not suit microbes and many are <strong>not culturable</strong>. By biochemical or molecular criteria their diversity alone might run into <strong>millions</strong>. India has <strong>2.4%</strong> of world land but <strong>8.1%</strong> of species diversity. "Nature's biological library is burning" before we catalogue its books.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 PATTERNS -->
+<section class="topic" id="patterns">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 3</span>
+      <h2>Patterns of biodiversity</h2>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Latitudinal gradient: birds from the equator to the pole</h3>
+        <span class="fig-label">Fig 4 · interactive</span>
+      </div>
+      <label class="ctl" for="lt-l">Latitude <output id="lt-l-o"></output></label>
+      <input type="range" id="lt-l" min="0" max="75" step="1" value="4">
+      <div class="svg-scroll"><svg id="ltsvg" viewBox="0 0 680 270" role="img" aria-label="Bird species against latitude with Colombia, India, New York and Greenland marked"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="lt-t"></div></div>
+      <p class="fig-note">The four labelled points are NCERT's; the curve joining them and India's plotted latitude are illustrative.</p>
+    </div>
+
+    <div class="prose stack">
+      <p>Species diversity generally <strong>decreases from the equator to the poles</strong>; with few exceptions the <strong>tropics (23.5° N to 23.5° S)</strong> hold more species. A tropical forest in <strong>Ecuador</strong> has up to <strong>10 times</strong> as many vascular plant species as an equal temperate forest in the US Midwest. The <strong>Amazonian rain forest</strong> has the <strong>greatest biodiversity on Earth</strong>: more than <strong>40,000 plants, 3,000 fishes, 1,300 birds, 427 mammals, 427 amphibians, 378 reptiles and 1,25,000 invertebrates</strong>, and perhaps <strong>two million</strong> undiscovered insects.</p>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Why are the tropics so rich? (exercise 3)</th><th>Hypothesis</th></tr></thead>
+        <tbody>
+          <tr><td><strong>More evolutionary time</strong></td><td>Speciation is a function of time. Temperate regions suffered frequent <strong>glaciations</strong>; tropics stayed relatively undisturbed for millions of years.</td></tr>
+          <tr><td><strong>Constant environment</strong></td><td>Less seasonal, more constant and predictable: promotes <strong>niche specialisation</strong>, hence more species.</td></tr>
+          <tr><td><strong>More solar energy</strong></td><td>Higher <strong>productivity</strong>, which might indirectly support greater diversity.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>Species–area relationship</h3>
+        <span class="fig-label">Fig 5 · interactive</span>
+      </div>
+      <div class="controls" id="sa-pre" role="group" aria-label="Presets"></div>
+      <div class="controls" role="group" aria-label="Axes">
+        <button class="btn" id="sa-lin" aria-pressed="true">Ordinary axes</button>
+        <button class="btn" id="sa-log" aria-pressed="false">Log axes</button>
+      </div>
+      <label class="ctl" for="sa-z">Slope Z <output id="sa-z-o"></output></label>
+      <input type="range" id="sa-z" min="0.05" max="1.2" step="0.01" value="0.15">
+      <div class="svg-scroll"><svg id="sasvg" viewBox="0 0 680 290" role="img" aria-label="Species richness S against area A, as a curve on ordinary axes or a straight line on log axes"></svg></div>
+      <div class="readout">
+        <div><b id="sa-d" style="font-size:1.05rem"></b><span>Species gained when area is doubled</span></div>
+        <div><b id="sa-h" style="font-size:1.05rem"></b><span>Species lost if area is halved</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="sa-t"></div></div>
+      <p class="fig-note">After NCERT Fig 13.2. C fixed at 10 for drawing; A in arbitrary units.</p>
+    </div>
+
+    <div class="callout"><span class="tag">NEET trap</span><strong>Alexander von Humboldt</strong> observed that species richness increases with explored area, <strong>but only up to a limit</strong>. The curve is a <strong>rectangular hyperbola</strong>; on a <strong>log scale</strong> it becomes a straight line, log S = log C + Z log A (Z = slope, the regression coefficient; C = Y-intercept). <strong>Z = 0.1–0.2</strong> regardless of taxon or region (plants in Britain, birds in California, molluscs in New York state); for <strong>whole continents</strong> Z is steeper, <strong>0.6–1.2</strong> (frugivorous birds and mammals in tropical forests: <strong>1.15</strong>).</div>
+  </div>
+</section>
+
+<!-- 4 IMPORTANCE -->
+<section class="topic" id="importance">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 4</span>
+      <h2>Why species diversity matters to the ecosystem</h2>
+    </div>
+    <div class="prose stack">
+      <p>Ecologists long believed that communities with more species are more <strong>stable</strong>. A stable community should not vary too much in <strong>productivity</strong> from year to year; it should be <strong>resistant or resilient</strong> to occasional disturbances; and it should resist <strong>invasion by alien species</strong>. A definitive answer is still lacking.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Tilman's plots</h3>
+        <span class="fig-label">Fig 6 · interactive</span>
+      </div>
+      <label class="ctl" for="tm-n">Species sown per plot <output id="tm-n-o"></output></label>
+      <input type="range" id="tm-n" min="1" max="24" step="1" value="2">
+      <div class="svg-scroll"><svg id="tmsvg" viewBox="0 0 680 240" role="img" aria-label="Total biomass of a plot over eight years for the chosen number of species"></svg></div>
+      <div class="readout">
+        <div><b id="tm-m" style="font-size:1.05rem"></b><span>Average biomass</span></div>
+        <div><b id="tm-v" style="font-size:1.05rem"></b><span>Year-to-year variation</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="tm-t"></div></div>
+      <p class="fig-note">A simulation of the trend David Tilman reported; the numbers are illustrative, not his data.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The rivet popper hypothesis</h3>
+        <span class="fig-label">Fig 7 · interactive</span>
+      </div>
+      <p class="muted mono" style="font-size:.78rem">Click rivets to pop them (each rivet = a species). Wing rivets are key species.</p>
+      <div class="svg-scroll"><svg id="rvsvg" viewBox="0 0 680 280" role="img" aria-label="Aeroplane held together by rivets that can be clicked to remove, with a flight safety meter"></svg></div>
+      <div class="readout">
+        <div><b id="rv-n" style="font-size:1.05rem"></b><span>Rivets popped</span></div>
+        <div><b id="rv-s" style="font-size:1.05rem"></b><span>Flight safety</span></div>
+      </div>
+      <div class="step-box" aria-live="polite"><div id="rv-t"></div></div>
+      <div class="controls"><button class="btn" id="rv-r">Repair the plane</button></div>
+      <p class="fig-note">The safety scale is illustrative.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 LOSS -->
+<section class="topic" id="loss">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 5</span>
+      <h2>Loss of biodiversity</h2>
+    </div>
+    <div class="prose stack">
+      <p>It is doubtful that new species are being added by speciation, but losses are certain, and the finger points at <strong>human activities</strong>. Human colonisation of <strong>tropical Pacific islands</strong> led to the extinction of more than <strong>2,000 native bird species</strong>. Recent extinctions: <strong>dodo</strong> (Mauritius), <strong>quagga</strong> (Africa), <strong>thylacine</strong> (Australia), <strong>Steller's sea cow</strong> (Russia), and <strong>three tiger subspecies</strong> (Bali, Javan, Caspian). <strong>27 species</strong> disappeared in the last twenty years. Extinctions are <strong>not random</strong>: <strong>amphibians</strong> seem more vulnerable.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>The numbers of loss</h3>
+        <span class="fig-label">Fig 8 · interactive</span>
+      </div>
+      <div class="controls" role="group" aria-label="View">
+        <button class="btn" id="ls-t" aria-pressed="true">Threatened today</button>
+        <button class="btn" id="ls-e" aria-pressed="false">Extinct in 500 years</button>
+        <button class="btn" id="ls-r" aria-pressed="false">Extinction rate</button>
+      </div>
+      <div class="svg-scroll"><svg id="lssvg" viewBox="0 0 680 240" role="img" aria-label="Chart of threatened percentages, recorded extinctions or extinction rates"></svg></div>
+      <div class="step-box" aria-live="polite"><div id="ls-tx"></div></div>
+    </div>
+
+    <div class="prose stack">
+      <p>Loss of biodiversity in a region may lead to: <strong>(a)</strong> decline in plant production; <strong>(b)</strong> lowered resistance to environmental perturbations such as <strong>drought</strong>; <strong>(c)</strong> increased variability in ecosystem processes such as plant productivity, water use, and pest and disease cycles. The four major causes are <strong>"The Evil Quartet"</strong>.</p>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Name the cause: the Evil Quartet</h3>
+        <span class="fig-label">Fig 9 · interactive</span>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="eq-k"></div><div id="eq-q" style="font-size:1.05rem;font-weight:500"></div></div>
+      <div class="controls" id="eq-opts" role="group" aria-label="Cause"></div>
+      <div class="step-box" aria-live="polite"><div id="eq-t">Choose a cause.</div></div>
+      <div class="readout"><div><b id="eq-s" style="font-size:1.05rem"></b><span>Score</span></div></div>
+      <div class="controls"><button class="btn primary" id="eq-next">Next case →</button><button class="btn" id="eq-reset">Start again</button></div>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Cause</th><th>Key facts (NCERT)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Habitat loss and fragmentation</strong></td><td>The <strong>most important</strong> cause. Tropical rain forests once covered <strong>&gt; 14%</strong> of land, now <strong>≤ 6%</strong>. The <strong>Amazon</strong> ("lungs of the planet") is cleared for <strong>soya beans</strong> and <strong>beef-cattle grasslands</strong>. Fragmentation hurts mammals and birds needing large territories, and migratory animals.</td></tr>
+          <tr><td><strong>Over-exploitation</strong></td><td>When "need" turns to "greed": <strong>Steller's sea cow, passenger pigeon</strong>; many marine fish over-harvested today.</td></tr>
+          <tr><td><strong>Alien species invasions</strong></td><td><strong>Nile perch</strong> in <strong>Lake Victoria</strong> led to the extinction of <strong>&gt; 200 cichlid species</strong>; invasive weeds <strong>Parthenium (carrot grass), Lantana, water hyacinth (Eichhornia)</strong>; illegal <strong>African catfish <em>Clarias gariepinus</em></strong> threatens native catfishes.</td></tr>
+          <tr><td><strong>Co-extinctions</strong></td><td>Species associated <strong>obligatorily</strong> die out together: a host fish and its unique parasites; co-evolved <strong>plant–pollinator</strong> mutualists.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 6 CONSERVE -->
+<section class="topic" id="conserve">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 6</span>
+      <h2>Biodiversity conservation</h2>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Why conserve?</th><th>Argument</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Narrowly utilitarian</strong></td><td>Direct economic benefits: food, firewood, fibre, construction material, industrial products (tannins, lubricants, dyes, resins, perfumes), medicines. <strong>&gt; 25%</strong> of drugs sold worldwide come from plants; <strong>25,000</strong> plant species are used in traditional medicine. <strong>Bioprospecting</strong>: exploring molecular, genetic and species diversity for products of economic importance.</td></tr>
+          <tr><td><strong>Broadly utilitarian</strong></td><td><strong>Ecosystem services</strong>: the Amazon produces about <strong>20%</strong> of Earth's atmospheric oxygen; <strong>pollination</strong> by bees, bumblebees, birds and bats; intangible aesthetic pleasures (woods, spring flowers, a bulbul's song).</td></tr>
+          <tr><td><strong>Ethical</strong></td><td>Every species has <strong>intrinsic value</strong>, even with no economic value to us; a <strong>moral duty</strong> to pass our biological legacy to future generations in good order.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="figure" style="margin-top:2rem">
+      <div class="fig-head">
+        <h3>In situ or ex situ?</h3>
+        <span class="fig-label">Fig 10 · interactive</span>
+      </div>
+      <div class="step-box" aria-live="polite"><div class="k" id="cs-k"></div><div id="cs-q" style="font-size:1.08rem;font-weight:500"></div></div>
+      <div class="controls"><button class="btn" id="cs-in">In situ (on site)</button><button class="btn" id="cs-ex">Ex situ (off site)</button></div>
+      <div class="step-box" aria-live="polite"><div id="cs-t">Classify the method.</div></div>
+      <div class="readout"><div><b id="cs-s" style="font-size:1.05rem"></b><span>Score</span></div></div>
+      <div class="controls"><button class="btn primary" id="cs-next">Next →</button><button class="btn" id="cs-reset">Start again</button></div>
+    </div>
+
+    <div class="figure">
+      <div class="fig-head">
+        <h3>Biodiversity hotspots</h3>
+        <span class="fig-label">Fig 11 · interactive</span>
+      </div>
+      <div class="controls" id="hs-seg" role="group" aria-label="Fact"></div>
+      <div class="svg-scroll"><svg id="hssvg" viewBox="0 0 680 230" role="img" aria-label="Comparison of hotspots' share of land area and the reduction in extinctions their protection could bring"></svg></div>
+      <div class="step-box" aria-live="polite"><div class="k" id="hs-k"></div><div id="hs-t"></div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="callout"><span class="tag">Remember</span><strong>India's in situ network</strong>: <strong>14 biosphere reserves, 90 national parks, 448 wildlife sanctuaries</strong>. <strong>Sacred groves</strong>: tracts of forest venerated and totally protected: <strong>Khasi and Jaintia Hills</strong> (Meghalaya), <strong>Aravalli Hills</strong> (Rajasthan), <strong>Western Ghats</strong> of Karnataka and Maharashtra, <strong>Sarguja, Chanda and Bastar</strong> (Madhya Pradesh). In Meghalaya they are the <strong>last refuges</strong> of many rare plants (exercise 7).</div>
+      <div class="callout"><span class="tag">NEET trap</span><strong>In situ</strong> protects the whole ecosystem: "save the entire forest to save the tiger". <strong>Ex situ</strong> is for <strong>threatened</strong> species facing very high risk of extinction in the wild: zoos, botanical gardens, safari parks, <strong>cryopreservation</strong> of gametes, <strong>in vitro fertilisation</strong>, <strong>tissue culture</strong>, <strong>seed banks</strong>. Some animals extinct in the wild survive only in zoos.</div>
+    </div>
+
+    <h3 style="margin:1.8rem 0 .8rem">International action</h3>
+    <div class="timeline">
+      <div><span class="yr">1992</span><b>Convention on Biological Diversity</b><p>"The Earth Summit", Rio de Janeiro: all nations to conserve biodiversity and use its benefits sustainably.</p></div>
+      <div><span class="yr">2002</span><b>World Summit on Sustainable Development</b><p>Johannesburg, South Africa: 190 countries pledged a significant reduction in the rate of biodiversity loss by 2010.</p></div>
+      <div><span class="yr">2004</span><b>IUCN Red List</b><p>784 extinctions documented in the last 500 years; more than 15,500 species threatened.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section class="topic" id="quiz">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Topic 7</span>
+      <h2>NEET-style practice</h2>
+      <p class="muted">Pick an answer to see the explanation. Questions follow the NCERT text closely, the way NEET does.</p>
+    </div>
+    <div class="quiz" id="quiz-list"></div>
+    <div class="scorebar">
+      <span id="score">Score: 0 / 0 answered · 12 questions</span>
+      <button class="btn" id="quiz-reset">Reset quiz</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVISION -->
+<section class="topic" id="revise">
+  <div class="wrap">
+    <div class="topic-head">
+      <span class="eyebrow">Last-minute revision</span>
+      <h2>Numbers and names to memorise</h2>
+    </div>
+    <div class="rev">
+      <div><b>50,000 rice · 1,000 mango</b><span>Genetic diversity in India; Rauwolfia vomitoria and reserpine</span></div>
+      <div><b>1.5 M · 7 M · 22%</b><span>Described · May's estimate · share recorded</span></div>
+      <div><b>2.4% land · 8.1% species</b><span>India; ~45,000 plants, ~90,000 animals</span></div>
+      <div><b>1,400 · 105 · 56</b><span>Bird species: Colombia · New York 41° N · Greenland 71° N</span></div>
+      <div><b>Z 0.1–0.2 · 0.6–1.2</b><span>Regions · continents (frugivores 1.15)</span></div>
+      <div><b>784 = 338 + 359 + 87</b><span>Extinct vertebrates + invertebrates + plants (IUCN 2004)</span></div>
+      <div><b>12 · 23 · 32 · 31%</b><span>Threatened birds · mammals · amphibians · gymnosperms</span></div>
+      <div><b>100–1,000×</b><span>Current extinction rate vs pre-human ('Sixth Extinction')</span></div>
+      <div><b>34 hotspots · 3 in India</b><span>Western Ghats and Sri Lanka, Indo-Burma, Himalaya</span></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">Based on NCERT Biology Class XII, "Biodiversity and Conservation". Lecture 18 of the NEET Botany interactive series.</div>
+</footer>
+
+<script>
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs = {}, parent) => {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  };
+  const txt = (p, x, y, s, a = {}) => { const t = el("text", Object.assign({ x, y, "font-size": 11 }, a), p); t.textContent = s; return t; };
+  const press = (ids, on) => ids.forEach(id => $("#" + id).setAttribute("aria-pressed", String(id === on)));
+  const modes = (pairs, cb) => { const ids = pairs.map(p => p[0]); pairs.forEach(([id, m]) => $("#" + id).addEventListener("click", () => { press(ids, id); cb(m); })); };
+  const btnRow = (box, items, onClick, cur) => { box.innerHTML = ""; items.forEach((it, i) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn"; b.textContent = it; b.setAttribute("aria-pressed", String(i === cur)); b.addEventListener("click", () => onClick(i)); box.appendChild(b); }); };
+  const fmt = n => Math.round(n).toLocaleString("en-IN");
+  const sh = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  let seed = 3; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+
+  /* ---------- Rail ---------- */
+  const railLinks = $$(".rail a");
+  const sections = railLinks.map(a => document.querySelector(a.getAttribute("href")));
+  const onScroll = () => {
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.getBoundingClientRect().top < 140) idx = i; });
+    railLinks.forEach((a, i) => a.classList.toggle("active", i === idx));
+    const act = railLinks[idx];
+    if (act && act.parentElement.scrollWidth > act.parentElement.clientWidth) {
+      const nav = act.parentElement;
+      const l = act.offsetLeft - nav.clientWidth / 2 + act.clientWidth / 2;
+      if (Math.abs(nav.scrollLeft - l) > 40) nav.scrollLeft = l;
+    }
+  };
+  document.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Generic sorting drill ---------- */
+  function drill(pfx, items, opts, explain) {
+    let o = [], i = 0, r = 0, d = 0, done = false;
+    const show = () => {
+      done = false; const [q, a] = items[o[i]];
+      $(`#${pfx}-k`).textContent = `Case ${i + 1} of ${items.length}`; $(`#${pfx}-q`).textContent = q;
+      btnRow($(`#${pfx}-opts`), opts, j => { if (done) return; done = true; d++; if (j === a) r++; $$(`#${pfx}-opts button`).forEach((b, k) => { b.disabled = true; b.setAttribute("aria-pressed", String(k === a)); }); $(`#${pfx}-t`).innerHTML = (j === a ? "<b class='ok'>Correct.</b> " : "<b class='no'>Not quite.</b> ") + explain(items[o[i]]); $(`#${pfx}-s`).textContent = `${r} / ${d}`; $(`#${pfx}-next`).disabled = i === items.length - 1; }, -1);
+      $(`#${pfx}-t`).textContent = "Choose an answer."; $(`#${pfx}-s`).textContent = `${r} / ${d}`; $(`#${pfx}-next`).disabled = true;
+    };
+    const reset = () => { o = sh(items.map((_, k) => k)); i = 0; r = 0; d = 0; show(); };
+    $(`#${pfx}-next`).addEventListener("click", () => { if (i < items.length - 1) { i++; show(); } });
+    $(`#${pfx}-reset`).addEventListener("click", reset);
+    reset();
+  }
+
+  /* ---------- Fig 1 Levels ---------- */
+  function drawLv(k) {
+    const s = $("#lvsvg"); s.innerHTML = ""; seed = 5;
+    if (k === "g") {
+      txt(s, 20, 24, "Rauwolfia vomitoria in different Himalayan ranges: reserpine potency", { "font-weight": 500 });
+      [[90, 0.9], [230, 0.55], [370, 0.75], [510, 0.35]].forEach(([x, v], i) => { el("line", { x1: x, y1: 200, x2: x, y2: 110, class: "s-leaf", "stroke-width": 3 }, s); [[-1, 130], [1, 150], [-1, 170]].forEach(([d, y]) => el("ellipse", { cx: x + d * 16, cy: y, rx: 16, ry: 6, class: "f-leaf", opacity: 0.8 }, s)); el("rect", { x: x + 34, y: 200 - v * 120, width: 18, height: v * 120, rx: 3, class: "f-red", opacity: 0.7 }, s); txt(s, x, 222, "Range " + (i + 1), { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); });
+      txt(s, 660, 120, "red bar:", { "text-anchor": "end", "font-size": 10, class: "t-red" }); txt(s, 660, 136, "reserpine", { "text-anchor": "end", "font-size": 10, class: "t-red" });
+      txt(s, 20, 244, "Bar heights are illustrative.", { "font-size": 9, class: "t-muted" });
+    }
+    if (k === "s") {
+      [["Western Ghats", 30, 34], ["Eastern Ghats", 360, 12]].forEach(([n, x, c]) => { el("rect", { x, y: 30, width: 290, height: 180, rx: 12, class: "f-leafsoft s-leaf" }, s); txt(s, x + 145, 24, n, { "text-anchor": "middle", "font-weight": 500 }); for (let i = 0; i < c; i++) { const fx = x + 20 + (i % 7) * 38 + rnd() * 6, fy = 52 + Math.floor(i / 7) * 32; el("ellipse", { cx: fx, cy: fy, rx: 11, ry: 8, class: ["f-leaf", "f-sun", "f-red", "f-blue"][i % 4], opacity: 0.8 }, s); [-1, 1].forEach(d => el("circle", { cx: fx + d * 5, cy: fy - 7, r: 2.6, class: "f-ink" }, s)); } });
+      txt(s, 340, 236, "each frog = a different amphibian species (counts illustrative)", { "text-anchor": "middle", "font-size": 10, class: "t-muted" });
+    }
+    if (k === "e") {
+      const IN = [["Deserts", "f-sun"], ["Rain forests", "f-leaf"], ["Mangroves", "f-leaf"], ["Coral reefs", "f-red"], ["Wetlands", "f-blue"], ["Estuaries", "f-blue"], ["Alpine meadows", "f-leaf"]];
+      txt(s, 20, 24, "India", { "font-weight": 500 }); IN.forEach(([n, c], i) => { const x = 20 + (i % 4) * 160, y = 34 + Math.floor(i / 4) * 64; el("rect", { x, y, width: 150, height: 56, rx: 8, class: c, opacity: 0.35 }, s); txt(s, x + 75, y + 33, n, { "text-anchor": "middle", "font-weight": 500 }); });
+      txt(s, 20, 186, "A Scandinavian country like Norway", { "font-weight": 500 }); [0, 1, 2].forEach(i => el("rect", { x: 20 + i * 160, y: 196, width: 150, height: 40, rx: 8, class: "f-paper s-line" }, s)); txt(s, 520, 220, "fewer kinds of ecosystem", { "font-size": 10, class: "t-muted" });
+    }
+    const D = { g: ["Genetic diversity", "A single species can show high diversity at the genetic level over its range. <strong><em>Rauwolfia vomitoria</em></strong> in different Himalayan ranges varies in the <strong>potency and concentration of reserpine</strong>. India has <strong>more than 50,000</strong> genetically different strains of <strong>rice</strong> and <strong>1,000</strong> varieties of <strong>mango</strong>."], s: ["Species diversity", "Diversity at the species level: the <strong>Western Ghats</strong> have a greater <strong>amphibian</strong> species diversity than the <strong>Eastern Ghats</strong>."], e: ["Ecological diversity", "Diversity at the ecosystem level: India, with deserts, rain forests, mangroves, coral reefs, wetlands, estuaries and alpine meadows, has greater ecosystem diversity than a Scandinavian country like <strong>Norway</strong>."] }[k];
+    $("#lv-k").textContent = D[0]; $("#lv-t").innerHTML = D[1];
+  }
+  modes([["lv-g", "g"], ["lv-s", "s"], ["lv-e", "e"]], drawLv);
+  drawLv("g");
+
+  /* ---------- Fig 2 Waffle ---------- */
+  function drawWf(k) {
+    const s = $("#wfsvg"); s.innerHTML = "";
+    if (k === "a") {
+      const cells = [...Array(50).fill(["f-sun", "Insects"]), ...Array(22).fill(["f-red", "Other animals"]), ...Array(22).fill(["f-leaf", "Plants (incl. algae, fungi)"]), ...Array(6).fill(["f-paper", "Not broken down"])];
+      cells.forEach(([c], i) => { const x = 30 + (i % 10) * 22, y = 20 + Math.floor(i / 10) * 22; el("rect", { x, y, width: 19, height: 19, rx: 3, class: c + (c === "f-paper" ? " s-line" : ""), opacity: c === "f-paper" ? 1 : 0.8 }, s); });
+      [["f-sun", "Insects ≈ 50%", "over 70% of all animals"], ["f-red", "Other animals ≈ 22%", "animals total ≈ 72%"], ["f-leaf", "Plants ≈ 22%", "algae, fungi, bryophytes, gymnosperms, angiosperms"], ["f-paper", "Remaining ≈ 6%", "not broken down in the text"]].forEach(([c, a, b], i) => { const y = 40 + i * 48; el("rect", { x: 290, y: y - 12, width: 16, height: 16, rx: 3, class: c + " s-line", opacity: 0.8 }, s); txt(s, 316, y + 1, a, { "font-weight": 500 }); txt(s, 316, y + 17, b, { "font-size": 10, class: "t-muted" }); });
+      $("#wf-t").innerHTML = "Of all recorded species, <strong>more than 70%</strong> are animals and plants are <strong>no more than 22%</strong>. Insects alone are about half of everything recorded. Exercise 9 asks how animals diversified so much more than plants.";
+    } else {
+      for (let i = 0; i < 10; i++) { const x = 60 + i * 60, ins = i < 7; if (ins) { el("ellipse", { cx: x, cy: 110, rx: 10, ry: 18, class: "f-sun", opacity: 0.85 }, s); el("circle", { cx: x, cy: 86, r: 7, class: "f-ink", opacity: 0.7 }, s); [-1, 1].forEach(d => { [100, 112, 124].forEach(y => el("line", { x1: x, y1: y, x2: x + d * 18, y2: y + 6, class: "s-ink", "stroke-width": 1.2 }, s)); }); } else { el("ellipse", { cx: x, cy: 110, rx: 20, ry: 14, class: "f-red", opacity: 0.6 }, s); el("circle", { cx: x + 20, cy: 100, r: 8, class: "f-red", opacity: 0.6 }, s); } }
+      txt(s, 270, 180, "7 insects", { "text-anchor": "middle", "font-weight": 500, "font-size": 14, class: "t-sun" }); txt(s, 540, 180, "3 others", { "text-anchor": "middle", "font-weight": 500, "font-size": 14 });
+      $("#wf-t").innerHTML = "Insects are the most species-rich group: <strong>out of every 10 animals on this planet, 7 are insects</strong>. And there are more <strong>fungi</strong> species than fishes, amphibians, reptiles and mammals put together.";
+    }
+  }
+  modes([["wf-a", "a"], ["wf-i", "i"]], drawWf);
+  drawWf("a");
+
+  /* ---------- Fig 3 India undiscovered ---------- */
+  const ixF = $("#ix-f");
+  function drawIx() {
+    const f = +ixF.value / 100, s = $("#ixsvg"); s.innerHTML = ""; const rows = [["Plants", 45000], ["Animals", 90000]], sc = 520 / (90000 / 0.1);
+    rows.forEach(([n, rec], i) => { const tot = rec / f, y = 40 + i * 80; txt(s, 20, y + 20, n, { "font-weight": 500 }); el("rect", { x: 110, y, width: rec * sc, height: 30, rx: 4, class: "f-leaf", opacity: 0.85 }, s); el("rect", { x: 110 + rec * sc, y, width: (tot - rec) * sc, height: 30, rx: 4, class: "f-paper s-line", "stroke-dasharray": "4 3" }, s); txt(s, 116, y + 50, `recorded ${fmt(rec)} · yet to be found ≈ ${fmt(tot - rec)}`, { "font-size": 10 }); });
+    txt(s, 110, 22, "green: recorded · dashed: estimated undiscovered", { "font-size": 10, class: "t-muted" });
+    $("#ix-f-o").textContent = Math.round(f * 100) + "%" + (Math.round(f * 100) === 22 ? " (May's estimate)" : "");
+    $("#ix-p").textContent = fmt(45000 / f - 45000); $("#ix-a").textContent = fmt(90000 / f - 90000);
+    $("#ix-t").innerHTML = Math.round(f * 100) === 22 ? "If only <strong>22%</strong> of species are recorded, India probably has <strong>more than 1,00,000 plant</strong> and <strong>more than 3,00,000 animal</strong> species yet to be discovered, and many may go extinct before we find them." : "Move the slider back to 22% (May's estimate) to get NCERT's figures.";
+  }
+  ixF.addEventListener("input", drawIx);
+  drawIx();
+
+  /* ---------- Fig 4 Latitude ---------- */
+  const PTS = [[4, 1400, "Colombia"], [20, 1200, "India (> 1,200)"], [41, 105, "New York 41° N"], [71, 56, "Greenland 71° N"]], ltL = $("#lt-l");
+  const interp = lat => { if (lat <= 4) return 1400; for (let i = 0; i < PTS.length - 1; i++) { const [a, sa] = PTS[i], [b, sb] = PTS[i + 1]; if (lat <= b) { const t = (lat - a) / (b - a); return Math.exp(Math.log(sa) + t * (Math.log(sb) - Math.log(sa))); } } return 56 * Math.pow(0.97, lat - 71); };
+  function drawLt() {
+    const L = +ltL.value, s = $("#ltsvg"); s.innerHTML = ""; const X = l => 60 + l / 75 * 580, Y = v => 240 - v / 1500 * 210;
+    el("rect", { x: X(0), y: 20, width: X(23.5) - X(0), height: 220, class: "f-leafsoft", opacity: 0.6 }, s); txt(s, X(11.75), 232, "tropics", { "text-anchor": "middle", "font-size": 10, class: "t-leaf" });
+    el("line", { x1: 60, y1: 240, x2: 640, y2: 240, class: "s-ink" }, s); el("line", { x1: 60, y1: 20, x2: 60, y2: 240, class: "s-ink" }, s);
+    [0, 23.5, 41, 71].forEach(l => txt(s, X(l), 256, l + "°", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }));
+    [0, 500, 1000, 1500].forEach(v => txt(s, 54, Y(v) + 4, String(v), { "text-anchor": "end", "font-size": 9, class: "t-muted" }));
+    let d = ""; for (let l = 0; l <= 75; l += 0.5) d += (l ? " L " : "M ") + X(l) + " " + Y(interp(l));
+    el("path", { d, class: "f-none s-leaf", "stroke-width": 2.4 }, s);
+    PTS.forEach(([l, v, n], i) => { el("circle", { cx: X(l), cy: Y(v), r: 6, class: "f-sun s-ink" }, s); txt(s, X(l) + (i === 3 ? -10 : 10), Y(v) + (i === 3 ? 20 : -10), `${n}: ${fmt(v)}`, { "font-size": 10, "font-weight": 500, "text-anchor": i === 3 ? "end" : "start" }); });
+    el("line", { x1: X(L), y1: 20, x2: X(L), y2: 240, class: "s-red", "stroke-width": 1.6, "stroke-dasharray": "4 3" }, s);
+    txt(s, 14, 16, "bird species", { "font-size": 10, class: "t-muted" });
+    const v = interp(L); $("#lt-l-o").textContent = L + "° N";
+    $("#lt-t").innerHTML = `At about ${L}° N the curve gives roughly <strong>${fmt(v)}</strong> bird species (illustrative between the NCERT points). ${L <= 23.5 ? "Inside the <strong>tropics</strong>, diversity is highest." : "Away from the equator, diversity <strong>falls</strong>."} Colombia has nearly <strong>1,400</strong> species, New York <strong>105</strong>, Greenland only <strong>56</strong>.`;
+  }
+  ltL.addEventListener("input", drawLt);
+  drawLt();
+
+  /* ---------- Fig 5 Species-area ---------- */
+  const saZ = $("#sa-z"); let saLog = false;
+  const SP = [["Within a region (0.15)", 0.15], ["Continents (0.9)", 0.9], ["Frugivorous birds and mammals (1.15)", 1.15]];
+  btnRow($("#sa-pre"), SP.map(p => p[0]), i => { saZ.value = SP[i][1]; drawSa(); }, 0);
+  function drawSa() {
+    const Z = +saZ.value, C = 10, s = $("#sasvg"); s.innerHTML = "";
+    $$("#sa-pre button").forEach((b, i) => b.setAttribute("aria-pressed", String(Math.abs(Z - SP[i][1]) < 0.005)));
+    const L0 = 70, R0 = 640, T0 = 20, B0 = 250, Amax = 1000, Smax = C * Math.pow(Amax, Z);
+    const X = a => saLog ? L0 + Math.log10(a) / 3 * (R0 - L0) : L0 + a / Amax * (R0 - L0);
+    const Y = v => saLog ? B0 - (Math.log10(v) - 1) / Math.max(0.5, Math.log10(Smax) - 1) * (B0 - T0) : B0 - v / Smax * (B0 - T0);
+    el("line", { x1: L0, y1: B0, x2: R0, y2: B0, class: "s-ink" }, s); el("line", { x1: L0, y1: T0, x2: L0, y2: B0, class: "s-ink" }, s);
+    txt(s, R0, B0 + 20, saLog ? "log A (area)" : "A (area)", { "text-anchor": "end", "font-size": 10, class: "t-muted" }); txt(s, 12, T0 + 4, saLog ? "log S" : "S", { "font-weight": 500 });
+    let d = ""; for (let i = 0; i <= 200; i++) { const a = saLog ? Math.pow(10, i / 200 * 3) : Math.max(1, i / 200 * Amax); d += (i ? " L " : "M ") + X(a).toFixed(1) + " " + Y(C * Math.pow(a, Z)).toFixed(1); }
+    el("path", { d, class: "f-none s-leaf", "stroke-width": 2.8 }, s);
+    txt(s, saLog ? L0 + 10 : R0 - 6, T0 + 16, saLog ? `log S = log ${C} + ${Z.toFixed(2)} log A` : `S = ${C} · A^${Z.toFixed(2)}`, { "text-anchor": saLog ? "start" : "end", "font-weight": 500 });
+    txt(s, saLog ? L0 + 10 : R0 - 6, T0 + 34, saLog ? "a straight line; slope = Z" : (Z < 1 ? "rectangular hyperbola: rises, then levels" : "Z ≥ 1: no levelling off"), { "text-anchor": saLog ? "start" : "end", "font-size": 10, class: "t-muted" });
+    const g = (Math.pow(2, Z) - 1) * 100, h = (1 - Math.pow(0.5, Z)) * 100;
+    $("#sa-z-o").textContent = Z.toFixed(2); $("#sa-d").textContent = "+" + g.toFixed(0) + "%"; $("#sa-h").textContent = "−" + h.toFixed(0) + "%";
+    press(["sa-lin", "sa-log"], saLog ? "sa-log" : "sa-lin");
+    $("#sa-t").innerHTML = `The slope <strong>Z</strong> measures how strongly species richness depends on area (exercise 4). ${Z <= 0.25 ? "With Z of <strong>0.1–0.2</strong> (typical within regions), doubling the area adds only a modest share of species." : "A <strong>steep</strong> slope (0.6–1.2, across whole continents) means species richness rises sharply with area, and <strong>losing area loses species much faster</strong>."}`;
+  }
+  saZ.addEventListener("input", drawSa);
+  $("#sa-lin").addEventListener("click", () => { saLog = false; drawSa(); }); $("#sa-log").addEventListener("click", () => { saLog = true; drawSa(); });
+  drawSa();
+
+  /* ---------- Fig 6 Tilman ---------- */
+  const tmN = $("#tm-n");
+  function drawTm() {
+    const n = +tmN.value, s = $("#tmsvg"); s.innerHTML = ""; seed = 11;
+    const mean = 200 + 160 * Math.log(n) / Math.log(24), cv = 0.42 / Math.sqrt(n), ys = [];
+    for (let y = 0; y < 8; y++) ys.push(Math.max(20, mean * (1 + cv * (rnd() * 2 - 1) * 1.6)));
+    const B = 210, sc = 180 / 520;
+    ys.forEach((v, i) => { const x = 70 + i * 70; el("rect", { x, y: B - v * sc, width: 44, height: v * sc, rx: 4, class: "f-leaf", opacity: 0.75 }, s); txt(s, x + 22, B + 16, "Yr " + (i + 1), { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); });
+    el("line", { x1: 60, y1: B - mean * sc, x2: 640, y2: B - mean * sc, class: "s-sun", "stroke-width": 1.4, "stroke-dasharray": "5 4" }, s); txt(s, 640, B - mean * sc - 6, "average", { "text-anchor": "end", "font-size": 10, class: "t-sun" });
+    el("line", { x1: 60, y1: B, x2: 640, y2: B, class: "s-ink" }, s); txt(s, 14, 20, "total plot biomass", { "font-size": 10, class: "t-muted" });
+    $("#tm-n-o").textContent = n + (n === 1 ? " species" : " species");
+    $("#tm-m").textContent = n < 4 ? "Lower" : n < 12 ? "Medium" : "Higher";
+    $("#tm-v").textContent = cv > 0.25 ? "Large" : cv > 0.12 ? "Moderate" : "Small";
+    $("#tm-t").innerHTML = "<strong>David Tilman</strong>'s long-term outdoor plot experiments: plots with <strong>more species</strong> showed <strong>less year-to-year variation</strong> in total biomass, and increased diversity contributed to <strong>higher productivity</strong>.";
+  }
+  tmN.addEventListener("input", drawTm);
+  drawTm();
+
+  /* ---------- Fig 7 Rivets ---------- */
+  let RV = [];
+  const initRv = () => { RV = []; for (let i = 0; i < 18; i++) RV.push([150 + i * 22, 140 + (i % 2 ? 14 : -14), false, false]); for (let i = 0; i < 6; i++) { RV.push([290 + i * 18, 92 - i * 10, true, false]); RV.push([290 + i * 18, 188 + i * 10, true, false]); } };
+  function drawRv() {
+    const s = $("#rvsvg"); s.innerHTML = "";
+    el("path", { d: "M 290 120 L 400 30 L 430 30 L 380 120 Z M 290 160 L 400 250 L 430 250 L 380 160 Z", class: "f-blue", opacity: 0.35 }, s);
+    el("path", { d: "M 120 140 C 120 112, 160 118, 200 118 L 560 118 C 610 118, 640 130, 650 140 C 640 150, 610 162, 560 162 L 200 162 C 160 162, 120 168, 120 140 Z", class: "f-paper s-ink", "stroke-width": 2 }, s);
+    el("path", { d: "M 140 130 L 110 80 L 132 80 L 180 122 Z", class: "f-blue", opacity: 0.35 }, s);
+    for (let i = 0; i < 8; i++) el("rect", { x: 220 + i * 40, y: 126, width: 16, height: 10, rx: 3, class: "f-blue", opacity: 0.25 }, s);
+    const minor = RV.filter(r => !r[2] && r[3]).length, key = RV.filter(r => r[2] && r[3]).length, safe = Math.max(0, 100 - minor * 2 - key * 11);
+    RV.forEach((r, i) => { const g = el("circle", { cx: r[0], cy: r[1], r: 5, class: r[3] ? "f-none s-muted" : r[2] ? "f-red" : "f-ink", "stroke-width": 1.2, "stroke-dasharray": r[3] ? "2 2" : "", style: "cursor:pointer" }, s); g.addEventListener("click", () => { r[3] = !r[3]; drawRv(); }); });
+    el("rect", { x: 470, y: 14, width: 180, height: 18, rx: 9, class: "f-paper s-line" }, s); el("rect", { x: 470, y: 14, width: 1.8 * safe, height: 18, rx: 9, class: safe > 70 ? "f-leaf" : safe > 35 ? "f-sun" : "f-red", opacity: 0.85 }, s);
+    txt(s, 460, 28, "flight safety", { "text-anchor": "end", "font-size": 10, class: "t-muted" });
+    txt(s, 20, 30, "red rivets: wings (key species)", { "font-size": 10, class: "t-red" }); txt(s, 20, 46, "dark rivets: seats, windows", { "font-size": 10 });
+    $("#rv-n").textContent = `${minor + key} (${key} on wings)`; $("#rv-s").textContent = safe + "%";
+    $("#rv-t").innerHTML = minor + key === 0 ? "<strong>Paul Ehrlich</strong>'s analogy: the aeroplane is the ecosystem, the rivets are species. Each passenger popping a rivet (a species going extinct) may not affect flight safety at first..." : key > 0 ? "Losing <strong>wing rivets</strong> (<strong>key species</strong> that drive major ecosystem functions) is far more serious than losing rivets on the seats or windows: <strong>which</strong> species is lost matters." : safe > 70 ? "So far the plane still flies: losing a few minor rivets has little effect." : "As more and more rivets are removed, the plane becomes <strong>dangerously weak</strong> over time.";
+  }
+  $("#rv-r").addEventListener("click", () => { initRv(); drawRv(); });
+  initRv(); drawRv();
+
+  /* ---------- Fig 8 Loss numbers ---------- */
+  function drawLs(k) {
+    const s = $("#lssvg"); s.innerHTML = "";
+    if (k === "t") {
+      [["Birds", 12], ["Mammals", 23], ["Amphibians", 32], ["Gymnosperms", 31]].forEach(([n, v], i) => { const y = 24 + i * 50; txt(s, 20, y + 20, n, { "font-weight": 500 }); el("rect", { x: 140, y, width: 480, height: 30, rx: 5, class: "f-paper s-line" }, s); el("rect", { x: 140, y, width: 480 * v / 100, height: 30, rx: 5, class: "f-red", opacity: 0.75 }, s); txt(s, 148 + 480 * v / 100, y + 20, v + "% threatened", { "font-weight": 500 }); });
+      $("#ls-tx").innerHTML = "More than <strong>15,500 species</strong> worldwide face the threat of extinction (more than 650 of them from India). Amphibians are the most vulnerable group here.";
+    }
+    if (k === "e") {
+      const tot = 784, W = 560; let x = 60;
+      [["Vertebrates", 338, "f-red"], ["Invertebrates", 359, "f-sun"], ["Plants", 87, "f-leaf"]].forEach(([n, v, c]) => { const w = W * v / tot; el("rect", { x, y: 70, width: w - 2, height: 50, rx: 5, class: c, opacity: 0.8 }, s); txt(s, x + w / 2, 100, String(v), { "text-anchor": "middle", "font-weight": 500, style: "fill: var(--paper)" }); txt(s, x + w / 2, 140, n, { "text-anchor": "middle", "font-size": 11 }); x += w; });
+      txt(s, 340, 50, "IUCN Red List 2004: 784 extinctions in the last 500 years", { "text-anchor": "middle", "font-weight": 500 });
+      [["Dodo", "Mauritius"], ["Quagga", "Africa"], ["Thylacine", "Australia"], ["Steller's sea cow", "Russia"], ["3 tiger subspecies", "Bali, Javan, Caspian"]].forEach(([n, w], i) => { el("rect", { x: 14 + i * 132, y: 170, width: 126, height: 50, rx: 8, class: "f-paper s-line" }, s); txt(s, 77 + i * 132, 190, n, { "text-anchor": "middle", "font-size": 10, "font-weight": 500 }); txt(s, 77 + i * 132, 207, w, { "text-anchor": "middle", "font-size": 9, class: "t-muted" }); });
+      $("#ls-tx").innerHTML = "<strong>338 vertebrates + 359 invertebrates + 87 plants = 784</strong>. The last twenty years alone saw <strong>27 species</strong> disappear.";
+    }
+    if (k === "r") {
+      const X = v => 160 + Math.log10(v) / 3 * 460;
+      txt(s, 20, 70, "Pre-human", { "font-weight": 500 }); el("rect", { x: 160, y: 50, width: 8, height: 30, rx: 3, class: "f-leaf" }, s); txt(s, 178, 70, "1× (background rate)", { "font-size": 11 });
+      txt(s, 20, 140, "Today", { "font-weight": 500 }); el("rect", { x: X(1), y: 120, width: X(100) - X(1), height: 30, rx: 3, class: "f-red", opacity: 0.35 }, s); el("rect", { x: X(100), y: 120, width: X(1000) - X(100), height: 30, rx: 3, class: "f-red", opacity: 0.85 }, s); txt(s, X(1000) - 6, 170, "100× to 1,000× faster", { "text-anchor": "end", "font-weight": 500, class: "t-red" });
+      [1, 10, 100, 1000].forEach(v => txt(s, X(v), 210, v + "×", { "text-anchor": "middle", "font-size": 10, class: "t-muted" }));
+      txt(s, 340, 230, "log scale", { "text-anchor": "middle", "font-size": 9, class: "t-muted" });
+      $("#ls-tx").innerHTML = "Life has seen <strong>five mass extinctions</strong> in more than 3 billion years. The <strong>'Sixth Extinction'</strong> now in progress differs in <strong>rate</strong>: <strong>100 to 1,000 times faster</strong> than pre-human times, driven by humans. At this pace nearly <strong>half of all species</strong> might be wiped out within <strong>100 years</strong>.";
+    }
+  }
+  modes([["ls-t", "t"], ["ls-e", "e"], ["ls-r", "r"]], drawLs);
+  drawLs("t");
+
+  /* ---------- Fig 9 Evil quartet ---------- */
+  const EQ = ["Habitat loss and fragmentation", "Over-exploitation", "Alien species invasion", "Co-extinction"];
+  drill("eq", [
+    ["The Amazon rain forest is cleared to grow soya beans and raise beef cattle.", 0],
+    ["Roads and farms break a large forest into small patches; animals with big territories and migratory habits decline.", 0],
+    ["Steller's sea cow is hunted to extinction.", 1],
+    ["The passenger pigeon disappears after mass hunting.", 1],
+    ["Commercially important marine fish are over-harvested.", 1],
+    ["Nile perch introduced into Lake Victoria; over 200 cichlid species vanish.", 2],
+    ["Carrot grass (Parthenium), Lantana and water hyacinth spread through India.", 2],
+    ["The African catfish Clarias gariepinus, illegally introduced for aquaculture, threatens native catfishes.", 2],
+    ["A host fish species goes extinct; its unique parasites disappear too.", 3],
+    ["In a co-evolved plant–pollinator mutualism, the pollinator dies out and so does the plant.", 3]
+  ], EQ, ([q, a]) => `<strong>${EQ[a]}</strong>.` + (a === 0 ? " The most important cause of extinction." : a === 1 ? " When 'need' turns to 'greed'." : a === 2 ? " Introduced species turn invasive and push out native ones." : " Obligately linked species die out together."));
+
+  /* ---------- Fig 10 In situ / ex situ ---------- */
+  const CS = [["Biosphere reserve", 0], ["National park", 0], ["Wildlife sanctuary", 0], ["Sacred grove", 0], ["Protecting a biodiversity hotspot", 0], ["Zoological park", 1], ["Botanical garden", 1], ["Wildlife safari park", 1], ["Cryopreservation of gametes", 1], ["Seed bank", 1], ["Tissue culture propagation", 1], ["In vitro fertilisation of eggs", 1]];
+  let cO = [], cI = 0, cR = 0, cD = 0, cA = false;
+  function cShow() { cA = false; $("#cs-k").textContent = `Method ${cI + 1} of ${CS.length}`; $("#cs-q").textContent = CS[cO[cI]][0]; $("#cs-t").textContent = "Classify the method."; $("#cs-s").textContent = `${cR} / ${cD}`; ["cs-in", "cs-ex"].forEach(id => { $("#" + id).disabled = false; $("#" + id).setAttribute("aria-pressed", "false"); }); $("#cs-next").disabled = true; }
+  const cAns = j => { if (cA) return; cA = true; cD++; const [n, a] = CS[cO[cI]]; if (j === a) cR++; ["cs-in", "cs-ex"].forEach((id, k) => { $("#" + id).disabled = true; $("#" + id).setAttribute("aria-pressed", String(k === a)); }); $("#cs-t").innerHTML = (j === a ? "<b class='ok'>Correct.</b> " : "<b class='no'>Not quite.</b> ") + `${n}: <strong>${a ? "ex situ" : "in situ"}</strong>. ` + (a ? "The organism (or its gametes, seeds or tissue) is taken out of its natural habitat and given special care." : "The species is protected in its natural habitat, so the whole ecosystem is protected."); $("#cs-s").textContent = `${cR} / ${cD}`; $("#cs-next").disabled = cI === CS.length - 1; };
+  $("#cs-in").addEventListener("click", () => cAns(0)); $("#cs-ex").addEventListener("click", () => cAns(1));
+  $("#cs-next").addEventListener("click", () => { if (cI < CS.length - 1) { cI++; cShow(); } });
+  $("#cs-reset").addEventListener("click", () => { cO = sh(CS.map((_, k) => k)); cI = 0; cR = 0; cD = 0; cShow(); });
+  cO = sh(CS.map((_, k) => k)); cShow();
+
+  /* ---------- Fig 11 Hotspots ---------- */
+  const HS = ["How many?", "What qualifies?", "Area vs impact", "India's three"];
+  let hs = 0;
+  function drawHs() {
+    btnRow($("#hs-seg"), HS, i => { hs = i; drawHs(); }, hs);
+    const s = $("#hssvg"); s.innerHTML = "";
+    if (hs === 0) { for (let i = 0; i < 34; i++) { const x = 30 + (i % 17) * 37, y = 50 + Math.floor(i / 17) * 60; el("circle", { cx: x, cy: y, r: 14, class: i < 25 ? "f-red" : "f-sun", opacity: 0.75 }, s); } txt(s, 30, 190, "red: 25 identified first · amber: 9 added later = 34", { "font-size": 11, "font-weight": 500 }); $("#hs-k").textContent = "34 biodiversity hotspots"; $("#hs-t").innerHTML = "Initially <strong>25</strong> hotspots were identified; <strong>nine more</strong> were added, bringing the total to <strong>34</strong>."; }
+    if (hs === 1) { [["Very high", "species richness", "f-leaf", "criterion"], ["High degree", "of endemism", "f-sun", "criterion"], ["Accelerated", "habitat loss", "f-red", "also true of hotspots"]].forEach(([a, b, c, n], i) => { el("rect", { x: 30 + i * 214, y: 50, width: 196, height: 100, rx: 14, class: c, opacity: 0.25 }, s); txt(s, 128 + i * 214, 96, a, { "text-anchor": "middle", "font-weight": 500 }); txt(s, 128 + i * 214, 114, b, { "text-anchor": "middle", "font-weight": 500 }); txt(s, 128 + i * 214, 176, n, { "text-anchor": "middle", "font-size": 10, class: "t-muted" }); }); $("#hs-k").textContent = "What makes a hotspot"; $("#hs-t").innerHTML = "Regions with <strong>very high species richness</strong> and a <strong>high degree of endemism</strong> (species confined to that region and found nowhere else). Hotspots are also regions of <strong>accelerated habitat loss</strong>."; }
+    if (hs === 2) { txt(s, 20, 60, "Share of Earth's land", { "font-weight": 500 }); el("rect", { x: 220, y: 42, width: 420, height: 28, rx: 5, class: "f-paper s-line" }, s); el("rect", { x: 220, y: 42, width: 420 * 0.02, height: 28, rx: 3, class: "f-red" }, s); txt(s, 236, 62, "< 2%", { "font-weight": 500 }); txt(s, 20, 140, "Cut in ongoing extinctions", { "font-weight": 500 }); el("rect", { x: 220, y: 122, width: 420, height: 28, rx: 5, class: "f-paper s-line" }, s); el("rect", { x: 220, y: 122, width: 420 * 0.3, height: 28, rx: 5, class: "f-leaf", opacity: 0.8 }, s); txt(s, 230 + 420 * 0.3, 142, "≈ 30%", { "font-weight": 500 }); $("#hs-k").textContent = "Small area, big payoff"; $("#hs-t").innerHTML = "All hotspots together cover <strong>less than 2%</strong> of Earth's land, yet <strong>strict protection</strong> of them could reduce ongoing mass extinctions by <strong>almost 30%</strong>."; }
+    if (hs === 3) { ["Western Ghats and Sri Lanka", "Indo-Burma", "Himalaya"].forEach((n, i) => { el("rect", { x: 30 + i * 214, y: 70, width: 196, height: 70, rx: 12, class: "f-leafsoft s-leaf" }, s); txt(s, 128 + i * 214, 110, n, { "text-anchor": "middle", "font-weight": 500 }); }); $("#hs-k").textContent = "India's three hotspots"; $("#hs-t").innerHTML = "Three hotspots cover India's exceptionally high biodiversity regions: <strong>Western Ghats and Sri Lanka</strong>, <strong>Indo-Burma</strong> and <strong>Himalaya</strong>."; }
+  }
+  drawHs();
+
+  /* ---------- Quiz ---------- */
+  const Q = [
+    { q: "The term biodiversity was popularised by:", o: ["Robert May", "Edward Wilson", "Paul Ehrlich", "David Tilman"], a: 1, e: "The sociobiologist Edward Wilson popularised the term." },
+    { q: "Variation in reserpine potency in Rauwolfia vomitoria across Himalayan ranges is an example of:", o: ["Species diversity", "Genetic diversity", "Ecological diversity", "Latitudinal gradient"], a: 1, e: "Diversity within a single species over its range is genetic diversity." },
+    { q: "Robert May's conservative estimate of global species diversity is about:", o: ["1.5 million", "7 million", "20 million", "50 million"], a: 1, e: "About 7 million; extreme estimates run to 20–50 million, and slightly more than 1.5 million are described." },
+    { q: "India has 2.4% of the world's land area and what share of global species diversity?", o: ["2.4%", "8.1%", "12%", "22%"], a: 1, e: "8.1%, making it one of the 12 mega diversity countries." },
+    { q: "Which is NOT one of NCERT's hypotheses for greater tropical species richness?", o: ["More evolutionary time", "Less seasonal, more constant environment", "More solar energy and productivity", "More frequent glaciations"], a: 3, e: "Temperate regions had frequent glaciations; the tropics stayed relatively undisturbed." },
+    { q: "In the species–area relationship log S = log C + Z log A, Z for whole continents lies in the range:", o: ["0.1–0.2", "0.6–1.2", "1.5–2.0", "0.01–0.05"], a: 1, e: "Within regions Z is 0.1–0.2; across continents it is much steeper, 0.6–1.2 (frugivores 1.15)." },
+    { q: "Plots with more species showed less year-to-year variation in total biomass in the experiments of:", o: ["Alexander von Humboldt", "Paul Ehrlich", "David Tilman", "Robert May"], a: 2, e: "David Tilman's long-term outdoor plot experiments." },
+    { q: "In the rivet popper hypothesis, rivets on the wings represent:", o: ["Alien species", "Key species that drive major ecosystem functions", "Extinct species", "Endemic species"], a: 1, e: "Losing wing rivets (key species) is a more serious threat than losing rivets on seats or windows." },
+    { q: "The most important cause of animal and plant extinction is:", o: ["Over-exploitation", "Habitat loss and fragmentation", "Alien species invasion", "Co-extinction"], a: 1, e: "Habitat loss and fragmentation, e.g. tropical rain forests shrinking from over 14% to no more than 6% of land." },
+    { q: "Which pair is correctly matched?", o: ["Nile perch: over-exploitation", "Steller's sea cow: alien species invasion", "Lake Victoria cichlids: alien species invasion", "Passenger pigeon: co-extinction"], a: 2, e: "The introduced Nile perch led to the extinction of over 200 cichlid species in Lake Victoria." },
+    { q: "Assertion (A): Sacred groves help conserve biodiversity. Reason (R): In them all trees and wildlife are venerated and given total protection.", o: ["Both A and R are true and R explains A", "Both A and R are true but R does not explain A", "A is true, R is false", "A is false, R is true"], a: 0, e: "In Meghalaya, sacred groves are the last refuges for many rare and threatened plants." },
+    { q: "Which of these is an ex situ conservation method?", o: ["National park", "Biosphere reserve", "Cryopreservation of gametes", "Sacred grove"], a: 2, e: "Cryopreservation, IVF, tissue culture, seed banks, zoos and botanical gardens are ex situ." }
+  ];
+  const qlist = $("#quiz-list");
+  const answered = new Array(Q.length).fill(null);
+  function buildQuiz() {
+    qlist.innerHTML = "";
+    Q.forEach((item, i) => {
+      const card = document.createElement("div"); card.className = "q";
+      card.innerHTML = `<span class="qn">Q${i + 1}</span><div class="qt"></div><div class="opts" role="group"></div><div class="exp" hidden></div>`;
+      card.querySelector(".qt").textContent = item.q;
+      const opts = card.querySelector(".opts");
+      item.o.forEach((t, j) => {
+        const b = document.createElement("button"); b.type = "button";
+        b.innerHTML = `<span class="l">${"abcd"[j]}</span><span></span>`;
+        b.lastChild.textContent = t;
+        b.addEventListener("click", () => answer(i, j, card));
+        opts.appendChild(b);
+      });
+      qlist.appendChild(card);
+    });
+    updateScore();
+  }
+  function answer(i, j, card) {
+    if (answered[i] !== null) return;
+    answered[i] = j;
+    $$(".opts button", card).forEach((b, k) => { b.disabled = true; if (k === Q[i].a) b.classList.add("right"); else if (k === j) b.classList.add("wrong"); });
+    const exp = card.querySelector(".exp"); exp.hidden = false;
+    exp.innerHTML = (j === Q[i].a ? "<b class='ok'>Correct.</b> " : `<b class='no'>Not quite.</b> The answer is (${"abcd"[Q[i].a]}). `);
+    exp.appendChild(document.createTextNode(Q[i].e));
+    updateScore();
+  }
+  function updateScore() {
+    const done = answered.filter(x => x !== null).length;
+    const right = answered.filter((x, i) => x === Q[i].a).length;
+    $("#score").textContent = done === Q.length
+      ? `Final score: ${right} / ${Q.length}. NEET marking: ${right * 4 - (done - right)} / ${Q.length * 4}`
+      : `Score: ${right} / ${done} answered · ${Q.length} questions`;
+  }
+  $("#quiz-reset").addEventListener("click", () => { answered.fill(null); buildQuiz(); });
+  buildQuiz();
+})();
+</script>
+
+</body></html>
